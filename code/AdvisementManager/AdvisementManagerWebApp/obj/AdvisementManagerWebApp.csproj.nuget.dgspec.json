@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joshp\\source\\repos\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {}
+    "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joshp\\source\\repos\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {
+    "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joshp\\source\\repos\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+        "projectUniqueName": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
         "projectName": "AdvisementManagerWebApp",
-        "projectPath": "C:\\Users\\joshp\\source\\repos\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+        "projectPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
         "packagesPath": "C:\\Users\\joshp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joshp\\source\\repos\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
+        "outputPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -29,6 +29,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -40,6 +41,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -58,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
