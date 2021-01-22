@@ -1,0 +1,8 @@
+See Advisor Avaliability:
+
+Context: The user is currently scheduling a meeting
+
+Primary Flow:
+1. The system recieves the advisors avaliable times.
+2. The user selects a day from the drop down box and/or calendar.
+3. The system displays the advisors avaliability for the selected day.

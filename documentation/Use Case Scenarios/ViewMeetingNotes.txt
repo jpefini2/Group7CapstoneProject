@@ -1,0 +1,13 @@
+View Meeting Notes:
+
+Context: The advisor is currently viewing a students page.
+
+Primary Flow:
+1. The user selects "see notes"
+2. The system retrieves the notes.
+3. The system displays the notes.
+
+Alternate Flow:
+	A2. The system fails to retrieve notes.
+	A3. The system informs the user of the error.
+	A4. Return to primary flow 1.

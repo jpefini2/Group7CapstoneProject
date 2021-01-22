@@ -1,0 +1,17 @@
+Schedule Meetings:
+
+Context: The student is in the schedule meeting page
+
+Primary Flow:
+1. The user selects to schedule a new meeting.
+2. The system detects which stage the user is in and pulls up the appropriate advisor page for the current advisment stage.
+3. The user selects from the posted avaliable times.
+4. The user selects confirm.
+5. The system persists the information.
+6. The system sends the advisor a notification of the scheduled meeting.
+7. The system sends the user a confirmation notification of the scheduled meeting.
+
+Alternate Flow:
+	A5. The system can not save the meeting for that time.
+	A6. The system prompts the user to select another time.
+	A7. Return to primary flow 3.

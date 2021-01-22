@@ -1,0 +1,7 @@
+View Scheduled Meetings:
+
+Context: The advisor is currently on the meetings page.
+
+Primary Flow:
+1. The system retrieves all meetings scheduled for the user from the database.
+2. The system displays all upcoming meetings for the user by day.
