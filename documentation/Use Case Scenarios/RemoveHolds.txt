@@ -1,0 +1,19 @@
+Remove Holds: 
+
+Context: The general advisor is currently viewing the students information. The students has met with both advisors.
+
+Primary Flow:
+1. The user selects the "remove hold button".
+2. The system prompts the user to confirm.
+3. The user confirms.
+4. The system persists the information to the database.
+5. The system sends the student a notifcation of the hold removal.
+
+Alternate Flow: 
+	A2. The user selects no.
+	A3. The system returns to the previous screen.
+	
+Alternate Flow:
+	A4. The system fails to persist the information.
+	A5. The system notifies the user of the error.
+	A6. Return to primary flow 1.

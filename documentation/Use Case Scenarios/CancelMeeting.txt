@@ -1,0 +1,18 @@
+Cancel Meeting:
+
+Context: At least one meeting is scheduled and user is viewing the scheduled meeting
+
+Primary Flow:
+1. The user selects the cancel meeting appointment.
+2. The system prompts the users if they are sure they want to cancel the meeting.
+3. The user selects yes.
+4. The system deletes the scheduled meeting from the database.
+5. The system sends a notification to the other recipients that the meeting was canceled.
+
+Alternate Flow:
+	A3. The user selects no.
+	A4. The system returns to the previous screen.
+
+Alternate Flow:
+	A4. The system is unable to delete the scheduled meeting.
+	A5. The system informs the user that the meeting could not be canceled.

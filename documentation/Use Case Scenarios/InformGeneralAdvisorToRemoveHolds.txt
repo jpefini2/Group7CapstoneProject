@@ -1,0 +1,14 @@
+Inform Geneal Advisor to Remove Holds:
+
+Context: The advisor is currently viewing a students meeting information.
+
+Primary Flow:
+1. The user clicks the check box for meeting complete.
+2. The user clicks confirm button.
+3. The system saves the meeting information.
+4. The system sends the students general advisor a notification. 
+
+Alternate Flow:
+	A3. The system could not save the meeting information.
+	A4. The system prompts the user of the error.
+	A5. Return to primary flow 2.

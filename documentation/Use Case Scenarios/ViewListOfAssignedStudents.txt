@@ -1,0 +1,8 @@
+View List of Assigned Students:
+
+Context: The advisor is currently on the main page at least one students is assigned to advisor.
+
+Primary Flow:
+1. The user selects see all students.
+2. The system retrieves the students assigned to that user from the database.
+3. The system displays all students assigned to the advisor.
