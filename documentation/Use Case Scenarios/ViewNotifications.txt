@@ -1,6 +1,6 @@
 View Notifications: 
 
-Context: none (notification pane should be avaliable on all pages of the system)
+Context: User is on the main page
 
 Primary Flow:
 1. The user selects the notification pane.
