@@ -1,6 +1,6 @@
 Clear Notifications:
 
-Context: The user has at least one notification
+Context: The user has at least one notification and is on the main page
 
 Primary Flow:
 1. The user selects the notification pane.
