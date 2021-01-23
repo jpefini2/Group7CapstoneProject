@@ -4,5 +4,4 @@ Context: The student is on the advisment page.
 
 Primary Flow:
 1. The system retrieves the users current advisment status.
-2. The system displays a progress bar at the top of the screen showing how far the user is from completing advisment.
-3. The system displays a message of the next step the user needs to do for advisment.
+2. The system displays the current stage of advisment.
