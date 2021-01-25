@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-AdvisementManagerWebApp-8BC9ABF5-29C2-4360-A80F-2CE970B0E674</UserSecretsId>
   </PropertyGroup>
 
