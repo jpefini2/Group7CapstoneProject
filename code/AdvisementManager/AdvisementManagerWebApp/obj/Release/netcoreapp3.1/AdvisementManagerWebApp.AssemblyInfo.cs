@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-AdvisementManagerWebApp-8BC9ABF5-29C2-4360-A80F-2CE970B0E674")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvisementManagerWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
