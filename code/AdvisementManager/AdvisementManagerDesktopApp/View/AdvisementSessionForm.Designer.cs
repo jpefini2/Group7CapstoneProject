@@ -36,6 +36,7 @@ namespace AdvisementManagerDesktopApp.View
             this.meetingTimeLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.stageLbl = new System.Windows.Forms.Label();
+            this.removeHoldBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // homeBtn
@@ -55,6 +56,7 @@ namespace AdvisementManagerDesktopApp.View
             this.approveBtn.TabIndex = 1;
             this.approveBtn.Text = "Approve";
             this.approveBtn.UseVisualStyleBackColor = true;
+            this.approveBtn.Click += new System.EventHandler(this.approveBtn_Click);
             // 
             // cancelBtn
             // 
@@ -101,11 +103,22 @@ namespace AdvisementManagerDesktopApp.View
             this.stageLbl.TabIndex = 6;
             this.stageLbl.Text = "stage placeholder text";
             // 
-            // AdvismentSessionForm
+            // removeHoldBtn
+            // 
+            this.removeHoldBtn.Location = new System.Drawing.Point(619, 371);
+            this.removeHoldBtn.Name = "removeHoldBtn";
+            this.removeHoldBtn.Size = new System.Drawing.Size(105, 54);
+            this.removeHoldBtn.TabIndex = 7;
+            this.removeHoldBtn.Text = "Remove Hold";
+            this.removeHoldBtn.UseVisualStyleBackColor = true;
+            this.removeHoldBtn.Click += new System.EventHandler(this.removeHoldBtn_Click);
+            // 
+            // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.removeHoldBtn);
             this.Controls.Add(this.stageLbl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.meetingTimeLbl);
@@ -113,7 +126,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.approveBtn);
             this.Controls.Add(this.homeBtn);
-            this.Name = "AdvismentSessionForm";
+            this.Name = "AdvisementSessionForm";
             this.Text = "Advisement Session";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -129,6 +142,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label meetingTimeLbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label stageLbl;
+        private System.Windows.Forms.Button removeHoldBtn;
     }
 }
 

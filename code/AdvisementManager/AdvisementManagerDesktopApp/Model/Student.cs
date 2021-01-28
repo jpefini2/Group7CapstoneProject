@@ -35,10 +35,10 @@ namespace AdvisementManagerDesktopApp.Model
         /// <value>The faculty advisor.</value>
         public Advisor FacultyAdvisor { get; set; }
 
-        /// <summary>Gets or sets a value indicating whether this <see cref="Student" /> is hold.</summary>
-        /// <value>
-        ///   <c>true</c> if hold; otherwise, <c>false</c>.</value>
-        public bool Hold { get; set; }
+
+        /// <summary>Gets or sets the hold.</summary>
+        /// <value>The hold.</value>
+        public Hold Hold { get; set; }
 
         /// <summary>Gets or sets the meetings.</summary>
         /// <value>The meetings.</value>
