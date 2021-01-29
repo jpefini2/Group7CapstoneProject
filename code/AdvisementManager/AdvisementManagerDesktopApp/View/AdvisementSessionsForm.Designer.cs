@@ -54,6 +54,7 @@ namespace AdvisementManagerDesktopApp.View
             this.viewBtn.TabIndex = 1;
             this.viewBtn.Text = "View";
             this.viewBtn.UseVisualStyleBackColor = true;
+            this.viewBtn.Click += new System.EventHandler(this.viewBtn_Click);
             // 
             // allStudentsListBox
             // 

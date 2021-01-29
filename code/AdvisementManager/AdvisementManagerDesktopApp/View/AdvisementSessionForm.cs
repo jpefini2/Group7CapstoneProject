@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
@@ -32,7 +31,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void setUpScreen()
         {
-            this.meetingTimeLbl.Text = this.student.Meetings[0].Date.ToString(CultureInfo.InvariantCulture);
+            //this.meetingTimeLbl.Text = this.student.Meetings[0].Date.ToString(CultureInfo.InvariantCulture);
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
         }
@@ -55,7 +54,7 @@ namespace AdvisementManagerDesktopApp.View
             this.removeHoldBtn.Enabled = shouldShow;
         }
 
-        private void approveBtn_Click(object sender, System.EventArgs e)
+        private void approveBtn_Click(object sender, EventArgs e)
         {
 
             try
@@ -83,6 +82,11 @@ namespace AdvisementManagerDesktopApp.View
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

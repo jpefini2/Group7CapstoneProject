@@ -29,7 +29,6 @@ namespace AdvisementManagerDesktopApp.View
         /// </summary>
         private void InitializeComponent()
         {
-            this.homeBtn = new System.Windows.Forms.Button();
             this.approveBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.studentNameLbl = new System.Windows.Forms.Label();
@@ -38,15 +37,6 @@ namespace AdvisementManagerDesktopApp.View
             this.stageLbl = new System.Windows.Forms.Label();
             this.removeHoldBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // homeBtn
-            // 
-            this.homeBtn.Location = new System.Drawing.Point(0, 0);
-            this.homeBtn.Name = "homeBtn";
-            this.homeBtn.Size = new System.Drawing.Size(106, 54);
-            this.homeBtn.TabIndex = 0;
-            this.homeBtn.Text = "Home";
-            this.homeBtn.UseVisualStyleBackColor = true;
             // 
             // approveBtn
             // 
@@ -66,6 +56,7 @@ namespace AdvisementManagerDesktopApp.View
             this.cancelBtn.TabIndex = 2;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // studentNameLbl
             // 
@@ -125,7 +116,6 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.studentNameLbl);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.approveBtn);
-            this.Controls.Add(this.homeBtn);
             this.Name = "AdvisementSessionForm";
             this.Text = "Advisement Session";
             this.ResumeLayout(false);
@@ -134,8 +124,6 @@ namespace AdvisementManagerDesktopApp.View
         }
 
         #endregion
-
-        private System.Windows.Forms.Button homeBtn;
         private System.Windows.Forms.Button approveBtn;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Label studentNameLbl;

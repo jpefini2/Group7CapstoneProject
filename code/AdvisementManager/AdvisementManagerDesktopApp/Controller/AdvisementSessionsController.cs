@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using AdvisementManagerDesktopApp.DAL;
+using AdvisementManagerDesktopApp.Model;
 
 namespace AdvisementManagerDesktopApp.Controller
 {
@@ -11,5 +9,13 @@ namespace AdvisementManagerDesktopApp.Controller
     /// </summary>
     public class AdvisementSessionsController
     {
+        public IList<Student> ObtainStudentsWithHolds()
+        {
+            var studentDal = new StudentDal();
+
+            var students = studentDal.ObtainStudentsWithHolds();
+
+            return students;
+        }
     }
 }
