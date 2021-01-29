@@ -21,7 +21,7 @@ namespace AdvisementManagerDesktopApp.DAL
                     "UPDATE hold SET isActive = @isActive, reason = @reason WHERE studentID = @studentId and holdID = @holdId;";
                 using (var cmd = new SqlCommand(updateQuery, conn))
                 {
-                    cmd.Parameters.Add("@isActive", SqlDbType.TinyInt);
+                    cmd.Parameters.Add("@isActive", SqlDbType.Bit);
                     cmd.Parameters["@isActive"].Value = student.Hold.IsActive;
 
                     cmd.Parameters.Add("@reason", SqlDbType.VarChar);

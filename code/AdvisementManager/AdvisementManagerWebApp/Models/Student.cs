@@ -52,7 +52,7 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the meetings.</summary>
         /// <value>The meetings.</value>
         [NotMapped]
-        public IList<AdvisementSession> Meetings { get; set; }
+        public AdvisementSession Meeting { get; set; }
 
         public override string ToString()
         {

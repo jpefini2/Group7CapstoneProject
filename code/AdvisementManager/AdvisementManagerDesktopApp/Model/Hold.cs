@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Data.SqlClient.Server;
 
 namespace AdvisementManagerDesktopApp.Model
 {
@@ -23,5 +26,6 @@ namespace AdvisementManagerDesktopApp.Model
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         public bool IsActive { get; set; }
+
     }
 }

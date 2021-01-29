@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdvisementManagerWebApp.DAL;
 using AdvisementManagerWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -13,36 +14,42 @@ namespace AdvisementManagerWebApp.Controllers
 {
     public class AdvisementSessionsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
+        private readonly StudentDal studentDal = new StudentDal();
+
+        private readonly HoldDAL holdDal = new HoldDAL();
+
+        private readonly AdvisementSessionDAL sessionDal= new AdvisementSessionDAL();
+        
         public AdvisementSessionsController(ApplicationDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public IActionResult AdvisementSessions()
         {
-            var students = this._context.Student.FromSqlRaw("SELECT distinct student.studentID, student.firstName, student.lastName, student.email From Student INNER JOIN Hold ON Hold.studentID = Student.studentID  WHERE isActive = 1;").ToList();
 
-            var studentsWithHolds = new StudentsVM() {
+            var students = this.studentDal.ObtainStudentsWithHolds(this.context);
+
+            var studentsWithHolds = new StudentsVM {
                 Students = students
             };
 
             return View(studentsWithHolds);
         }
 
-        public async Task<IActionResult> ViewDetails(int? id)
+        public async Task<IActionResult> AdvisementSession(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
+            var student =  await this.context.Student.FindAsync(id);
+
+            student.Meeting = this.sessionDal.ObtainSession(id, this.context);
+            student.Hold = this.holdDal.ObtainHold(id, this.context);
 
             return View(student);
         }

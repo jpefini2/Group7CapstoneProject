@@ -17,7 +17,7 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the identifier.</summary>
         /// <value>The identifier.</value>
         [Key]
-        [Column("sessionID ")]
+        [Column("sessionID")]
         public int Id { get; set; }
 
         /// <summary>Gets or sets the student.</summary>
@@ -32,18 +32,18 @@ namespace AdvisementManagerWebApp.Models
 
         /// <summary>Gets or sets the date.</summary>
         /// <value>The date.</value>
-        [NotMapped]
+        [Column("sessionDate")]
         public DateTime Date { get; set; }
 
         /// <summary>Gets or sets the stage.</summary>
         /// <value>The stage.</value>
-        [Column("stage ")]
+        [NotMapped]
         public int Stage { get; set; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="AdvisementSession" /> is completed.</summary>
         /// <value>
         ///   <c>true</c> if completed; otherwise, <c>false</c>.</value>
-        [Column("completed ")]
+        [NotMapped]
         public bool Completed { get; set; }
 
 
