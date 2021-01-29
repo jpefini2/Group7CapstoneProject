@@ -1,4 +1,5 @@
-﻿using AdvisementManagerWebApp.Models;
+﻿using AdvisementManagerWebApp.Data;
+using AdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,17 +14,20 @@ namespace AdvisementManagerWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private Student studentModel;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            this.studentModel = Student.GetTestStudent();
         }
 
-        public IActionResult Index()
+        public IActionResult StudentHome()
         {
-            return View();
+            return View(this.studentModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult ScheduleMeeting()
         {
             return View();
         }
@@ -35,3 +39,4 @@ namespace AdvisementManagerWebApp.Controllers
         }
     }
 }
+
