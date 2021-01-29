@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MxluXLeK6+w8miNHy8P86VMPx7z5iI79CMZBuusMfAPboGT+9mVY6juZUBFxWuxP38bRu6feyqAV+qXXBc2bWA==",
+  "dgSpecHash": "gQCvVSk/uLR/5utcBYBl3t753K582W2BHU56AaGKvCaxadycFbEs2ixnIfoKJdrrXNX6mmK2UXAdVZJwKRMIlQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\darri\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+  "projectFilePath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\darri\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.10\\microsoft.aspnetcore.cryptography.internal.3.1.10.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.10\\microsoft.aspnetcore.cryptography.keyderivation.3.1.10.nupkg.sha512",

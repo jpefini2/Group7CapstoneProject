@@ -24,7 +24,7 @@ namespace AdvisementManagerDesktopApp.DAL
             {
                 conn.Open();
                 const string insertQuery =
-                    " SELECT Student.studentID, Student.first_name, Student.last_name, Student.email, Student.advisorGeneralID, Student.advisorFacultyID, Hold.holdID, Hold.reason, Hold.dateAdded, Hold.isActive FROM Student INNER JOIN Hold ON Hold.studentID = Student.studentID WHERE isActive = @isActive;";
+                    " SELECT Student.studentID, Student.firstName, Student.lastName, Student.email, Student.advisorGeneralID, Student.advisorFacultyID, Hold.holdID, Hold.reason, Hold.dateAdded, Hold.isActive FROM Student INNER JOIN Hold ON Hold.studentID = Student.studentID WHERE isActive = @isActive;";
                 using (var cmd = new SqlCommand(insertQuery, conn))
                 {
                     cmd.Parameters.Add("@isActive", SqlDbType.TinyInt);
@@ -41,8 +41,8 @@ namespace AdvisementManagerDesktopApp.DAL
         private static void appendStudent(SqlCommand cmd, ICollection<Student> students)
         {
             using var reader = cmd.ExecuteReader();
-            var lnameOrdinal = reader.GetOrdinal("last_name");
-            var fnameOrdinal = reader.GetOrdinal("first_name");
+            var lnameOrdinal = reader.GetOrdinal("firstName");
+            var fnameOrdinal = reader.GetOrdinal("lastName");
             var studentIdOrdinal = reader.GetOrdinal("studentID");
             var emailOrdinal = reader.GetOrdinal("email");
             var holdIdOrdinal = reader.GetOrdinal("holdID");

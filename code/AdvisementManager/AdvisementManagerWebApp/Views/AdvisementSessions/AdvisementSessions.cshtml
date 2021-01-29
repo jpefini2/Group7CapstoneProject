@@ -1,0 +1,18 @@
+﻿@using AdvisementManagerWebApp.Controllers
+@{
+    ViewData["Title"] = "Advisement Sessions";
+    Layout = "_Layout";
+}
+
+@{
+    <div class="text-center">
+        <h1 class="display-4">Advisement Sessions</h1>
+    </div>
+
+    <div>
+        @foreach (var item in Model.Students)
+        {
+            <p>@item.ToString()   <a style=" white-space:nowrap;" asp-action="ViewDetails" asp-route-id="@item.Id">View Details</a></p>
+        }
+    </div>
+}

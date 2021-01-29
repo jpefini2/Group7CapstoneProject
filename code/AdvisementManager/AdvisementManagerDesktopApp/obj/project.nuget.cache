@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pLRg+amKcQacv8xehh7lwbrnqR+rauByvyqFMHTb/QcNazmwjhhE7bZtdXlG9C/F7ZBGcIZHtSV8+OS3Av8pdA==",
+  "dgSpecHash": "9Lo7i31hlAaJVTjfufF2EpkwaYllil9/wHOeifvUtpSGV/TyBBYksyLQjH164nEhSre6OafdL9DSmgJk4NPhtQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\darri\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
+  "projectFilePath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\darri\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.1\\microsoft.data.sqlclient.2.1.1.nupkg.sha512",

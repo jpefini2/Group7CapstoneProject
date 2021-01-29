@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AdvisementManagerWebApp.Models;
 
 namespace AdvisementManagerWebApp.Data
 {
@@ -12,5 +13,7 @@ namespace AdvisementManagerWebApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Student> Student { get; set; }
     }
 }
