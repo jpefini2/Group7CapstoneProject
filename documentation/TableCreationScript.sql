@@ -1,34 +1,22 @@
-CREATE TABLE UserProfile (
-  profileID INT NOT NULL IDENTITY PRIMARY KEY,
-  firstName VARCHAR(45) NOT NULL,
-  lastName VARCHAR(45) NOT NULL,
-  email VARCHAR(45) NOT NULL UNIQUE,
-  picturePath VARCHAR(45) NULL,
-  gender VARCHAR(10) NULL
-)
+DROP TABLE IF EXISTS Hold, Availability, AdvisementSession, Student, Advisor
 
 CREATE TABLE Advisor (
   advisorID INT NOT NULL IDENTITY PRIMARY KEY,
   firstName VARCHAR(45) NOT NULL,
   lastName VARCHAR(45) NOT NULL,
   isFacultyAdvisor SMALLINT NOT NULL,
-  profileID INT NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
-  CONSTRAINT fk_advisor_profileID
-    FOREIGN KEY (profileID)
-    REFERENCES UserProfile (profileID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  gender VARCHAR (10)
 )
 
 CREATE TABLE Student (
   studentID INT NOT NULL IDENTITY PRIMARY KEY,
-  first_name VARCHAR(45) NOT NULL,
-  last_name VARCHAR(45) NOT NULL,
+  firstName VARCHAR(45) NOT NULL,
+  lastName VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
   advisorGeneralID INT NOT NULL,
   advisorFacultyID INT NOT NULL,
-  profileID INT NOT NULL,
+  gender VARCHAR (10),
   CONSTRAINT fk_student_advisorGeneralID
     FOREIGN KEY (advisorGeneralID)
     REFERENCES Advisor (advisorID)
@@ -37,11 +25,6 @@ CREATE TABLE Student (
   CONSTRAINT fk_student_advisorFacultyID
     FOREIGN KEY (advisorFacultyID)
     REFERENCES Advisor (advisorID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_student_profileID
-    FOREIGN KEY (profileID)
-    REFERENCES UserProfile (profileID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 )
@@ -79,17 +62,6 @@ CREATE TABLE AdvisementSession (
     ON UPDATE NO ACTION
 )
 
-CREATE TABLE Notification (
-  notificationID INT NOT NULL IDENTITY PRIMARY KEY,
-  message VARCHAR(500) NOT NULL,
-  profileID INT NOT NULL,
-  CONSTRAINT fk_notification_profileID
-    FOREIGN KEY (profileID)
-    REFERENCES UserProfile (profileID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-)
-
 CREATE TABLE Availability (
   availabilityID INT NOT NULL IDENTITY PRIMARY KEY,
   timeBegin DATETIME2(0) NOT NULL,
@@ -101,3 +73,43 @@ CREATE TABLE Availability (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 )
+
+INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, gender) VALUES
+('Wilman', 'Kala', 0, 'wkala@askj.net', 'male'),
+('Tom', 'Erichsen', 1, 'terichsen@askj.net', 'male'),
+('Jenny', 'Othewood', 0, 'jothewood@askj.net', 'female'),
+('Bob', 'Hart', 0, 'bhart@askj.net', 'male'),
+('Gina', 'Smith', 1, 'gsmith@askj.net', 'female')
+
+INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, gender) VALUES
+('Hank', 'Hill', 'hhill@my.askj.net', 1, 2,  'male'),
+('Katie', 'Smith', 'ksmith@my.askj.net', 1, 2,  'female'),
+('Jerry', 'Wood', 'jwood@my.askj.net', 2, 5,  'male'),
+('Derek', 'McCollum', 'dwilson@my.askj.net', 3, 5, 'male'),
+('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'female'),
+('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'male'),
+('Cody', 'Brooks', 'cbrooks@my.askj.net', 5, 2, 'male')
+
+INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
+('registration', '1-16-2021', 1, 1),
+('fees not paid', '12-20-2020', 1, 2),
+('advisement', '11-20-2020', 1, 2),
+('paperwork', '10-17-2020', 1, 1),
+('fees not paid', '11-20-2020', 1, 2),
+('advisement', '12-22-2020', 0, 3)
+
+INSERT INTO AdvisementSession (studentID, advisorID, sessionDate, stage, completed, notes) VALUES
+(1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
+(2, 3, '11-22-2020', 0, 0, 'Trying to stay under 16 credit hours'),
+(4, 3, '11-30-2020', 0, 0, '')
+
+INSERT INTO Availability (timeBegin, timeEnd, advisorID) VALUES
+('2020-11-23 07:30:00', '2020-11-23 10:00:00', 1),
+('2020-11-23 09:30:00', '2020-11-23 12:15:00', 2),
+('2020-11-23 13:00:00', '2020-11-23 16:45:00', 3),
+('2020-11-23 10:30:00', '2020-11-23 11:45:00', 3),
+('2020-11-23 12:30:00', '2020-11-23 14:00:00', 3),
+('2020-11-23 07:30:00', '2020-11-23 11:30:00', 4),
+('2020-11-23 13:00:00', '2020-11-23 15:45:00', 5)
+
+
