@@ -55,9 +55,12 @@ namespace AdvisementManagerWebApp.Models
         [NotMapped]
         public AdvisementSession Meeting { get; set; }
 
+        [NotMapped]
+        public IList<AdvisementSession> Meetings { get; set; }
+
         /// <summary> Gets the Student's full name</summary>
         /// <value> FirstName + " " + LastName</value>
-        public string FullName
+        public string FullName 
         {
             get { return FirstName + " " + LastName; }
         }

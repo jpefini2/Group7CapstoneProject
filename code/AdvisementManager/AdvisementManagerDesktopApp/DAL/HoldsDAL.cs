@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
 using AdvisementManagerDesktopApp.Model;
 using Microsoft.Data.SqlClient;
 
@@ -19,7 +20,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 conn.Open();
                 const string updateQuery =
                     "UPDATE hold SET isActive = @isActive, reason = @reason WHERE studentID = @studentId and holdID = @holdId;";
-                using (var cmd = new SqlCommand(updateQuery, conn))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(updateQuery, conn))
                 {
                     cmd.Parameters.Add("@isActive", SqlDbType.Bit);
                     cmd.Parameters["@isActive"].Value = student.Hold.IsActive;
@@ -49,7 +50,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 conn.Open();
                 const string updateQuery =
                     "UPDATE hold SET reason = @reason WHERE holdID = @holdId;";
-                using (var cmd = new SqlCommand(updateQuery, conn))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(updateQuery, conn))
                 {
                     cmd.Parameters.Add("@reason", SqlDbType.VarChar);
                     cmd.Parameters["@reason"].Value = student.Hold.Reason;
