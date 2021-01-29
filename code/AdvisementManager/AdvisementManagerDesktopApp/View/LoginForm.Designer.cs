@@ -31,9 +31,10 @@ namespace AdvisementManagerDesktopApp.View
         {
             this.usernameLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.usernameTextBox = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
+            this.skipLoginButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usernameLabel
@@ -54,19 +55,19 @@ namespace AdvisementManagerDesktopApp.View
             this.passwordLabel.TabIndex = 1;
             this.passwordLabel.Text = "Password";
             // 
-            // textBox1
+            // usernameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(321, 161);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(201, 23);
-            this.textBox1.TabIndex = 2;
+            this.usernameTextBox.Location = new System.Drawing.Point(321, 161);
+            this.usernameTextBox.Name = "usernameTextBox";
+            this.usernameTextBox.Size = new System.Drawing.Size(201, 23);
+            this.usernameTextBox.TabIndex = 2;
             // 
-            // textBox2
+            // passwordTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(321, 190);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(201, 23);
-            this.textBox2.TabIndex = 3;
+            this.passwordTextBox.Location = new System.Drawing.Point(321, 190);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.Size = new System.Drawing.Size(201, 23);
+            this.passwordTextBox.TabIndex = 3;
             // 
             // loginButton
             // 
@@ -78,18 +79,30 @@ namespace AdvisementManagerDesktopApp.View
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
+            // skipLoginButton
+            // 
+            this.skipLoginButton.Location = new System.Drawing.Point(482, 250);
+            this.skipLoginButton.Name = "skipLoginButton";
+            this.skipLoginButton.Size = new System.Drawing.Size(136, 23);
+            this.skipLoginButton.TabIndex = 5;
+            this.skipLoginButton.Text = "Skip (temporary)";
+            this.skipLoginButton.UseVisualStyleBackColor = true;
+            this.skipLoginButton.Click += new System.EventHandler(this.skipLoginButton_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(869, 450);
+            this.Controls.Add(this.skipLoginButton);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.passwordTextBox);
+            this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.usernameLabel);
             this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Text = "Skip Login (Temp)";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,8 +112,9 @@ namespace AdvisementManagerDesktopApp.View
 
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox usernameTextBox;
+        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button skipLoginButton;
     }
 }

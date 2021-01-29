@@ -19,6 +19,30 @@ namespace AdvisementManagerDesktopApp.View
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            if (!isEntryValid(usernameTextBox.Text)) return;
+            if(!isEntryValid(passwordTextBox.Text)) return;
+
+
+
+        }
+
+        private bool isEntryValid(string entry)
+        {
+            if (string.IsNullOrEmpty(entry.Trim()))
+            {
+                MessageBox.Show(@"Please ensure all fields are filled out", "Error");
+                return false;
+            }
+            return true;
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void skipLoginButton_Click(object sender, EventArgs e)
+        {
 
         }
     }
