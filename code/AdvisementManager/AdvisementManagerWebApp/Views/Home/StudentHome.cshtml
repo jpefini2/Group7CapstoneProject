@@ -1,0 +1,51 @@
+﻿@model Student
+@{
+    ViewBag.Title = "Advisement Manager Home";
+}
+<div class="container">
+    <main>
+        <form asp-action="StudentHome" method="get" class="form-horizontal">
+            <div class="row">
+                <label class="control-label col-sm-2">First Name:</label>
+                <input asp-for="FirstName" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">Last Name:</label>
+                <input asp-for="LastName" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">Email:</label>
+                <input asp-for="Email" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">General Advisor:</label>
+                <input asp-for="GeneralAdvisor.FullName" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">Faculty Advisor:</label>
+                <input asp-for="FacultyAdvisor.FullName" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">Advisement Status:</label>
+                <input asp-for="AdvisementStatusMessage" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-2">Meeting:</label>
+                <input asp-for="AdvisementSessionStatusMessage" readonly
+                       class="form-control col-sm-10" />
+            </div>
+            <div class="row">
+                <div class="col offset-sm-6 pl-0">
+                    <a asp-action="ScheduleMeeting"
+                       class="btn btn-secondary">Schedule Meeting</a>
+                </div>
+            </div>
+        </form>
+    </main>
+</div>
