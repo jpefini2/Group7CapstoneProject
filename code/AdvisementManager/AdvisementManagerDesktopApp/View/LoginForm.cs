@@ -23,11 +23,11 @@ namespace AdvisementManagerDesktopApp.View
 
             if (this.loginController.Authenticate(username, password))
             {
-                MessageBox.Show(@"Login OK.", "");
+                MessageBox.Show(@"Login OK.");
                 this.loginController.InitializeLogin(username);
             } else
             {
-                MessageBox.Show(@"Wrong username or password.", "");
+                MessageBox.Show(@"Wrong username or password.");
             }
         }
 
@@ -35,7 +35,7 @@ namespace AdvisementManagerDesktopApp.View
         {
             if (string.IsNullOrEmpty(entry.Trim()))
             {
-                MessageBox.Show(@"Please ensure all fields are filled out", "Error");
+                MessageBox.Show(@"Please ensure all fields are filled out.", "Error");
                 return false;
             }
             return true;

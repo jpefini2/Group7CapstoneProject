@@ -12,7 +12,7 @@ namespace AdvisementManagerDesktopApp.Controller
         internal bool Authenticate(string username, string password)
         {
             var loginDAL = new LoginDAL();
-            return loginDAL.Login(username, password);
+            return loginDAL.Authenticate(username, password);
         }
 
         internal void InitializeLogin(string username)

@@ -12,7 +12,7 @@ namespace AdvisementManagerDesktopApp.DAL
     class LoginDAL
     {
 
-        public bool Login(string username, string password)
+        public bool Authenticate(string username, string password)
         {
             var conn = DbConnection.GetConnection();
             using (conn)
