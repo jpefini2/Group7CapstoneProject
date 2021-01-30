@@ -29,22 +29,12 @@ namespace AdvisementManagerDesktopApp.View
         /// </summary>
         private void InitializeComponent()
         {
-            this.homeBtn = new System.Windows.Forms.Button();
             this.viewBtn = new System.Windows.Forms.Button();
             this.allStudentsListBox = new System.Windows.Forms.ListBox();
             this.studentsWithHoldsListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // homeBtn
-            // 
-            this.homeBtn.Location = new System.Drawing.Point(0, 1);
-            this.homeBtn.Name = "homeBtn";
-            this.homeBtn.Size = new System.Drawing.Size(115, 53);
-            this.homeBtn.TabIndex = 0;
-            this.homeBtn.Text = "Home";
-            this.homeBtn.UseVisualStyleBackColor = true;
             // 
             // viewBtn
             // 
@@ -102,17 +92,15 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.studentsWithHoldsListBox);
             this.Controls.Add(this.allStudentsListBox);
             this.Controls.Add(this.viewBtn);
-            this.Controls.Add(this.homeBtn);
             this.Name = "AdvisementSessionsForm";
             this.Text = "Advisment Sessions";
+            this.Activated += new System.EventHandler(this.AdvisementSessionsForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button homeBtn;
         private System.Windows.Forms.Button viewBtn;
         private System.Windows.Forms.ListBox allStudentsListBox;
         private System.Windows.Forms.ListBox studentsWithHoldsListBox;

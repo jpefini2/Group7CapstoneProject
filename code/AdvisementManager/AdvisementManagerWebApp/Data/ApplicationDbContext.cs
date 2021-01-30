@@ -15,5 +15,10 @@ namespace AdvisementManagerWebApp.Data
         }
 
         public DbSet<Student> Student { get; set; }
+
+        public DbSet<AdvisementSession> advisementSessions { get; set; }
+
+        public DbSet<Hold> Hold { get; set; }
+
     }
 }

@@ -38,7 +38,7 @@ namespace AdvisementManagerDesktopApp.Model
 
         /// <summary>Gets or sets the meetings.</summary>
         /// <value>The meetings.</value>
-        public IList<AdvisementSession> Meetings { get; set; }
+        public AdvisementSession Meeting { get; set; }
 
 
     }

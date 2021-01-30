@@ -5693,11 +5693,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
       "projectName": "AdvisementManagerWebApp",
       "projectPath": "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+      "projectName": "AdvisementManagerWebApp",
+      "projectPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+      "packagesPath": "C:\\Users\\darri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
+>>>>>>> main
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

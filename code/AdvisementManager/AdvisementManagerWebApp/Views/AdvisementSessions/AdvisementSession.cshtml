@@ -1,0 +1,38 @@
+﻿@model Student
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+@if (@Model.Meeting == null)
+{
+    ViewBag.MeetingTime = "no meeting scheduled";
+}
+else
+{
+    ViewBag.MeetingTime = @Model.Meeting.Date;
+}
+
+<h2>@Model.FirstName @Model.LastName</h2>
+
+<p>@Model.Email</p>
+
+<h2>Meeting Time: @ViewBag.MeetingTime </h2>
+
+<h3>Hold Reason: @Model.Hold.Reason </h3>
+
+<div>
+    <a asp-action="ApproveMeeting" asp-route-id="@Model.Hold.Id"
+       class="btn btn-primary">Approve</a>
+</div>
+
+<div>
+    <a asp-action="AdvisementSessions"
+       class="btn btn-secondary">Cancel</a>
+</div>
+
+<div>
+    <a asp-action="RemoveHold" asp-route-id="@Model.Hold.Id"
+       class="btn btn-danger">Remove Hold</a>
+</div>

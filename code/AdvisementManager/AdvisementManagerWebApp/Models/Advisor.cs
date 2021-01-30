@@ -35,5 +35,12 @@ namespace AdvisementManagerWebApp.Models
         ///   <c>true</c> if this instance is faculty advisor; otherwise, <c>false</c>.</value>
         [Column("isFacultyAdvisor ")]
         public bool IsFacultyAdvisor { get; set; }
+
+        /// <summary> Gets the Advisor's full name</summary>
+        /// <value> FirstName + " " + LastName</value>
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }

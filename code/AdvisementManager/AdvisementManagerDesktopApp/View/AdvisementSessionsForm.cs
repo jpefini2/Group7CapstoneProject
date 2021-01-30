@@ -29,6 +29,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void setUpScreen()
         {
+            this.studentsWithHoldsListBox.Items.Clear();
             this.students = this.sessionController.ObtainStudentsWithHolds();
 
             foreach (var student in this.students)
@@ -48,6 +49,11 @@ namespace AdvisementManagerDesktopApp.View
 
             advisementSessionForm.Show();
 
+        }
+
+        private void AdvisementSessionsForm_Activated(object sender, EventArgs e)
+        {
+            this.setUpScreen();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -52,7 +53,121 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the meetings.</summary>
         /// <value>The meetings.</value>
         [NotMapped]
+        public AdvisementSession Meeting { get; set; }
+
+        [NotMapped]
         public IList<AdvisementSession> Meetings { get; set; }
+
+        /// <summary> Gets the Student's full name</summary>
+        /// <value> FirstName + " " + LastName</value>
+        public string FullName 
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
+        /// <summary> Gets a message describing the students advisement status</summary>
+        /// <value> Incomplete or Complete and Hold reeason if incomplete</value>
+        public string AdvisementStatusMessage
+        {
+            get
+            {
+                if (this.Hold.IsActive)
+                {
+                    return "Incomplete - " + this.Hold.Reason;
+                }
+                else
+                {
+                    return "Complete";
+                }
+            }
+        }
+
+        /// <summary> Gets a message indicating whether the student is scheduled for an advisement/summary>
+        /// <value> Datetime of meeting if already scheduled</value>
+        public string AdvisementSessionStatusMessage
+        {
+            get
+            {
+                DateTime? upcomingMeetingTime = this.hasUpcomingAdvisementSession();
+
+                if (upcomingMeetingTime.HasValue)
+                {
+                    return "Meeting at " + upcomingMeetingTime.ToString();
+                }
+                else
+                {
+                    return "No meeting scheduled";
+                }
+            }
+        }
+
+        public Student()
+        {
+            this.Meetings = new List<AdvisementSession>();
+        }
+
+        /// <summary>
+        /// Returns the dateTime of the students upcoming meeting, if there are any.
+        /// </summary>
+        /// <returns>DateTime of meeting if havent passed yet, null if all have passed</returns>
+        private DateTime? hasUpcomingAdvisementSession()
+        {
+            foreach (var meeting in this.Meetings)
+            {
+                if (meeting.Date.CompareTo(DateTime.Now) == -1)
+                {
+                    return meeting.Date;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Temporary method for testing without login functionality
+        /// </summary>
+        /// <returns>A test student</returns>
+        public static Student GetTestStudent()
+        {
+            Advisor generalAdvisor = new Advisor()
+            {
+                Id = 1,
+                FirstName = "Wilman",
+                LastName = "Kala",
+                IsFacultyAdvisor = false,
+                Email = "wkala@askj.net"
+            };
+
+            Advisor facultyAdvisor = new Advisor()
+            {
+                Id = 2,
+                FirstName = "Tom",
+                LastName = "Erichsen",
+                IsFacultyAdvisor = true,
+                Email = "terichsen@askj.net"
+            };
+
+            Hold testHold = new Hold()
+            {
+                Id = 1,
+                Reason = "Registration",
+                Date = Convert.ToDateTime("05/05/2005"),
+                IsActive = true
+            };
+
+            Student testStudent = new Student()
+            {
+                Id = 1,
+                FirstName = "Hank",
+                LastName = "Hill",
+                Email = "hhill@my.askj.net",
+                GeneralAdvisor = generalAdvisor,
+                FacultyAdvisor = facultyAdvisor,
+                Hold = testHold
+            };
+
+            return testStudent;
+        }
 
         public override string ToString()
         {

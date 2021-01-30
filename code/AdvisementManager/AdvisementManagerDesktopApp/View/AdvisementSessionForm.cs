@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
@@ -16,22 +17,43 @@ namespace AdvisementManagerDesktopApp.View
         private readonly Advisor advisor;
 
         private readonly Student student;
-        
+
         /// <summary>Initializes a new instance of the <see cref="AdvisementSessionForm" /> class.</summary>
         public AdvisementSessionForm(Student student, Advisor advisor)
         {
             this.InitializeComponent();
             this.student = student;
             this.advisor = advisor;
+            this.checkForMeeting();
             this.setUpScreen();
 
 
             this.checkHolds();
         }
 
+
+        private void checkForMeeting()
+        {
+            try
+            {
+                this.student.Meeting = this.sessionController.CheckForMeeting(this.student);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void setUpScreen()
         {
-            //this.meetingTimeLbl.Text = this.student.Meetings[0].Date.ToString(CultureInfo.InvariantCulture);
+            if (this.student.Meeting == null || this.student.Meeting.Date == DateTime.MinValue)
+            {
+                this.meetingTimeLbl.Text = @"No meetings scheduled";
+            }
+            else
+            {
+                this.meetingTimeLbl.Text = this.student.Meeting.Date.ToString(CultureInfo.InvariantCulture);
+            }
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
         }

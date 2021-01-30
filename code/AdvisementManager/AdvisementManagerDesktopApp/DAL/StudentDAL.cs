@@ -23,9 +23,9 @@ namespace AdvisementManagerDesktopApp.DAL
             using (conn)
             {
                 conn.Open();
-                const string insertQuery =
+                const string selectQuery =
                     " SELECT Student.studentID, Student.firstName, Student.lastName, Student.email, Student.advisorGeneralID, Student.advisorFacultyID, Hold.holdID, Hold.reason, Hold.dateAdded, Hold.isActive FROM Student INNER JOIN Hold ON Hold.studentID = Student.studentID WHERE isActive = @isActive;";
-                using (var cmd = new SqlCommand(insertQuery, conn))
+                using (var cmd = new SqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.Add("@isActive", SqlDbType.TinyInt);
                     cmd.Parameters["@isActive"].Value = true;

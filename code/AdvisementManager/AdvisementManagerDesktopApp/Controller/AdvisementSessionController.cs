@@ -1,5 +1,6 @@
 ﻿using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using System;
 
 namespace AdvisementManagerDesktopApp.Controller
 {
@@ -9,15 +10,16 @@ namespace AdvisementManagerDesktopApp.Controller
     /// </summary>
     public class AdvisementSessionController
     {
+        private readonly HoldsDal holdsDal = new HoldsDal();
+
         /// <summary>Approves the meeting.</summary>
         /// <param name="student">The student.</param>
         /// <param name="advisor">The advisor.</param>
         public void ApproveMeeting(Student student, Advisor advisor)
         {
-            var holdsDal = new HoldsDal();
             if (advisor.IsFacultyAdvisor)
             {
-                holdsDal.ApproveFacultyAdvisorMeeting(student);
+                this.holdsDal.ApproveFacultyAdvisorMeeting(student);
             }
 
         }
@@ -25,10 +27,14 @@ namespace AdvisementManagerDesktopApp.Controller
         /// <summary>Removes the hold.</summary>
         /// <param name="student">The student.</param>
         public void RemoveHold(Student student)
-        { 
-            var holdsDal = new HoldsDal();
-            holdsDal.RemoveHold(student);
+        {
+            this.holdsDal.RemoveHold(student);
 
+        }
+
+        public AdvisementSession CheckForMeeting(Student student)
+        {
+            return this.holdsDal.CheckForMeetings(student);
         }
     }
 }
