@@ -1,12 +1,23 @@
-DROP TABLE IF EXISTS Hold, Availability, AdvisementSession, Student, Advisor
+DROP TABLE IF EXISTS Hold, Availability, AdvisementSession, Student, Advisor, Login
+
+CREATE TABLE Login (
+	username VARCHAR (15) NOT NULL PRIMARY KEY,
+	password VARCHAR (20) NOT NULL
+)
 
 CREATE TABLE Advisor (
   advisorID INT NOT NULL IDENTITY PRIMARY KEY,
   firstName VARCHAR(45) NOT NULL,
   lastName VARCHAR(45) NOT NULL,
-  isFacultyAdvisor SMALLINT NOT NULL,
+  isFacultyAdvisor BIT NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
-  gender VARCHAR (10)
+  username VARCHAR (15) NOT NULL UNIQUE,
+  gender VARCHAR (10),
+  CONSTRAINT fk_username
+    FOREIGN KEY (username)
+    REFERENCES Login (username)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 )
 
 CREATE TABLE Student (
@@ -33,7 +44,7 @@ CREATE TABLE Hold (
   holdID INT NOT NULL IDENTITY PRIMARY KEY,
   reason VARCHAR(100) NULL,
   dateAdded DATETIME2(0) NOT NULL,
-  isActive SMALLINT NOT NULL,
+  isActive BIT NOT NULL,
   studentID INT NOT NULL,
   CONSTRAINT fk_hold_studentID
     FOREIGN KEY (studentID)
@@ -48,7 +59,7 @@ CREATE TABLE AdvisementSession (
   advisorID INT NOT NULL,
   sessionDate DATETIME2(0) NOT NULL UNIQUE,
   stage SMALLINT NOT NULL,
-  completed SMALLINT NOT NULL,
+  completed BIT NOT NULL,
   notes VARCHAR(2000) NULL,
   CONSTRAINT fk_session_studentID
     FOREIGN KEY (studentID)
@@ -74,12 +85,19 @@ CREATE TABLE Availability (
     ON UPDATE NO ACTION
 )
 
-INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, gender) VALUES
-('Wilman', 'Kala', 0, 'wkala@askj.net', 'male'),
-('Tom', 'Erichsen', 1, 'terichsen@askj.net', 'male'),
-('Jenny', 'Othewood', 0, 'jothewood@askj.net', 'female'),
-('Bob', 'Hart', 0, 'bhart@askj.net', 'male'),
-('Gina', 'Smith', 1, 'gsmith@askj.net', 'female')
+INSERT INTO Login(username, password) VALUES
+('wkala', 's3cret'),
+('terichsen', 'password1'),
+('bhart', 'p@$$w0rD1234'),
+('jothewood', 'password1'),
+('gsmith', 'password1')
+
+INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
+('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),
+('Tom', 'Erichsen', 1, 'terichsen@askj.net', 'terichsen', 'male'),
+('Jenny', 'Othewood', 0, 'jothewood@askj.net', 'jothewood', 'female'),
+('Bob', 'Hart', 0, 'bhart@askj.net', 'bhart', 'male'),
+('Gina', 'Smith', 1, 'gsmith@askj.net', 'gsmith', 'female')
 
 INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, gender) VALUES
 ('Hank', 'Hill', 'hhill@my.askj.net', 1, 2,  'male'),

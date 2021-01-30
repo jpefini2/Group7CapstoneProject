@@ -34,7 +34,6 @@ namespace AdvisementManagerDesktopApp.View
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
-            this.skipLoginButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usernameLabel
@@ -77,24 +76,13 @@ namespace AdvisementManagerDesktopApp.View
             this.loginButton.TabIndex = 4;
             this.loginButton.Text = "Submit";
             this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
-            // 
-            // skipLoginButton
-            // 
-            this.skipLoginButton.Location = new System.Drawing.Point(482, 250);
-            this.skipLoginButton.Name = "skipLoginButton";
-            this.skipLoginButton.Size = new System.Drawing.Size(136, 23);
-            this.skipLoginButton.TabIndex = 5;
-            this.skipLoginButton.Text = "Skip (temporary)";
-            this.skipLoginButton.UseVisualStyleBackColor = true;
-            this.skipLoginButton.Click += new System.EventHandler(this.skipLoginButton_Click);
+            this.loginButton.Click += new System.EventHandler(this.LoginButtonClicked);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 450);
-            this.Controls.Add(this.skipLoginButton);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.usernameTextBox);
@@ -115,6 +103,5 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.TextBox usernameTextBox;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.Button skipLoginButton;
     }
 }

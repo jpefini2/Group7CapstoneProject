@@ -1,32 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AdvisementManagerDesktopApp.Controller;
+using System;
 using System.Windows.Forms;
 
 namespace AdvisementManagerDesktopApp.View
 {
     public partial class LoginForm : Form
     {
+        private readonly LoginController loginController = new();
+
         public LoginForm()
         {
             InitializeComponent();
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void LoginButtonClicked(object sender, EventArgs e)
         {
-            if (!isEntryValid(usernameTextBox.Text)) return;
-            if(!isEntryValid(passwordTextBox.Text)) return;
+            if (!IsEntryValid(usernameTextBox.Text)) return;
+            if(!IsEntryValid(passwordTextBox.Text)) return;
 
+            var username = usernameTextBox.Text.Trim();
+            var password = passwordTextBox.Text.Trim();
 
-
+            if (this.loginController.Authenticate(username, password))
+            {
+                MessageBox.Show(@"Login OK.", "");
+                this.loginController.InitializeLogin(username);
+            } else
+            {
+                MessageBox.Show(@"Wrong username or password.", "");
+            }
         }
 
-        private bool isEntryValid(string entry)
+        private bool IsEntryValid(string entry)
         {
             if (string.IsNullOrEmpty(entry.Trim()))
             {
@@ -37,11 +42,6 @@ namespace AdvisementManagerDesktopApp.View
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void skipLoginButton_Click(object sender, EventArgs e)
         {
 
         }

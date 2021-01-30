@@ -32,7 +32,7 @@ namespace AdvisementManagerDesktopApp
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AdvisementSessionsForm(advisor1));
+            Application.Run(new LoginForm());
         }
     }
 }
