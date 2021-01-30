@@ -15,7 +15,6 @@ namespace AdvisementManagerWebApp.DAL
             var hold = context.Hold.FromSqlRaw(
                 "SELECT holdID, reason, dateAdded, isActive FROM Hold  WHERE studentID = {0}", id).FirstOrDefault();
 
-
             return hold;
         }
     }

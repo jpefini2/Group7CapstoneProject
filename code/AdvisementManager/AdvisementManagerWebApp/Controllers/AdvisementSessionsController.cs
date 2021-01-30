@@ -53,5 +53,27 @@ namespace AdvisementManagerWebApp.Controllers
 
             return View(student);
         }
+
+        public RedirectToRouteResult ApproveMeeting(int? id)
+        {
+            const string approvalReason = "Student has met with faculty advisor hold pending removal.";
+            var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
+            hold.Reason = approvalReason;
+            
+            this.context.SaveChanges();
+
+            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions"});
+        }
+
+        public RedirectToRouteResult RemoveHold(int? id)
+        {
+            var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
+
+            hold.IsActive = false;
+            hold.Reason = "No holds";
+            this.context.SaveChanges();
+
+            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
+        }
     }
 }
