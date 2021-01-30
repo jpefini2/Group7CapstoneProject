@@ -60,10 +60,7 @@ namespace AdvisementManagerWebApp.Models
 
         /// <summary> Gets the Student's full name</summary>
         /// <value> FirstName + " " + LastName</value>
-        public string FullName 
-        {
-            get { return FirstName + " " + LastName; }
-        }
+        public string FullName => this.FirstName + " " + LastName;
 
         /// <summary> Gets a message describing the students advisement status</summary>
         /// <value> Incomplete or Complete and Hold reeason if incomplete</value>
@@ -169,9 +166,5 @@ namespace AdvisementManagerWebApp.Models
             return testStudent;
         }
 
-        public override string ToString()
-        {
-            return "Student: " + this.FirstName + " " + this.LastName;
-        }
     }
 }
