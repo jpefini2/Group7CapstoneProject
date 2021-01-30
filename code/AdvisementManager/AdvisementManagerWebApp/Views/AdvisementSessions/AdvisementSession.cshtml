@@ -14,25 +14,39 @@ else
     ViewBag.MeetingTime = @Model.Meeting.Date;
 }
 
-<h2>@Model.FirstName @Model.LastName</h2>
+<table class="table">
+    <tbody>
+        <tr>
+            <td>
+                Name: @Model.FirstName @Model.LastName
+            </td>
+            <td></td>
+            <td>
+                Meeting Time: @ViewBag.MeetingTime
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+    <tr>
+        <td></td>
+        <td>
+            <div>
+                <a asp-action="ApproveMeeting" asp-route-id="@Model.Hold.Id"
+                   class="btn btn-primary">Approve</a>
+            
+                <a asp-action="AdvisementSessions"
+                   class="btn btn-secondary">Cancel</a>
+            </div>
 
-<p>@Model.Email</p>
+            <div>
+                <a asp-action="RemoveHold" asp-route-id="@Model.Hold.Id"
+                   class="btn btn-danger">Remove Hold</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-<h2>Meeting Time: @ViewBag.MeetingTime </h2>
-
-<h3>Hold Reason: @Model.Hold.Reason </h3>
-
-<div>
-    <a asp-action="ApproveMeeting" asp-route-id="@Model.Hold.Id"
-       class="btn btn-primary">Approve</a>
-</div>
-
-<div>
-    <a asp-action="AdvisementSessions"
-       class="btn btn-secondary">Cancel</a>
-</div>
-
-<div>
-    <a asp-action="RemoveHold" asp-route-id="@Model.Hold.Id"
-       class="btn btn-danger">Remove Hold</a>
-</div>
