@@ -17,6 +17,11 @@ namespace AdvisementManagerWebApp.DAL
     public class StudentDal
     {
 
+        /// <summary>Obtains the students with holds.</summary>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The current context of students with holds
+        /// </returns>
         public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context)
         {
             return context.Student

@@ -48,7 +48,7 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the stage.</summary>
         /// <value>The stage.</value>
         [Column("stage")]
-        public int Stage { get; set; }
+        public short Stage { get; set; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="AdvisementSession" /> is completed.</summary>
         /// <value>

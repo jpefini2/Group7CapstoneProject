@@ -98,6 +98,7 @@ namespace AdvisementManagerWebApp.Models
             }
         }
 
+        /// <summary>Initializes a new instance of the <see cref="Student" /> class.</summary>
         public Student()
         {
             this.Meetings = new List<AdvisementSession>();
@@ -120,6 +121,8 @@ namespace AdvisementManagerWebApp.Models
             return null;
         }
 
+        /// <summary>Converts to string.</summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return this.FullName;

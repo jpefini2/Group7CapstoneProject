@@ -44,11 +44,17 @@ namespace AdvisementManagerWebApp.Models
             get { return FirstName + " " + LastName; }
         }
 
+        /// <summary>Gets the available advisement session times.</summary>
+        /// <value>The available advisement session times.</value>
         public IList<TimeSpan> AvailableAdvisementSessionTimes
         {
             get { return GetAvailableAdvisementSessionTimes(); }
         }
 
+        /// <summary>Gets the available advisement session times.</summary>
+        /// <returns>
+        ///   The available times
+        /// </returns>
         public IList<TimeSpan> GetAvailableAdvisementSessionTimes()
         {
             IList<TimeSpan> availableTimes = new List<TimeSpan>();
@@ -64,6 +70,8 @@ namespace AdvisementManagerWebApp.Models
         }
 
 
+        /// <summary>Converts to string.</summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return this.FullName;

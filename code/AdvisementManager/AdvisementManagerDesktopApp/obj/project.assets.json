@@ -1412,23 +1412,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joshp\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\darri\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
+      "projectUniqueName": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
       "projectName": "AdvisementManagerDesktopApp",
-      "projectPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
-      "packagesPath": "C:\\Users\\joshp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\obj\\",
+      "projectPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
+      "packagesPath": "C:\\Users\\darri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\joshp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\darri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
