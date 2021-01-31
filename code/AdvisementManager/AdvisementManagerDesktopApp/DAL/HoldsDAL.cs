@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using AdvisementManagerDesktopApp.Model;
-using Microsoft.Data.SqlClient;
 
 namespace AdvisementManagerDesktopApp.DAL
 {

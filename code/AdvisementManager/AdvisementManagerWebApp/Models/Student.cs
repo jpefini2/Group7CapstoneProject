@@ -79,7 +79,7 @@ namespace AdvisementManagerWebApp.Models
             }
         }
 
-        /// <summary> Gets a message indicating whether the student is scheduled for an advisement/summary>
+        /// <summary> Gets a message indicating whether the student is scheduled for an advisement</summary>
         /// <value> Datetime of meeting if already scheduled</value>
         public string AdvisementSessionStatusMessage
         {

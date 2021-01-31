@@ -1,5 +1,3 @@
-using System;
-
 namespace AdvisementManagerWebApp.Models
 {
     /// <summary>

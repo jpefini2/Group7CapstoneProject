@@ -14,7 +14,7 @@ namespace AdvisementManagerDesktopApp.DAL
 
         /// <summary>Gets the connection.</summary>
         /// <returns>
-        ///   <br />
+        ///   The SQL connection
         /// </returns>
         public static SqlConnection GetConnection()
         {
