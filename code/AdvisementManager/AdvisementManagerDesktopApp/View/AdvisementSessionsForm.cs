@@ -40,11 +40,15 @@ namespace AdvisementManagerDesktopApp.View
 
         private void viewBtn_Click(object sender, EventArgs e)
         {
+
             var selectedStudentIndex = this.studentsWithHoldsListBox.SelectedIndex;
+            if (selectedStudentIndex < 0)
+            {
+                return;
+            }
+            
             var selectedStudent = this.students[selectedStudentIndex];
-
             selectedStudent.GeneralAdvisor = this.advisor;
-
             var advisementSessionForm = new AdvisementSessionForm(selectedStudent, this.advisor);
 
             advisementSessionForm.Show();

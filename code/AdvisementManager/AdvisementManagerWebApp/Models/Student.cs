@@ -60,10 +60,7 @@ namespace AdvisementManagerWebApp.Models
 
         /// <summary> Gets the Student's full name</summary>
         /// <value> FirstName + " " + LastName</value>
-        public string FullName 
-        {
-            get { return FirstName + " " + LastName; }
-        }
+        public string FullName => this.FirstName + " " + LastName;
 
         /// <summary> Gets a message describing the students advisement status</summary>
         /// <value> Incomplete or Complete and Hold reeason if incomplete</value>
@@ -82,7 +79,7 @@ namespace AdvisementManagerWebApp.Models
             }
         }
 
-        /// <summary> Gets a message indicating whether the student is scheduled for an advisement/summary>
+        /// <summary> Gets a message indicating whether the student is scheduled for an advisement</summary>
         /// <value> Datetime of meeting if already scheduled</value>
         public string AdvisementSessionStatusMessage
         {
@@ -101,6 +98,7 @@ namespace AdvisementManagerWebApp.Models
             }
         }
 
+        /// <summary>Initializes a new instance of the <see cref="Student" /> class.</summary>
         public Student()
         {
             this.Meetings = new List<AdvisementSession>();
@@ -123,55 +121,11 @@ namespace AdvisementManagerWebApp.Models
             return null;
         }
 
-        /// <summary>
-        /// Temporary method for testing without login functionality
-        /// </summary>
-        /// <returns>A test student</returns>
-        public static Student GetTestStudent()
-        {
-            Advisor generalAdvisor = new Advisor()
-            {
-                Id = 1,
-                FirstName = "Wilman",
-                LastName = "Kala",
-                IsFacultyAdvisor = false,
-                Email = "wkala@askj.net"
-            };
-
-            Advisor facultyAdvisor = new Advisor()
-            {
-                Id = 2,
-                FirstName = "Tom",
-                LastName = "Erichsen",
-                IsFacultyAdvisor = true,
-                Email = "terichsen@askj.net"
-            };
-
-            Hold testHold = new Hold()
-            {
-                Id = 1,
-                Reason = "Registration",
-                Date = Convert.ToDateTime("05/05/2005"),
-                IsActive = true
-            };
-
-            Student testStudent = new Student()
-            {
-                Id = 1,
-                FirstName = "Hank",
-                LastName = "Hill",
-                Email = "hhill@my.askj.net",
-                GeneralAdvisor = generalAdvisor,
-                FacultyAdvisor = facultyAdvisor,
-                Hold = testHold
-            };
-
-            return testStudent;
-        }
-
+        /// <summary>Converts to string.</summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return "Student: " + this.FirstName + " " + this.LastName;
+            return this.FullName;
         }
     }
 }

@@ -25,10 +25,20 @@ namespace AdvisementManagerWebApp.Models
         [NotMapped]
         public Student Student { get; set; }
 
+        /// <summary>Gets or sets the studentId.</summary>
+        /// <value>The advisor.</value>
+        [Column("studentID")]
+        public int StudentId { get; set; }
+
         /// <summary>Gets or sets the advisor.</summary>
         /// <value>The advisor.</value>
         [NotMapped]
         public Advisor Advisor { get; set; }
+
+        /// <summary>Gets or sets the advisorId.</summary>
+        /// <value>The advisor.</value>
+        [Column("advisorID")]
+        public int AdvisorId { get; set; }
 
         /// <summary>Gets or sets the date.</summary>
         /// <value>The date.</value>
@@ -37,13 +47,13 @@ namespace AdvisementManagerWebApp.Models
 
         /// <summary>Gets or sets the stage.</summary>
         /// <value>The stage.</value>
-        [NotMapped]
-        public int Stage { get; set; }
+        [Column("stage")]
+        public short Stage { get; set; }
 
         /// <summary>Gets or sets a value indicating whether this <see cref="AdvisementSession" /> is completed.</summary>
         /// <value>
         ///   <c>true</c> if completed; otherwise, <c>false</c>.</value>
-        [NotMapped]
+        [Column("completed")]
         public bool Completed { get; set; }
 
 

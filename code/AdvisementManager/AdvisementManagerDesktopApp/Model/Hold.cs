@@ -1,7 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.Data.SqlClient.Server;
 
 namespace AdvisementManagerDesktopApp.Model
 {

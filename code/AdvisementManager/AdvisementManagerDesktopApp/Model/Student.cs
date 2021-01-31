@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AdvisementManagerDesktopApp.Model
+﻿namespace AdvisementManagerDesktopApp.Model
 {
     /// <summary>
     ///   The student class
@@ -39,7 +37,5 @@ namespace AdvisementManagerDesktopApp.Model
         /// <summary>Gets or sets the meetings.</summary>
         /// <value>The meetings.</value>
         public AdvisementSession Meeting { get; set; }
-
-
     }
 }

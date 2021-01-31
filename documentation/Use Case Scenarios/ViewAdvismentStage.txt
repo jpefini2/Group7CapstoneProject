@@ -4,4 +4,4 @@ Context: The student is on the advisment page.
 
 Primary Flow:
 1. The system retrieves the users current advisment status.
-2. The system displays the current stage of advisment.
+2. The system display the users info and advisemtn status.

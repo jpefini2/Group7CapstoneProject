@@ -1,0 +1,47 @@
+﻿@model ScheduleAdvisementModel
+@{
+    ViewBag.Title = "Schedule Advisement";
+}
+
+<div class="container">
+    <main>
+        <form asp-action="ConfirmAppointment" method="post" class="form-horizontal">
+            <div class="row">
+                <label class="control-label col-sm-2">Student:</label>
+                <input asp-for="Student" readonly
+                       class="form-control col-sm-10" />
+            </div>
+
+            <input asp-for="StudentId" type="hidden" />
+            <input asp-for="AdvisorId" type="hidden" />
+
+            <div class="row">
+                <label class="control-label col-sm-2">Advisor:</label>
+                <input asp-for="Advisor" readonly
+                       class="form-control col-sm-10" />
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-2">Choose date:</label>
+                <input class="form-control col-sm-5" asp-for="Date" type="date" value="@DateTime.Today.ToString("dd-MM-yyyy")" />
+            </div>
+
+            <div class="row">
+                <label class="control-label col-sm-2">Choose time:</label>
+                <select asp-for="Time" asp-items="Model.AvailableSessionTimes"></select>
+            </div>
+
+            <div class="col offset-sm-3 pl-0">
+                <button type="submit"
+                        class="btn btn-primary">
+                    Schedule Meeting
+                </button>
+            </div>
+        </form>
+    </main>
+</div>
+    
+
+
+
+        

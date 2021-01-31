@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using AdvisementManagerDesktopApp.Model;
-using Microsoft.Data.SqlClient;
 
 namespace AdvisementManagerDesktopApp.DAL
 {
@@ -54,7 +52,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 conn.Open();
 
                 const string selectQuery =
-                    "SELECT sessionID, completed, stage, sessionDate FROM AdvisementSession WHERE studentID  = @studentID ;";
+                    "SELECT sessionID, completed, stage, sessionDate FROM AdvisementSession WHERE studentID  = @studentID and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = @studentID)"; 
                 using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.Add("@studentID ", SqlDbType.Int);
