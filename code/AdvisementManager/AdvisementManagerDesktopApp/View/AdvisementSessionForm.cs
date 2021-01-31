@@ -27,7 +27,6 @@ namespace AdvisementManagerDesktopApp.View
             this.checkForMeeting();
             this.setUpScreen();
 
-
             this.checkHolds();
         }
 
@@ -68,6 +67,11 @@ namespace AdvisementManagerDesktopApp.View
             {
                 this.toggleHoldButton(true);
             }
+
+            if (!this.student.Hold.Reason.Equals("Student has met with faculty advisor hold pending removal."))
+            {
+                this.toggleHoldButton(false);
+            }
         }
 
         private void toggleHoldButton(bool shouldShow)
@@ -81,8 +85,8 @@ namespace AdvisementManagerDesktopApp.View
 
             try
             {
-                this.student.Hold.Reason = @"Student has met with faculty advisor hold pending removal.";
                 this.sessionController.ApproveMeeting(this.student, this.advisor);
+                this.Close();
             }
             catch (SqlException ex)
             {

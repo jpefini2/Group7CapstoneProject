@@ -19,6 +19,7 @@ namespace AdvisementManagerDesktopApp.Controller
         {
             if (advisor.IsFacultyAdvisor)
             {
+                student.Hold.Reason = @"Student has met with faculty advisor hold pending removal.";
                 this.holdsDal.ApproveFacultyAdvisorMeeting(student);
             }
 
