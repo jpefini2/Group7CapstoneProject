@@ -1,0 +1,18 @@
+Priority,Who,What,Why
+1,As A Faculty Advisor,I want to be able to inform general advisor to remove holds,So that the general advisor can remove holds
+1,As A General Advisor,I want to be able to inform faculty advisor student has met with me,So that the student can schedule to meet with the faculty advisor 
+1,As A General Advisor,I want to be able to remove advising holds for students that have met with their faculty advisor,So that students can register for classes
+1,As A student,I want to be able to schedule meetings with my advisor,So that I can quickly and easily set up appointments with them
+1,As A student,I want to be able to view my current advisement stage,So that I can know which advisor to schedule a meeting with and when I am cleared to register for classes
+2,As A advisor,"I want to be able see a list of all my assigned students, with advisment stage tracking",So that I know where a student is in the advisment process
+2,As A advisor,I want to be able to view my scheduled meetings,So that I know who I am meeting with and when
+2,As A advisor,I want to be able to view meeting notes at any time,So that I can review pertinent info
+2,As A advisor,I want to be able to take and store notes during meetings,So that I can save pertinent info
+2,As A General Advisor,I want to be able to add students and faculty to the system,So that they can participate in the advisment process/use the app
+3,As A advisor,I want to be able to be able to set my avaliable times,So that students can schedule to meet with me
+3,As A student,I want to be able to see what days an advisor is avaliable,So that I can make an appointment to see that advisor
+3,As A user,I want to be able to cancel meetings if necessary,So that I can cancel the meeting with my advisor
+4,As A advisor,I want to be able to be able to post general information,So that I can better know where a student is during advisment
+4,As A student,"I want to be able to create a profile with my name, picture, and other info",So that the system can have my info saved and autopopulate fields
+4,As a user,I want to be able to view notifications,So that I can know what events/meetings I have coming up
+4,As a user ,I want to be able to clear notification,So that I can get rid of notifications I don't need anymore or have already seen
