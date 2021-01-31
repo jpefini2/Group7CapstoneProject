@@ -12,7 +12,7 @@ namespace AdvisementManagerWebApp.DAL
     {
         public AdvisementSession ObtainSession(int? id, ApplicationDbContext context)
         {
-            var session =  context.advisementSessions.FromSqlRaw(
+            var session =  context.AdvisementSession.FromSqlRaw(
                               "SELECT sessionID, sessionDate, notes FROM AdvisementSession WHERE studentID = {0}", id).FirstOrDefault();
 
             return session;

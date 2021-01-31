@@ -5687,19 +5687,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\darri\\.nuget\\packages\\": {}
+    "C:\\Users\\joshp\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
       "projectName": "AdvisementManagerWebApp",
-      "projectPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
-      "packagesPath": "C:\\Users\\darri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\darri\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
+      "projectPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
+      "packagesPath": "C:\\Users\\joshp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\darri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joshp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -4,7 +4,7 @@
 }
 <div class="container">
     <main>
-        <form asp-action="StudentHome" method="get" class="form-horizontal">
+        <form method="get" class="form-horizontal">
             <div class="row">
                 <label class="control-label col-sm-2">First Name:</label>
                 <input asp-for="FirstName" readonly
@@ -22,17 +22,17 @@
             </div>
             <div class="row">
                 <label class="control-label col-sm-2">General Advisor:</label>
-                <input asp-for="GeneralAdvisor.FullName" readonly
+                <input asp-for="GeneralAdvisor" readonly
                        class="form-control col-sm-10" />
             </div>
             <div class="row">
                 <label class="control-label col-sm-2">Faculty Advisor:</label>
-                <input asp-for="FacultyAdvisor.FullName" readonly
+                <input asp-for="FacultyAdvisor" readonly
                        class="form-control col-sm-10" />
             </div>
             <div class="row">
                 <label class="control-label col-sm-2">Advisement Status:</label>
-                <input asp-for="AdvisementStatusMessage" readonly
+                <input asp-for="Hold" readonly
                        class="form-control col-sm-10" />
             </div>
             <div class="row">
@@ -40,12 +40,20 @@
                 <input asp-for="AdvisementSessionStatusMessage" readonly
                        class="form-control col-sm-10" />
             </div>
-            <div class="row">
-                <div class="col offset-sm-6 pl-0">
-                    <a asp-action="ScheduleMeeting"
-                       class="btn btn-secondary">Schedule Meeting</a>
-                </div>
-            </div>
+
+            @{
+                if (Model.Meeting == null)
+                {
+                    <a asp-controller="ScheduleAdvisementSession" asp-action="ScheduleAdvisementSession"
+                       class="btn btn-primary col-sm-5"
+                       asp-route-studentid="@Model.Id"
+                       asp-route-studentholdid="@Model.Hold.Id"
+                       asp-route-generaladvisorid="@Model.GeneralAdvisor.Id"
+                       asp-route-facultyadvisorid="@Model.FacultyAdvisor.Id">
+                        ScheduleAdvisement
+                    </a>
+                }
+            }
         </form>
     </main>
 </div>

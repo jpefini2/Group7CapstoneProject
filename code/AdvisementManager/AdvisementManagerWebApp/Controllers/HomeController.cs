@@ -1,5 +1,6 @@
 ﻿using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
+using AdvisementManagerWebApp.Temp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,17 +20,19 @@ namespace AdvisementManagerWebApp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.studentModel = Student.GetTestStudent();
+            this.studentModel = TestUtilities.GetTestStudent();
         }
 
+        [HttpGet]
         public IActionResult StudentHome()
         {
             return View(this.studentModel);
         }
 
-        public IActionResult ScheduleMeeting()
+        [HttpPost]
+        public IActionResult StudentHome(Student model)
         {
-            return View();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
