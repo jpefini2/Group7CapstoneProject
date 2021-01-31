@@ -1,0 +1,32 @@
+Related user story,Task Description,Developer,Initial Estimate
+inform general advisor to remove hold,set up view for removing hold/approving appointments (They share the same view),Darrius Dupree,1.5 hours
+inform general advisor to remove hold,"Create general model classes ie (student, advisementSession, AdvisementSessions, etc.)",Darrius Dupree,1.5 hours
+inform general advisor to remove hold,Create the DAL for removing holds and viewing sessions,Darrius Dupree,2 hours
+inform general advisor to remove hold,Create the view for viewing students with holds,Darrius Dupree,1.5 hours
+inform general advisor to remove hold,link model and view through controllers and DAL's,Darrius Dupree,9 hours
+inform general advisor to remove hold,Create the controller for viewing students with holds,Darrius Dupree,4 hours
+inform general advisor to remove hold,Link the view and model for viewing students with holds with the controller class.,Darrius Dupree,5 hours
+inform general advisor to remove hold,Create DAL classes for removing holds and approving meeting with faculty advisor,Darrius Dupree,2 hours
+inform faculty advior student has met me,Create an option and notification to send to faculty advisor that student has met with them.,Justin McConnell,2 hours
+inform faculty advior student has met me,Link the functionality between the view and model via the controller class,Justin McConnell,2 hours
+remove holds,Link model and view through controllers and DAL's to allow removal of holds,Darrius Dupree,1 hour
+schedule meetings,create the view for scheduling meetings,Josh Pefinis,3 hours
+schedule meetings,create the DAL for scheudling meetings,Josh Pefinis,2 hours
+schedule meetings,create the model for scheduling meetings,Josh Pefinis,1 hour
+schedule meetings,Create the controller for scheduling meetings,Josh Pefinis,5 hours
+schedule meetings,link the view to the model with the DAL and controller for scheduling meetings,Josh Pefinis,5 hours
+view advisment stage,create the view for viewing advisement status,Josh Pefinis,1.5 hours
+view advisment stage,create the DAL for viewing advisement status,Josh Pefinis,3 hours
+view advisment stage,create the model for viewing advisement status,Josh Pefinis,1 hour
+view advisment stage,Create the controller for viewing advisement status,Josh Pefinis,5 hours
+view advisment stage,link the view to the model with the DAL and controller for viewing advisement status,Josh Pefinis,5 hours
+General Task- create database,create the initial database using the documented ERD with pre filled data,Justin McConnell,1 hour
+General task- Update WireFrames,Update wireframes,Darrius Dupree,30 mins
+General task - Update user stories,Update userstories,Darrius Dupree,30 mins
+General Task - Update ERD,Update ERD,Justin McConnell,45 mins
+General Task- Update Class Diagram,Update Class Diagram,Josh Pefinis,40 mins
+Log in,Create the login DAL functionality,Justin McConnell,6 hours
+Log in,Create the login View page,Justin McConnell,6 hours
+Log in,Create the login controller,Justin McConnell,6 hours
+Log in,Link the login view and model through the controller and DAL,Justin McConnell,6 hours
+Log in,Create the model for the login functionality,Justin McConnell,2 hours
