@@ -1,51 +1,34 @@
-﻿using AdvisementManagerWebApp.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using AdvisementManagerWebApp.DAL;
+using AdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace EmployeeManagement.Controllers
+public class AccountController : Controller
 {
-
-    public class AccountController : Controller
+    IAuthService _authService;
+    public AccountController(IAuthService authservice)
     {
-        private readonly SignInManager<IdentityUser> signInManager;
+        _authService = authservice;
+    }
+    public IActionResult index()
+    {
+        LoginUserModel model = new LoginUserModel();
 
-        public AccountController(SignInManager<IdentityUser> signInManager)
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult index(LoginUserModel model)
+    {
+        User u = _authService.GetUser(model.Username, model.Password);
+        if (u != null)
         {
-            this.signInManager = signInManager;
+            //SessionHelper.SetObjectAsJson(HttpContext.Session, "userObject", u);
+            return RedirectToAction("controlpanel");
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Logout()
+        else
         {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("index", "home");
+            return RedirectToAction("auth-failed");
         }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("index", "home");
-                }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-            }
-
-            return View(model);
-        }
+        return View(model);
     }
 }
-
