@@ -1,1 +1,29 @@
+Advisement Manager Application
 
+This app is designed to help students and faculty handle the advisement process. The app is designed to allow students to schedule apppointments and keep track 
+of their advisement stage through the process. The app also allows the faculty memebers to keep track of meetings they have with students as well as set up meetings
+and remove holds for students.
+
+
+Install visual studio with C# and SQL packages.
+
+Download the project 
+(It it recommened you download it to a relatively flow file path. There is a maximum number of characters you can have for datasource pahts e1. 128 characters)
+
+Create the database 
+	1. Open the project solution.
+	2. Right click on the AdvisementManagerDesktopApp project (must be in this folder)
+	3. Add -> new item.
+	4. Add a new service based database and name it ADVISEMENTMANAGMENTDB (Must have this name)
+	
+Create the database information
+	1. Open the Server Explorer in visual studio
+	2. Go to data connection
+	3. Right click on the database and select new query
+	4. Copy and paste the database query from the documents folder and run it to create the tables and data.
+	
+Edit the web application to access the database.
+	1. Go to the database in the server exploer
+	2. Copy the connection string.
+	3. Open the appsettings.json file in the AdvisementManagerWebApp. 
+	4. In the default connection change the string to the connection string you copied from the database.
