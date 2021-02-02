@@ -21,9 +21,19 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
+                <input type="submit" value="Submit" asp-controller="Account" asp-action="AttemptLogin" class="btn btn-primary" />
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div>
+                @if (ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+                        window.onload = function () {
+                            alert("@ViewBag.Message");
+                        };
+                    </script>
+                }
+            </div>
+            
         </form>
     </div>
 </div>

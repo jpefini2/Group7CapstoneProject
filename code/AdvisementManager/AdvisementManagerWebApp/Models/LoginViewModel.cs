@@ -14,9 +14,6 @@ public class LoginViewModel
     [Display(Name = "Password")]
     public string Password { get; set; }
 
-    [Display(Name = "Message")]
-    public string Message { get; set; }
-
     #endregion
 }
 

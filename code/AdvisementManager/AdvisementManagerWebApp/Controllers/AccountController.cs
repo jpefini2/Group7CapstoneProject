@@ -29,20 +29,28 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AttemptLogin(int? id)
+        public IActionResult Login([Bind] LoginViewModel model)
         {
-            bool isValid = this.loginDAL.isLoginValid(context);
-            User user = await this.context.User.FindAsync(id);
+            var u = model.Username;
+            var p = model.Password;
 
-            if (isValid) {
-                ViewBag.Message = "Login OK";
+            if (!(String.IsNullOrEmpty(u) || String.IsNullOrEmpty(p)))
+            {
+                bool isValid = this.loginDAL.isLoginValid(context, u, p);
+
+                if (isValid) {
+                    ViewBag.Message = "Login suceeded.";
+                } else
+                {
+                    ViewBag.Message = "Login failed. Check username or password";
+                }
             }
-            return View(user);
+            return View(model);
         }
-
+        
         public IActionResult Login()
         {
-            return View(loginViewModel);
+            return View();
         }
 
             /// <summary>Errors this instance.</summary>
