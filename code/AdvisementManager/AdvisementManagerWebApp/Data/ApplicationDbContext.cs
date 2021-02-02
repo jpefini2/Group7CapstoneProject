@@ -32,5 +32,11 @@ namespace AdvisementManagerWebApp.Data
         /// <value>The advisor.</value>
         public DbSet<Advisor> Advisor { get; set; }
 
+        /// <summary>Gets or sets the user.</summary>
+        /// <value>The user.</value>
+        public DbSet<User> User { get; set; }
+
+
+
     }
 }

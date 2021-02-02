@@ -1,3 +1,4 @@
+using AdvisementManagerWebApp.DAL;
 using AdvisementManagerWebApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,6 +50,12 @@ namespace AdvisementManagerWebApp
 
             app.UseRouting();
 
+            app.Use(async (context, next) =>
+            {
+                var controller = context.Request.RouteValues["controller"];
+                await next();
+            });
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -57,6 +64,7 @@ namespace AdvisementManagerWebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=StudentHome}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
