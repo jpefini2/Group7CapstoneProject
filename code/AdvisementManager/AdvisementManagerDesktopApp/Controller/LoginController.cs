@@ -1,4 +1,5 @@
 ﻿using AdvisementManagerDesktopApp.DAL;
+using AdvisementManagerDesktopApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,11 @@ namespace AdvisementManagerDesktopApp.Controller
             return loginDAL.Authenticate(username, password);
         }
 
-        internal void InitializeLogin(string username)
+        internal Advisor InitializeLogin(string username)
         {
             var loginDAL = new LoginDAL();
-            loginDAL.LogInUser(username);
+            Advisor advisor = loginDAL.LogInUser(username);
+            return advisor;
         }
     }
 }

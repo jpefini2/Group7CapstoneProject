@@ -55,6 +55,8 @@ namespace AdvisementManagerDesktopApp.View
             }
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
+            this.loggedInLabel.Text = "Logged in: " + this.advisor.FirstName + " " + this.advisor.LastName;
+            
         }
 
         private void checkHolds()
@@ -113,6 +115,11 @@ namespace AdvisementManagerDesktopApp.View
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void AdvisementSessionForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

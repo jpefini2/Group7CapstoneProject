@@ -21,13 +21,25 @@ namespace AdvisementManagerDesktopApp
                 Email = "jennyJade@gmail.com"
             };
 
-            var advisor2 = new Advisor
+            var hold = new Hold
+            {
+                Id = 2,
+                Reason = "Fees not paid",
+                Date = DateTime.Now,
+                IsActive = true
+            };
+
+            var student = new Student
             {
                 Id = 2,
                 FirstName = "Josh",
                 LastName = "Michael",
-                IsFacultyAdvisor = true,
-                Email = "joshMichael@gmail.com"
+                Email = "joshMichael@gmail.com",
+                GeneralAdvisor = advisor1,
+                FacultyAdvisor = advisor1,
+                Hold = hold
+
+
             };
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

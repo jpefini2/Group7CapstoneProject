@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using AdvisementManagerDesktopApp.Model;
 
 namespace AdvisementManagerDesktopApp.DAL
 {
@@ -31,7 +32,7 @@ namespace AdvisementManagerDesktopApp.DAL
             }
         }
 
-        internal void LogInUser(string username)
+        internal Advisor LogInUser(string username)
         {
             var conn = DbConnection.GetConnection();
             using (conn)
@@ -43,24 +44,22 @@ namespace AdvisementManagerDesktopApp.DAL
                 conn.Open();
                 SqlDataReader dr = sqlCommand.ExecuteReader();
 
-                var templist = new List<string>();
+                var templist = new List<Advisor>();
 
                 while (dr.Read())
                 {
-                    var advisorID = dr.GetInt32(0);
-                    var firstName = dr.GetString(1);
-                    var lastName = dr.GetString(2);
-                    var isFacultyAdvisor = dr.GetBoolean(3);
-                    var email = dr.GetString(4);
+                    var advisor = new Advisor
+                    {
+                        Id = dr.GetInt32(0),
+                        FirstName = dr.GetString(1),
+                        LastName = dr.GetString(2),
+                        IsFacultyAdvisor = dr.GetBoolean(3),
+                        Email = dr.GetString(4)
+                    };
 
-                    var s = advisorID + ", " + firstName + ", " + lastName + ", " + isFacultyAdvisor + ", " + email;
-                    templist.Add(s);
-                }
-
-                foreach(string str in templist)
-                {
-                    Trace.WriteLine(str);
-                }
+                    templist.Add(advisor);
+                };
+                return templist.First();                
             }
         }
     }

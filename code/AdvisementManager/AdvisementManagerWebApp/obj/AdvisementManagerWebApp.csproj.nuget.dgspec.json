@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {}
   },
   "projects": {
@@ -13,26 +12,14 @@
         "projectPath": "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\User\\CapStone\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
-=======
-    "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
-        "projectName": "AdvisementManagerWebApp",
-        "projectPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\AdvisementManagerWebApp.csproj",
-        "packagesPath": "C:\\Users\\joshp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerWebApp\\obj\\",
->>>>>>> 713e036f3676d6304f3f7ee9278f7f2ad2ca85b8
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\joshp\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

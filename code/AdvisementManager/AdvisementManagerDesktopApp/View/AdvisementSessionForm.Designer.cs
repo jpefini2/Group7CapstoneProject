@@ -36,6 +36,7 @@ namespace AdvisementManagerDesktopApp.View
             this.label3 = new System.Windows.Forms.Label();
             this.stageLbl = new System.Windows.Forms.Label();
             this.removeHoldBtn = new System.Windows.Forms.Button();
+            this.loggedInLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // approveBtn
@@ -104,11 +105,21 @@ namespace AdvisementManagerDesktopApp.View
             this.removeHoldBtn.UseVisualStyleBackColor = true;
             this.removeHoldBtn.Click += new System.EventHandler(this.removeHoldBtn_Click);
             // 
+            // loggedInLabel
+            // 
+            this.loggedInLabel.AutoSize = true;
+            this.loggedInLabel.Location = new System.Drawing.Point(557, 9);
+            this.loggedInLabel.Name = "loggedInLabel";
+            this.loggedInLabel.Size = new System.Drawing.Size(66, 15);
+            this.loggedInLabel.TabIndex = 8;
+            this.loggedInLabel.Text = "Logged in: ";
+            // 
             // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.loggedInLabel);
             this.Controls.Add(this.removeHoldBtn);
             this.Controls.Add(this.stageLbl);
             this.Controls.Add(this.label3);
@@ -118,6 +129,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.approveBtn);
             this.Name = "AdvisementSessionForm";
             this.Text = "Advisement Session";
+            this.Load += new System.EventHandler(this.AdvisementSessionForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +143,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label stageLbl;
         private System.Windows.Forms.Button removeHoldBtn;
+        private System.Windows.Forms.Label loggedInLabel;
     }
 }
 

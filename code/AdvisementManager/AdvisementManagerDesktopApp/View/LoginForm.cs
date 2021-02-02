@@ -1,4 +1,5 @@
 ﻿using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.Model;
 using System;
 using System.Windows.Forms;
 
@@ -15,6 +16,14 @@ namespace AdvisementManagerDesktopApp.View
 
         private void LoginButtonClicked(object sender, EventArgs e)
         {
+            var hold = new Hold
+            {
+                Id = 2,
+                Reason = "Fees not paid",
+                Date = DateTime.Now,
+                IsActive = true
+            };
+          
             if (!IsEntryValid(usernameTextBox.Text)) return;
             if(!IsEntryValid(passwordTextBox.Text)) return;
 
@@ -24,7 +33,19 @@ namespace AdvisementManagerDesktopApp.View
             if (this.loginController.Authenticate(username, password))
             {
                 MessageBox.Show(@"Login OK.");
-                this.loginController.InitializeLogin(username);
+                Advisor advisor = this.loginController.InitializeLogin(username);
+                var student = new Student
+                {
+                    Id = 2,
+                    FirstName = "Josh",
+                    LastName = "Michael",
+                    Email = "joshMichael@gmail.com",
+                    GeneralAdvisor = advisor,
+                    FacultyAdvisor = advisor,
+                    Hold = hold
+                };
+                var form = new AdvisementSessionForm(student, advisor);
+                form.Show();
             } else
             {
                 MessageBox.Show(@"Wrong username or password.");
