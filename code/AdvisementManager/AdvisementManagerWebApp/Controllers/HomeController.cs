@@ -3,6 +3,8 @@ using AdvisementManagerWebApp.Temp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using AdvisementManagerWebApp.DAL;
+using AdvisementManagerWebApp.Data;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -11,16 +13,19 @@ namespace AdvisementManagerWebApp.Controllers
     /// </summary>
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext context;
 
-        private Student studentModel;
+        private readonly Student studentModel;
+
+        private readonly StudentDal studentDal = new();
 
         /// <summary>Initializes a new instance of the <see cref="HomeController" /> class.</summary>
         /// <param name="logger">The logger.</param>
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
-            this.studentModel = TestUtilities.GetTestStudent();
+            this.context = context;
+
+            this.studentModel = this.studentDal.ObtainStudentWithId(1, this.context);
         }
 
         /// <summary>Students the home.</summary>

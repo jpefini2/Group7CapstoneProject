@@ -34,6 +34,12 @@ namespace AdvisementManagerWebApp.Models
         [Column("email")]
         public string Email { get; set; }
 
+        [Column("advisorGeneralId")]
+        public int generalAdvisorId { get; set; }
+
+        [Column("advisorFacultyId")]
+        public int facultyAdvisorId { get; set; }
+
         /// <summary>Gets or sets the general advisor.</summary>
         /// <value>The general advisor.</value>
         [NotMapped]
@@ -85,11 +91,9 @@ namespace AdvisementManagerWebApp.Models
         {
             get
             {
-                DateTime? upcomingMeetingTime = this.hasUpcomingAdvisementSession();
-
-                if (upcomingMeetingTime.HasValue)
+                if (this.hasUpcomingAdvisementSession())
                 {
-                    return "Meeting at " + upcomingMeetingTime.ToString();
+                    return "Meeting at " + this.Meeting.Date;
                 }
                 else
                 {
@@ -105,20 +109,12 @@ namespace AdvisementManagerWebApp.Models
         }
 
         /// <summary>
-        /// Returns the dateTime of the students upcoming meeting, if there are any.
+        /// Returns if the student has an upcoming meeting;
         /// </summary>
-        /// <returns>DateTime of meeting if havent passed yet, null if all have passed</returns>
-        private DateTime? hasUpcomingAdvisementSession()
+        /// <returns>bool of if the student has an upcoming meeting</returns>
+        private bool hasUpcomingAdvisementSession()
         {
-            foreach (var meeting in this.Meetings)
-            {
-                if (meeting.Date.CompareTo(DateTime.Now) == -1)
-                {
-                    return meeting.Date;
-                }
-            }
-
-            return null;
+            return this.Meeting != null;
         }
 
         /// <summary>Converts to string.</summary>

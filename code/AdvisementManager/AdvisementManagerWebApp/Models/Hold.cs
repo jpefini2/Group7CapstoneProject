@@ -30,5 +30,17 @@ namespace AdvisementManagerWebApp.Models
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [Column("isActive")]
         public bool IsActive { get; set; }
+
+        public override string ToString()
+        {
+            if (this.IsActive)
+            {
+                return "Hold: " + this.Reason;
+            }
+            else
+            {
+                return "No Hold";
+            }
+        }
     }
 }
