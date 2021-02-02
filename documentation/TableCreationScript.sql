@@ -45,7 +45,7 @@ CREATE TABLE Hold (
   reason VARCHAR(100) NULL,
   dateAdded DATETIME2(0) NOT NULL,
   isActive BIT NOT NULL,
-  studentID INT NOT NULL,
+  studentID INT UNIQUE NOT NULL,
   CONSTRAINT fk_hold_studentID
     FOREIGN KEY (studentID)
     REFERENCES Student (studentID)
@@ -111,10 +111,7 @@ INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacult
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('registration', '1-16-2021', 1, 1),
 ('fees not paid', '12-20-2020', 1, 2),
-('advisement', '11-20-2020', 1, 2),
-('paperwork', '10-17-2020', 1, 1),
-('fees not paid', '11-20-2020', 1, 2),
-('advisement', '12-22-2020', 0, 3)
+('advisement', '11-20-2020', 1, 3)
 
 INSERT INTO AdvisementSession (studentID, advisorID, sessionDate, stage, completed, notes) VALUES
 (1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
