@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 public class LoginViewModel
@@ -12,6 +13,9 @@ public class LoginViewModel
     [Required]
     [Display(Name = "Password")]
     public string Password { get; set; }
+
+    [Display(Name = "Message")]
+    public string Message { get; set; }
 
     #endregion
 }

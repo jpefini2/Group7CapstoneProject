@@ -1,34 +1,59 @@
 ﻿using AdvisementManagerWebApp.DAL;
+using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
+using AdvisementManagerWebApp.Temp;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
-public class AccountController : Controller
+namespace AdvisementManagerWebApp.Controllers
 {
-    IAuthService _authService;
-    public AccountController(IAuthService authservice)
+    /// <summary>
+    ///   The account controllers class
+    /// </summary>
+    public class AccountController : Controller
     {
-        _authService = authservice;
-    }
-    public IActionResult index()
-    {
-        LoginUserModel model = new LoginUserModel();
+        private readonly ApplicationDbContext context;
 
-        return View(model);
-    }
+        private LoginViewModel loginViewModel = new();
+        
+        private LoginDAL loginDAL = new();
 
-    [HttpPost]
-    public IActionResult index(LoginUserModel model)
-    {
-        User u = _authService.GetUser(model.Username, model.Password);
-        if (u != null)
+        /// <summary>Initializes a new instance of the <see cref="AccountController" /> class.</summary>
+        /// <param name="logger">The logger.</param>
+        public AccountController(ApplicationDbContext context)
         {
-            //SessionHelper.SetObjectAsJson(HttpContext.Session, "userObject", u);
-            return RedirectToAction("controlpanel");
+            this.context = context;
         }
-        else
+
+        [HttpPost]
+        public async Task<IActionResult> AttemptLogin(int? id)
         {
-            return RedirectToAction("auth-failed");
+            bool isValid = this.loginDAL.isLoginValid(context);
+            User user = await this.context.User.FindAsync(id);
+
+            if (isValid) {
+                ViewBag.Message = "Login OK";
+            }
+            return View(user);
         }
-        return View(model);
+
+        public IActionResult Login()
+        {
+            return View(loginViewModel);
+        }
+
+            /// <summary>Errors this instance.</summary>
+            /// <returns>
+            ///   The errors views model
+            /// </returns>
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
+

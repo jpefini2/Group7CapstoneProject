@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvisementManagerWebApp.Models
 {
-    public class User
+    public partial class User
     {
+        [Key]
+        [Column("username")]
         public string Username { get; set; }
+
+        [Column("password")]
         public string Password { get; set; }
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
     }
 }

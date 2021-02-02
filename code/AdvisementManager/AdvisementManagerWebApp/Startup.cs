@@ -29,7 +29,6 @@ namespace AdvisementManagerWebApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSingleton<IAuthService, AuthService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +50,12 @@ namespace AdvisementManagerWebApp
 
             app.UseRouting();
 
+            app.Use(async (context, next) =>
+            {
+                var controller = context.Request.RouteValues["controller"];
+                await next();
+            });
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -59,6 +64,7 @@ namespace AdvisementManagerWebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=StudentHome}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
