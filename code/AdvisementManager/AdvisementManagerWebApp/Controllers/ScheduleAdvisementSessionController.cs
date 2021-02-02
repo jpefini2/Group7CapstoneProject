@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AdvisementManagerWebApp.DAL;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -13,13 +14,19 @@ namespace AdvisementManagerWebApp.Controllers
     /// </summary>
     public class ScheduleAdvisementSessionController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
+
+        private readonly ScheduleAdvisementSessionDAL scheduleDal = new();
+
+        private readonly StudentDal studentDal = new();
+
+        private readonly AdvisorDAL advisorDal = new();
 
         /// <summary>Initializes a new instance of the <see cref="ScheduleAdvisementSessionController" /> class.</summary>
         /// <param name="context">The context.</param>
         public ScheduleAdvisementSessionController(ApplicationDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         /// <summary>Schedules the advisement session asynchronous.</summary>
@@ -30,14 +37,9 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>
         ///   The view to the schedule advisement session
         /// </returns>
-        public async Task<IActionResult> ScheduleAdvisementSessionAsync(int studentid, string holdreason, int generaladvisorid, int facultyadvisorid)
+        public IActionResult ScheduleAdvisementSessionAsync(int studentid, string holdreason, int generaladvisorid, int facultyadvisorid)
         {
-            Student student = await _context.Student.FindAsync(studentid);
-            Advisor generalAdvisor = await _context.Advisor.FindAsync(generaladvisorid);
-            Advisor facultyAdvisor = await _context.Advisor.FindAsync(facultyadvisorid);
-
-            student.GeneralAdvisor = generalAdvisor;
-            student.FacultyAdvisor = facultyAdvisor;
+            Student student = this.studentDal.ObtainStudentWithId(studentid, this.context);
 
             ScheduleAdvisementModel model = initializeScheduleAdvismentModel(student, holdreason);
 
@@ -91,8 +93,7 @@ namespace AdvisementManagerWebApp.Controllers
                 Completed = false
             };
 
-            this._context.Entry(session).State = EntityState.Added;
-            this._context.SaveChanges();
+            this.scheduleDal.ScheduleAdvisementSession(session, this.context);
 
             return RedirectToAction("StudentHome", "Home");
         }
