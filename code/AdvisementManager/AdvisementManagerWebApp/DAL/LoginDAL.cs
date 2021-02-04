@@ -4,23 +4,35 @@ using Microsoft.EntityFrameworkCore;
 using AdvisementManagerWebApp.Models;
 using System.Diagnostics;
 using System;
+using System.Data.SqlClient;
 
 namespace AdvisementManagerWebApp.DAL
 {
     public class LoginDAL
     {
-
-        public bool isLoginValid(ApplicationDbContext context, string username, string password)
+        public ApplicationDbContext context;
+        public LoginDAL(ApplicationDbContext context)
         {
-            if(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
+            this.context = context;
+        }
+
+        /// <summary>Determines if the log in information is valid.</summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="username">The input username.</param>
+        /// <param name="password">The input password.</param>
+        /// <returns>True if the login information is valid, false otherwise.</returns>
+        public bool AttemptLogin(string username, string password)
+        {
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
                 return false;
             }
             try
             {
-                var s = context.User.FromSqlRaw("SELECT * From Login Where username = '" + username + "' AND password = '" + password + "'");
-                Trace.WriteLine(s);
-                return s.Single().Password == password;
+                User user = this.context.Login.Find(username);
+                this.context.LoggedInUser = user;
+                
+                return user != null;
             }
             catch (InvalidOperationException)
             {

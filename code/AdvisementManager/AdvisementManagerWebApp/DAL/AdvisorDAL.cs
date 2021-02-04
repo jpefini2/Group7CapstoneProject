@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdvisementManagerWebApp.Data;
+﻿using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
 
 namespace AdvisementManagerWebApp.DAL
@@ -17,7 +13,7 @@ namespace AdvisementManagerWebApp.DAL
         /// </returns>
         public Advisor ObtainAdvisorWithId(int id, ApplicationDbContext context)
         {
-            return context.Advisor.Find(2);
+            return context.Advisor.Find(id);
         }
     }
 }

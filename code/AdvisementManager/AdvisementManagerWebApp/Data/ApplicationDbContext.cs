@@ -34,9 +34,9 @@ namespace AdvisementManagerWebApp.Data
 
         /// <summary>Gets or sets the user.</summary>
         /// <value>The user.</value>
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Login { get; set; }
 
-
+        public User LoggedInUser { get; set; }
 
     }
 }
