@@ -1,60 +1,67 @@
-﻿@model Student
+﻿@using AdvisementManagerWebApp.Resources
+@model AdvisementSessionVM
 
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
+    var cleanedReason = Model.student.Hold.Reason.Trim();
+    var advisorType = Model.advisor.IsFacultyAdvisor;
 }
 
-@if (@Model.Meeting == null)
+@if (@Model.student.Meeting == null)
 {
     ViewBag.MeetingTime = "no meeting scheduled";
 }
 else
 {
-    ViewBag.MeetingTime = @Model.Meeting.Date;
+    ViewBag.MeetingTime = @Model.student.Meeting.Date;
 }
 
 <table class="table">
     <tbody>
         <tr>
             <td>
-                Name: @Model.FirstName @Model.LastName
+                Name: @Model.student.FirstName @Model.student.LastName
             </td>
             <td></td>
             <td>
                 Meeting Time: @ViewBag.MeetingTime
             </td>
         </tr>
-    <tr>
-        <td>
-            @Model.Email
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Hold: @Model.Hold.Reason
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <div>
-                <a asp-action="ApproveMeeting" asp-route-id="@Model.Hold.Id"
-                   class="btn btn-primary">Approve</a>
-            
-                <a asp-action="AdvisementSessions"
-                   class="btn btn-secondary">Cancel</a>
-            </div>
+        <tr>
+            <td>
+                @Model.student.Email
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Hold: @Model.student.Hold.Reason
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div>
+                    @if (Model.student.Meeting != null)
+                    {
+                        if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
+                        {
 
-            <div>
-                @if (Model.Hold.Reason.Equals("Student has met with faculty advisor hold pending removal."))
-                {
-                    <a asp-action="RemoveHold" asp-route-id="@Model.Hold.Id"
-                       class="btn btn-danger">Remove Hold</a>
-                }
-            </div>
-        </td>
-    </tr>
+                            <a asp-action="ApproveMeeting" asp-route-id="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id"
+                               class="btn btn-primary">Approve</a>
+                        } else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
+                        {
+                            <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
+                               class="btn btn-danger">Remove Hold</a>
+                        }
+                    }
+
+                    <a asp-action="AdvisementSessions"
+                       class="btn btn-secondary">Cancel</a>
+                </div>
+            </td>
+        </tr>
     </tbody>
 </table>
+<div>@TempData["MeetingTimeError"]</div>
 

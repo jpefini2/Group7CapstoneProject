@@ -27,7 +27,7 @@ namespace AdvisementManagerWebApp.DAL
         {
             return context.Student
                 .FromSqlRaw(
-                    "SELECT distinct student.studentID, student.firstName, student.lastName, student.email From Student INNER JOIN Hold ON Hold.studentID = Student.studentID  WHERE isActive = 1;")
+                    "SELECT distinct student.studentID, student.firstName, student.lastName, student.email, student.advisorFacultyID, student.advisorGeneralID From Student INNER JOIN Hold ON Hold.studentID = Student.studentID  WHERE isActive = 1;")
                 .ToList();
         }
 

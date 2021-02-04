@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using AdvisementManagerWebApp.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using AdvisementManagerWebApp.DAL;
 using AdvisementManagerWebApp.Data;
+using AdvisementManagerWebApp.Resources;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -62,29 +64,70 @@ namespace AdvisementManagerWebApp.Controllers
             }
 
             var student =  await this.context.Student.FindAsync(id);
+            var advisor = await this.context.Advisor.FindAsync(1);
 
             student.Meeting = this.sessionDal.ObtainSession(id, this.context);
             student.Hold = this.holdDal.ObtainHold(id, this.context);
 
-            return View(student);
+            var sessionVM = new AdvisementSessionVM {
+                student = student,
+                advisor = advisor
+            };
+
+            return View(sessionVM);
         }
 
         /// <summary>
         /// Approves the meeting.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="time">The time.</param>
+        /// <param name="advisorId">The advisor identifier.</param>
         /// <returns>
-        ///     A redirection to the advisement sessions view
+        /// A redirection to the advisement sessions view
         /// </returns>
-        public RedirectToRouteResult ApproveMeeting(int? id)
+        public RedirectToRouteResult ApproveMeeting(int? id, DateTime? time, int advisorId)
         {
-            const string approvalReason = "Student has met with faculty advisor hold pending removal.";
-            var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
-            hold.Reason = approvalReason;
-            
-            this.context.SaveChanges();
+            var redirectRoute = RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
 
-            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions"});
+            if (time > DateTime.Now)
+            {
+                redirectRoute = this.redirectToCurrentPage(id);
+            }
+            else
+            {
+                var advisor = this.context.Advisor.Find(advisorId);
+                var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
+                updateHoldReason(advisor, hold);
+
+                this.context.SaveChanges();
+            }
+
+            return redirectRoute;
+        }
+
+        private RedirectToRouteResult redirectToCurrentPage(int? id)
+        {
+            TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
+
+            var redirectRoute = RedirectToRoute(new {
+                action = "AdvisementSession",
+                controller = "AdvisementSessions",
+                id
+            });
+            return redirectRoute;
+        }
+
+        private static void updateHoldReason(Advisor advisor, Hold hold)
+        {
+            if (advisor.IsFacultyAdvisor)
+            {
+                hold.Reason = ConstantManager.WaitingForHoldRemoval;
+            }
+            else
+            {
+                hold.Reason = ConstantManager.NeedToMeetFacAdvisor;
+            }
         }
 
         /// <summary>
@@ -99,7 +142,7 @@ namespace AdvisementManagerWebApp.Controllers
             var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
 
             hold.IsActive = false;
-            hold.Reason = "No holds";
+            hold.Reason = ConstantManager.ReadyToRegister;
             this.context.SaveChanges();
 
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
