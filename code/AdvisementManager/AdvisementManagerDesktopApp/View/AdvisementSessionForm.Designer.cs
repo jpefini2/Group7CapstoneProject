@@ -37,6 +37,7 @@ namespace AdvisementManagerDesktopApp.View
             this.stageLbl = new System.Windows.Forms.Label();
             this.removeHoldBtn = new System.Windows.Forms.Button();
             this.loggedInLabel = new System.Windows.Forms.Label();
+            this.waitForMeetingTimeLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // approveBtn
@@ -47,6 +48,7 @@ namespace AdvisementManagerDesktopApp.View
             this.approveBtn.TabIndex = 1;
             this.approveBtn.Text = "Approve";
             this.approveBtn.UseVisualStyleBackColor = true;
+            this.approveBtn.Visible = false;
             this.approveBtn.Click += new System.EventHandler(this.approveBtn_Click);
             // 
             // cancelBtn
@@ -97,12 +99,13 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // removeHoldBtn
             // 
-            this.removeHoldBtn.Location = new System.Drawing.Point(619, 371);
+            this.removeHoldBtn.Location = new System.Drawing.Point(230, 371);
             this.removeHoldBtn.Name = "removeHoldBtn";
             this.removeHoldBtn.Size = new System.Drawing.Size(105, 54);
             this.removeHoldBtn.TabIndex = 7;
             this.removeHoldBtn.Text = "Remove Hold";
             this.removeHoldBtn.UseVisualStyleBackColor = true;
+            this.removeHoldBtn.Visible = false;
             this.removeHoldBtn.Click += new System.EventHandler(this.removeHoldBtn_Click);
             // 
             // loggedInLabel
@@ -114,11 +117,23 @@ namespace AdvisementManagerDesktopApp.View
             this.loggedInLabel.TabIndex = 8;
             this.loggedInLabel.Text = "Logged in: ";
             // 
+            // waitForMeetingTimeLbl
+            // 
+            this.waitForMeetingTimeLbl.AutoSize = true;
+            this.waitForMeetingTimeLbl.ForeColor = System.Drawing.Color.Red;
+            this.waitForMeetingTimeLbl.Location = new System.Drawing.Point(230, 338);
+            this.waitForMeetingTimeLbl.Name = "waitForMeetingTimeLbl";
+            this.waitForMeetingTimeLbl.Size = new System.Drawing.Size(298, 15);
+            this.waitForMeetingTimeLbl.TabIndex = 9;
+            this.waitForMeetingTimeLbl.Text = "Please wait until the meeting time to approve a student";
+            this.waitForMeetingTimeLbl.Visible = false;
+            // 
             // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.waitForMeetingTimeLbl);
             this.Controls.Add(this.loggedInLabel);
             this.Controls.Add(this.removeHoldBtn);
             this.Controls.Add(this.stageLbl);
@@ -144,6 +159,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label stageLbl;
         private System.Windows.Forms.Button removeHoldBtn;
         private System.Windows.Forms.Label loggedInLabel;
+        private System.Windows.Forms.Label waitForMeetingTimeLbl;
     }
 }
 

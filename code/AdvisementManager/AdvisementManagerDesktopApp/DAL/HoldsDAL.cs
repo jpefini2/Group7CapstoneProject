@@ -96,7 +96,7 @@ namespace AdvisementManagerDesktopApp.DAL
 
         /// <summary>Approves the faculty advisor meeting.</summary>
         /// <param name="student">The student.</param>
-        public void ApproveFacultyAdvisorMeeting(Student student)
+        public void ApproveAdvisorMeeting(Student student)
         {
             var conn = DbConnection.GetConnection();
             using (conn)

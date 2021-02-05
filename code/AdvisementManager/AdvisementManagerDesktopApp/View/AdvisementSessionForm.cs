@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
+using AdvisementManagerDesktopApp.Resources;
 using Microsoft.Data.SqlClient;
 
 namespace AdvisementManagerDesktopApp.View
@@ -26,8 +28,6 @@ namespace AdvisementManagerDesktopApp.View
             this.advisor = advisor;
             this.checkForMeeting();
             this.setUpScreen();
-
-            this.checkHolds();
         }
 
 
@@ -45,65 +45,77 @@ namespace AdvisementManagerDesktopApp.View
 
         private void setUpScreen()
         {
-            if (this.student.Meeting == null || this.student.Meeting.Date == DateTime.MinValue)
-            {
-                this.meetingTimeLbl.Text = @"No meetings scheduled";
-            }
-            else
-            {
-                this.meetingTimeLbl.Text = this.student.Meeting.Date.ToString(CultureInfo.InvariantCulture);
-            }
+            this.checkStageAndAdvisor();
+            this.updateMeetingTimeLabel();
+
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
             this.loggedInLabel.Text = "Logged in: " + this.advisor.FirstName + " " + this.advisor.LastName;
             
         }
 
-        private void checkHolds()
+        private void updateMeetingTimeLabel()
         {
-            if (this.advisor.IsFacultyAdvisor)
+            if (this.student.Meeting == null || this.student.Meeting.Date == DateTime.MinValue)
             {
-                this.toggleHoldButton(false);
+                this.meetingTimeLbl.Text = @"No meetings scheduled";
+                this.approveBtn.Visible = false;
             }
             else
             {
-                this.toggleHoldButton(true);
-            }
-
-            if (!this.student.Hold.Reason.Equals("Student has met with faculty advisor hold pending removal."))
-            {
-                this.toggleHoldButton(false);
+                this.meetingTimeLbl.Text = this.student.Meeting.Date.ToString(CultureInfo.InvariantCulture);
             }
         }
 
-        private void toggleHoldButton(bool shouldShow)
+        private void checkStageAndAdvisor()
         {
-            this.removeHoldBtn.Visible = shouldShow;
-            this.removeHoldBtn.Enabled = shouldShow;
+            var holdReason = this.student.Hold.Reason.Trim();
+            var advisorType = this.advisor.IsFacultyAdvisor;
+
+            if (advisorType && holdReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && holdReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
+            {
+                this.approveBtn.Visible = true;
+            } 
+            else if (!advisorType && holdReason.Equals(ConstantManager.WaitingForHoldRemoval))
+            {
+                this.removeHoldBtn.Visible = true;
+            }
         }
 
         private void approveBtn_Click(object sender, EventArgs e)
         {
+            if(this.checkIfMeetingTimePassed())
+            {
+                try
+                {
+                    this.sessionController.ApproveMeeting(this.student, this.advisor);
+                    this.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
 
-            try
+        private bool checkIfMeetingTimePassed()
+        {
+            var timePassed = true;
+            if (this.student.Meeting.Date > DateTime.Now)
             {
-                this.sessionController.ApproveMeeting(this.student, this.advisor);
-                this.Close();
+                timePassed = false;
+                this.waitForMeetingTimeLbl.Visible = true;
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+
+            return timePassed;
         }
 
         private void removeHoldBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                this.student.Hold.IsActive = false;
-                this.student.Hold.Reason = "No holds";
                 this.sessionController.RemoveHold(this.student);
-                this.setUpScreen();
+                this.Close();
                 MessageBox.Show(@"Hold Removed");
             }
             catch (SqlException ex)

@@ -1,5 +1,6 @@
 ﻿using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using AdvisementManagerDesktopApp.Resources;
 
 namespace AdvisementManagerDesktopApp.Controller
 {
@@ -18,16 +19,23 @@ namespace AdvisementManagerDesktopApp.Controller
         {
             if (advisor.IsFacultyAdvisor)
             {
-                student.Hold.Reason = @"Student has met with faculty advisor hold pending removal.";
-                this.holdsDal.ApproveFacultyAdvisorMeeting(student);
+                student.Hold.Reason = ConstantManager.WaitingForHoldRemoval;
             }
+            else
+            {
+                student.Hold.Reason = ConstantManager.NeedToMeetFacAdvisor;
+            } 
 
+
+            this.holdsDal.ApproveAdvisorMeeting(student);
         }
 
         /// <summary>Removes the hold.</summary>
         /// <param name="student">The student.</param>
         public void RemoveHold(Student student)
         {
+            student.Hold.Reason = ConstantManager.ReadyToRegister;
+            student.Hold.IsActive = false;
             this.holdsDal.RemoveHold(student);
 
         }

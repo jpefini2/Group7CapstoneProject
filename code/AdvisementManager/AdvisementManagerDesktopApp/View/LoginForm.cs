@@ -44,7 +44,8 @@ namespace AdvisementManagerDesktopApp.View
                     FacultyAdvisor = advisor,
                     Hold = hold
                 };
-                var form = new AdvisementSessionForm(student, advisor);
+                //var form = new AdvisementSessionForm(student, advisor);
+                var form = new AdvisementSessionsForm(advisor);
                 form.Show();
             } else
             {
