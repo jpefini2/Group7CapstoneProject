@@ -1,5 +1,5 @@
-using AdvisementManagerWebApp.DAL;
-using AdvisementManagerWebApp.Data;
+using StudentAdvisementManagerWebApp.DAL;
+using StudentAdvisementManagerWebApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AdvisementManagerWebApp
+namespace StudentAdvisementManagerWebApp
 {
     public class Startup
     {
@@ -63,10 +63,11 @@ namespace AdvisementManagerWebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=StudentHome}/{id?}");
 
                 endpoints.MapRazorPages();
             });
         }
     }
 }
+

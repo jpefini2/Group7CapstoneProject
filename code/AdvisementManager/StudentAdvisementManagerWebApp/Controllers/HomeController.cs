@@ -1,11 +1,11 @@
-﻿using AdvisementManagerWebApp.Models;
+﻿using StudentAdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using AdvisementManagerWebApp.DAL;
-using AdvisementManagerWebApp.Data;
+using StudentAdvisementManagerWebApp.DAL;
+using StudentAdvisementManagerWebApp.Data;
 
-namespace AdvisementManagerWebApp.Controllers
+namespace StudentAdvisementManagerWebApp.Controllers
 {
     /// <summary>
     ///   The home controllers class
@@ -59,4 +59,3 @@ namespace AdvisementManagerWebApp.Controllers
         }
     }
 }
-

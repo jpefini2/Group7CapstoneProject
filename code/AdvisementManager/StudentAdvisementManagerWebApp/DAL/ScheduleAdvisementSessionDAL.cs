@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+using StudentAdvisementManagerWebApp.Data;
+using StudentAdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdvisementManagerWebApp.DAL
+namespace StudentAdvisementManagerWebApp.DAL
 {
     public class ScheduleAdvisementSessionDAL
     {

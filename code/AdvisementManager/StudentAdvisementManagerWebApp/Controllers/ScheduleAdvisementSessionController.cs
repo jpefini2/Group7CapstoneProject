@@ -1,13 +1,13 @@
-﻿using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+﻿using StudentAdvisementManagerWebApp.Data;
+using StudentAdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.DAL;
+using StudentAdvisementManagerWebApp.DAL;
 
-namespace AdvisementManagerWebApp.Controllers
+namespace StudentAdvisementManagerWebApp.Controllers
 {
     /// <summary>
     ///   The Schedule advisement session controller class
