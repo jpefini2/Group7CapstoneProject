@@ -14,6 +14,10 @@ namespace StudentAdvisementManagerWebApp.Controllers
     /// </summary>
     public class ScheduleAdvisementSessionController : Controller
     {
+        private readonly string departmentAdvisementHoldReason = "Need to meet with dept advisor";
+
+        private readonly string facultyAdvisementHoldReason = "Need to meet with faculty advisor";
+
         private readonly ApplicationDbContext context;
 
         private readonly ScheduleAdvisementSessionDAL scheduleDal = new();
@@ -27,6 +31,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         public ScheduleAdvisementSessionController(ApplicationDbContext context)
         {
             this.context = context;
+            ViewBag.InvalidInputMessage = String.Empty;
         }
 
         /// <summary>Schedules the advisement session asynchronous.</summary>
@@ -37,11 +42,9 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// <returns>
         ///   The view to the schedule advisement session
         /// </returns>
-        public IActionResult ScheduleAdvisementSessionAsync(int studentid, string holdreason, int generaladvisorid, int facultyadvisorid)
+        public IActionResult ScheduleAdvisementSession(int studentid, string holdreason, int generaladvisorid, int facultyadvisorid)
         {
-            Student student = this.studentDal.ObtainStudentWithId(studentid, this.context);
-
-            ScheduleAdvisementModel model = initializeScheduleAdvismentModel(student, holdreason);
+            ScheduleAdvisementModel model = initializeScheduleAdvismentModel(studentid);
 
             return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", model);
         }
@@ -52,26 +55,28 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// <returns>
         ///   The schedule model
         /// </returns>
-        private ScheduleAdvisementModel initializeScheduleAdvismentModel(Student student, string holdreason)
+        private ScheduleAdvisementModel initializeScheduleAdvismentModel(int studentId)
         {
             ScheduleAdvisementModel scheduleModel = new ScheduleAdvisementModel();
+            Student student = this.studentDal.ObtainStudentWithId(studentId, this.context);
+
             scheduleModel.Student = student;
 
-            if (holdreason == "Student must meet with general advisor")
+            if (student.Hold.Reason == this.departmentAdvisementHoldReason)
             {
-                scheduleModel.Advisor = student.GeneralAdvisor;
+                scheduleModel.Advisor = scheduleModel.Student.GeneralAdvisor;
             }
-            else if (holdreason == "Student must meet with faculty advisor")
+            else if (student.Hold.Reason == this.facultyAdvisementHoldReason)
             {
-                scheduleModel.Advisor = student.FacultyAdvisor;
+                scheduleModel.Advisor = scheduleModel.Student.FacultyAdvisor;
             }
             else
             {
                 Debug.Print("Must add students that have standard reasons");
-                scheduleModel.Advisor = student.GeneralAdvisor;
+                scheduleModel.Advisor = scheduleModel.Student.GeneralAdvisor;
             }
 
-            scheduleModel.SetAvailableSessionTimesListItems(student.GeneralAdvisor);
+            scheduleModel.SetAvailableSessionTimesListItems(scheduleModel.Student.GeneralAdvisor);
             return scheduleModel;
         }
 
@@ -85,17 +90,37 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// </returns>
         public IActionResult ConfirmAppointment(int? studentid, int? advisorid, DateTime date, TimeSpan time)
         {
+            var sessionTime = date.AddMinutes(time.TotalMinutes);
+
+            if (isSessionTimeInTheFuture(sessionTime))
+            {
+                this.scheduleSession(studentid.Value, advisorid.Value, sessionTime);
+                return RedirectToAction("StudentHome", "Home");
+            }
+
+            ScheduleAdvisementModel scheduleModel = initializeScheduleAdvismentModel(studentid.Value);
+
+            ViewBag.InvalidInputMessage = "The appointment time cannot be in the past.";
+
+            return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", scheduleModel);
+        }
+
+        private bool isSessionTimeInTheFuture(DateTime sessionTime)
+        {
+            return DateTime.Compare(sessionTime, DateTime.Now) > 0;
+        }
+
+        private void scheduleSession(int studentId, int advisorId, DateTime sessionTime)
+        {
             AdvisementSession session = new AdvisementSession
             {
-                StudentId = studentid.Value,
-                AdvisorId = advisorid.Value,
-                Date = date.AddMinutes(time.TotalMinutes),
+                StudentId = studentId,
+                AdvisorId = advisorId,
+                Date = sessionTime,
                 Completed = false
             };
 
             this.scheduleDal.ScheduleAdvisementSession(session, this.context);
-
-            return RedirectToAction("StudentHome", "Home");
         }
     }
 }
