@@ -36,7 +36,7 @@ namespace AdvisementManagerWebApp.Data
         /// <value>The user.</value>
         public DbSet<User> Login { get; set; }
 
-        public User LoggedInUser { get; set; }
+        public static User LoggedInUser { get; set; }
 
     }
 }

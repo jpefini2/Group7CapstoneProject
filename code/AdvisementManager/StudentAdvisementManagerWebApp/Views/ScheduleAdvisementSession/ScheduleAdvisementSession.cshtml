@@ -31,6 +31,10 @@
                 <select asp-for="Time" asp-items="Model.AvailableSessionTimes"></select>
             </div>
 
+            <div class="row">
+                <label class="text-danger" col-sm-2">@ViewBag.InvalidInputMessage</label>
+            </div>
+
             <div class="col offset-sm-3 pl-0">
                 <button type="submit"
                         class="btn btn-primary">
