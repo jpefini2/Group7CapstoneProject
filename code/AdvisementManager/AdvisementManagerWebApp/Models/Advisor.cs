@@ -37,6 +37,9 @@ namespace AdvisementManagerWebApp.Models
         [Column("isFacultyAdvisor")]
         public bool IsFacultyAdvisor { get; set; }
 
+        [Column("username")]
+        public string UserName { get; set; }
+
         /// <summary> Gets the Advisor's full name</summary>
         /// <value> FirstName + " " + LastName</value>
         public string FullName

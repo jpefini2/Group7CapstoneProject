@@ -58,13 +58,16 @@ namespace AdvisementManagerWebApp.Controllers
         /// </returns>
         public async Task<IActionResult> AdvisementSession(int? id)
         {
-            if (id == null)
+
+            var user = this.context.Advisor
+                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == ApplicationDbContext.LoggedInUser.Username);
+            if (id == null || user == null)
             {
                 return NotFound();
             }
 
             var student =  await this.context.Student.FindAsync(id);
-            var advisor = await this.context.Advisor.FindAsync(1);
+            var advisor = await this.context.Advisor.FindAsync(user.Id);
 
             student.Meeting = this.sessionDal.ObtainSession(id, this.context);
             student.Hold = this.holdDal.ObtainHold(id, this.context);
