@@ -14,6 +14,10 @@ namespace StudentAdvisementManagerWebApp.Controllers
     /// </summary>
     public class ScheduleAdvisementSessionController : Controller
     {
+        private readonly string departmentAdvisementHoldReason = "Need to meet with dept advisor";
+
+        private readonly string facultyAdvisementHoldReason = "Need to meet with faculty advisor";
+
         private readonly ApplicationDbContext context;
 
         private readonly ScheduleAdvisementSessionDAL scheduleDal = new();
@@ -58,11 +62,11 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
             scheduleModel.Student = student;
 
-            if (student.Hold.Reason == "Student must meet with general advisor")
+            if (student.Hold.Reason == this.departmentAdvisementHoldReason)
             {
                 scheduleModel.Advisor = scheduleModel.Student.GeneralAdvisor;
             }
-            else if (student.Hold.Reason == "Student must meet with faculty advisor")
+            else if (student.Hold.Reason == this.facultyAdvisementHoldReason)
             {
                 scheduleModel.Advisor = scheduleModel.Student.FacultyAdvisor;
             }
