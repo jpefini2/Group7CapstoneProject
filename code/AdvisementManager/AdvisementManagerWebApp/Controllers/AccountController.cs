@@ -27,8 +27,15 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([Bind] LoginViewModel model)
+        public RedirectToRouteResult Login([Bind] LoginViewModel model, int? id)
         {
+            var redirectRoute = RedirectToRoute(new { action = "Login", controller = "Account", id });
+            if (id==1 && this.loginDAL.IsLoggedIn())
+            {
+                this.loginDAL.Logout();
+                return redirectRoute;
+            }
+
             var u = model.Username;
             var p = model.Password;
 
@@ -38,14 +45,15 @@ namespace AdvisementManagerWebApp.Controllers
 
                 if (!isValid) {
                     ViewBag.Message = "Login failed. Check username or password";
+                    return redirectRoute;
                 }
             }
-            return View(model);
-        }
-
-        public User GetLoggedInUser()
-        {
-            return this.context.Login.Find(0);
+            redirectRoute = RedirectToRoute(new
+            {
+                action = "AdvisementSessions",
+                controller = "AdvisementSessions"
+            });
+            return redirectRoute;
         }
         
         public IActionResult Login()
@@ -53,11 +61,11 @@ namespace AdvisementManagerWebApp.Controllers
             return View();
         }
 
-            /// <summary>Errors this instance.</summary>
-            /// <returns>
-            ///   The errors views model
-            /// </returns>
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        /// <summary>Errors this instance.</summary>
+        /// <returns>
+        ///   The errors views model
+        /// </returns>
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
