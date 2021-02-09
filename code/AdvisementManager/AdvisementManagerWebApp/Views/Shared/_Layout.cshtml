@@ -23,8 +23,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-
-                        @if (ApplicationDbContext.LoggedInUser != null)
+                        
+                        @if (Context.Request.Cookies["LoginUser"] != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="AdvisementSessions" asp-action="AdvisementSessions">Advisement Sessions</a>

@@ -30,7 +30,6 @@ namespace AdvisementManagerWebApp.DAL
             try
             {
                 User user = this.context.Login.Find(username);
-                ApplicationDbContext.LoggedInUser = user;
                 
                 return user != null;
             }
@@ -38,16 +37,6 @@ namespace AdvisementManagerWebApp.DAL
             {
                 return false;
             }
-        }
-
-        internal bool IsLoggedIn()
-        {
-            return ApplicationDbContext.LoggedInUser != null;
-        }
-
-        public void Logout()
-        {
-            ApplicationDbContext.LoggedInUser = null;
         }
     }
 }

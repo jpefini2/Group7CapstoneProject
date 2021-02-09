@@ -1,11 +1,9 @@
-﻿@using AdvisementManagerWebApp.Data
-@inject ApplicationDbContext context
-
-<ul class="navbar-nav">
-@if (ApplicationDbContext.LoggedInUser !=null)
+﻿<ul class="navbar-nav">
+@if (Context.Request.Cookies["LoginUser"] != null)
 {
+    String user = Context.Request.Cookies["LoginUser"];
     <li class="nav-item">
-        <a  class="nav-link text-dark" title="Manage">Hello @ApplicationDbContext.LoggedInUser.Username!</a>
+        <a  class="nav-link text-dark" title="Manage">Hello @user!</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-controller="Account" asp-route-id="1" asp-action="Login">

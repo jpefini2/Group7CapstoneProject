@@ -58,9 +58,8 @@ namespace AdvisementManagerWebApp.Controllers
         /// </returns>
         public async Task<IActionResult> AdvisementSession(int? id)
         {
-
             var user = this.context.Advisor
-                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == ApplicationDbContext.LoggedInUser.Username);
+                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["LoginUser"]);
             if (id == null || user == null)
             {
                 return NotFound();

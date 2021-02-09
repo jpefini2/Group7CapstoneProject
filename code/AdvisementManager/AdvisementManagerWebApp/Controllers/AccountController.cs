@@ -4,6 +4,7 @@ using AdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
+using System.Web;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -29,19 +30,21 @@ namespace AdvisementManagerWebApp.Controllers
         [HttpPost]
         public RedirectToRouteResult Login([Bind] LoginViewModel model, int? id)
         {
+            var username = model.Username;
+            var password = model.Password;
+
             var redirectRoute = RedirectToRoute(new { action = "Login", controller = "Account", id });
-            if (id==1 && this.loginDAL.IsLoggedIn())
+            if (id==1 && (Request.Cookies["LoginUser"] != null))
             {
-                this.loginDAL.Logout();
+                Response.Cookies.Delete("LoginUser");
                 return redirectRoute;
             }
 
-            var u = model.Username;
-            var p = model.Password;
+            
 
-            if (!(String.IsNullOrEmpty(u) || String.IsNullOrEmpty(p)))
+            if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
             {
-                bool isValid = this.loginDAL.AttemptLogin(u, p);
+                bool isValid = this.loginDAL.AttemptLogin(username, password);
 
                 if (!isValid) {
                     ViewBag.Message = "Login failed. Check username or password";
@@ -53,6 +56,7 @@ namespace AdvisementManagerWebApp.Controllers
                 action = "AdvisementSessions",
                 controller = "AdvisementSessions"
             });
+            Response.Cookies.Append("LoginUser", username);
             return redirectRoute;
         }
         
