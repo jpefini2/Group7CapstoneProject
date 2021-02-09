@@ -18,14 +18,24 @@ namespace AdvisementManagerWebApp.Controllers
 
         private LoginDAL loginDAL;
 
-        /// <summary>Initializes a new instance of the <see cref="AccountController" /> class.</summary>
-        /// <param name="logger">The logger.</param>
+        /// <summary>Initializes a new instance of the <see cref="AccountController" />class.</summary>
+        /// <param name="context">The ApplicationDBContext</param>
         public AccountController(ApplicationDbContext context)
         {
             this.context = context;
             loginDAL = new LoginDAL(context);
         }
 
+        /// <summary>
+        /// Attempts to log the user in with the provided credentials.
+        /// If successful, creates a session cookie and sends the user
+        /// to the advisement sessions page. If id == 1, logs the
+        /// current user out and deletes their session cookie.
+        /// </summary>
+        /// <param name="model">The LoginViewModel</param>
+        /// <param name="id?">The id indicator.</param>
+        /// <returns>The current page.</returns>
+        /// <returns>The advisement sessions page.</returns>
         [HttpPost]
         public ActionResult Login([Bind] LoginViewModel model, int? id)
         {
@@ -34,7 +44,6 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (id==1 && (Request.Cookies["LoginUser"] != null))
             {
-                Trace.WriteLine("Got here");
                 Response.Cookies.Delete("LoginUser");
                 return RedirectToRoute(new { action = "Login", controller = "Account" });
             }

@@ -24,6 +24,16 @@ namespace AdvisementManagerWebApp.Controllers
             loginDAL = new DAL.LoginDAL(context);
         }
 
+        /// <summary>
+        /// Attempts to log the user in with the provided credentials.
+        /// If successful, creates a session cookie and sends the user
+        /// to the advisement sessions page. If id == 1, logs the
+        /// current user out and deletes their session cookie.
+        /// </summary>
+        /// <param name="model">The LoginViewModel</param>
+        /// <param name="id?">The id indicator.</param>
+        /// <returns>The current page.</returns>
+        /// <returns>The advisement sessions page.</returns>
         [HttpPost]
         public ActionResult Login([Bind] LoginViewModel model, int? id)
         {

@@ -36,9 +36,9 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // viewBtn
             // 
-            this.viewBtn.Location = new System.Drawing.Point(83, 376);
+            this.viewBtn.Location = new System.Drawing.Point(220, 341);
             this.viewBtn.Name = "viewBtn";
-            this.viewBtn.Size = new System.Drawing.Size(115, 53);
+            this.viewBtn.Size = new System.Drawing.Size(161, 39);
             this.viewBtn.TabIndex = 1;
             this.viewBtn.Text = "View";
             this.viewBtn.UseVisualStyleBackColor = true;
@@ -46,27 +46,31 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // studentsWithHoldsListBox
             // 
+            this.studentsWithHoldsListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.studentsWithHoldsListBox.FormattingEnabled = true;
-            this.studentsWithHoldsListBox.ItemHeight = 15;
+            this.studentsWithHoldsListBox.ItemHeight = 21;
             this.studentsWithHoldsListBox.Location = new System.Drawing.Point(12, 100);
             this.studentsWithHoldsListBox.Name = "studentsWithHoldsListBox";
-            this.studentsWithHoldsListBox.Size = new System.Drawing.Size(275, 259);
+            this.studentsWithHoldsListBox.ScrollAlwaysVisible = true;
+            this.studentsWithHoldsListBox.Size = new System.Drawing.Size(590, 214);
+            this.studentsWithHoldsListBox.Sorted = true;
             this.studentsWithHoldsListBox.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 72);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(220, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 15);
+            this.label2.Size = new System.Drawing.Size(166, 21);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Students with holds";
+            this.label2.Text = "Students With Holds";
             // 
             // AdvisementSessionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 450);
+            this.ClientSize = new System.Drawing.Size(614, 439);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.studentsWithHoldsListBox);
             this.Controls.Add(this.viewBtn);

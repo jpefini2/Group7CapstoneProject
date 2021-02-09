@@ -15,11 +15,8 @@ namespace AdvisementManagerWebApp.Controllers
     public class AdvisementSessionsController : Controller
     {
         private readonly ApplicationDbContext context;
-
         private readonly StudentDal studentDal = new();
-
         private readonly HoldDAL holdDal = new();
-
         private readonly AdvisementSessionDAL sessionDal= new();
 
         /// <summary>
@@ -31,21 +28,16 @@ namespace AdvisementManagerWebApp.Controllers
             this.context = context;
         }
 
-        /// <summary>
-        /// Advisements the sessions.
-        /// </summary>
-        /// <returns>
-        ///     The current views students with holds
-        /// </returns>
+        /// <summary>Obtains a list of students that have holds. 
+        /// Returns a page back to the user with the results.</summary>
+        /// <returns>The current views students with holds</returns>
         public IActionResult AdvisementSessions()
         {
-
             var students = this.studentDal.ObtainStudentsWithHolds(this.context);
 
             var studentsWithHolds = new StudentsVM {
                 Students = students
             };
-
             return View(studentsWithHolds);
         }
 
@@ -94,13 +86,13 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (time > DateTime.Now)
             {
-                redirectRoute = this.redirectToCurrentPage(id);
+                redirectRoute = this.RedirectToCurrentPage(id);
             }
             else
             {
                 var advisor = this.context.Advisor.Find(advisorId);
                 var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
-                updateHoldReason(advisor, hold);
+                UpdateHoldReason(advisor, hold);
 
                 this.context.SaveChanges();
             }
@@ -108,7 +100,14 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        private RedirectToRouteResult redirectToCurrentPage(int? id)
+        /// <summary>
+        /// Redirects to the current page.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// A redirection to the current view
+        /// </returns>
+        private RedirectToRouteResult RedirectToCurrentPage(int? id)
         {
             TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
 
@@ -120,7 +119,12 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        private static void updateHoldReason(Advisor advisor, Hold hold)
+        /// <summary>
+        /// Updates the reason for the given hold.
+        /// </summary>
+        /// <param name="advisor">The advisor doing the updating.</param>
+        /// <param name="hold">The hold to update.</param>
+        private static void UpdateHoldReason(Advisor advisor, Hold hold)
         {
             if (advisor.IsFacultyAdvisor)
             {

@@ -1,37 +1,44 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using AdvisementManagerDesktopApp.Model;
 
 namespace AdvisementManagerDesktopApp.DAL
 {
     class LoginDAL
     {
-
+        /// <summary>
+        /// Authenticates the user. Checks to see if the username matches in the Advisor and Login table.
+        /// Checks if the matched username also matches the input password.
+        /// </summary>
+        /// <param name="username">The input username.</param>
+        /// <param name="password">The input password.</param>
+        /// <returns>True if credentials matched, false otherwise.</returns>
         public bool Authenticate(string username, string password)
         {
             var conn = DbConnection.GetConnection();
             using (conn)
             {
-                const string query = @"SELECT * FROM Login WHERE username=@username AND password=@password;";
-                var sqlCommand = new SqlCommand(query, conn);
+                const string advisorQuery = @"SELECT * FROM Login, Advisor WHERE Login.username = Advisor.username AND Login.password = @password AND Advisor.username = @username;";
 
-                sqlCommand.Parameters.AddWithValue("username", username);
-                sqlCommand.Parameters.AddWithValue("password", password);
+                var advisorCommand = new SqlCommand(advisorQuery, conn);
+
+                advisorCommand.Parameters.AddWithValue("username", username);
+                advisorCommand.Parameters.AddWithValue("password", password);
 
                 conn.Open();
-                SqlDataReader dr = sqlCommand.ExecuteReader();
-                if (dr.HasRows) return true;
+                SqlDataReader dr = advisorCommand.ExecuteReader();
+                bool hasRows = dr.HasRows;
                 conn.Close();
-                return false;
+                return hasRows;
             }
         }
 
+        /// <summary>
+        /// Obtains the Advisor object that matches the specified username.
+        /// </summary>
+        /// <param name="username">the input username.</param>
+        /// <returns>The advisor that holds the foreign key that matches this username.</returns>
         internal Advisor LogInUser(string username)
         {
             var conn = DbConnection.GetConnection();
