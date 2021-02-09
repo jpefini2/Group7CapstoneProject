@@ -4,7 +4,6 @@ using AdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
-using System.Web;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -28,36 +27,36 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         [HttpPost]
-        public RedirectToRouteResult Login([Bind] LoginViewModel model, int? id)
+        public ActionResult Login([Bind] LoginViewModel model, int? id)
         {
             var username = model.Username;
             var password = model.Password;
 
-            var redirectRoute = RedirectToRoute(new { action = "Login", controller = "Account", id });
             if (id==1 && (Request.Cookies["LoginUser"] != null))
             {
                 Response.Cookies.Delete("LoginUser");
-                return redirectRoute;
+                return View(model);
             }
-
-            
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
             {
                 bool isValid = this.loginDAL.AttemptLogin(username, password);
 
                 if (!isValid) {
-                    ViewBag.Message = "Login failed. Check username or password";
-                    return redirectRoute;
+                    ViewBag.Message = "Login failed. Check username or password.";
+                } else
+                {
+                    Response.Cookies.Append("LoginUser", username);
+                    return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
                 }
             }
-            redirectRoute = RedirectToRoute(new
-            {
-                action = "AdvisementSessions",
-                controller = "AdvisementSessions"
-            });
-            Response.Cookies.Append("LoginUser", username);
-            return redirectRoute;
+            return View(model);
+        }
+
+        public RedirectToRouteResult RedirectToCurrentPage()
+        {
+            ViewBag.Message = "Login failed. Check input fields";
+            return RedirectToRoute(new { action = "Login", controller = "Account"});
         }
         
         public IActionResult Login()
