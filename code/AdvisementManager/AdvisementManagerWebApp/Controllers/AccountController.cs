@@ -34,8 +34,9 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (id==1 && (Request.Cookies["LoginUser"] != null))
             {
+                Trace.WriteLine("Got here");
                 Response.Cookies.Delete("LoginUser");
-                return View();
+                return RedirectToRoute(new { action = "Login", controller = "Account" });
             }
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using StudentAdvisementManagerWebApp.Data;
 using StudentAdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace StudentAdvisementManagerWebApp.DAL
 {
@@ -49,6 +47,12 @@ namespace StudentAdvisementManagerWebApp.DAL
             return student;
         }
 
+        /// <summary>Obtains the student with the specified username.</summary>
+        /// <param name="username">The student's username.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The student with the given username.
+        /// </returns>
         public Student ObtainStudentWithUsername(string username, ApplicationDbContext context)
         {
             var student = context.Student.

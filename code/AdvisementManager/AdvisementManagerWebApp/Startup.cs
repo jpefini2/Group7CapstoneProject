@@ -1,4 +1,3 @@
-using AdvisementManagerWebApp.DAL;
 using AdvisementManagerWebApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

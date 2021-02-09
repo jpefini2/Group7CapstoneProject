@@ -30,7 +30,8 @@ namespace AdvisementManagerWebApp.DAL
             try
             {
                 User user = this.context.Login.Find(username);
-                if(user == null)
+                Advisor advisor = this.context.Advisor.First(user => user.UserName.Equals(username));
+                if(advisor == null)
                 {
                     return false;
                 }

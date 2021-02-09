@@ -1,6 +1,7 @@
 ﻿using StudentAdvisementManagerWebApp.Data;
 using StudentAdvisementManagerWebApp.Models;
 using System;
+using System.Linq;
 
 namespace AdvisementManagerWebApp.DAL
 {
@@ -26,7 +27,8 @@ namespace AdvisementManagerWebApp.DAL
             try
             {
                 User user = this.context.Login.Find(username);
-                if(user == null)
+                Student student = this.context.Student.First(user => user.UserName.Equals(username));
+                if (student == null)
                 {
                     return false;
                 }

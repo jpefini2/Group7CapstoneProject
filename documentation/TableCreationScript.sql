@@ -125,10 +125,10 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('registration', '1-16-2021', 1, 1),
 ('fees not paid', '12-20-2020', 1, 2),
 ('advisement', '11-20-2020', 1, 3),
-('need to meet with dept advisor', '1-16-2021', 1, 7),
-('need to meet with faculty advisor', '1-16-2021', 1, 8),
-('ready to register', '1-16-2021', 1, 9),
-('need to meet with faculty advisor', '1-16-2021', 1, 10)
+('need to meet with dept advisor', '1-16-2021', 1, 4),
+('need to meet with faculty advisor', '1-16-2021', 1, 5),
+('ready to register', '1-16-2021', 1, 6),
+('need to meet with faculty advisor', '1-16-2021', 1, 7)
 
 INSERT INTO AdvisementSession (studentID, advisorID, sessionDate, stage, completed, notes) VALUES
 (1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
