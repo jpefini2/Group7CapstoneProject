@@ -63,7 +63,7 @@ namespace StudentAdvisementManagerWebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=StudentHome}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
 
                 endpoints.MapRazorPages();
             });

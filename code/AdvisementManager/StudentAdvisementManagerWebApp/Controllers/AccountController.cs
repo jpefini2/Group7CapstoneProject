@@ -1,7 +1,5 @@
-﻿using AdvisementManagerWebApp.DAL;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using StudentAdvisementManagerWebApp.Data;
 using System;
 using System.Diagnostics;
 
@@ -16,14 +14,14 @@ namespace AdvisementManagerWebApp.Controllers
 
         private LoginViewModel loginViewModel = new();
 
-        private LoginDAL loginDAL;
+        private DAL.LoginDAL loginDAL;
 
         /// <summary>Initializes a new instance of the <see cref="AccountController" /> class.</summary>
         /// <param name="logger">The logger.</param>
         public AccountController(ApplicationDbContext context)
         {
             this.context = context;
-            loginDAL = new LoginDAL(context);
+            loginDAL = new DAL.LoginDAL(context);
         }
 
         [HttpPost]
@@ -47,25 +45,21 @@ namespace AdvisementManagerWebApp.Controllers
                 } else
                 {
                     Response.Cookies.Append("LoginUser", username);
-                    return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
+                    return RedirectToRoute(new { action = "StudentHome", controller = "Home" });
                 }
             }
             return View(model);
+        }
+
+        public RedirectToRouteResult RedirectToCurrentPage()
+        {
+            ViewBag.Message = "Login failed. Check input fields";
+            return RedirectToRoute(new { action = "Login", controller = "Account"});
         }
         
         public IActionResult Login()
         {
             return View();
-        }
-
-        /// <summary>Errors this instance.</summary>
-        /// <returns>
-        ///   The errors views model
-        /// </returns>
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

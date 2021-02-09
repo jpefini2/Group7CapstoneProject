@@ -1,10 +1,6 @@
-﻿using AdvisementManagerWebApp.Data;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using AdvisementManagerWebApp.Models;
-using System.Diagnostics;
+﻿using StudentAdvisementManagerWebApp.Data;
+using StudentAdvisementManagerWebApp.Models;
 using System;
-using System.Data.SqlClient;
 
 namespace AdvisementManagerWebApp.DAL
 {
