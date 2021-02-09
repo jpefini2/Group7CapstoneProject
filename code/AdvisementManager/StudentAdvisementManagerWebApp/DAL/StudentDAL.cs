@@ -54,15 +54,8 @@ namespace StudentAdvisementManagerWebApp.DAL
             var student = context.Student.
                 FirstOrDefault(loggedInStudent => loggedInStudent.UserName == username);
 
-            Debug.Print("Name: " + student.FullName);
-            Debug.Print("GAdvisor: " + student.generalAdvisorId);
-            Debug.Print("FAdvisor: " + student.facultyAdvisorId);
-
             student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
-
-            Debug.Print("GAdvisor: " + student.GeneralAdvisor.FullName);
-            Debug.Print("FAdvisor: " + student.FacultyAdvisor.FullName);
 
             student.Hold = this.holdDal.ObtainHold(student.Id, context);
             student.Meeting = this.advisementSessionDal.ObtainSession(student.Id, context);
