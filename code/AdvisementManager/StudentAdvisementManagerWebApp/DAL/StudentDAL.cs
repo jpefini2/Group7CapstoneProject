@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using StudentAdvisementManagerWebApp.Data;
 using StudentAdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace StudentAdvisementManagerWebApp.DAL
 {
@@ -44,6 +45,27 @@ namespace StudentAdvisementManagerWebApp.DAL
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
             student.Hold = this.holdDal.ObtainHold(id, context);
             student.Meeting = this.advisementSessionDal.ObtainSession(id, context);
+
+            return student;
+        }
+
+        public Student ObtainStudentWithUsername(string username, ApplicationDbContext context)
+        {
+            var student = context.Student.
+                FirstOrDefault(loggedInStudent => loggedInStudent.UserName == username);
+
+            Debug.Print("Name: " + student.FullName);
+            Debug.Print("GAdvisor: " + student.generalAdvisorId);
+            Debug.Print("FAdvisor: " + student.facultyAdvisorId);
+
+            student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
+            student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
+
+            Debug.Print("GAdvisor: " + student.GeneralAdvisor.FullName);
+            Debug.Print("FAdvisor: " + student.FacultyAdvisor.FullName);
+
+            student.Hold = this.holdDal.ObtainHold(student.Id, context);
+            student.Meeting = this.advisementSessionDal.ObtainSession(student.Id, context);
 
             return student;
         }

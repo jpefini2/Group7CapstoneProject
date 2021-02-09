@@ -40,6 +40,9 @@ namespace StudentAdvisementManagerWebApp.Models
         [Column("advisorFacultyId")]
         public int facultyAdvisorId { get; set; }
 
+        [Column("username")]
+        public string UserName { get; set; }
+
         /// <summary>Gets or sets the general advisor.</summary>
         /// <value>The general advisor.</value>
         [NotMapped]

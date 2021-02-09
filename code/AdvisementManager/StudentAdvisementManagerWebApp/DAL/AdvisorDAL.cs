@@ -17,7 +17,7 @@ namespace StudentAdvisementManagerWebApp.DAL
         /// </returns>
         public Advisor ObtainAdvisorWithId(int id, ApplicationDbContext context)
         {
-            return context.Advisor.Find(2);
+            return context.Advisor.Find(id);
         }
     }
 }

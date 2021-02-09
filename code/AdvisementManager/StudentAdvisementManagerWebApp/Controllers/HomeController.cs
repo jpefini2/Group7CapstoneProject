@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using StudentAdvisementManagerWebApp.DAL;
 using StudentAdvisementManagerWebApp.Data;
+using System.Linq;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
@@ -14,7 +15,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
     {
         private readonly ApplicationDbContext context;
 
-        private readonly Student studentModel;
+        private Student studentModel;
 
         private readonly StudentDal studentDal = new();
 
@@ -23,8 +24,6 @@ namespace StudentAdvisementManagerWebApp.Controllers
         public HomeController(ApplicationDbContext context)
         {
             this.context = context;
-
-            this.studentModel = this.studentDal.ObtainStudentWithId(1, this.context);
         }
 
         /// <summary>Students the home.</summary>
@@ -34,6 +33,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
         [HttpGet]
         public IActionResult StudentHome()
         {
+            this.studentModel = this.studentDal.ObtainStudentWithUsername(Request.Cookies["LoginUser"], this.context);
+
             return View(this.studentModel);
         }
 

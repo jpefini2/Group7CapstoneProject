@@ -13,7 +13,7 @@ CREATE TABLE Advisor (
   email VARCHAR(45) NOT NULL UNIQUE,
   username VARCHAR (15) NOT NULL UNIQUE,
   gender VARCHAR (10),
-  CONSTRAINT fk_username
+  CONSTRAINT fk_advisor_username
     FOREIGN KEY (username)
     REFERENCES Login (username)
     ON DELETE NO ACTION
@@ -27,6 +27,7 @@ CREATE TABLE Student (
   email VARCHAR(45) NOT NULL UNIQUE,
   advisorGeneralID INT NOT NULL,
   advisorFacultyID INT NOT NULL,
+  username VARCHAR (15) NOT NULL UNIQUE,
   gender VARCHAR (10),
   CONSTRAINT fk_student_advisorGeneralID
     FOREIGN KEY (advisorGeneralID)
@@ -36,6 +37,11 @@ CREATE TABLE Student (
   CONSTRAINT fk_student_advisorFacultyID
     FOREIGN KEY (advisorFacultyID)
     REFERENCES Advisor (advisorID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_student_username
+    FOREIGN KEY (username)
+    REFERENCES Login (username)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 )
@@ -90,7 +96,14 @@ INSERT INTO Login(username, password) VALUES
 ('terichsen', 'password1'),
 ('bhart', 'p@$$w0rD1234'),
 ('jothewood', 'password1'),
-('gsmith', 'password1')
+('gsmith', 'password1'),
+('hHill', 'password1'),
+('kSmith', 'password1'),
+('jWood', 'password1'),
+('dMcCollum', 'password1'),
+('bThatcher', 'password1'),
+('hAnderson', 'password1'),
+('cBrooks', 'password1')
 
 INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
 ('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),
@@ -99,19 +112,23 @@ INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gen
 ('Bob', 'Hart', 0, 'bhart@askj.net', 'bhart', 'male'),
 ('Gina', 'Smith', 1, 'gsmith@askj.net', 'gsmith', 'female')
 
-INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, gender) VALUES
-('Hank', 'Hill', 'hhill@my.askj.net', 1, 2,  'male'),
-('Katie', 'Smith', 'ksmith@my.askj.net', 1, 2,  'female'),
-('Jerry', 'Wood', 'jwood@my.askj.net', 2, 5,  'male'),
-('Derek', 'McCollum', 'dwilson@my.askj.net', 3, 5, 'male'),
-('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'female'),
-('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'male'),
-('Cody', 'Brooks', 'cbrooks@my.askj.net', 5, 2, 'male')
+INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, username, gender) VALUES
+('Hank', 'Hill', 'hhill@my.askj.net', 1, 2, 'hHill', 'male'),
+('Katie', 'Smith', 'ksmith@my.askj.net', 1, 2, 'kSmith', 'female'),
+('Jerry', 'Wood', 'jwood@my.askj.net', 2, 5, 'jWood', 'male'),
+('Derek', 'McCollum', 'dwilson@my.askj.net', 3, 5, 'dMcCollum', 'male'),
+('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'bThatcher', 'female'),
+('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'hAnderson', 'male'),
+('Cody', 'Brooks', 'cbrooks@my.askj.net', 5, 2, 'cBrooks', 'male')
 
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('registration', '1-16-2021', 1, 1),
 ('fees not paid', '12-20-2020', 1, 2),
-('advisement', '11-20-2020', 1, 3)
+('advisement', '11-20-2020', 1, 3),
+('need to meet with dept advisor', '1-16-2021', 1, 7),
+('need to meet with faculty advisor', '1-16-2021', 1, 8),
+('ready to register', '1-16-2021', 1, 9),
+('need to meet with faculty advisor', '1-16-2021', 1, 10)
 
 INSERT INTO AdvisementSession (studentID, advisorID, sessionDate, stage, completed, notes) VALUES
 (1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
@@ -126,5 +143,3 @@ INSERT INTO Availability (timeBegin, timeEnd, advisorID) VALUES
 ('2020-11-23 12:30:00', '2020-11-23 14:00:00', 3),
 ('2020-11-23 07:30:00', '2020-11-23 11:30:00', 4),
 ('2020-11-23 13:00:00', '2020-11-23 15:45:00', 5)
-
-
