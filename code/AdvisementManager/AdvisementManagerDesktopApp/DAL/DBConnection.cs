@@ -26,11 +26,10 @@ namespace AdvisementManagerDesktopApp.DAL
             var connDirectoryPath = splitPath[firstHalfOfDirectoryPath] + "ADVISEMENTMANAGERDESKTOPAPP\\ADVISEMENTMANAGMENTDB.MDF";
             var fullConn = ConnStringPart1 + connDirectoryPath + ConnStringPart3;
 
-            //var conn = new SqlConnection(fullConn);
-            var conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True";
-
-            return new SqlConnection(conn);
-            //return conn;
+            var conn = new SqlConnection(fullConn);
+           // var conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True";
+           // return new SqlConnection(conn);
+            return conn;
         }
     }
 }

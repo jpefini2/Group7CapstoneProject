@@ -51,16 +51,17 @@ else
                         if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
                         {
 
-                            <a asp-action="ApproveMeeting" asp-route-id="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id"
+                            <a asp-action="ApproveMeeting" asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id"
                                class="btn btn-primary">Approve</a>
-                        } else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
-                        {
-                            <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
-                               class="btn btn-danger">Remove Hold</a>
                         }
                     }
+                    else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
+                    {
+                        <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
+                           class="btn btn-danger">Remove Hold</a>
+                    }
 
-                    <a asp-action="AdvisementSessions"
+                        <a asp-action="AdvisementSessions"
                        class="btn btn-secondary">Cancel</a>
                 </div>
             </td>

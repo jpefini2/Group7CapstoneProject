@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
@@ -36,6 +37,7 @@ namespace AdvisementManagerDesktopApp.View
             {
                 this.studentsWithHoldsListBox.Items.Add(student.FirstName + " " + student.LastName);
             }
+
         }
 
         private void viewBtn_Click(object sender, EventArgs e)

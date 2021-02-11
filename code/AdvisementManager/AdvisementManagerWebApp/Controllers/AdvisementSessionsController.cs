@@ -74,24 +74,27 @@ namespace AdvisementManagerWebApp.Controllers
         /// <summary>
         /// Approves the meeting.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="holdId">The hold identifier.</param>
         /// <param name="time">The time.</param>
         /// <param name="advisorId">The advisor identifier.</param>
+        /// <param name="meetingId">The meeting identifier.</param>
         /// <returns>
         /// A redirection to the advisement sessions view
         /// </returns>
-        public RedirectToRouteResult ApproveMeeting(int? id, DateTime? time, int advisorId)
+        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId)
         {
             var redirectRoute = RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
 
             if (time > DateTime.Now)
             {
-                redirectRoute = this.RedirectToCurrentPage(id);
+                redirectRoute = this.RedirectToCurrentPage(holdId);
             }
             else
             {
                 var advisor = this.context.Advisor.Find(advisorId);
-                var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
+                var hold = this.context.Hold.First(holdToFind => holdToFind.Id == holdId);
+                var session = this.context.AdvisementSession.First(sessionToFind => sessionToFind.Id == meetingId);
+                session.Completed = true;
                 UpdateHoldReason(advisor, hold);
 
                 this.context.SaveChanges();

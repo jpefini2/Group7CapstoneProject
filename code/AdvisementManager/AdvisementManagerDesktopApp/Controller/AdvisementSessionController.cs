@@ -12,6 +12,8 @@ namespace AdvisementManagerDesktopApp.Controller
     {
         private readonly HoldsDal holdsDal = new HoldsDal();
 
+        private readonly AdvisementSessionDal sessionDal = new AdvisementSessionDal();
+
         /// <summary>Approves the meeting.</summary>
         /// <param name="student">The student.</param>
         /// <param name="advisor">The advisor.</param>
@@ -24,10 +26,12 @@ namespace AdvisementManagerDesktopApp.Controller
             else
             {
                 student.Hold.Reason = ConstantManager.NeedToMeetFacAdvisor;
-            } 
+            }
 
+            student.Meeting.Completed = true;
 
             this.holdsDal.ApproveAdvisorMeeting(student);
+            this.sessionDal.UpdateMeeting(student);
         }
 
         /// <summary>Removes the hold.</summary>

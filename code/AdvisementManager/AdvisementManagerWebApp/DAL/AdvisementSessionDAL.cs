@@ -19,7 +19,7 @@ namespace AdvisementManagerWebApp.DAL
         public AdvisementSession ObtainSession(int? id, ApplicationDbContext context)
         {
             var session =  context.AdvisementSession.FromSqlRaw(
-                              "SELECT sessionID, sessionDate, notes, stage, studentID, completed, advisorID FROM AdvisementSession WHERE studentID = {0} and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = {0})", id).FirstOrDefault();
+                              "SELECT sessionID, sessionDate, notes, stage, studentID, completed, advisorID FROM AdvisementSession WHERE studentID = {0} and completed = 0 and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = {0})", id).FirstOrDefault();
 
             return session;
         }

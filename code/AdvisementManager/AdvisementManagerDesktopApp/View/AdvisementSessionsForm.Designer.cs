@@ -53,7 +53,6 @@ namespace AdvisementManagerDesktopApp.View
             this.studentsWithHoldsListBox.Name = "studentsWithHoldsListBox";
             this.studentsWithHoldsListBox.ScrollAlwaysVisible = true;
             this.studentsWithHoldsListBox.Size = new System.Drawing.Size(590, 214);
-            this.studentsWithHoldsListBox.Sorted = true;
             this.studentsWithHoldsListBox.TabIndex = 3;
             // 
             // label2
