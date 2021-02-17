@@ -12,7 +12,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         {
             var general = new Advisor();
             var faculty = new Advisor();
-            var hold = new Hold();
+            var hold = new AdvisementManagerWebApp.Models.Hold();
             var session = new AdvisementManagerWebApp.Models.AdvisementSession();
             var sessions = new List<AdvisementManagerWebApp.Models.AdvisementSession>{session};
             var student = new Student {

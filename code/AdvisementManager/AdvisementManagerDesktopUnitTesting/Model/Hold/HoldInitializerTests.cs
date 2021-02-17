@@ -11,7 +11,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         public void InitializerTest()
         {
             var date = new DateTime();
-            var hold = new Hold {
+            var hold = new AdvisementManagerWebApp.Models.Hold {
                 Id = 1,
                 Reason = "a",
                 Date = date,

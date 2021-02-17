@@ -14,7 +14,7 @@ namespace AdvisementManagerWebApp.Controllers
     /// </summary>
     public class AdvisementSessionsController : Controller
     {
-        private readonly ApplicationDbContext context;
+        public ApplicationDbContext context { get; }
         private readonly StudentDal studentDal = new();
         private readonly HoldDAL holdDal = new();
         private readonly AdvisementSessionDAL sessionDal= new();
