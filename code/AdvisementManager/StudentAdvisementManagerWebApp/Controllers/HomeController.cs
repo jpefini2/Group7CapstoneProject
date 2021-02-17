@@ -33,8 +33,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         [HttpGet]
         public IActionResult StudentHome()
         {
-            this.studentModel = this.studentDal.ObtainStudentWithUsername(Request.Cookies["LoginUser"], this.context);
-
+            this.studentModel = this.studentDal.ObtainStudentWithUsername(Request.Cookies["AdvisementManager.LoginUser"], this.context);
             return View(this.studentModel);
         }
 

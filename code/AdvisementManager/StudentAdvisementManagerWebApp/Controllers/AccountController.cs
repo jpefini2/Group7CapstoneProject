@@ -40,21 +40,31 @@ namespace AdvisementManagerWebApp.Controllers
             var username = model.Username;
             var password = model.Password;
 
-            if (id==1 && (Request.Cookies["LoginUser"] != null))
+            if (id==1 && (Request.Cookies["AdvisementManager.LoginUser"] != null))
             {
-                Response.Cookies.Delete("LoginUser");
+                Response.Cookies.Delete("AdvisementManager.LoginUser");
+                Response.Cookies.Delete("AdvisementManager.LoginSession");
                 return RedirectToRoute(new { action = "Login", controller = "Account" });
             }
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
             {
-                bool isValid = this.loginDAL.AttemptLogin(username, password);
+                String sessionKey = this.loginDAL.AttemptLogin(username, password);
 
-                if (!isValid) {
+                if (String.IsNullOrEmpty(sessionKey)) {
                     ViewBag.Message = "Login failed. Check username or password.";
                 } else
                 {
-                    Response.Cookies.Append("LoginUser", username);
+                    if (loginDAL.createNewLoginSession(username, sessionKey))
+                    {
+                        Response.Cookies.Append("AdvisementManager.LoginUser", username);
+                        Response.Cookies.Append("AdvisementManager.LoginSession", sessionKey);
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Something went wrong trying to create a new login session.";
+                        return View(model);
+                    }
                     return RedirectToRoute(new { action = "StudentHome", controller = "Home" });
                 }
             }
