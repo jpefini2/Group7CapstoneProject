@@ -19,18 +19,31 @@ namespace AdvisementManagerDesktopApp.DAL
             var conn = DbConnection.GetConnection();
             using (conn)
             {
-                const string advisorQuery = @"SELECT * FROM Login, Advisor WHERE Login.username = Advisor.username AND Login.password = @password AND Advisor.username = @username;";
+                const string advisorQuery = @"SELECT * FROM Login, Advisor WHERE Login.username = Advisor.username AND Advisor.username = @username;";
 
                 var advisorCommand = new SqlCommand(advisorQuery, conn);
-
                 advisorCommand.Parameters.AddWithValue("username", username);
-                advisorCommand.Parameters.AddWithValue("password", password);
 
                 conn.Open();
                 SqlDataReader dr = advisorCommand.ExecuteReader();
                 bool hasRows = dr.HasRows;
+
+                string hash = null;
+                bool matched = false;
+
+                while(dr.Read())
+                {
+                    hash = dr.GetString(1);
+                }
+
+                if(hash != null)
+                {
+                    matched = BCrypt.Net.BCrypt.Verify(password, hash);
+                }
+                
+
                 conn.Close();
-                return hasRows;
+                return matched;
             }
         }
 
