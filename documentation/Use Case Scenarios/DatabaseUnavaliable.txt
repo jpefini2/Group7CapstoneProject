@@ -1,0 +1,7 @@
+Database Server Down:
+
+Context: The database server is unavaliable for whatever reason
+
+Primary Flow:
+1. The user selects a page or action that requires access to the database.
+2. The System throws a sql exception (To be altered in later sprints.)

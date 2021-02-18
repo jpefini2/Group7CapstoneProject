@@ -1,0 +1,15 @@
+Schedule Meetings:
+
+Context: The student is in the schedule meeting page
+
+Primary Flow:
+1. The user selects a date.
+2. The user selects a time.
+3. The user clicks Schedule Meeting.
+4. The system persists the information to the database.
+5. The user is returned to the advisement status page.
+
+Alternate Flow:
+	A4. The system can not save the meeting for a date and time that has already passed.
+	A5. The system prompts the user to select another time.
+	A6. Return to primary flow 3.

@@ -1,0 +1,9 @@
+Login Session has Timed Out:
+
+Context: The user is currently logged in but has not interacted with the system for some 
+period of time
+
+Primary Flow:
+1. The login session times out.
+2. The User clicks on a page or task other than the login page.
+3. The system throws a null pointer exception (To be altered in later sprints)

@@ -1,0 +1,17 @@
+Inform Geneal Advisor to Remove Holds:
+
+Context: The advisor is currently viewing a students meeting information.
+
+Primary Flow:
+1. The user clicks confirm button.
+2. The system saves the meeting information.
+3. The system updates the students advisement page to signify that the hold is to be removed.
+
+Alternate Flow: 
+	A2. The system informs the user that the meeting time has not occured yet.
+	A3. The system tells the user to please wait until the meeting time to approve a meeting.
+	A4. Return to primary flow 1.
+
+Alternate Flow:
+	A1. The user clicks cancel.
+	A2. The user is returned to the previous page.
