@@ -12,4 +12,4 @@ Primary Flow:
 Alternate Flow:
 	A4. The system can not save the meeting for a date and time that has already passed.
 	A5. The system prompts the user to select another time.
-	A6. Return to primary flow 3.
+	A6. Return to primary flow 1.
