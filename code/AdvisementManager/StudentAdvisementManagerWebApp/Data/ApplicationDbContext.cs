@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using AdvisementManagerWebApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentAdvisementManagerWebApp.Models;
 
@@ -35,5 +36,9 @@ namespace StudentAdvisementManagerWebApp.Data
         /// <summary>Gets or sets the user.</summary>
         /// <value>The user.</value>
         public DbSet<User> Login { get; set; }
+
+        /// <summary>Login Sessions stored in the database</summary>
+        /// <value>The login session.</value>
+        public DbSet<LoginSession> LoginSession { get; set; }
     }
 }

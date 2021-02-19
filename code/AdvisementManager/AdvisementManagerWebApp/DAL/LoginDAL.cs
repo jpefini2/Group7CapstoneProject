@@ -21,11 +21,11 @@ namespace AdvisementManagerWebApp.DAL
         /// <param name="username">The input username.</param>
         /// <param name="password">The input password.</param>
         /// <returns>True if the login information is valid, false otherwise.</returns>
-        public bool AttemptLogin(string username, string password)
+        public String AttemptLogin(string username, string password)
         {
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
-                return false;
+                return null;
             }
             try
             {
@@ -33,11 +33,56 @@ namespace AdvisementManagerWebApp.DAL
                 Advisor advisor = this.context.Advisor.First(user => user.UserName.Equals(username));
                 if(advisor == null)
                 {
-                    return false;
+                    return null;
                 }
-                return user.Password.Equals(password);
+
+                string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+                Trace.WriteLine(username + "'s password hash: " + passwordHash);
+
+                if ( BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+                {
+                    Trace.WriteLine("Returned " + passwordHash);
+                    return passwordHash;
+                }
             }
             catch (InvalidOperationException)
+            {
+                return null;
+            }
+            return null;
+        }
+
+        /// <summary>Attempts to create a new session for the user.</summary>
+        /// <param name="username">The input username.</param>
+        /// <param name="hash">The password hash.</param>
+        /// <returns>True if the the session was created, false otherwise.</returns>
+        public bool createNewLoginSession(String username, String hash)
+        {
+            LoginSession loginSession = new LoginSession
+            {
+                Username = username,
+                SessionKey = hash,
+                ExpirationDate = DateTime.Now.AddMinutes(60)
+            };
+
+            //this.context.LoginSession.Add(loginSession);
+            //return VerifyCurrentSession(this.context, username, hash);
+            return true;
+        }
+
+        public static bool VerifyCurrentSession(ApplicationDbContext context, String username, String passwordHash)
+        {
+            try
+            {
+                LoginSession session = context.LoginSession.First(sessionUser => sessionUser.Username.Equals(username));
+                if (session == null)
+                {
+                    return false;
+                }
+                return BCrypt.Net.BCrypt.Verify(session.SessionKey, passwordHash);
+            } catch(InvalidOperationException)
             {
                 return false;
             }

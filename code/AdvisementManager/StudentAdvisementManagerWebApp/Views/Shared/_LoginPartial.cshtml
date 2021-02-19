@@ -1,7 +1,7 @@
 ﻿<ul class="navbar-nav">
-@if (Context.Request.Cookies["LoginUser"] != null)
+@if (Context.Request.Cookies["AdvisementManager.LoginUser"] != null)
 {
-    String user = Context.Request.Cookies["LoginUser"];
+    String user = Context.Request.Cookies["AdvisementManager.LoginUser"];
     <li class="nav-item">
         <a  class="nav-link text-dark" title="Manage">Hello @user!</a>
     </li>

@@ -97,7 +97,7 @@ namespace StudentAdvisementManagerWebApp.Models
                 }
                 else
                 {
-                    if (this.Meeting.Completed)
+                    if (this.Meeting == null || this.Meeting.Completed)
                     {
                         return "No meeting scheduled.";
                     }
@@ -115,6 +115,10 @@ namespace StudentAdvisementManagerWebApp.Models
         /// <returns>bool of if the student has an upcoming meeting</returns>
         private bool hasUpcomingAdvisementSession()
         {
+            if(this.Meeting == null)
+            {
+                return false;
+            }
             return DateTime.Compare(this.Meeting.Date, DateTime.Now) > 0;
         }
 
