@@ -11,10 +11,10 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var student1 = new Student();
-            var student2 = new Student();
+            var student1 = new AdvisementManagerWebApp.Models.Student();
+            var student2 = new AdvisementManagerWebApp.Models.Student();
 
-            var students = new List<Student> {student1, student2};
+            var students = new List<AdvisementManagerWebApp.Models.Student> {student1, student2};
 
             var StudentsVM = new StudentsVM() {
                 Students = students

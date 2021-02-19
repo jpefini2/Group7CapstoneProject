@@ -10,12 +10,12 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var general = new Advisor();
-            var faculty = new Advisor();
+            var general = new AdvisementManagerWebApp.Models.Advisor();
+            var faculty = new AdvisementManagerWebApp.Models.Advisor();
             var hold = new AdvisementManagerWebApp.Models.Hold();
             var session = new AdvisementManagerWebApp.Models.AdvisementSession();
             var sessions = new List<AdvisementManagerWebApp.Models.AdvisementSession>{session};
-            var student = new Student {
+            var student = new AdvisementManagerWebApp.Models.Student {
                 FirstName = "a",
                 LastName = "b",
                 Id = 1,
@@ -24,7 +24,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
                 FacultyAdvisor = faculty,
                 Hold = hold,
                 Meetings = sessions,
-                Meeting = session
+                Meeting = session,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2,
             };
 
             Assert.AreEqual(student.FirstName, "a");
@@ -37,6 +39,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
             Assert.AreEqual(student.Meetings, sessions);
             Assert.AreEqual(student.Meeting, session);
             Assert.AreEqual(student.FullName, "a b");
+            Assert.AreEqual(student.facultyAdvisorId, 1);
+            Assert.AreEqual(student.generalAdvisorId, 2);
+            Assert.AreEqual("a b", student.FullName);
         }
     }
 }

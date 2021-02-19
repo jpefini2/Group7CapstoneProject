@@ -1,6 +1,7 @@
 ﻿using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdvisementManagerWebApp.DAL
@@ -10,7 +11,7 @@ namespace AdvisementManagerWebApp.DAL
     /// </summary>
     public class HoldDAL
     {
-        /// <summary>Obtains the hold with a particular hold Id from the hold table in the DbContext.</summary>
+        /// <summary>Obtains the hold with a particular holds student Id from the hold table in the DbContext.</summary>
         /// <param name="id">The identifier.</param>
         /// <param name="context">The context.</param>
         /// <returns>
@@ -18,10 +19,7 @@ namespace AdvisementManagerWebApp.DAL
         /// </returns>
         public Hold ObtainHold(int? id, ApplicationDbContext context)
         {
-            var hold = context.Hold.FromSqlRaw(
-                "SELECT holdID, reason, dateAdded, isActive FROM Hold  WHERE studentID = {0}", id).FirstOrDefault();
-
-            return hold;
+            return (from hold in context.Hold where hold.StudentId == id select hold).FirstOrDefault();
         }
     }
 }

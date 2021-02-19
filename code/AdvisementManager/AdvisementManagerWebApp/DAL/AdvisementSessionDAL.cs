@@ -1,7 +1,10 @@
 ﻿using AdvisementManagerWebApp.Models;
 using System.Linq;
 using AdvisementManagerWebApp.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AdvisementManagerWebApp.DAL
 {
@@ -18,10 +21,10 @@ namespace AdvisementManagerWebApp.DAL
         /// </returns>
         public AdvisementSession ObtainSession(int? id, ApplicationDbContext context)
         {
-            var session =  context.AdvisementSession.FromSqlRaw(
-                              "SELECT sessionID, sessionDate, notes, stage, studentID, completed, advisorID FROM AdvisementSession WHERE studentID = {0} and completed = 0 and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = {0})", id).FirstOrDefault();
+            var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == id && sessionToFind.Completed == false select sessionToFind;
+            var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
 
-            return session;
+            return upcomingSession;
         }
     }
 }

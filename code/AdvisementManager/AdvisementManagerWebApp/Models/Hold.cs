@@ -31,6 +31,9 @@ namespace AdvisementManagerWebApp.Models
         [Column("isActive")]
         public bool IsActive { get; set; }
 
+        [Column("studentID")]
+        public int StudentId { get; set; }
+
         public override string ToString()
         {
             if (this.IsActive)

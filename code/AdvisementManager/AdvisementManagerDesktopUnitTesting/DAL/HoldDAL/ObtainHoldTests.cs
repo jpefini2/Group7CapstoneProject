@@ -1,39 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisementSessionDAL
+namespace AdvisementManagerWebAppUnitTesting.DAL.HoldDAL
 {
     [TestClass]
-    public class ObtainSessionTests
+    public class ObtainHoldTests
     {
         [TestMethod]
-        public void ObtainSessionTest()
+        public void ObtainHoldTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                           .UseInMemoryDatabase(databaseName: "AdvisementManagement")
                           .Options;
 
-            var session = new AdvisementSession { Id = 1, StudentId = 2, Completed = false, Date = DateTime.Now};
+            var hold = new Hold { Id = 1, StudentId = 2};
 
             using (var context = new ApplicationDbContext(options))
             {
-                context.AdvisementSession.Add(session);
+                context.Hold.Add(hold);
 
                 context.SaveChanges();
             }
 
             using (var context = new ApplicationDbContext(options))
             {
-                var sessionDal = new AdvisementManagerWebApp.DAL.AdvisementSessionDAL();
-                var expectedSession = sessionDal.ObtainSession(2, context);
+                var holdDal = new AdvisementManagerWebApp.DAL.HoldDAL();
+                var expectedHold = holdDal.ObtainHold(2, context);
 
-                Assert.AreEqual(1, expectedSession.Id);
+                Assert.AreEqual(1, expectedHold.Id);
                 context.Database.EnsureDeleted();
             }
         }
-
     }
 }

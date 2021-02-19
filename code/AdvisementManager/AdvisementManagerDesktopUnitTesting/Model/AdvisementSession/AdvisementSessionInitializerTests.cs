@@ -10,8 +10,8 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod] 
         public void InitializerTest()
         {
-            var student = new Student();
-            var advisor = new Advisor();
+            var student = new AdvisementManagerWebApp.Models.Student();
+            var advisor = new AdvisementManagerWebApp.Models.Advisor();
             
             var advisementSession = new AdvisementManagerWebApp.Models.AdvisementSession {
                 Stage = 1,
@@ -20,7 +20,10 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
                 Date = new DateTime(),
                 Id = 1,
                 EndDate = new DateTime(),
-                Student = student
+                Student = student,
+                StudentId = 1,
+                AdvisorId = 1,
+
             };
 
             Assert.AreEqual(advisementSession.Student, student);
@@ -30,6 +33,8 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
             Assert.AreEqual(advisementSession.EndDate, new DateTime());
             Assert.AreEqual(advisementSession.Completed, false);
             Assert.AreEqual(advisementSession.Id, 1);
+            Assert.AreEqual(advisementSession.StudentId, 1);
+            Assert.AreEqual(advisementSession.AdvisorId, 1);
         }
         
     }
