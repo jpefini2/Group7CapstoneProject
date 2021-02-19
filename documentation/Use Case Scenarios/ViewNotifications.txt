@@ -1,7 +1,0 @@
-View Notifications: 
-
-Context: User is on the main page
-
-Primary Flow:
-1. The user selects the notification pane.
-2. The System brings up the users notifications.

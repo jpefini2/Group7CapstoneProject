@@ -10,6 +10,6 @@ Primary Flow:
 5. The user is returned to the advisement status page.
 
 Alternate Flow:
-	A4. The system can not save the meeting for that time.
+	A4. The system can not save the meeting for a date and time that has already passed.
 	A5. The system prompts the user to select another time.
-	A6. Return to primary flow 3.
+	A6. Return to primary flow 1.

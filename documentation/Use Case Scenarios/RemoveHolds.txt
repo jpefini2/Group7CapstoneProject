@@ -6,11 +6,6 @@ Primary Flow:
 1. The user selects the "remove hold button".
 2. The system persists the information to the database and sets the hold as false.
 3. The user is returned to the previous screen.
-	
-Alternate Flow:
-	A2. The system fails to persist the information.
-	A3. The system notifies the user of the error.
-	A4. Return to primary flow 1.
 
 Alternate Flow:
 	A1. The user clicks cancel.

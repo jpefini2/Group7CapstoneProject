@@ -7,10 +7,10 @@ Primary Flow:
 2. The system saves the meeting information.
 3. The system updates the students advisement page to signify that the student has met with them.
 
-Alternate Flow:
-	A2. The system could not save the meeting information.
-	A3. The system prompts the user of the error.
-	A4. Return to primary flow 2.
+Alternate Flow: 
+	A2. The system informs the user that the meeting time has not occured yet.
+	A3. The system tells the user to please wait until the meeting time to approve a meeting.
+	A4. Return to primary flow 1.
 
 Alternate Flow:
 	A1. The user clicks cancel.
