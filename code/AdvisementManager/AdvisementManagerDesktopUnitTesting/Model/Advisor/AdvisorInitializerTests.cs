@@ -9,12 +9,13 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var advisor = new Advisor {
+            var advisor = new AdvisementManagerWebApp.Models.Advisor {
                 FirstName = "a",
                 LastName = "b",
                 Id = 1,
                 IsFacultyAdvisor = false,
-                Email = "ad"
+                Email = "ad",
+                UserName = "someName"
             };
 
 
@@ -24,6 +25,8 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
             Assert.AreEqual(advisor.IsFacultyAdvisor, false);
             Assert.AreEqual(advisor.Email, "ad");
             Assert.AreEqual(advisor.FullName, "a b");
+            Assert.AreEqual("a b", advisor.FullName);
+            Assert.AreEqual("someName", advisor.UserName);
         }
     }
 }

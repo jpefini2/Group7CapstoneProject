@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace AdvisementManagerWebApp.DAL
 {
@@ -25,10 +27,7 @@ namespace AdvisementManagerWebApp.DAL
         /// </returns>
         public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context)
         {
-            return context.Student
-                .FromSqlRaw(
-                    "SELECT distinct student.studentID, student.firstName, student.lastName, student.email, student.advisorFacultyID, student.advisorGeneralID From Student INNER JOIN Hold ON Hold.studentID = Student.studentID  WHERE isActive = 1;")
-                .ToList();
+            return (from student in context.Student join hold in context.Hold on student.Id equals hold.StudentId into studentWithHold from hold in studentWithHold where hold.IsActive  select student).ToList();
         }
 
         /// <summary>Obtains the student with the specified id from the DbContext.</summary>

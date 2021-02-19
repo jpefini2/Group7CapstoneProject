@@ -1,39 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisementSessionDAL
+namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisorDAL
 {
     [TestClass]
-    public class ObtainSessionTests
+    public class ObtainAdvisorWithIdTests
     {
         [TestMethod]
-        public void ObtainSessionTest()
+        public void ObtainAdvisorWithIdTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                           .UseInMemoryDatabase(databaseName: "AdvisementManagement")
                           .Options;
 
-            var session = new AdvisementSession { Id = 1, StudentId = 2, Completed = false, Date = DateTime.Now};
+            var advisor = new Advisor {Id = 1};
 
             using (var context = new ApplicationDbContext(options))
             {
-                context.AdvisementSession.Add(session);
+                context.Advisor.Add(advisor);
 
                 context.SaveChanges();
             }
 
             using (var context = new ApplicationDbContext(options))
             {
-                var sessionDal = new AdvisementManagerWebApp.DAL.AdvisementSessionDAL();
-                var expectedSession = sessionDal.ObtainSession(2, context);
+                var advisorDal = new AdvisementManagerWebApp.DAL.AdvisorDAL();
+                var expectedAdvisor = advisorDal.ObtainAdvisorWithId(1, context);
 
-                Assert.AreEqual(1, expectedSession.Id);
+                Assert.AreEqual(1, expectedAdvisor.Id);
                 context.Database.EnsureDeleted();
             }
         }
-
     }
 }
