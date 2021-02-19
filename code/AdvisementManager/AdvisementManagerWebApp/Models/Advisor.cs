@@ -6,27 +6,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AdvisementManagerWebApp.Models
 {
     /// <summary>
-    ///   The Advisor class
+    ///   The Advisor class for the currently signed in advisor.
     /// </summary>
     public class Advisor
     {
-        /// <summary>Gets or sets the identifier.</summary>
+        /// <summary>Gets or sets the unique identifier for the advisor.</summary>
         /// <value>The identifier.</value>
         [Key]
         [Column("advisorID")]
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the first name.</summary>
+        /// <summary>Gets or sets the first name for the advisor.</summary>
         /// <value>The first name.</value>
         [Column("firstName")]
         public string FirstName { get; set; }
 
-        /// <summary>Gets or sets the last name.</summary>
+        /// <summary>Gets or sets the last name for the advisor.</summary>
         /// <value>The last name.</value>
         [Column("lastName")]
         public string LastName { get; set; }
 
-        /// <summary>Gets or sets the email.</summary>
+        /// <summary>Gets or sets the email for the advisor.</summary>
         /// <value>The email.</value>
         [Column("email")]
         public string Email { get; set; }
@@ -37,6 +37,9 @@ namespace AdvisementManagerWebApp.Models
         [Column("isFacultyAdvisor")]
         public bool IsFacultyAdvisor { get; set; }
 
+
+        /// <summary>Gets or sets the username for the advisor.</summary>
+        /// <value>The name of the user.</value>
         [Column("username")]
         public string UserName { get; set; }
 
@@ -47,33 +50,7 @@ namespace AdvisementManagerWebApp.Models
             get { return FirstName + " " + LastName; }
         }
 
-        /// <summary>Gets the available advisement session times.</summary>
-        /// <value>The available advisement session times.</value>
-        public IList<TimeSpan> AvailableAdvisementSessionTimes
-        {
-            get { return GetAvailableAdvisementSessionTimes(); }
-        }
-
-        /// <summary>Gets the available advisement session times.</summary>
-        /// <returns>
-        ///   The available times
-        /// </returns>
-        public IList<TimeSpan> GetAvailableAdvisementSessionTimes()
-        {
-            IList<TimeSpan> availableTimes = new List<TimeSpan>();
-            TimeSpan nextAvailableTime = TimeSpan.Zero;
-
-            for (int i = 0; i < 48; i++)
-            {
-                availableTimes.Add(nextAvailableTime);
-                nextAvailableTime = nextAvailableTime.Add(new TimeSpan(0, 30, 0));
-            }
-
-            return availableTimes;
-        }
-
-
-        /// <summary>Converts to string.</summary>
+        /// <summary>Converts the advisors full name via the ToString method.</summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {

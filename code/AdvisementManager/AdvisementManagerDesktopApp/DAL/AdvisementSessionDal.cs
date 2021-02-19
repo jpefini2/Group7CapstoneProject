@@ -5,14 +5,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvisementManagerDesktopApp.DAL;
 
-namespace AdvisementManagerDesktopApp.Controller
+namespace AdvisementManagerDesktopApp.DAL
 {
-    /// <summary>The advisement session Dal</summary>
+    /// <summary>The advisement session Dal for managing, editing and pulling sessions from the database.</summary>
     public class AdvisementSessionDal
     {
-        /// <summary>Updates the meeting.</summary>
+        /// <summary>Updates the meeting to completed for the passed in student.</summary>
         /// <param name="student">The student.</param>
         public void UpdateMeeting(Student student)
         {

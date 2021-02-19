@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 namespace AdvisementManagerDesktopApp.DAL
 {
     /// <summary>
-    ///   The DBConnection class
+    ///   The DBConnection class for accessing the database.
     /// </summary>
     public class DbConnection
     {
@@ -12,7 +12,10 @@ namespace AdvisementManagerDesktopApp.DAL
 
         private const string ConnStringPart3 = ";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        /// <summary>Gets the connection.</summary>
+        /// <summary>
+        ///     Gets the connection that is used to access the database via the connection string. If the database is built
+        ///     in the correct location the process is automatic otherwise the string must be manually edited in the method.
+        /// </summary>
         /// <returns>
         ///   The SQL connection
         /// </returns>
@@ -26,8 +29,8 @@ namespace AdvisementManagerDesktopApp.DAL
             var connDirectoryPath = splitPath[firstHalfOfDirectoryPath] + "ADVISEMENTMANAGERDESKTOPAPP\\ADVISEMENTMANAGMENTDB.MDF";
             var fullConn = ConnStringPart1 + connDirectoryPath + ConnStringPart3;
 
-           //return new SqlConnection(fullConn);
-           return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True");
+           return new SqlConnection(fullConn);
+           //return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True");
         }
     }
 }

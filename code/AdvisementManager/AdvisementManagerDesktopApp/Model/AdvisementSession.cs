@@ -3,31 +3,31 @@
 namespace AdvisementManagerDesktopApp.Model
 {
     /// <summary>
-    ///   The advisement session class
+    ///   The advisement session class for managing meetings
     /// </summary>
     public class AdvisementSession
     {
-        /// <summary>Gets or sets the end date.</summary>
+        /// <summary>Gets or sets the end date of the session.</summary>
         /// <value>The end date.</value>
         public DateTime EndDate { get; set; }
 
-        /// <summary>Gets or sets the identifier.</summary>
+        /// <summary>Gets or sets the unique identifier for the session.</summary>
         /// <value>The identifier.</value>
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the student.</summary>
+        /// <summary>Gets or sets the student the session is for.</summary>
         /// <value>The student.</value>
         public Student Student { get; set; }
 
-        /// <summary>Gets or sets the advisor.</summary>
+        /// <summary>Gets or sets the advisor the session is for.</summary>
         /// <value>The advisor.</value>
         public Advisor Advisor { get; set; }
 
-        /// <summary>Gets or sets the date.</summary>
+        /// <summary>Gets or sets the date the session is to be held.</summary>
         /// <value>The date.</value>
         public DateTime Date { get; set; }
 
-        /// <summary>Gets or sets the stage.</summary>
+        /// <summary>Gets or sets the stage the session is in.</summary>
         /// <value>The stage.</value>
         public int Stage { get; set; }
 

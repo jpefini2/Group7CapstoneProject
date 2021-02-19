@@ -5,7 +5,7 @@ using AdvisementManagerWebApp.Models;
 namespace AdvisementManagerWebApp.Data
 {
     /// <summary>
-    ///   The Application data context class
+    ///   The Application data context class for managing data from the database within the application.
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -16,23 +16,23 @@ namespace AdvisementManagerWebApp.Data
         {
         }
 
-        /// <summary>Gets or sets the student.</summary>
+        /// <summary>Gets or sets the students data from the relevant student table in the database.</summary>
         /// <value>The student.</value>
         public DbSet<Student> Student { get; set; }
 
-        /// <summary>Gets or sets the advisement session.</summary>
+        /// <summary>Gets or sets the advisement sessions from the relevant advisement session table in the database.</summary>
         /// <value>The advisement session.</value>
         public DbSet<AdvisementSession> AdvisementSession { get; set; }
 
-        /// <summary>Gets or sets the hold.</summary>
+        /// <summary>Gets or sets the holds from the relevant hold table in the database.</summary>
         /// <value>The hold.</value>
         public DbSet<Hold> Hold { get; set; }
 
-        /// <summary>Gets or sets the advisor.</summary>
+        /// <summary>Gets or sets the advisors from the relevant advisor table in the database.</summary>
         /// <value>The advisor.</value>
         public DbSet<Advisor> Advisor { get; set; }
 
-        /// <summary>Gets or sets the user.</summary>
+        /// <summary>Gets or sets the user from the relevant login table in the database.</summary>
         /// <value>The user.</value>
         public DbSet<User> Login { get; set; }
 

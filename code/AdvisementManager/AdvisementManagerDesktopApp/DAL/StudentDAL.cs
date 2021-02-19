@@ -7,13 +7,16 @@ using Microsoft.Data.SqlClient;
 namespace AdvisementManagerDesktopApp.DAL
 {
     /// <summary>
-    ///   The student DAL class
+    ///   The student DAL class for obtaining and editing student information in the database.
     /// </summary>
     public class StudentDal
     {
-        /// <summary>Obtains the students with holds.</summary>
+        /// <summary>
+        ///     Searches the database for students with active holds and bring them
+        ///     into the system to be used, managed and updated as needed.
+        /// </summary>
         /// <returns>
-        ///   <br />
+        ///   A list of students with holds.
         /// </returns>
         public IList<Student> ObtainStudentsWithHolds()
         {

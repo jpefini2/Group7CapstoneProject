@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AdvisementManagerWebApp.DAL
 {
     /// <summary>
-    ///   The student DAL class
+    ///   The student DAL class for managing, updating and pulling information from the student table in the database/context.
     /// </summary>
     public class StudentDal
     {
@@ -18,10 +18,10 @@ namespace AdvisementManagerWebApp.DAL
 
         private AdvisementSessionDAL advisementSessionDal = new ();
 
-        /// <summary>Obtains the students with holds.</summary>
+        /// <summary>Obtains the students with active holds from the DbContext</summary>
         /// <param name="context">The context.</param>
         /// <returns>
-        ///   The current context of students with holds
+        ///   The list of students with active holds
         /// </returns>
         public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context)
         {
@@ -31,7 +31,7 @@ namespace AdvisementManagerWebApp.DAL
                 .ToList();
         }
 
-        /// <summary>Obtains the student with the specified id.</summary>
+        /// <summary>Obtains the student with the specified id from the DbContext.</summary>
         /// <param name="id">The id.</param>
         /// <param name="context">The context.</param>
         /// <returns>

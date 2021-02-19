@@ -3,23 +3,23 @@
 namespace AdvisementManagerDesktopApp.Model
 {
     /// <summary>
-    ///   The Advisor class
+    ///   The Advisor class the currently signed in advisor.
     /// </summary>
     public class Advisor
     {
-        /// <summary>Gets or sets the identifier.</summary>
+        /// <summary>Gets or sets the unique identifier for the advisor.</summary>
         /// <value>The identifier.</value>
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the first name.</summary>
+        /// <summary>Gets or sets the first namef or the advisor.</summary>
         /// <value>The first name.</value>
         public string FirstName { get; set; }
 
-        /// <summary>Gets or sets the last name.</summary>
+        /// <summary>Gets or sets the last name for the advisor.</summary>
         /// <value>The last name.</value>
         public string LastName { get; set; }
 
-        /// <summary>Gets or sets the email.</summary>
+        /// <summary>Gets or sets the email for the advisor.</summary>
         /// <value>The email.</value>
         public string Email { get; set; }
 

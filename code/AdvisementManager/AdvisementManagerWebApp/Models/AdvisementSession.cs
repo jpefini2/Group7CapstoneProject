@@ -5,22 +5,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AdvisementManagerWebApp.Models
 {
     /// <summary>
-    ///   The advisement session class
+    ///   The advisement session class for managing meetings
     /// </summary>
     public class AdvisementSession
     {
-        /// <summary>Gets or sets the end date.</summary>
+        /// <summary>Gets or sets the end date of the session.</summary>
         /// <value>The end date.</value>
         [NotMapped]
         public DateTime EndDate { get; set; }
 
-        /// <summary>Gets or sets the identifier.</summary>
+        /// <summary>Gets or sets the unique identifier for the session.</summary>
         /// <value>The identifier.</value>
         [Key]
         [Column("sessionID")]
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the student.</summary>
+        /// <summary>Gets or sets the student the session is for.</summary>
         /// <value>The student.</value>
         [NotMapped]
         public Student Student { get; set; }
@@ -30,7 +30,7 @@ namespace AdvisementManagerWebApp.Models
         [Column("studentID")]
         public int StudentId { get; set; }
 
-        /// <summary>Gets or sets the advisor.</summary>
+        /// <summary>Gets or sets the advisor the session is for.</summary>
         /// <value>The advisor.</value>
         [NotMapped]
         public Advisor Advisor { get; set; }
@@ -40,12 +40,12 @@ namespace AdvisementManagerWebApp.Models
         [Column("advisorID")]
         public int AdvisorId { get; set; }
 
-        /// <summary>Gets or sets the date.</summary>
+        /// <summary>Gets or sets the date the session is to be held.</summary>
         /// <value>The date.</value>
         [Column("sessionDate")]
         public DateTime Date { get; set; }
 
-        /// <summary>Gets or sets the stage.</summary>
+        /// <summary>Gets or sets the stage the session is in.</summary>
         /// <value>The stage.</value>
         [Column("stage")]
         public short Stage { get; set; }

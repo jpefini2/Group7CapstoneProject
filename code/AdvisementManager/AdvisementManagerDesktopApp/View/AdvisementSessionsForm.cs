@@ -8,7 +8,7 @@ using AdvisementManagerDesktopApp.Model;
 namespace AdvisementManagerDesktopApp.View
 {
     /// <summary>
-    ///   The advisement sessions form.
+    ///   The advisement sessions form for approving meetings and removing holds..
     /// </summary>
     public partial class AdvisementSessionsForm : Form
     {

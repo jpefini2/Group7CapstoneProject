@@ -1,7 +1,7 @@
 namespace AdvisementManagerWebApp.Models
 {
     /// <summary>
-    ///   The Error view model
+    ///   The Error view model for displaying the errors page.
     /// </summary>
     public class ErrorViewModel
     {

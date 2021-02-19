@@ -10,10 +10,12 @@ using AdvisementManagerWebApp.Resources;
 namespace AdvisementManagerWebApp.Controllers
 {
     /// <summary>
-    ///   The Advisement Sessions Controller class
+    ///   The Advisement Sessions Controller class for managing data between the view, model and DAL.
     /// </summary>
     public class AdvisementSessionsController : Controller
     {
+        /// <summary>Gets the Dbcontext for editing and pulling information in the database.</summary>
+        /// <value>The Dbcontext.</value>
         public ApplicationDbContext context { get; }
         private readonly StudentDal studentDal = new();
         private readonly HoldDAL holdDal = new();
@@ -22,7 +24,7 @@ namespace AdvisementManagerWebApp.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvisementSessionsController"/> class.
         /// </summary>
-        /// <param name="context">The context.</param>
+        /// <param name="context">The Dbcontext.</param>
         public AdvisementSessionsController(ApplicationDbContext context)
         {
             this.context = context;
@@ -42,11 +44,13 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        /// Advisements the session.
+        ///     Gets the current advisement session for the student with the passed in Id, and the currently logged in advisor.
+        ///     Sets the current advisor and student in the sessionVM and returns the view with that viewmodel to be displayed and used
+        ///     in the advisement sessions page.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        ///     The current views student
+        ///     The current views student or the not found page if the id or user is null.
         /// </returns>
         public async Task<IActionResult> AdvisementSession(int? id)
         {
@@ -72,7 +76,10 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        /// Approves the meeting.
+        ///     Approves the meeting meeting in the DbContext then saves the changes to the database.
+        ///     After approval the user is redirected back to the advisementSessions page. If the time passed
+        ///     in is not after the current time then the user is redirected back to the current page to wait until the time has passed
+        ///     before being able to approve the meeting.
         /// </summary>
         /// <param name="holdId">The hold identifier.</param>
         /// <param name="time">The time.</param>
@@ -87,7 +94,7 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (time > DateTime.Now)
             {
-                redirectRoute = this.RedirectToCurrentPage(holdId);
+                redirectRoute = this.redirectToCurrentPage(holdId);
             }
             else
             {
@@ -95,7 +102,7 @@ namespace AdvisementManagerWebApp.Controllers
                 var hold = this.context.Hold.First(holdToFind => holdToFind.Id == holdId);
                 var session = this.context.AdvisementSession.First(sessionToFind => sessionToFind.Id == meetingId);
                 session.Completed = true;
-                UpdateHoldReason(advisor, hold);
+                updateHoldReason(advisor, hold);
 
                 this.context.SaveChanges();
             }
@@ -103,14 +110,7 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        /// <summary>
-        /// Redirects to the current page.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// A redirection to the current view
-        /// </returns>
-        private RedirectToRouteResult RedirectToCurrentPage(int? id)
+        private RedirectToRouteResult redirectToCurrentPage(int? id)
         {
             TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
 
@@ -122,12 +122,8 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        /// <summary>
-        /// Updates the reason for the given hold.
-        /// </summary>
-        /// <param name="advisor">The advisor doing the updating.</param>
-        /// <param name="hold">The hold to update.</param>
-        private static void UpdateHoldReason(Advisor advisor, Hold hold)
+
+        private static void updateHoldReason(Advisor advisor, Hold hold)
         {
             if (advisor.IsFacultyAdvisor)
             {
@@ -140,7 +136,9 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        /// Removes the hold.
+        ///     Removes the hold in the DbContext with the passed in hold id by setting the IsActive flag to false in the
+        ///     DbContext then updating the hold reason. Afterwords it saves the changes in the DbContext to the database
+        ///     then redirects the user to the advisement sessions page. 
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>

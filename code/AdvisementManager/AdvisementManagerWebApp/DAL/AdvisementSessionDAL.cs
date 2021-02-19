@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 namespace AdvisementManagerWebApp.DAL
 {
     /// <summary>
-    ///   The Advisement sessions DAL class
+    ///   The Advisement sessions DAL class for managing, updating and pulling infomration related to the advisement session table in the DbContext/Database.
     /// </summary>
     public class AdvisementSessionDAL
     {
-        /// <summary>Obtains the session.</summary>
+        /// <summary>Obtains the session, with the passed in session Id, from the DbContext.</summary>
         /// <param name="id">The identifier.</param>
         /// <param name="context">The context.</param>
         /// <returns>
-        ///   The retrieved session
+        ///   The session found in the DbContext.
         /// </returns>
         public AdvisementSession ObtainSession(int? id, ApplicationDbContext context)
         {

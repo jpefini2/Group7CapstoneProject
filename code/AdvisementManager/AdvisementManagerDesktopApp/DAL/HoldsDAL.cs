@@ -5,11 +5,11 @@ using AdvisementManagerDesktopApp.Model;
 namespace AdvisementManagerDesktopApp.DAL
 {
     /// <summary>
-    ///   The Holds DAL class
+    ///   The Holds DAL class for retrieving, editing and managing holds in the database.
     /// </summary>
     public class HoldsDal
     {
-        /// <summary>Removes the hold.</summary>
+        /// <summary>Removes the hold for a particular student from the database by setting the isActive attribute to false.</summary>
         /// <param name="student">The student.</param>
         public void RemoveHold(Student student)
         {
@@ -39,10 +39,10 @@ namespace AdvisementManagerDesktopApp.DAL
             }
         }
 
-        /// <summary>Checks for meetings.</summary>
+        /// <summary>Checks the database for an active meeting for a particular student via the completed attribute. </summary>
         /// <param name="student">The student.</param>
         /// <returns>
-        ///   The found meeting
+        ///   The meeting/advisement session for the student passed in.
         /// </returns>
         public AdvisementSession CheckForMeetings(Student student)
         {

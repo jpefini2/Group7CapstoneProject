@@ -6,61 +6,67 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AdvisementManagerWebApp.Models
 {
     /// <summary>
-    ///   The student class
+    ///   The student class for managing a student in the system.
     /// </summary>
     public class Student
     {
-        /// <summary>Gets or sets the identifier.</summary>
+        /// <summary>Gets or sets the unique identifier of the student.</summary>
         /// <value>The identifier.</value>
         [Key]
         [Column("studentID")]
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the first name.</summary>
+        /// <summary>Gets or sets the first name of the student.</summary>
         /// <value>The first name.</value>
         [Display(Name = "First Name")]
         [Column("firstName")]
         public string FirstName { get; set; }
 
-        /// <summary>Gets or sets the last name.</summary>
+        /// <summary>Gets or sets the last name of the student.</summary>
         /// <value>The last name.</value>
         [Display(Name = "Last Name")]
         [Column("lastName")]
         public string LastName { get; set; }
 
-        /// <summary>Gets or sets the email.</summary>
+        /// <summary>Gets or sets the email of the student.</summary>
         /// <value>The email.</value>
         [Display(Name = "Email")]
         [Column("email")]
         public string Email { get; set; }
 
+        /// <summary>Gets or sets the general advisors id assigned to the current student.</summary>
+        /// <value>The general advisor identifier.</value>
         [Column("advisorGeneralId")]
         public int generalAdvisorId { get; set; }
 
+        /// <summary>Gets or sets the faculty advisor id assigned to the current student.</summary>
+        /// <value>The faculty advisor identifier.</value>
         [Column("advisorFacultyId")]
         public int facultyAdvisorId { get; set; }
 
-        /// <summary>Gets or sets the general advisor.</summary>
+        /// <summary>Gets or sets the general advisor assigned to the student.</summary>
         /// <value>The general advisor.</value>
         [NotMapped]
         public Advisor GeneralAdvisor { get; set; }
 
-        /// <summary>Gets or sets the faculty advisor.</summary>
+        /// <summary>Gets or sets the faculty advisor assigned to the student.</summary>
         /// <value>The faculty advisor.</value>
         [NotMapped]
         public Advisor FacultyAdvisor { get; set; }
 
 
-        /// <summary>Gets or sets the hold.</summary>
+        /// <summary>Gets or sets the hold that a student has.</summary>
         /// <value>The hold.</value>
         [NotMapped]
         public Hold Hold { get; set; }
 
-        /// <summary>Gets or sets the meetings.</summary>
+        /// <summary>Gets or sets the meetings that a student currently has.</summary>
         /// <value>The meetings.</value>
         [NotMapped]
         public AdvisementSession Meeting { get; set; }
 
+        /// <summary>Gets or sets the multiple meetings that a student has/had.</summary>
+        /// <value>The meetings.</value>
         [NotMapped]
         public IList<AdvisementSession> Meetings { get; set; }
 
@@ -102,7 +108,7 @@ namespace AdvisementManagerWebApp.Models
             }
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Student" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="Student" />.</summary>
         public Student()
         {
             this.Meetings = new List<AdvisementSession>();
@@ -117,7 +123,7 @@ namespace AdvisementManagerWebApp.Models
             return this.Meeting != null;
         }
 
-        /// <summary>Converts to string.</summary>
+        /// <summary>converts the students full name via the ToString method.</summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {

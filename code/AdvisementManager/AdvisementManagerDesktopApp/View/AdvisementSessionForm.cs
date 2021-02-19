@@ -10,7 +10,7 @@ using Microsoft.Data.SqlClient;
 namespace AdvisementManagerDesktopApp.View
 {
     /// <summary>
-    ///   The advisement session form
+    ///   The advisement session form for viewing and selecting students with holds
     /// </summary>
     public partial class AdvisementSessionForm : Form
     {
