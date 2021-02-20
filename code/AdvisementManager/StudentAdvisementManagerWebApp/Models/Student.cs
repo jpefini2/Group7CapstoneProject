@@ -122,6 +122,25 @@ namespace StudentAdvisementManagerWebApp.Models
             return DateTime.Compare(this.Meeting.Date, DateTime.Now) > 0;
         }
 
+        /// <summary>
+        /// Returns if the student is ready to schedule a meeting;
+        /// </summary>
+        /// <returns>bool of if the student is ready to schedule a meeting</returns>
+        public bool CanScheduleMeeting()
+        {
+            if (this.hasUpcomingAdvisementSession())
+            {
+                return false;
+            }
+
+            if (this.Hold.Reason.ToLower() != "need to meet with dept advisor" && this.Hold.Reason.ToLower() != "need to meet with faculty advisor")
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <summary>Converts to string.</summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()

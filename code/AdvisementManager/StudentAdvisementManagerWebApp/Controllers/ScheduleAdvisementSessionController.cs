@@ -12,9 +12,9 @@ namespace StudentAdvisementManagerWebApp.Controllers
     /// </summary>
     public class ScheduleAdvisementSessionController : Controller
     {
-        private readonly string departmentAdvisementHoldReason = "Need to meet with dept advisor";
+        private readonly string departmentAdvisementHoldReason = "need to meet with dept advisor";
 
-        private readonly string facultyAdvisementHoldReason = "Need to meet with faculty advisor";
+        private readonly string facultyAdvisementHoldReason = "need to meet with faculty advisor";
 
         private readonly ApplicationDbContext context;
 
@@ -47,7 +47,10 @@ namespace StudentAdvisementManagerWebApp.Controllers
             return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", model);
         }
 
-        /// <summary>Initializes the schedule advisment model.</summary>
+        /// <summary>
+        ///     Initializes the schedule advisment model. 
+        ///     Determines which advisor the student must meet with and gets there available times to display.
+        /// </summary>
         /// <param name="student">The student.</param>
         /// <param name="holdreason">The holdreason.</param>
         /// <returns>
@@ -78,13 +81,17 @@ namespace StudentAdvisementManagerWebApp.Controllers
             return scheduleModel;
         }
 
-        /// <summary>Confirms the appointment.</summary>
+        /// <summary>
+        ///     Confirms the appointment is scheduled for a valid time and date,
+        ///     returns Schedule view if not, schedules session on the database if so.
+        /// </summary>
         /// <param name="studentid">The studentid.</param>
         /// <param name="advisorid">The advisorid.</param>
         /// <param name="date">The date.</param>
         /// <param name="time">The time.</param>
         /// <returns>
-        ///   Redirections to the student home page
+        ///     Redirections to the student home page, or
+        ///     return Schedule view to get new dateTime.
         /// </returns>
         public IActionResult ConfirmAppointment(int? studentid, int? advisorid, DateTime date, TimeSpan time)
         {
@@ -103,18 +110,20 @@ namespace StudentAdvisementManagerWebApp.Controllers
             return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", scheduleModel);
         }
 
+        /// <summary>Determines if the appointment time is in the future</summary>
+        /// <param name="sessionTime">The date of the session.</param>
+        /// <returns>
+        ///   bool, if the sessionTime is in the future or not.
+        /// </returns>
         private bool IsSessionTimeInTheFuture(DateTime sessionTime)
         {
             return DateTime.Compare(sessionTime, DateTime.Now) > 0;
         }
 
-        /// <summary>Schedules the session.</summary>
+        /// <summary>Schedules the advisement session to the database.</summary>
         /// <param name="studentid">The studentid.</param>
         /// <param name="advisorid">The advisorid.</param>
         /// <param name="sessionTime">The date of the session.</param>
-        /// <returns>
-        ///   Redirections to the student home page
-        /// </returns>
         private void ScheduleSession(int studentId, int advisorId, DateTime sessionTime)
         {
             AdvisementSession session = new AdvisementSession

@@ -42,7 +42,7 @@
             </div>
 
             @{
-                if (Model.Meeting == null || Model.Meeting.Completed)
+                if (Model.CanScheduleMeeting())
                 {
                     <a asp-controller="ScheduleAdvisementSession" asp-action="ScheduleAdvisementSession"
                        class="btn btn-primary col-sm-5"

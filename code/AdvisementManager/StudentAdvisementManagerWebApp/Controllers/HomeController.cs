@@ -26,9 +26,11 @@ namespace StudentAdvisementManagerWebApp.Controllers
             this.context = context;
         }
 
-        /// <summary>Students the home.</summary>
+        /// <summary>Obtains the logged in user from Cookies,
+        ///     then loads a StudentHome view to display it.
+        /// </summary>
         /// <returns>
-        ///   The current views model
+        ///   The StudentHome view bound to the logged in student model.
         /// </returns>
         [HttpGet]
         public IActionResult StudentHome()
@@ -37,10 +39,11 @@ namespace StudentAdvisementManagerWebApp.Controllers
             return View(this.studentModel);
         }
 
-        /// <summary>Students the home.</summary>
-        /// <param name="model">The model.</param>
+        /// <summary>returns a StudentHome view to display the passed Student.
+        /// </summary>
+        /// <param name="model">The student model.</param>
         /// <returns>
-        ///   The current views model
+        ///   The StudentHome view bound to the passed student model.
         /// </returns>
         [HttpPost]
         public IActionResult StudentHome(Student model)
