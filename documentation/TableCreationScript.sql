@@ -98,18 +98,18 @@ CREATE TABLE Availability (
 )
 
 INSERT INTO Login(username, passwordHash) VALUES
-('wkala', '$2a$12$bHDDjza0WCythx2A7kndf.8C7tH9ZX9Iu0Hq7oaxlNd8ETUL8V3mq'), /* s3cret */
-('terichsen', '$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO'), /* password1 */
-('bhart', '$2a$12$z7PkhUJcfmI/75USop3Dw.CKwdihcUcnTGW/aykwo8LfVTKFbQFma'), /* password1 */
-('jothewood', '$2a$12$5bL75OZSjSabRZyCN2AJFOw5cpwLb0b2.Nrd1fLd5X8X1LP23Jsia'), /* b3st_p@$$ */
-('gsmith', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), /* password1 */
-('hHill', '$2a$12$IjltwHUl7WTdjzEbbfoIgOd1HAWaVGxTfPr9w.t4BLPtNs1kNfFSe'), /* password1 */
-('kSmith', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), /* password1 */
-('jWood', '$2a$12$9CrXSNd7Yt.lM10X4dOnqeJcsWL50Id.FKv5Uv6smnyU9v7MyJMqO'), /* p@ssw0rd */
-('dMcCollum', '$2a$12$VvHlMGYNoTlZbmBgVmIcGuiujku7W4.ufHbK47jt7NGINwWtFVOPS'), /* password1234 */
-('bThatcher', '$2a$12$jKNkgEtMuKzgKgbUSFc9YONZiLk.k4N8nIeAEbEbkU7iKjNW3mSeW'), /* sup3r_s3cret*/
-('hAnderson', '$2a$12$ggkjrW0zrgiMlNUvB/ahX.sckqEvrRNrglqvqZOfzVynaFirLjWVq'), /* p@rr0ts */
-('cBrooks', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') /* password2 */
+('wkala', '$2a$12$bHDDjza0WCythx2A7kndf.8C7tH9ZX9Iu0Hq7oaxlNd8ETUL8V3mq'), 			/* s3cret */
+('terichsen', '$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO'), 		/* password1 */
+('bhart', '$2a$12$z7PkhUJcfmI/75USop3Dw.CKwdihcUcnTGW/aykwo8LfVTKFbQFma'), 			/* password1 */
+('jothewood', '$2a$12$5bL75OZSjSabRZyCN2AJFOw5cpwLb0b2.Nrd1fLd5X8X1LP23Jsia'), 		/* b3st_p@$$ */
+('gsmith', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), 		/* password1 */
+('hHill', '$2a$12$IjltwHUl7WTdjzEbbfoIgOd1HAWaVGxTfPr9w.t4BLPtNs1kNfFSe'), 			/* password1 */
+('kSmith', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), 		/* password1 */
+('jWood', '$2a$12$9CrXSNd7Yt.lM10X4dOnqeJcsWL50Id.FKv5Uv6smnyU9v7MyJMqO'), 			/* p@ssw0rd */
+('dMcCollum', '$2a$12$VvHlMGYNoTlZbmBgVmIcGuiujku7W4.ufHbK47jt7NGINwWtFVOPS'), 		/* password1234 */
+('bThatcher', '$2a$12$jKNkgEtMuKzgKgbUSFc9YONZiLk.k4N8nIeAEbEbkU7iKjNW3mSeW'), 		/* sup3r_s3cret*/
+('hAnderson', '$2a$12$ggkjrW0zrgiMlNUvB/ahX.sckqEvrRNrglqvqZOfzVynaFirLjWVq'), 		/* p@rr0ts */
+('cBrooks', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
 
 INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
 ('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),

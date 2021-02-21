@@ -9,14 +9,26 @@ using System.Threading.Tasks;
 namespace AdvisementManagerDesktopApp.Controller
 {
     class LoginController
-    {
-        internal bool Authenticate(string username, string password)
+    {   
+        /// <summary>
+        /// Passes the username and password to the loginDAL
+        /// to check for login success.
+        /// </summary>
+        /// <param name="username">The username supplied by the user.</param>
+        /// <param name="password">The password supplied by the user.</param>
+        /// <returns></returns>
+        internal static bool Authenticate(string username, string password)
         {
             var loginDAL = new LoginDAL();
             return loginDAL.Authenticate(username, password);
         }
 
-        internal Advisor InitializeLogin(string username)
+        /// <summary>
+        /// Initializes a session based on the given username.
+        /// </summary>
+        /// <param name="username">The user name to create a login session for.</param>
+        /// <returns></returns>
+        internal static Advisor InitializeLogin(string username)
         {
             var loginDAL = new LoginDAL();
             Advisor advisor = loginDAL.LogInUser(username);

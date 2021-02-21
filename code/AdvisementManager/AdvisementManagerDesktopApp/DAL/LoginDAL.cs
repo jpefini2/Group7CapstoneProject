@@ -40,8 +40,6 @@ namespace AdvisementManagerDesktopApp.DAL
                 {
                     matched = BCrypt.Net.BCrypt.Verify(password, hash);
                 }
-                
-
                 conn.Close();
                 return matched;
             }

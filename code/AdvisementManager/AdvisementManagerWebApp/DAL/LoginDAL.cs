@@ -71,7 +71,13 @@ namespace AdvisementManagerWebApp.DAL
             //return VerifyCurrentSession(this.context, username, hash);
             return true;
         }
-
+        /// <summary>
+        /// Checks the supplied username and password hash against the database.
+        /// </summary>
+        /// <param name="context">The DBContext</param>
+        /// <param name="username">The username supplied by the user.</param>
+        /// <param name="passwordHash">The password hash supplied by the user.</param>
+        /// <returns>True if successfully verified, false otherwise.</returns>
         public static bool VerifyCurrentSession(ApplicationDbContext context, String username, String passwordHash)
         {
             try

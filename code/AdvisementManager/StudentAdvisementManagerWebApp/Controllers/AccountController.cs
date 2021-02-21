@@ -71,12 +71,20 @@ namespace AdvisementManagerWebApp.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Redirects the user to the current page.
+        /// </summary>
+        /// <returns></returns>
         public RedirectToRouteResult RedirectToCurrentPage()
         {
             ViewBag.Message = "Login failed. Check input fields";
             return RedirectToRoute(new { action = "Login", controller = "Account"});
         }
         
+        /// <summary>
+        /// Redirects the user to Login()
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Login()
         {
             return View();

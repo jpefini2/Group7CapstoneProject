@@ -10,7 +10,7 @@ using BCrypt.Net;
 namespace AdvisementManagerWebApp.Controllers
 {
     /// <summary>
-    ///   The account controllers class
+    ///   The account controllers class, which handles user authentication.
     /// </summary>
     public class AccountController : Controller
     {
@@ -75,7 +75,10 @@ namespace AdvisementManagerWebApp.Controllers
             }
             return View(model);
         }
-        
+        /// <summary>
+        /// Returns the view back to the user.
+        /// </summary>
+        /// <returns>the current View.</returns>
         public IActionResult Login()
         {
             return View();
