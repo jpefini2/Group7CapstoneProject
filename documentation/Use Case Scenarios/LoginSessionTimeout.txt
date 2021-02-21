@@ -6,4 +6,6 @@ period of time
 Primary Flow:
 1. The login session times out.
 2. The User clicks on a page or task other than the login page.
-3. The system throws a null pointer exception (To be altered in later sprints)
+3. The system throws a null pointer exception
+4. The system informs the user they are not logged in.
+5. The system redirects the user to the login page.
