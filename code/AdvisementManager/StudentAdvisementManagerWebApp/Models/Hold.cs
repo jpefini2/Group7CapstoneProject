@@ -31,6 +31,13 @@ namespace StudentAdvisementManagerWebApp.Models
         [Column("isActive")]
         public bool IsActive { get; set; }
 
+        /// <summary>
+        /// Gets or sets the studentID associated with this hold.
+        /// </summary>
+        /// <value>The studentID</value>
+        [Column("studentID")]
+        public int StudentId { get; set; }
+
         public override string ToString()
         {
             if (this.IsActive)

@@ -16,7 +16,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
         private readonly string facultyAdvisementHoldReason = "need to meet with faculty advisor";
 
-        private readonly ApplicationDbContext context;
+        public ApplicationDbContext context { get; }
 
         private readonly ScheduleAdvisementSessionDAL scheduleDal = new();
 

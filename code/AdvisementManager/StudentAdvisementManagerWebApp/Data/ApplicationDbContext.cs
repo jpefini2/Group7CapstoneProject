@@ -1,7 +1,6 @@
-﻿using AdvisementManagerWebApp.Models;
+﻿using StudentAdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using StudentAdvisementManagerWebApp.Models;
 
 namespace StudentAdvisementManagerWebApp.Data
 {

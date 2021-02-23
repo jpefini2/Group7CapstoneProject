@@ -18,10 +18,7 @@ namespace StudentAdvisementManagerWebApp.DAL
         /// </returns>
         public Hold ObtainHold(int? id, ApplicationDbContext context)
         {
-            var hold = context.Hold.FromSqlRaw(
-                "SELECT holdID, reason, dateAdded, isActive FROM Hold  WHERE studentID = {0}", id).FirstOrDefault();
-
-            return hold;
+            return (from hold in context.Hold where hold.StudentId == id select hold).FirstOrDefault();
         }
     }
 }

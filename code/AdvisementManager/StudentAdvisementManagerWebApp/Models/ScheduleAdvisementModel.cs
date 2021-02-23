@@ -52,7 +52,7 @@ namespace StudentAdvisementManagerWebApp.Models
             get 
             {
                 var sessionTime = this.Date.AddMinutes(this.Time.TotalMinutes);
-                return DateTime.Compare(sessionTime, DateTime.Now) > 0;
+                return DateTime.Compare(sessionTime, DateTime.Now) < 0;
             }
         }
 

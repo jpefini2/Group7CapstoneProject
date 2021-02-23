@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace AdvisementManagerWebApp.DAL
+namespace StudentAdvisementManagerWebApp.DAL
 {
     public class LoginDAL
     {
@@ -58,7 +58,7 @@ namespace AdvisementManagerWebApp.DAL
         /// <returns>True if the the session was created, false otherwise.</returns>
         public bool createNewLoginSession(String username, String hash)
         {
-            Models.LoginSession loginSession = new Models.LoginSession
+            LoginSession loginSession = new Models.LoginSession
             {
                 Username = username,
                 SessionKey = hash,

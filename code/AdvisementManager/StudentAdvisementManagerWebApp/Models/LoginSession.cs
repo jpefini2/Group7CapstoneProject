@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdvisementManagerWebApp.Models
+namespace StudentAdvisementManagerWebApp.Models
 {
     public class LoginSession
     {

@@ -13,7 +13,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
     /// </summary>
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext context;
+        public ApplicationDbContext context { get; }
 
         private Student studentModel;
 

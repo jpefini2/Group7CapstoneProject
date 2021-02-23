@@ -30,10 +30,10 @@ namespace AdvisementManagerDesktopApp.View
             var username = usernameTextBox.Text.Trim();
             var password = passwordTextBox.Text.Trim();
 
-            if (this.loginController.Authenticate(username, password))
+            if (LoginController.Authenticate(username, password))
             {
                 MessageBox.Show(@"Login OK.");
-                Advisor advisor = this.loginController.InitializeLogin(username);
+                Advisor advisor = LoginController.InitializeLogin(username);
                 var student = new Student
                 {
                     Id = 2,

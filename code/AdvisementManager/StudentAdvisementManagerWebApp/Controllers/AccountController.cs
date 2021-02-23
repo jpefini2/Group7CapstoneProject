@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentAdvisementManagerWebApp.DAL;
 using StudentAdvisementManagerWebApp.Data;
 using System;
 using System.Diagnostics;
 
-namespace AdvisementManagerWebApp.Controllers
+namespace StudentAdvisementManagerWebApp.Controllers
 {
     /// <summary>
     ///   The account controllers class
@@ -14,7 +15,7 @@ namespace AdvisementManagerWebApp.Controllers
 
         private LoginViewModel loginViewModel = new();
 
-        private DAL.LoginDAL loginDAL;
+        private LoginDAL loginDAL;
 
         /// <summary>Initializes a new instance of the <see cref="AccountController" /> class.</summary>
         /// <param name="logger">The logger.</param>
