@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gCQ9+sGJwIGFE6OAqt6kKcwTp96NV6wQBYBX/rBLQnhvXWE4MnC5LPGnN4t10W17UscLMtO0UFUWZc99rsrevQ==",
+  "dgSpecHash": "uUzvi5nN/fDi9ZKjLB6gugL/L5n6a/0GKH3BXDx2b+n+4YokmIWmLpMntvrOZAnwx/RmTyHYOAIqU0xqkuOsWw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\joshp\\Source\\Repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
+  "projectFilePath": "C:\\Users\\joshp\\source\\repos\\Group7CapstoneProject\\code\\AdvisementManager\\AdvisementManagerDesktopApp\\AdvisementManagerDesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joshp\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\joshp\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
