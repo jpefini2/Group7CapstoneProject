@@ -1,0 +1,12 @@
+Take Notes
+
+Context: The advisor in currently viewing a students meeting page.
+
+Primary Flow:
+1. The user types notes into the text box.
+2. The user confirms meeting is finished. 
+3. The system persists the notes to the database.
+
+Alternate Flow:
+	A2. The user clicks cancel.
+	A3. The user is taken back to the previous page.

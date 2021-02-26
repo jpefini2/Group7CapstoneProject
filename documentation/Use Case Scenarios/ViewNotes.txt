@@ -1,0 +1,10 @@
+View Meeting Notes:
+
+Context: The advisor is currently viewing a students page or a student is currently viewing their past meetings.
+
+Primary Flow:
+1. The user selects the meeting they want to view notes for.
+2. The system retrieves the notes along with the meeting info.
+3. The system displays the notes along with other meeting information.
+4. The user clicks cancel.
+5. The user is returned to the previous page.
