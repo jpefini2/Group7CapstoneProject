@@ -88,6 +88,7 @@ namespace AdvisementManagerDesktopApp.View
             {
                 try
                 {
+                    this.student.Meeting.Notes = this.notesTxtBox.Text;
                     this.sessionController.ApproveMeeting(this.student, this.advisor);
                     this.Close();
                 }

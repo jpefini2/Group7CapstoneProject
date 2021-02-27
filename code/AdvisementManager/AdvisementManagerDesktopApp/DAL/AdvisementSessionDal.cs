@@ -20,11 +20,14 @@ namespace AdvisementManagerDesktopApp.DAL
             {
                 conn.Open();
                 const string updateQuery =
-                    "UPDATE AdvisementSession SET completed = @completed WHERE sessionId = @sessionId;";
+                    "UPDATE AdvisementSession SET completed = @completed, notes = @notes WHERE sessionId = @sessionId;";
                 using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(updateQuery, conn))
                 {
                     cmd.Parameters.Add("@completed", SqlDbType.Bit);
                     cmd.Parameters["@completed"].Value = student.Meeting.Completed;
+
+                    cmd.Parameters.Add("@notes", SqlDbType.VarChar);
+                    cmd.Parameters["@notes"].Value = student.Meeting.Notes;
 
                     cmd.Parameters.Add("@sessionId", SqlDbType.Int);
                     cmd.Parameters["@sessionId"].Value = student.Meeting.Id;

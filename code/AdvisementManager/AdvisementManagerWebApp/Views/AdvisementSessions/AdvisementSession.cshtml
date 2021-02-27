@@ -19,55 +19,59 @@ else
 
 <table class="table">
     <tbody>
-        <tr>
-            <td>
-                Name: @Model.student.FirstName @Model.student.LastName
-            </td>
-            <td></td>
-            <td>
-                Meeting Time: @ViewBag.MeetingTime
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Model.student.Email
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>
-                Hold: @Model.student.Hold.Reason
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <div>
-                    @if (Model.student.Meeting != null)
+    <tr>
+        <td>
+            Name: @Model.student.FirstName @Model.student.LastName
+        </td>
+        <td></td>
+        <td>
+            Meeting Time: @ViewBag.MeetingTime
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Model.student.Email
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            Hold: @Model.student.Hold.Reason
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <div>
+                @if (Model.student.Meeting != null)
+                {
+                    if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
                     {
-                        if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
-                        {
-
-                            <a asp-action="ApproveMeeting" asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id"
-                               class="btn btn-primary">Approve</a>
-                        }
+                <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes" asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id" method="post">
+                    <input asp-for="Notes" class="form-control" />
+                    <button type="submit" class="btn btn-primary">Approve</button>
+                </form>
                     }
-                    else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
-                    {
-                        <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
-                           class="btn btn-danger">Remove Hold</a>
-                    }
+                }
+                else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
+                {
+                    <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
+                       class="btn btn-danger">Remove Hold</a>
+                }
 
-                        <a asp-action="AdvisementSessions"
-                       class="btn btn-secondary">Cancel</a>
-                </div>
-            </td>
-            <td></td>
-        </tr>
+                <a asp-action="AdvisementSessions"
+                   class="btn btn-secondary">Cancel</a>
+            </div>
+        </td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
+<div>
+</div>
+
 <div>@TempData["MeetingTimeError"]</div>
 

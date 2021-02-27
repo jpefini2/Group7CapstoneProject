@@ -18,5 +18,9 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the advisor for this session</summary>
         /// <value>The advisor.</value>
         public Advisor advisor { get; set; }
+
+        /// <summary>Gets or sets the notes.</summary>
+        /// <value>The notes.</value>
+        public string Notes { get; set; }
     }
 }

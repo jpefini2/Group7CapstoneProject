@@ -37,6 +37,11 @@ namespace AdvisementManagerDesktopApp.Model
         public bool Completed { get; set; }
 
 
+        /// <summary>Gets or sets the notes.</summary>
+        /// <value>The notes.</value>
+        public string Notes { get; set; }
+
+
 
     }
 }

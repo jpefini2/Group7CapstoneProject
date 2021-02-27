@@ -38,6 +38,7 @@ namespace AdvisementManagerDesktopApp.View
             this.removeHoldBtn = new System.Windows.Forms.Button();
             this.loggedInLabel = new System.Windows.Forms.Label();
             this.waitForMeetingTimeLbl = new System.Windows.Forms.Label();
+            this.notesTxtBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // approveBtn
@@ -64,7 +65,7 @@ namespace AdvisementManagerDesktopApp.View
             // studentNameLbl
             // 
             this.studentNameLbl.AutoSize = true;
-            this.studentNameLbl.Location = new System.Drawing.Point(161, 113);
+            this.studentNameLbl.Location = new System.Drawing.Point(183, 72);
             this.studentNameLbl.Name = "studentNameLbl";
             this.studentNameLbl.Size = new System.Drawing.Size(83, 15);
             this.studentNameLbl.TabIndex = 3;
@@ -73,7 +74,7 @@ namespace AdvisementManagerDesktopApp.View
             // meetingTimeLbl
             // 
             this.meetingTimeLbl.AutoSize = true;
-            this.meetingTimeLbl.Location = new System.Drawing.Point(461, 113);
+            this.meetingTimeLbl.Location = new System.Drawing.Point(481, 72);
             this.meetingTimeLbl.Name = "meetingTimeLbl";
             this.meetingTimeLbl.Size = new System.Drawing.Size(57, 15);
             this.meetingTimeLbl.TabIndex = 4;
@@ -82,7 +83,7 @@ namespace AdvisementManagerDesktopApp.View
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(229, 194);
+            this.label3.Location = new System.Drawing.Point(283, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 15);
             this.label3.TabIndex = 5;
@@ -91,7 +92,7 @@ namespace AdvisementManagerDesktopApp.View
             // stageLbl
             // 
             this.stageLbl.AutoSize = true;
-            this.stageLbl.Location = new System.Drawing.Point(292, 194);
+            this.stageLbl.Location = new System.Drawing.Point(346, 118);
             this.stageLbl.Name = "stageLbl";
             this.stageLbl.Size = new System.Drawing.Size(123, 15);
             this.stageLbl.TabIndex = 6;
@@ -128,11 +129,20 @@ namespace AdvisementManagerDesktopApp.View
             this.waitForMeetingTimeLbl.Text = "Please wait until the meeting time to approve a student";
             this.waitForMeetingTimeLbl.Visible = false;
             // 
+            // notesTxtBox
+            // 
+            this.notesTxtBox.Location = new System.Drawing.Point(12, 233);
+            this.notesTxtBox.Multiline = true;
+            this.notesTxtBox.Name = "notesTxtBox";
+            this.notesTxtBox.Size = new System.Drawing.Size(776, 102);
+            this.notesTxtBox.TabIndex = 10;
+            // 
             // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.notesTxtBox);
             this.Controls.Add(this.waitForMeetingTimeLbl);
             this.Controls.Add(this.loggedInLabel);
             this.Controls.Add(this.removeHoldBtn);
@@ -160,6 +170,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Button removeHoldBtn;
         private System.Windows.Forms.Label loggedInLabel;
         private System.Windows.Forms.Label waitForMeetingTimeLbl;
+        private System.Windows.Forms.TextBox notesTxtBox;
     }
 }
 

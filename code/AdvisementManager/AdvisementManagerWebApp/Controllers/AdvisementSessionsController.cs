@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AdvisementManagerWebApp.DAL;
 using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Resources;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -76,19 +78,21 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        ///     Approves the meeting meeting in the DbContext then saves the changes to the database.
-        ///     After approval the user is redirected back to the advisementSessions page. If the time passed
-        ///     in is not after the current time then the user is redirected back to the current page to wait until the time has passed
-        ///     before being able to approve the meeting.
+        /// Approves the meeting meeting in the DbContext then saves the changes to the database.
+        /// After approval the user is redirected back to the advisementSessions page. If the time passed
+        /// in is not after the current time then the user is redirected back to the current page to wait until the time has passed
+        /// before being able to approve the meeting.
         /// </summary>
         /// <param name="holdId">The hold identifier.</param>
         /// <param name="time">The time.</param>
         /// <param name="advisorId">The advisor identifier.</param>
         /// <param name="meetingId">The meeting identifier.</param>
+        /// <param name="notes">The notes.</param>
         /// <returns>
         /// A redirection to the advisement sessions view
         /// </returns>
-        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId)
+        [HttpPost]
+        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId, string notes)
         {
             var redirectRoute = RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
 
@@ -102,6 +106,7 @@ namespace AdvisementManagerWebApp.Controllers
                 var hold = this.context.Hold.First(holdToFind => holdToFind.Id == holdId);
                 var session = this.context.AdvisementSession.First(sessionToFind => sessionToFind.Id == meetingId);
                 session.Completed = true;
+                session.Notes = notes;
                 updateHoldReason(advisor, hold);
 
                 this.context.SaveChanges();

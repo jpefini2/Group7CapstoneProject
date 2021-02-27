@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace AdvisementManagerWebApp.Models
 {
@@ -56,7 +57,10 @@ namespace AdvisementManagerWebApp.Models
         [Column("completed")]
         public bool Completed { get; set; }
 
-
+        /// <summary>Gets or sets the notes.</summary>
+        /// <value>The notes.</value>
+        [Column("notes")]
+        public string Notes { get; set; }
 
     }
 }
