@@ -31,7 +31,7 @@ namespace AdvisementManagerDesktopApp.View
         private void setUpScreen()
         {
             this.studentsWithHoldsListBox.Items.Clear();
-            this.students = this.sessionController.ObtainStudentsWithHolds();
+            this.students = this.sessionController.ObtainStudentsWithHolds(this.advisor);
 
             foreach (var student in this.students)
             {

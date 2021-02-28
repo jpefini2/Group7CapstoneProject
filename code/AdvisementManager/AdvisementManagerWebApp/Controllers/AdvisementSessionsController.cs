@@ -37,7 +37,9 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>The current views students with holds</returns>
         public IActionResult AdvisementSessions()
         {
-            var students = this.studentDal.ObtainStudentsWithHolds(this.context);
+            var user = this.context.Advisor
+                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["AdvisementManager.LoginUser"]);
+            var students = this.studentDal.ObtainStudentsWithHolds(this.context, user);
 
             var studentsWithHolds = new StudentsVM {
                 Students = students

@@ -18,7 +18,7 @@ namespace AdvisementManagerDesktopApp.DAL
         /// <returns>
         ///   A list of students with holds.
         /// </returns>
-        public IList<Student> ObtainStudentsWithHolds()
+        public IList<Student> ObtainStudentsWithHolds(Advisor advisor)
         {
             var students = new List<Student>();
 
@@ -27,11 +27,14 @@ namespace AdvisementManagerDesktopApp.DAL
             {
                 conn.Open();
                 const string selectQuery =
-                    " SELECT Student.studentID, Student.firstName, Student.lastName, Student.email, Student.advisorGeneralID, Student.advisorFacultyID, Hold.holdID, Hold.reason, Hold.dateAdded, Hold.isActive FROM Student INNER JOIN Hold ON Hold.studentID = Student.studentID WHERE isActive = @isActive;";
+                    " SELECT Student.studentID, Student.firstName, Student.lastName, Student.email, Student.advisorGeneralID, Student.advisorFacultyID, Hold.holdID, Hold.reason, Hold.dateAdded, Hold.isActive FROM Student INNER JOIN Hold ON Hold.studentID = Student.studentID WHERE isActive = @isActive and (Student.advisorGeneralID = @advisorID or Student.advisorFacultyID = @advisorID);";
                 using (var cmd = new SqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.Add("@isActive", SqlDbType.TinyInt);
                     cmd.Parameters["@isActive"].Value = true;
+
+                    cmd.Parameters.Add("@advisorID", SqlDbType.Int);
+                    cmd.Parameters["@advisorID"].Value = advisor.Id;
 
                     appendStudent(cmd, students);
 

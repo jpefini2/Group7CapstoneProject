@@ -39,7 +39,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new AdvisementManagerWebApp.Controllers.AdvisementSessionsController(context);
-                controller.ApproveMeeting(1, DateTime.Now, 1, 1);
+                controller.ApproveMeeting(1, DateTime.Now, 1, 1, "notes");
 
                 Assert.AreEqual(true, context.AdvisementSession.Find(1).Completed);
                 context.Database.EnsureDeleted();
@@ -75,7 +75,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new AdvisementManagerWebApp.Controllers.AdvisementSessionsController(context);
-                controller.ApproveMeeting(1, DateTime.Now, 1, 1);
+                controller.ApproveMeeting(1, DateTime.Now, 1, 1, "notes");
 
                 Assert.AreEqual(true, context.AdvisementSession.Find(1).Completed);
                 context.Database.EnsureDeleted();
@@ -114,7 +114,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
                 var mockTempData = new Mock<ITempDataDictionary>();
                 controller.TempData = mockTempData.Object;
 
-                var result = controller.ApproveMeeting(1, DateTime.MaxValue, 1, 1);
+                var result = controller.ApproveMeeting(1, DateTime.MaxValue, 1, 1, "notes");
 
                 Assert.IsNull(result.RouteValues["AdvisementSessions"]);
                 context.Database.EnsureDeleted();

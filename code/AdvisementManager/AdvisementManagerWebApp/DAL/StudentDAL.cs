@@ -25,9 +25,9 @@ namespace AdvisementManagerWebApp.DAL
         /// <returns>
         ///   The list of students with active holds
         /// </returns>
-        public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context)
+        public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context, Advisor user)
         {
-            return (from student in context.Student join hold in context.Hold on student.Id equals hold.StudentId into studentWithHold from hold in studentWithHold where hold.IsActive  select student).ToList();
+            return (from student in context.Student join hold in context.Hold on student.Id equals hold.StudentId into studentWithHold from hold in studentWithHold where hold.IsActive && (student.facultyAdvisorId == user.Id || student.generalAdvisorId == user.Id)  select student).ToList();
         }
 
         /// <summary>Obtains the student with the specified id from the DbContext.</summary>

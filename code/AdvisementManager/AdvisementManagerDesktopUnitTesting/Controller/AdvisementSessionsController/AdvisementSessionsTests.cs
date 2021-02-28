@@ -14,7 +14,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
     public class AdvisementSessionsTests
     {
         [TestMethod]
-        public void AdvisementSessionsTest()
+        private void AdvisementSessionsTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                           .UseInMemoryDatabase(databaseName: "AdvisementManagement")
