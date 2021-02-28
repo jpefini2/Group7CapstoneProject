@@ -115,11 +115,16 @@ namespace StudentAdvisementManagerWebApp.Models
         /// <returns>bool of if the student has an upcoming meeting</returns>
         private bool hasUpcomingAdvisementSession()
         {
-            if(this.Meeting == null)
-            {
-                return false;
-            }
-            return DateTime.Compare(this.Meeting.Date, DateTime.Now) > 0;
+            return this.Meeting != null && DateTime.Compare(this.Meeting.Date, DateTime.Now) > 0;
+        }
+
+        /// <summary>
+        /// Returns if the student's latest meeting is incomplete.
+        /// </summary>
+        /// <returns>bool of if the student's latest meeting is incomplete</returns>
+        private bool isLastMeetingIncomplete()
+        {
+            return this.Meeting != null && !this.Meeting.Completed;
         }
 
         /// <summary>
@@ -129,16 +134,12 @@ namespace StudentAdvisementManagerWebApp.Models
         public bool CanScheduleMeeting()
         {
             if (this.hasUpcomingAdvisementSession())
-            {
                 return false;
-            }
 
-            if (this.Hold.Reason.ToLower() != "need to meet with dept advisor" && this.Hold.Reason.ToLower() != "need to meet with faculty advisor")
-            {
+            if (this.isLastMeetingIncomplete())
                 return false;
-            }
 
-            return true;
+            return this.Hold.Reason.ToLower() == "need to meet with dept advisor" || this.Hold.Reason.ToLower() == "need to meet with faculty advisor";
         }
 
         /// <summary>Converts to string.</summary>

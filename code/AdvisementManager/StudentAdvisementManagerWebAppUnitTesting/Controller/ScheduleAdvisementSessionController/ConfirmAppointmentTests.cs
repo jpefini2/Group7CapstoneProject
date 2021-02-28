@@ -46,7 +46,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Controller.ScheduleAdvisemen
 
                 AdvisementSessionDAL sessionDal = new AdvisementSessionDAL();
 
-                Assert.AreEqual(date.AddMinutes(time.TotalMinutes), sessionDal.ObtainSession(student.Id, context).Date);
+                Assert.AreEqual(date.AddMinutes(time.TotalMinutes), sessionDal.ObtainLatestIncompleteSession(student.Id, context).Date);
                 context.Database.EnsureDeleted();
             }
         }
@@ -83,7 +83,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Controller.ScheduleAdvisemen
 
                 AdvisementSessionDAL sessionDal = new AdvisementSessionDAL();
 
-                Assert.IsNull(sessionDal.ObtainSession(student.Id, context));
+                Assert.IsNull(sessionDal.ObtainLatestIncompleteSession(student.Id, context));
                 context.Database.EnsureDeleted();
             }
         }
