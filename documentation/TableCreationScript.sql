@@ -83,6 +83,11 @@ CREATE TABLE AdvisementSession (
     REFERENCES Advisor (advisorID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
+  CONSTRAINT fk_session_holdID
+    FOREIGN KEY (holdID)
+    REFERENCES Hold (holdID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 )
 
 CREATE TABLE Availability (
@@ -121,11 +126,11 @@ INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gen
 INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, username, gender) VALUES
 ('Hank', 'Hill', 'hhill@my.askj.net', 1, 2, 'hHill', 'male'),
 ('Katie', 'Smith', 'ksmith@my.askj.net', 1, 2, 'kSmith', 'female'),
-('Jerry', 'Wood', 'jwood@my.askj.net', 2, 5, 'jWood', 'male'),
+('Jerry', 'Wood', 'jwood@my.askj.net', 3, 5, 'jWood', 'male'),
 ('Derek', 'McCollum', 'dwilson@my.askj.net', 3, 5, 'dMcCollum', 'male'),
 ('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'bThatcher', 'female'),
 ('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'hAnderson', 'male'),
-('Cody', 'Brooks', 'cbrooks@my.askj.net', 5, 2, 'cBrooks', 'male')
+('Cody', 'Brooks', 'cbrooks@my.askj.net', 4, 2, 'cBrooks', 'male')
 
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 1),
