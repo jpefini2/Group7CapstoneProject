@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Hold, Availability, AdvisementSession, Student, Advisor, LoginSession, Login
+DROP TABLE IF EXISTS Availability, AdvisementSession, Hold, Student, Advisor, LoginSession, Login
 
 CREATE TABLE Login (
 	username VARCHAR (15) NOT NULL PRIMARY KEY,
@@ -69,6 +69,7 @@ CREATE TABLE AdvisementSession (
   sessionID INT NOT NULL IDENTITY PRIMARY KEY,
   studentID INT NOT NULL,
   advisorID INT NOT NULL,
+  holdID INT NOT NULL,
   sessionDate DATETIME2(0) NOT NULL UNIQUE,
   stage SMALLINT NOT NULL,
   completed BIT NOT NULL,
@@ -82,7 +83,7 @@ CREATE TABLE AdvisementSession (
     FOREIGN KEY (advisorID)
     REFERENCES Advisor (advisorID)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT fk_session_holdID
     FOREIGN KEY (holdID)
     REFERENCES Hold (holdID)
@@ -141,10 +142,10 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('ready to register', '1-16-2021', 1, 6),
 ('need to meet with faculty advisor', '1-16-2021', 1, 7)
 
-INSERT INTO AdvisementSession (studentID, advisorID, sessionDate, stage, completed, notes) VALUES
-(1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
-(2, 3, '11-22-2020', 0, 0, 'Trying to stay under 16 credit hours'),
-(4, 3, '11-30-2020', 0, 0, '')
+INSERT INTO AdvisementSession (studentID, advisorID, holdID, sessionDate, stage, completed, notes) VALUES
+(1, 1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
+(2, 3, 2, '11-22-2020', 0, 0, 'Trying to stay under 16 credit hours'),
+(4, 3, 4, '11-30-2020', 0, 0, '')
 
 INSERT INTO Availability (timeBegin, timeEnd, advisorID) VALUES
 ('2020-11-23 07:30:00', '2020-11-23 10:00:00', 1),
