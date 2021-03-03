@@ -62,5 +62,10 @@ namespace AdvisementManagerWebApp.Models
         [Column("notes")]
         public string Notes { get; set; }
 
+        /// <summary>Gets or sets the hold identifier.</summary>
+        /// <value>The hold identifier.</value>
+        [Column("holdID")]
+        public int HoldId { get; set; }
+
     }
 }

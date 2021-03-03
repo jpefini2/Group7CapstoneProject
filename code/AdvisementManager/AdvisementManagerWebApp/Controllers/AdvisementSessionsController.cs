@@ -8,6 +8,8 @@ using AdvisementManagerWebApp.Data;
 using AdvisementManagerWebApp.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -71,9 +73,12 @@ namespace AdvisementManagerWebApp.Controllers
             student.Meeting = this.sessionDal.ObtainSession(id, this.context);
             student.Hold = this.holdDal.ObtainHold(id, this.context);
 
+            var pastSessions = (from oldSessions in this.context.AdvisementSession where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true select oldSessions).ToList();
+
             var sessionVM = new AdvisementSessionVM {
                 student = student,
-                advisor = advisor
+                advisor = advisor,
+                PastSessions = pastSessions
             };
 
             return View(sessionVM);

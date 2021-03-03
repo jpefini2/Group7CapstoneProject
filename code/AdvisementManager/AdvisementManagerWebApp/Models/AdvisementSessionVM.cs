@@ -22,5 +22,9 @@ namespace AdvisementManagerWebApp.Models
         /// <summary>Gets or sets the notes.</summary>
         /// <value>The notes.</value>
         public string Notes { get; set; }
+
+        /// <summary>Gets or sets the past sessions.</summary>
+        /// <value>The past sessions.</value>
+        public IList<AdvisementSession> PastSessions { get; set; }
     }
 }

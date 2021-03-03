@@ -13,6 +13,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
     [TestClass]
     public class AdvisementSessionsTests
     {
+        //TODO need to fix this test now that is it using the cookies.
         [TestMethod]
         private void AdvisementSessionsTest()
         {

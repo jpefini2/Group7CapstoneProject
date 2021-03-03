@@ -1,6 +1,6 @@
 View Meeting Notes:
 
-Context: The advisor is currently viewing a students page or a student is currently viewing their past meetings.
+Context: A student is currently viewing their past meetings.
 
 Primary Flow:
 1. The user selects the meeting they want to view notes for.

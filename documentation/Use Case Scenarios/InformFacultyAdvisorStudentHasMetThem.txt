@@ -3,9 +3,12 @@ Inform Faculty Advisor that Student Has Met Them:
 Context: General Advisor is currently viewing student meeting.
 
 Primary Flow:
-1. The user clicks confirm button.
-2. The system saves the meeting information.
-3. The system updates the students advisement page to signify that the student has met with them.
+1. The system pulls any notes from advisement sessions that are part of the current hold.
+2. The system displays notes from past meetings that are part of the current hold.
+3. The user types notes into the text box if desired.
+4. The user clicks confirm button.
+5. The system saves the meeting information.
+6. The system updates the students advisement page to signify that the student has met with them.
 
 Alternate Flow: 
 	A2. The system informs the user that the meeting time has not occured yet.
