@@ -21,7 +21,6 @@ using Moq;
 using NSubstitute;
 using RestSharp;
 using Xunit;
-using NSubstitute;
 
 namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsController
 {

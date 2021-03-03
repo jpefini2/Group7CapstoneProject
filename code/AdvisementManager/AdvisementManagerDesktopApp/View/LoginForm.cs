@@ -2,12 +2,14 @@
 using AdvisementManagerDesktopApp.Model;
 using System;
 using System.Windows.Forms;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdvisementManagerDesktopApp.View
 {
     public partial class LoginForm : Form
     {
         private readonly LoginController loginController = new();
+        private DbContext context;
 
         public LoginForm()
         {

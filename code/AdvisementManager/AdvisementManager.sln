@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisementManagerWebAppUnit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAdvisementManagerWebApp", "StudentAdvisementManagerWebApp\StudentAdvisementManagerWebApp.csproj", "{21185CFA-BEFB-4226-8C0B-282D6BC5ED43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAdvisementManagerWebAppUnitTesting", "StudentAdvisementManagerWebAppUnitTesting\StudentAdvisementManagerWebAppUnitTesting.csproj", "{2DDB8390-29A5-4DCF-8954-2D85559B369C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentAdvisementManagerWebAppUnitTesting", "StudentAdvisementManagerWebAppUnitTesting\StudentAdvisementManagerWebAppUnitTesting.csproj", "{2DDB8390-29A5-4DCF-8954-2D85559B369C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3FA3FFC-8C4F-448E-ACC7-2DAEFD0D47C2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
