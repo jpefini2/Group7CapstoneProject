@@ -39,11 +39,13 @@ namespace AdvisementManagerDesktopApp.View
             this.loggedInLabel = new System.Windows.Forms.Label();
             this.waitForMeetingTimeLbl = new System.Windows.Forms.Label();
             this.notesTxtBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.notesLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // approveBtn
             // 
-            this.approveBtn.Location = new System.Drawing.Point(229, 371);
+            this.approveBtn.Location = new System.Drawing.Point(229, 453);
             this.approveBtn.Name = "approveBtn";
             this.approveBtn.Size = new System.Drawing.Size(106, 54);
             this.approveBtn.TabIndex = 1;
@@ -54,7 +56,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(372, 371);
+            this.cancelBtn.Location = new System.Drawing.Point(372, 453);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(106, 54);
             this.cancelBtn.TabIndex = 2;
@@ -100,7 +102,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // removeHoldBtn
             // 
-            this.removeHoldBtn.Location = new System.Drawing.Point(230, 371);
+            this.removeHoldBtn.Location = new System.Drawing.Point(230, 453);
             this.removeHoldBtn.Name = "removeHoldBtn";
             this.removeHoldBtn.Size = new System.Drawing.Size(105, 54);
             this.removeHoldBtn.TabIndex = 7;
@@ -122,7 +124,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             this.waitForMeetingTimeLbl.AutoSize = true;
             this.waitForMeetingTimeLbl.ForeColor = System.Drawing.Color.Red;
-            this.waitForMeetingTimeLbl.Location = new System.Drawing.Point(230, 338);
+            this.waitForMeetingTimeLbl.Location = new System.Drawing.Point(230, 420);
             this.waitForMeetingTimeLbl.Name = "waitForMeetingTimeLbl";
             this.waitForMeetingTimeLbl.Size = new System.Drawing.Size(298, 15);
             this.waitForMeetingTimeLbl.TabIndex = 9;
@@ -131,17 +133,36 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // notesTxtBox
             // 
-            this.notesTxtBox.Location = new System.Drawing.Point(12, 233);
+            this.notesTxtBox.Location = new System.Drawing.Point(12, 327);
             this.notesTxtBox.Multiline = true;
             this.notesTxtBox.Name = "notesTxtBox";
-            this.notesTxtBox.Size = new System.Drawing.Size(776, 102);
+            this.notesTxtBox.Size = new System.Drawing.Size(776, 90);
             this.notesTxtBox.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 158);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 15);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Notes:";
+            // 
+            // notesLbl
+            // 
+            this.notesLbl.AutoSize = true;
+            this.notesLbl.Location = new System.Drawing.Point(43, 184);
+            this.notesLbl.Name = "notesLbl";
+            this.notesLbl.Size = new System.Drawing.Size(0, 15);
+            this.notesLbl.TabIndex = 12;
             // 
             // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 527);
+            this.Controls.Add(this.notesLbl);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.notesTxtBox);
             this.Controls.Add(this.waitForMeetingTimeLbl);
             this.Controls.Add(this.loggedInLabel);
@@ -171,6 +192,8 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label loggedInLabel;
         private System.Windows.Forms.Label waitForMeetingTimeLbl;
         private System.Windows.Forms.TextBox notesTxtBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label notesLbl;
     }
 }
 

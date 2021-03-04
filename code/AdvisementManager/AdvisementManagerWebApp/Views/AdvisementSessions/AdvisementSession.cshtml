@@ -47,7 +47,9 @@ else
     <tr>
         <td>Notes: @(Environment.NewLine)@foreach (var session in Model.PastSessions)
         {
-            <p>@(session.Date + ": " + session.Notes + Environment.NewLine + Environment.NewLine)</p>
+            <p>Advisor: @session.Advisor.FirstName @(session.Advisor.LastName) <br />
+            Date: @(session.Date) <br />
+            Notes: @(session.Notes)<br /><br /></p>
         } </td>
     </tr>
         <tr>

@@ -38,5 +38,16 @@ namespace StudentAdvisementManagerWebApp.DAL
             var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == studentId select sessionToFind;
             return sessions.ToList();
         }
+
+        /// <summary>Obtains the past sessions for the desired student that are a part of the students hold period</summary>
+        /// <param name="context">The context.</param>
+        /// <param name="student">The student.</param>
+        /// <returns>A list of past advisement sessions that are part of the current hold period for the student.</returns>
+        public IList<AdvisementSession> ObtainPastSessions(ApplicationDbContext context, Student student)
+        {
+            return (from oldSessions in context.AdvisementSession
+                    where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true && oldSessions.StudentId 
+                        == student.Id select oldSessions).ToList();
+        }
     }
 }

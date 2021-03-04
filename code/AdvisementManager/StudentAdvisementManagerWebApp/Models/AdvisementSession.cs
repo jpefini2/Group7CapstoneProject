@@ -30,6 +30,11 @@ namespace StudentAdvisementManagerWebApp.Models
         [Column("sessionDate")]
         public DateTime Date { get; set; }
 
+        /// <summary>Gets or sets the hold identifier.</summary>
+        /// <value>The hold identifier.</value>
+        [Column("holdID")]
+        public int HoldId { get; set; }
+
         /// <summary>Gets or sets the stage.</summary>
         /// <value>The stage.</value>
         [Column("stage")]

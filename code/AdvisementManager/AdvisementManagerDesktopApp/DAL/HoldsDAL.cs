@@ -59,14 +59,14 @@ namespace AdvisementManagerDesktopApp.DAL
                     cmd.Parameters["@studentID "].Value = student.Id;
 
 
-                    var meeting = this.CreateMeeting(cmd);
+                    var meeting = this.createMeeting(cmd);
                     
                     return meeting;
                 }
             }
         }
 
-        private AdvisementSession CreateMeeting(Microsoft.Data.SqlClient.SqlCommand cmd)
+        private AdvisementSession createMeeting(Microsoft.Data.SqlClient.SqlCommand cmd)
         {
             var meeting = new AdvisementSession();
             using var reader = cmd.ExecuteReader();

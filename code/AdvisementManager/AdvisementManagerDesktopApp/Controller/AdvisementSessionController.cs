@@ -1,6 +1,8 @@
 ﻿using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
+using System;
+using System.Collections.Generic;
 
 namespace AdvisementManagerDesktopApp.Controller
 {
@@ -35,6 +37,25 @@ namespace AdvisementManagerDesktopApp.Controller
 
             this.holdsDal.ApproveAdvisorMeeting(student);
             this.sessionDal.UpdateMeeting(student);
+        }
+
+        /// <summary>Obtains the student sessions for past meetings to be used in the view for displaying notes.</summary>
+        /// <param name="student">The student.</param>
+        /// <returns>
+        ///     A list of sessions for students past meetings.
+        /// </returns>
+        public IList<AdvisementSession> ObtainStudentSessions(Student student)
+        {
+            var advisorDal = new AdvisorDAL();
+
+            var sessions = this.sessionDal.ObtainStudentSessions(student);
+            
+            foreach(var session in sessions)
+            {
+                session.Advisor = advisorDal.ObtainAdvisor(session.AdvisorID);
+            }
+
+            return sessions;
         }
 
         /// <summary>Removes the hold for a particular student in the database and updated the reason to ready to register.</summary>

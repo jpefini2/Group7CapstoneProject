@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
@@ -47,11 +48,38 @@ namespace AdvisementManagerDesktopApp.View
         {
             this.checkStageAndAdvisor();
             this.updateMeetingTimeLabel();
+            var sessions = this.sessionController.ObtainStudentSessions(this.student);
+
+            this.setUpNotes(sessions);
+
+            if (this.student.Hold.Reason.Equals(ConstantManager.WaitingForHoldRemoval) || this.student.Hold.Reason.Equals(ConstantManager.ReadyToRegister))
+            {
+                this.notesTxtBox.Visible = false;
+            }
 
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
             this.loggedInLabel.Text = "Logged in: " + this.advisor.FirstName + " " + this.advisor.LastName;
             
+        }
+
+        private void setUpNotes(IList<AdvisementSession> sessions)
+        {
+            const int hasASession = 1;
+            if (sessions.Count >= hasASession)
+            {
+                foreach (var session in sessions)
+                {
+                    this.notesLbl.Text += @"Advisor: " + session.Advisor.FirstName + @" " + session.Advisor.LastName +
+                                         Environment.NewLine;
+                    this.notesLbl.Text += @"Date: " + session.Date + Environment.NewLine;
+                    this.notesLbl.Text += @"Notes from session: " + session.Notes + Environment.NewLine + Environment.NewLine;
+                }
+            }
+            else
+            {
+                this.notesLbl.Text = @"None";
+            }
         }
 
         private void updateMeetingTimeLabel()

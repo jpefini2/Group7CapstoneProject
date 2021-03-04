@@ -3,6 +3,8 @@ using StudentAdvisementManagerWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using StudentAdvisementManagerWebApp.DAL;
 
 namespace StudentAdvisementManagerWebApp.Controllers
@@ -23,6 +25,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
         private readonly StudentDal studentDal = new();
 
         private readonly AdvisorDAL advisorDal = new();
+
+        private readonly HoldDAL holdDal = new();
 
         /// <summary>Initializes a new instance of the <see cref="ScheduleAdvisementSessionController" /> class.</summary>
         /// <param name="context">The context.</param>
@@ -131,7 +135,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
                 StudentId = studentId,
                 AdvisorId = advisorId,
                 Date = sessionTime,
-                Completed = false
+                Completed = false,
+                HoldId = this.holdDal.ObtainHold(studentId, this.context).Id
             };
             this.scheduleDal.ScheduleAdvisementSession(session, this.context);
         }

@@ -24,6 +24,7 @@ namespace AdvisementManagerWebApp.Controllers
         private readonly StudentDal studentDal = new();
         private readonly HoldDAL holdDal = new();
         private readonly AdvisementSessionDAL sessionDal= new();
+        private readonly AdvisorDAL advisorDal = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvisementSessionsController"/> class.
@@ -67,21 +68,32 @@ namespace AdvisementManagerWebApp.Controllers
                 return NotFound();
             }
 
-            var student =  await this.context.Student.FindAsync(id);
+            var sessionVM = await this.setUpAdvisomentSessionViewModel(id, user);
+
+            return View(sessionVM);
+        }
+
+        private async Task<AdvisementSessionVM> setUpAdvisomentSessionViewModel(int? id, Advisor user)
+        {
+            var student = await this.context.Student.FindAsync(id);
             var advisor = await this.context.Advisor.FindAsync(user.Id);
 
             student.Meeting = this.sessionDal.ObtainSession(id, this.context);
             student.Hold = this.holdDal.ObtainHold(id, this.context);
 
-            var pastSessions = (from oldSessions in this.context.AdvisementSession where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true select oldSessions).ToList();
+            var pastSessions = this.sessionDal.ObtainPastSessions(this.context, student);
+
+            foreach (var session in pastSessions)
+            {
+                session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            }
 
             var sessionVM = new AdvisementSessionVM {
                 student = student,
                 advisor = advisor,
                 PastSessions = pastSessions
             };
-
-            return View(sessionVM);
+            return sessionVM;
         }
 
         /// <summary>
