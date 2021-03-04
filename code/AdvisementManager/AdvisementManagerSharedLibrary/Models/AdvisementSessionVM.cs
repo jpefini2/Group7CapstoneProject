@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AdvisementManagerWebApp.Models
+namespace AdvisementManagerSharedLibrary.Models
 {
     /// <summary>
     ///   The Advisement session view model for passing session information to the view from the model classes that come together to

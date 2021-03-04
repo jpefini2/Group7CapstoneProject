@@ -1,12 +1,11 @@
-﻿using AdvisementManagerWebApp.Models;
+﻿using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using AdvisementManagerWebApp.Data;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
-namespace AdvisementManagerWebApp.DAL
+namespace AdvisementManagerSharedLibrary.DAL
 {
     /// <summary>
     ///   The Advisement sessions DAL class for managing, updating and pulling infomration related to the advisement session table in the DbContext/Database.

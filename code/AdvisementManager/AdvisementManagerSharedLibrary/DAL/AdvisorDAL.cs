@@ -1,7 +1,7 @@
-﻿using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+﻿using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 
-namespace AdvisementManagerWebApp.DAL
+namespace AdvisementManagerSharedLibrary.DAL
 {
     public class AdvisorDAL
     {

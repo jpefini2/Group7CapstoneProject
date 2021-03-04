@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdvisementManagerWebApp.Models
+
+namespace AdvisementManagerSharedLibrary.Models
 {
     /// <summary>
     ///   The Advisor class for the currently signed in advisor.

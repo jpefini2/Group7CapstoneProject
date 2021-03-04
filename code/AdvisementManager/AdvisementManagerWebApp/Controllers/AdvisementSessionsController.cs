@@ -1,15 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using AdvisementManagerWebApp.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.DAL;
-using AdvisementManagerWebApp.Data;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary;
 using AdvisementManagerWebApp.Resources;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AdvisementManagerWebApp.Controllers
 {

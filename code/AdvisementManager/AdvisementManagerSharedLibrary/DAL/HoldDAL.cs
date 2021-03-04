@@ -1,10 +1,8 @@
-﻿using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+﻿using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using System.Linq;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
 
-namespace AdvisementManagerWebApp.DAL
+namespace AdvisementManagerSharedLibrary.DAL
 {
     /// <summary>
     ///   The hold DAL class for managing, updating and pulling information from the student table in the DbContext/Database.

@@ -1,11 +1,9 @@
-﻿using AdvisementManagerWebApp.DAL;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
-using System.Text;
-using BCrypt.Net;
+using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -91,7 +89,7 @@ namespace AdvisementManagerWebApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new Models.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
