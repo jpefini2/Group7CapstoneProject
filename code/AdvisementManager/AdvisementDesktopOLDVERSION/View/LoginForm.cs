@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using AdvisementManagerDesktopApp.Controller;
+﻿using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
+using System;
+using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdvisementManagerDesktopApp.View
@@ -26,8 +26,8 @@ namespace AdvisementManagerDesktopApp.View
                 IsActive = true
             };
           
-            if (!this.IsEntryValid(usernameTextBox.Text)) return;
-            if(!this.IsEntryValid(passwordTextBox.Text)) return;
+            if (!IsEntryValid(usernameTextBox.Text)) return;
+            if(!IsEntryValid(passwordTextBox.Text)) return;
 
             var username = usernameTextBox.Text.Trim();
             var password = passwordTextBox.Text.Trim();
