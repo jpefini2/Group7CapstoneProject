@@ -325,6 +325,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <ProjectReference Include="..\AdvisementManagerSharedLibrary\AdvisementManagerSharedLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+=======
     <Compile Include="Controller\AdvisementSessionController.cs" />
     <Compile Include="Controller\AdvisementSessionsController.cs" />
     <Compile Include="Controller\LoginController.cs" />
@@ -365,6 +373,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
+>>>>>>> origin/main
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
