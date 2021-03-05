@@ -2,9 +2,7 @@
 
 namespace AdvisementManagerDesktopApp.Model
 {
-    /// <summary>
-    ///   The advisement session class for managing meetings
-    /// </summary>
+    /// <summary>The advisement session class for managing meetings</summary>
     public class AdvisementSession
     {
         /// <summary>Gets or sets the end date of the session.</summary>
@@ -22,6 +20,16 @@ namespace AdvisementManagerDesktopApp.Model
         /// <summary>Gets or sets the advisor the session is for.</summary>
         /// <value>The advisor.</value>
         public Advisor Advisor { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the advisor identifier.
+        /// </summary>
+        /// <value>The advisor identifier.</value>
+        public int AdvisorID { get; set; }
+
+        /// <summary>Gets or sets the hold identifier.</summary>
+        /// <value>The hold identifier.</value>
+        public int HoldID { get; set; }
 
         /// <summary>Gets or sets the date the session is to be held.</summary>
         /// <value>The date.</value>
