@@ -58,9 +58,13 @@ else
                 <div>
                     @if (Model.student.Meeting != null)
                     {
-                        if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
+                        if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) ||
+                            !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
                         {
-                            <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes" asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id" method="post">
+                            <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes" 
+                                  asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" 
+                                  asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id" 
+                                  method="post">
                                 <textarea asp-for="Notes" class="form-control" cols="40" rows ="5"></textarea>
                                 <button type="submit" class="btn btn-primary">Approve</button>
                             </form>

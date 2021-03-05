@@ -35,8 +35,10 @@ namespace AdvisementManagerWebApp.Controllers
             this.context = context;
         }
 
-        /// <summary>Obtains a list of students that have holds. 
-        /// Returns a page back to the user with the results.</summary>
+        /// <summary>Obtains a list of students that have holds.
+        /// Returns a page back to the user with the results. This
+        /// should not be used to gather a list of students for a
+        /// different advisor than the one that is assigned to the advisor.</summary>
         /// <returns>The current views students with holds</returns>
         public IActionResult AdvisementSessions()
         {

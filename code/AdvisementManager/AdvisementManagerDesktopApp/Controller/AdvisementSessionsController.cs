@@ -9,7 +9,9 @@ namespace AdvisementManagerDesktopApp.Controller
     /// </summary>
     public class AdvisementSessionsController
     {
-        /// <summary>Obtains the students with active holds from the database to be passed to the view.</summary>
+        /// <summary>Obtains the students with active holds from the database to be passed to the view.
+        /// This should not be used to gather a list of students for a
+        /// different advisor than the one that is assigned to that advisor.</summary>
         /// <returns>
         ///   The list of students who currently have holds in the system.
         /// </returns>
