@@ -7,6 +7,8 @@ using AdvisementManagerSharedLibrary.DAL;
 using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary;
 using AdvisementManagerWebApp.Resources;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -41,12 +43,15 @@ namespace AdvisementManagerWebApp.Controllers
         {
             var user = this.context.Advisor
                            .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["AdvisementManager.LoginUser"]);
-            var students = this.studentDal.ObtainStudentsWithHolds(this.context, user);
 
-            var studentsWithHolds = new StudentsVM {
-                Students = students
+            var studentsWithHolds = this.studentDal.ObtainStudentsWithHolds(this.context, user);
+            var upcomingMeetings = this.sessionDal.ObtainUpcomingSessions(this.context, user);
+
+            var viewModel = new AdvisorHomeVM {
+                StudentsWithHolds = studentsWithHolds,
+                UpcomingMeetings = upcomingMeetings
             };
-            return View(studentsWithHolds);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>
         ///     The current views student or the not found page if the id or user is null.
         /// </returns>
-        public async Task<IActionResult> AdvisementSession(int? id)
+        public async Task<IActionResult> StudentAdvisementSummary(int? id)
         {
             var user = this.context.Advisor
                            .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["AdvisementManager.LoginUser"]);
@@ -67,12 +72,12 @@ namespace AdvisementManagerWebApp.Controllers
                 return NotFound();
             }
 
-            var sessionVM = await this.setUpAdvisomentSessionViewModel(id, user);
+            var sessionVM = await this.setUpAdvisementSessionViewModel(id, user);
 
             return View(sessionVM);
         }
 
-        private async Task<AdvisementSessionVM> setUpAdvisomentSessionViewModel(int? id, Advisor user)
+        private async Task<AdvisementSessionVM> setUpAdvisementSessionViewModel(int? id, Advisor user)
         {
             var student = await this.context.Student.FindAsync(id);
             var advisor = await this.context.Advisor.FindAsync(user.Id);
@@ -138,7 +143,7 @@ namespace AdvisementManagerWebApp.Controllers
             TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
 
             var redirectRoute = RedirectToRoute(new {
-                action = "AdvisementSession",
+                action = "StudentAdvisementSummary",
                 controller = "AdvisementSessions",
                 id
             });

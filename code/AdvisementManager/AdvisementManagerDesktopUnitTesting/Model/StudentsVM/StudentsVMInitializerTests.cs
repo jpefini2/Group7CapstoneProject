@@ -16,11 +16,11 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
 
             var students = new List<AdvisementManagerSharedLibrary.Models.Student> {student1, student2};
 
-            var StudentsVM = new StudentsVM() {
-                Students = students
+            var StudentsVM = new AdvisorHomeVM() {
+                StudentsWithHolds = students
             };
 
-            Assert.AreEqual(StudentsVM.Students.Count, 2);
+            Assert.AreEqual(StudentsVM.StudentsWithHolds.Count, 2);
         }
 
     }

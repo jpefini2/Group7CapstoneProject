@@ -1,47 +1,100 @@
-﻿@model AdvisementManagerSharedLibrary.Models.StudentsVM
+﻿@model AdvisementManagerSharedLibrary.Models.AdvisorHomeVM
 
 @{
     ViewData["Title"] = "Advisement Sessions";
 }
 
+<div class="text-center">
+    <h1 class="display-4">Advisement Sessions</h1>
+</div>
 
-    <div class="text-center">
-        <h1 class="display-4">Advisement Sessions</h1>
+<div class="row">
+    <div class="col">
+        <h2 align="center">Upcoming Meetings</h2>
+
+        <div class="row">
+            <table class="table table-bordered table-striped" style="margin:5px">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].Meeting.Date)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var meeting in Model.UpcomingMeetings)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => meeting.Student.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => meeting.Student.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => meeting.Date)
+                            </td>
+                            <td>
+                                <a asp-action="StudentAdvisementSummary" asp-route-id="@meeting.Student.Id">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Students[0].FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Students[0].LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Students[0].Email)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var student in Model.Students)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => student.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => student.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => student.Email)
-            </td>
-            <td>
-                <a asp-action="AdvisementSession" asp-route-id="@student.Id">View Details</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+
+    <div class="col">
+        <h2 align="center">Students with Holds</h2>
+
+        <div class="row">
+            <table class="table table-bordered table-striped" style="margin:5px">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].Email)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.StudentsWithHolds)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => student.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => student.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => student.Email)
+                            </td>
+                            <td>
+                                <a asp-action="StudentAdvisementSummary" asp-route-id="@student.Id">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
 

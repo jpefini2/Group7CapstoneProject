@@ -38,6 +38,25 @@ namespace AdvisementManagerSharedLibrary.DAL
                         == student.Id select oldSessions).ToList();
         }
 
+        /// <summary>Obtains the upcoming sessions for the desired advisor</summary>
+        /// <param name="context">The context.</param>
+        /// <param name="advisor">The advisor.</param>
+        /// <returns>A list of the advisor's upcoming advisement sessions</returns>
+        public IList<AdvisementSession> ObtainUpcomingSessions(ApplicationDbContext context, Advisor advisor)
+        {
+            List<AdvisementSession> upcomingSessions = (from upcomingSession in context.AdvisementSession
+                                                        where upcomingSession.AdvisorId == advisor.Id && upcomingSession.Completed == false
+                                                        select upcomingSession).ToList();
+            StudentDal studentDal = new StudentDal();
+            foreach (var session in upcomingSessions)
+            {
+                session.Student = studentDal.ObtainStudentWithId(session.StudentId, context);
+                session.Advisor = advisor;
+            }
+
+            return upcomingSessions;
+        }
+
         /// <summary>Obtains the session.</summary>
         /// <param name="studentId">The identifier.</param>
         /// <param name="context">The context.</param>
