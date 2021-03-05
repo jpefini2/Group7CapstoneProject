@@ -52,7 +52,7 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
             {
-                String sessionKey = this.loginDAL.AttemptLogin(username, password);
+                String sessionKey = this.loginDAL.AttemptLogin(username, password, LoginType.ADVISOR);
 
                 if (String.IsNullOrEmpty(sessionKey)) {
                     ViewBag.Message = "Login failed. Check username or password.";
@@ -89,7 +89,7 @@ namespace AdvisementManagerWebApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new Models.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

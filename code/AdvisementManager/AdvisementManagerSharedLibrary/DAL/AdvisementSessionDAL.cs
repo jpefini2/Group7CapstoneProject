@@ -25,5 +25,13 @@ namespace AdvisementManagerSharedLibrary.DAL
 
             return upcomingSession;
         }
+
+        public AdvisementSession ObtainLatestSession(int? studentId, ApplicationDbContext context)
+        {
+            var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == studentId select sessionToFind;
+            var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
+
+            return upcomingSession;
+        }
     }
 }

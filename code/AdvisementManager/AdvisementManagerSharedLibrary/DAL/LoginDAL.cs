@@ -6,12 +6,21 @@ using System.Linq;
 
 namespace AdvisementManagerSharedLibrary.DAL
 {
+    public enum LoginType
+    {
+        ADVISOR,
+        STUDENT
+    }
+
     public class LoginDAL
     {
-        public ApplicationDbContext context;
+        private ApplicationDbContext context;
+
+        public ApplicationDbContext Context { get => context; set => context = value; }
+
         public LoginDAL(ApplicationDbContext context)
         {
-            this.context = context;
+            this.Context = context;
         }
 
         /// <summary>Determines if the log in information is valid.</summary>
@@ -19,35 +28,42 @@ namespace AdvisementManagerSharedLibrary.DAL
         /// <param name="username">The input username.</param>
         /// <param name="password">The input password.</param>
         /// <returns>True if the login information is valid, false otherwise.</returns>
-        public String AttemptLogin(string username, string password)
+        public String AttemptLogin(string username, string password, LoginType loginType)
         {
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
                 return null;
             }
-            try
+            User user = this.Context.Login.Find(username);
+
+            if (loginType == LoginType.ADVISOR)
             {
-                User user = this.context.Login.Find(username);
-                Advisor advisor = this.context.Advisor.First(user => user.UserName.Equals(username));
+                Advisor advisor = this.Context.Advisor.First(user => user.UserName.Equals(username));
+
                 if (advisor == null)
                 {
                     return null;
                 }
+            }
+            else if (loginType == LoginType.STUDENT)
+            {
+                Student student = this.Context.Student.First(user => user.UserName.Equals(username));
 
-                string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
-
-                Trace.WriteLine(username + "'s password hash: " + passwordHash);
-
-                if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+                if (student == null)
                 {
-                    Trace.WriteLine("Returned " + passwordHash);
-                    return passwordHash;
+                    return null;
                 }
             }
-            catch (InvalidOperationException)
+
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+            Trace.WriteLine(username + "'s password hash: " + passwordHash);
+
+            if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
-                return null;
+                Trace.WriteLine("Returned " + passwordHash);
+                return passwordHash;
             }
             return null;
         }

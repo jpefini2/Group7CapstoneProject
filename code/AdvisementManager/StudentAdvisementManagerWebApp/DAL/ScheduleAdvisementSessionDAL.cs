@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using StudentAdvisementManagerWebApp.Data;
-using StudentAdvisementManagerWebApp.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.Data;
 
 namespace StudentAdvisementManagerWebApp.DAL
 {

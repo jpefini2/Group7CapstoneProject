@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace StudentAdvisementManagerWebApp.Models
+namespace AdvisementManagerSharedLibrary.Models
 {
     /// <summary>
     ///   The schedule advisement model
@@ -49,7 +48,7 @@ namespace StudentAdvisementManagerWebApp.Models
 
         public bool IsSessionTimeValid
         {
-            get 
+            get
             {
                 var sessionTime = this.Date.AddMinutes(this.Time.TotalMinutes);
                 return DateTime.Compare(sessionTime, DateTime.Now) < 0;

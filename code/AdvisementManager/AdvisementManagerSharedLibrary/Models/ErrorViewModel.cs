@@ -1,4 +1,4 @@
-namespace AdvisementManagerWebApp.Models
+﻿namespace AdvisementManagerSharedLibrary.Models
 {
     /// <summary>
     ///   The Error view model for displaying the errors page.

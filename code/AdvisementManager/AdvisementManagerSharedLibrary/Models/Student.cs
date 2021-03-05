@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdvisementManagerSharedLibrary.Models
 {
@@ -72,6 +70,9 @@ namespace AdvisementManagerSharedLibrary.Models
         [NotMapped]
         public IList<AdvisementSession> Meetings { get; set; }
 
+        [Column("username")]
+        public string UserName { get; set; }
+
         /// <summary> Gets the Student's full name</summary>
         /// <value> FirstName + " " + LastName</value>
         public string FullName => this.FirstName + " " + LastName;
@@ -109,6 +110,31 @@ namespace AdvisementManagerSharedLibrary.Models
                 }
             }
         }
+
+        /// <summary>
+        /// Returns if the student's latest meeting is incomplete.
+        /// </summary>
+        /// <returns>bool of if the student's latest meeting is incomplete</returns>
+        private bool isLastMeetingIncomplete()
+        {
+            return this.Meeting != null && !this.Meeting.Completed;
+        }
+
+        /// <summary>
+        /// Returns if the student is ready to schedule a meeting;
+        /// </summary>
+        /// <returns>bool of if the student is ready to schedule a meeting</returns>
+        public bool CanScheduleMeeting()
+        {
+            if (this.hasUpcomingAdvisementSession())
+                return false;
+
+            if (this.isLastMeetingIncomplete())
+                return false;
+
+            return this.Hold.Reason.ToLower() == "need to meet with dept advisor" || this.Hold.Reason.ToLower() == "need to meet with faculty advisor";
+        }
+
 
         /// <summary>Initializes a new instance of the <see cref="Student" />.</summary>
         public Student()

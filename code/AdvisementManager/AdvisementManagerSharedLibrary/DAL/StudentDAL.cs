@@ -44,5 +44,25 @@ namespace AdvisementManagerSharedLibrary.DAL
 
             return student;
         }
+
+        /// <summary>Obtains the student with the specified username.</summary>
+        /// <param name="username">The student's username.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The student with the given username.
+        /// </returns>
+        public Student ObtainStudentWithUsername(string username, ApplicationDbContext context)
+        {
+            var student = context.Student.
+                FirstOrDefault(loggedInStudent => loggedInStudent.UserName == username);
+
+            student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
+            student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
+
+            student.Hold = this.holdDal.ObtainHold(student.Id, context);
+            student.Meeting = this.advisementSessionDal.ObtainLatestSession(student.Id, context);
+
+            return student;
+        }
     }
 }

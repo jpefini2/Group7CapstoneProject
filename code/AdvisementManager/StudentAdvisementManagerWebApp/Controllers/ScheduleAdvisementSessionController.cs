@@ -1,9 +1,10 @@
-﻿using StudentAdvisementManagerWebApp.Data;
-using StudentAdvisementManagerWebApp.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using StudentAdvisementManagerWebApp.DAL;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.DAL;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {

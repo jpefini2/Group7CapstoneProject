@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -54,6 +56,31 @@ namespace AdvisementManagerSharedLibrary.Models
         public override string ToString()
         {
             return this.FullName;
+        }
+
+        /// <summary>Gets the available advisement session times.</summary>
+        /// <value>The available advisement session times.</value>
+        public IList<TimeSpan> AvailableAdvisementSessionTimes
+        {
+            get { return GetAvailableAdvisementSessionTimes(); }
+        }
+
+        /// <summary>Gets the available advisement session times.</summary>
+        /// <returns>
+        ///   The available times
+        /// </returns>
+        public IList<TimeSpan> GetAvailableAdvisementSessionTimes()
+        {
+            IList<TimeSpan> availableTimes = new List<TimeSpan>();
+            TimeSpan nextAvailableTime = TimeSpan.Zero;
+
+            for (int i = 0; i < 48; i++)
+            {
+                availableTimes.Add(nextAvailableTime);
+                nextAvailableTime = nextAvailableTime.Add(new TimeSpan(0, 30, 0));
+            }
+
+            return availableTimes;
         }
     }
 }

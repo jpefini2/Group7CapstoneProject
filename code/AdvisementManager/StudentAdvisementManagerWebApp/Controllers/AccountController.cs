@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StudentAdvisementManagerWebApp.DAL;
-using StudentAdvisementManagerWebApp.Data;
+﻿using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Diagnostics;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
@@ -22,7 +22,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         public AccountController(ApplicationDbContext context)
         {
             this.context = context;
-            loginDAL = new DAL.LoginDAL(context);
+            loginDAL = new LoginDAL(context);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
             {
-                String sessionKey = this.loginDAL.AttemptLogin(username, password);
+                String sessionKey = this.loginDAL.AttemptLogin(username, password, LoginType.STUDENT);
 
                 if (String.IsNullOrEmpty(sessionKey)) {
                     ViewBag.Message = "Login failed. Check username or password.";
