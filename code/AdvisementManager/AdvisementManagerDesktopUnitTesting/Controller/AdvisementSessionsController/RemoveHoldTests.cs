@@ -1,8 +1,8 @@
 ﻿using System;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ApplicationDbContext = AdvisementManagerWebApp.Data.ApplicationDbContext;
+using ApplicationDbContext = AdvisementManagerSharedLibrary.Data.ApplicationDbContext;
 
 namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsController
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,7 +31,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.HoldDAL
 
             using (var context = new ApplicationDbContext(options))
             {
-                var holdDal = new AdvisementManagerWebApp.DAL.HoldDAL();
+                var holdDal = new AdvisementManagerSharedLibrary.DAL.HoldDAL();
                 var expectedHold = holdDal.ObtainHold(2, context);
 
                 Assert.AreEqual(1, expectedHold.Id);

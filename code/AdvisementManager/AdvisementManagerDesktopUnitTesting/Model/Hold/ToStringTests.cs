@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.DAL;
+using AdvisementManagerSharedLibrary.DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.Hold
@@ -15,7 +15,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Hold
         public void ToStringNoHoldTest()
         {
             var date = new DateTime();
-            var hold = new AdvisementManagerWebApp.Models.Hold
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = "a",
@@ -31,7 +31,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Hold
         public void ToStringWithHoldTest()
         {
             var date = new DateTime();
-            var hold = new AdvisementManagerWebApp.Models.Hold
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = "a",

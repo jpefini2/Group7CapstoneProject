@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.DAL.StudentDal
+namespace AdvisementManagerSharedLibraryUnitTesting.DAL.StudentDal
 {
     class ObtainStudentWithUsernameTests
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
 {
     [TestClass]
     public class ToStringTests
@@ -13,7 +13,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void ToStringTest()
         {
-            var student = new StudentAdvisementManagerWebApp.Models.Student {
+            var student = new AdvisementManagerSharedLibrary.Models.Student {
                 FirstName = "a",
                 LastName = "b"
             };

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
 {
     [TestClass]
     public class CanScheduleMeetingTests
@@ -13,8 +13,8 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void WithUpcomingMeetingTest()
         {
-            var session = new StudentAdvisementManagerWebApp.Models.AdvisementSession { Date = DateTime.Now.AddMinutes(30) };
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = DateTime.Now.AddMinutes(30) };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "John",
                 LastName = "Johnson",
@@ -32,7 +32,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         public void WithNoMeetingAndImproperHoldReason()
         {
             var date = new DateTime();
-            var hold = new StudentAdvisementManagerWebApp.Models.Hold
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = "No holds",
@@ -41,7 +41,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
                 StudentId = 1
             };
 
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "John",
                 LastName = "Johnson",
@@ -60,7 +60,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         public void WithNoMeetingAndPropertHoldReason()
         {
             var date = new DateTime();
-            var hold = new StudentAdvisementManagerWebApp.Models.Hold
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = "need to meet with dept advisor",
@@ -69,7 +69,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
                 StudentId = 1
             };
 
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "John",
                 LastName = "Johnson",

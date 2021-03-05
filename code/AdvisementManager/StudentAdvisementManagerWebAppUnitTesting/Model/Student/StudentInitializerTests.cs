@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using StudentAdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.AdvisementSession
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.AdvisementSession
 {
     [TestClass]
     public class StudentInitializerTests
@@ -10,11 +10,11 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var general = new StudentAdvisementManagerWebApp.Models.Advisor();
-            var faculty = new StudentAdvisementManagerWebApp.Models.Advisor();
-            var hold = new StudentAdvisementManagerWebApp.Models.Hold();
-            var session = new StudentAdvisementManagerWebApp.Models.AdvisementSession();
-            var student = new StudentAdvisementManagerWebApp.Models.Student {
+            var general = new AdvisementManagerSharedLibrary.Models.Advisor();
+            var faculty = new AdvisementManagerSharedLibrary.Models.Advisor();
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold();
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession();
+            var student = new AdvisementManagerSharedLibrary.Models.Student {
                 FirstName = "John",
                 LastName = "Johnson",
                 Id = 1,

@@ -1,5 +1,5 @@
 ﻿using System;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
@@ -11,7 +11,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         public void InitializerTest()
         {
             var date = new DateTime();
-            var hold = new AdvisementManagerWebApp.Models.Hold {
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold {
                 Id = 1,
                 Reason = "a",
                 Date = date,

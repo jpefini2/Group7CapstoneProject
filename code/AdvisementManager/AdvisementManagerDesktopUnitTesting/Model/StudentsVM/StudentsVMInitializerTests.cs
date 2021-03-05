@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
@@ -11,10 +11,10 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var student1 = new AdvisementManagerWebApp.Models.Student();
-            var student2 = new AdvisementManagerWebApp.Models.Student();
+            var student1 = new AdvisementManagerSharedLibrary.Models.Student();
+            var student2 = new AdvisementManagerSharedLibrary.Models.Student();
 
-            var students = new List<AdvisementManagerWebApp.Models.Student> {student1, student2};
+            var students = new List<AdvisementManagerSharedLibrary.Models.Student> {student1, student2};
 
             var StudentsVM = new StudentsVM() {
                 Students = students

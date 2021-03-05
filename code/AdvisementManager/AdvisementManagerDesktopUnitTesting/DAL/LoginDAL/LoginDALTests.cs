@@ -1,6 +1,6 @@
-﻿using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
-using AdvisementManagerWebApp.DAL;
+﻿using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -62,8 +62,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
 
                 string correctpassword = "password1";
 
-                var loginDAL = new AdvisementManagerWebApp.DAL.LoginDAL(context);
-                string hash = loginDAL.AttemptLogin("gsmith", correctpassword);
+                var loginDAL = new AdvisementManagerSharedLibrary.DAL.LoginDAL(context);
+                string hash = loginDAL.AttemptLogin("gsmith", correctpassword, LoginType.ADVISOR);
                 if (string.IsNullOrEmpty(hash))
                 {
                     throw new AssertFailedException();
@@ -89,8 +89,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
 
                 string wrongpassword = "ThisPasswordIsWrong";
 
-                var loginDAL = new AdvisementManagerWebApp.DAL.LoginDAL(context);
-                string hash = loginDAL.AttemptLogin("gsmith", wrongpassword);
+                var loginDAL = new AdvisementManagerSharedLibrary.DAL.LoginDAL(context);
+                string hash = loginDAL.AttemptLogin("gsmith", wrongpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
                 Assert.IsFalse(BCrypt.Net.BCrypt.Verify(wrongpassword, user.PasswordHash));
             }
@@ -112,8 +112,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
 
                 string inputpassword = "";
 
-                var loginDAL = new AdvisementManagerWebApp.DAL.LoginDAL(context);
-                string hash = loginDAL.AttemptLogin("gsmith", inputpassword);
+                var loginDAL = new AdvisementManagerSharedLibrary.DAL.LoginDAL(context);
+                string hash = loginDAL.AttemptLogin("gsmith", inputpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
                 Assert.IsFalse(BCrypt.Net.BCrypt.Verify(inputpassword, user.PasswordHash));
             }
@@ -135,8 +135,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
 
                 string inputpassword = "password1";
 
-                var loginDAL = new AdvisementManagerWebApp.DAL.LoginDAL(context);
-                string hash = loginDAL.AttemptLogin("", inputpassword);
+                var loginDAL = new AdvisementManagerSharedLibrary.DAL.LoginDAL(context);
+                string hash = loginDAL.AttemptLogin("", inputpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
             }
         }

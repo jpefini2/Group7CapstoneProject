@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.ErrorViewModel
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.ErrorViewModel
 {
     [TestClass]
     public class ErrorViewModelInitializerTests
@@ -13,7 +13,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ErrorViewModel
         [TestMethod]
         public void InitializerTest()
         {
-            var error = new StudentAdvisementManagerWebApp.Models.ErrorViewModel
+            var error = new AdvisementManagerSharedLibrary.Models.ErrorViewModel
             {
                 RequestId = "a",
             };

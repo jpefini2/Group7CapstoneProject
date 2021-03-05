@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.AdvisementSession
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.AdvisementSession
 {
     [TestClass]
     public class AdvisementSessionInitializerTest
@@ -13,10 +13,10 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var student = new StudentAdvisementManagerWebApp.Models.Student();
-            var advisor = new StudentAdvisementManagerWebApp.Models.Advisor();
+            var student = new AdvisementManagerSharedLibrary.Models.Student();
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor();
 
-            var advisementSession = new StudentAdvisementManagerWebApp.Models.AdvisementSession
+            var advisementSession = new AdvisementManagerSharedLibrary.Models.AdvisementSession
             {
                 Stage = 1,
                 Completed = false,

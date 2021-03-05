@@ -13,7 +13,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void ToStringTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student {
+            var student = new AdvisementManagerSharedLibrary.Models.Student {
                 FirstName = "a",
                 LastName = "b"
             };

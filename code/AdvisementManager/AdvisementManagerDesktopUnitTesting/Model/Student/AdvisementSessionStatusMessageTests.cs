@@ -13,9 +13,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithMeetingScheduledTest()
         {
-            var session = new AdvisementManagerWebApp.Models.AdvisementSession{Date = DateTime.Now};
-            var sessions = new List<AdvisementManagerWebApp.Models.AdvisementSession> { session };
-            var student = new AdvisementManagerWebApp.Models.Student
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession{Date = DateTime.Now};
+            var sessions = new List<AdvisementManagerSharedLibrary.Models.AdvisementSession> { session };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",
@@ -35,7 +35,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithNoMeetingScheduledTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.Hold
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Hold
 {
     [TestClass]
     public class HoldInitializerTests
@@ -14,7 +14,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Hold
         public void InitializerTest()
         {
             var date = new DateTime();
-            var hold = new StudentAdvisementManagerWebApp.Models.Hold
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = "No hold",

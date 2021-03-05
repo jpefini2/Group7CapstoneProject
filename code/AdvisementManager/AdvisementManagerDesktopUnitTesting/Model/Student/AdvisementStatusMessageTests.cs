@@ -13,9 +13,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementStatusMessageWithHoldTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
-                Hold = new AdvisementManagerWebApp.Models.Hold { IsActive = true, Reason = "Some reason"}
+                Hold = new AdvisementManagerSharedLibrary.Models.Hold { IsActive = true, Reason = "Some reason"}
             };
 
             Assert.AreEqual("Incomplete - " + student.Hold.Reason, student.AdvisementStatusMessage);
@@ -24,9 +24,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementStatusMessageWithNoHoldTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
-                Hold = new AdvisementManagerWebApp.Models.Hold { IsActive = false }
+                Hold = new AdvisementManagerSharedLibrary.Models.Hold { IsActive = false }
             };
 
             Assert.AreEqual("Complete", student.AdvisementStatusMessage);

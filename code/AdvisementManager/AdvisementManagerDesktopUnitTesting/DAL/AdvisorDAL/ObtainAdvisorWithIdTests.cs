@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,7 +31,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisorDAL
 
             using (var context = new ApplicationDbContext(options))
             {
-                var advisorDal = new AdvisementManagerWebApp.DAL.AdvisorDAL();
+                var advisorDal = new AdvisementManagerSharedLibrary.DAL.AdvisorDAL();
                 var expectedAdvisor = advisorDal.ObtainAdvisorWithId(1, context);
 
                 Assert.AreEqual(1, expectedAdvisor.Id);

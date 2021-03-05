@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StudentAdvisementManagerWebApp.Data;
-using StudentAdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.DAL.StudentDal
+namespace AdvisementManagerSharedLibraryUnitTesting.DAL.StudentDal
 {
     [TestClass]
     public class ObtainStudentWithIdTests
@@ -37,7 +37,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.DAL.StudentDal
 
             using (var context = new ApplicationDbContext(options))
             {
-                var studentDal = new StudentAdvisementManagerWebApp.DAL.StudentDal();
+                var studentDal = new AdvisementManagerSharedLibrary.DAL.StudentDal();
                 var returnStudent = studentDal.ObtainStudentWithId(1, context);
 
                 Assert.AreEqual(student.FullName, returnStudent.FullName);
@@ -69,7 +69,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.DAL.StudentDal
 
             using (var context = new ApplicationDbContext(options))
             {
-                var studentDal = new StudentAdvisementManagerWebApp.DAL.StudentDal();
+                var studentDal = new AdvisementManagerSharedLibrary.DAL.StudentDal();
                 var returnStudent = studentDal.ObtainStudentWithUsername("jJohnson", context);
 
                 Assert.AreEqual(student.FullName, returnStudent.FullName);

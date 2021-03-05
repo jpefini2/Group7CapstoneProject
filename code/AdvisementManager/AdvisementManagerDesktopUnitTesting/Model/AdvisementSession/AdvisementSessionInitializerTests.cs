@@ -1,5 +1,5 @@
 ﻿using System;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
@@ -10,10 +10,10 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod] 
         public void InitializerTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student();
-            var advisor = new AdvisementManagerWebApp.Models.Advisor();
+            var student = new AdvisementManagerSharedLibrary.Models.Student();
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor();
             
-            var advisementSession = new AdvisementManagerWebApp.Models.AdvisementSession {
+            var advisementSession = new AdvisementManagerSharedLibrary.Models.AdvisementSession {
                 Stage = 1,
                 Completed = false,
                 Advisor = advisor,

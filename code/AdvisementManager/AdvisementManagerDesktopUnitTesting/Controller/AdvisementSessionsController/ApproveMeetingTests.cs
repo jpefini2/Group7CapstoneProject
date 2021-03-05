@@ -1,6 +1,6 @@
 ﻿using System;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

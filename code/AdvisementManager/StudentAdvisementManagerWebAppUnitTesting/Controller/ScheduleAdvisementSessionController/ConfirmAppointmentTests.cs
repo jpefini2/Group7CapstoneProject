@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StudentAdvisementManagerWebApp.DAL;
-using StudentAdvisementManagerWebApp.Data;
-using StudentAdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Controller.ScheduleAdvisementSessionController
+namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisementSessionController
 {
     [TestClass]
     public class ConfirmAppointmentTests

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSessionVM
@@ -14,9 +15,9 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSessionVM
         [TestMethod]
         public void AdvisementSessionVmInitializerTest()
         {
-            var student = new AdvisementManagerWebApp.Models.Student();
-            var advisor = new AdvisementManagerWebApp.Models.Advisor();
-            var sessionVm = new AdvisementManagerWebApp.Models.AdvisementSessionVM 
+            var student = new AdvisementManagerSharedLibrary.Models.Student();
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor();
+            var sessionVm = new AdvisementManagerSharedLibrary.Models.AdvisementSessionVM 
             {
                 student = student,
                 advisor = advisor

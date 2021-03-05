@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StudentAdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementModel
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.ScheduleAdvisementModel
 {
     [TestClass]
     public class ScheduleAdvisementModelInitializerTests
@@ -22,7 +22,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementMode
             var date = DateTime.Now;
             var time = TimeSpan.Zero;
 
-            var model = new StudentAdvisementManagerWebApp.Models.ScheduleAdvisementModel
+            var model = new AdvisementManagerSharedLibrary.Models.ScheduleAdvisementModel
             {
                 Student = student,
                 Advisor = dAdvisor,
@@ -43,10 +43,10 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementMode
 
         #region Helpers
 
-        private StudentAdvisementManagerWebApp.Models.Student getStudent(StudentAdvisementManagerWebApp.Models.Advisor dAdvisor, 
-                StudentAdvisementManagerWebApp.Models.Advisor fAdvisor, StudentAdvisementManagerWebApp.Models.Hold hold)
+        private AdvisementManagerSharedLibrary.Models.Student getStudent(AdvisementManagerSharedLibrary.Models.Advisor dAdvisor,
+                AdvisementManagerSharedLibrary.Models.Advisor fAdvisor, AdvisementManagerSharedLibrary.Models.Hold hold)
         {
-            return new StudentAdvisementManagerWebApp.Models.Student
+            return new AdvisementManagerSharedLibrary.Models.Student
             {
                 Id = 1,
                 FirstName = "John",
@@ -60,9 +60,9 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementMode
             };
         }
 
-        private StudentAdvisementManagerWebApp.Models.Advisor getDeptAdvisor()
+        private AdvisementManagerSharedLibrary.Models.Advisor getDeptAdvisor()
         {
-            return new StudentAdvisementManagerWebApp.Models.Advisor
+            return new AdvisementManagerSharedLibrary.Models.Advisor
             {
                 Id = 1,
                 FirstName = "Department",
@@ -72,9 +72,9 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementMode
             };
         }
 
-        private StudentAdvisementManagerWebApp.Models.Advisor getFacultyAdvisor()
+        private AdvisementManagerSharedLibrary.Models.Advisor getFacultyAdvisor()
         {
-            return new StudentAdvisementManagerWebApp.Models.Advisor
+            return new AdvisementManagerSharedLibrary.Models.Advisor
             {
                 Id = 2,
                 FirstName = "Faculty",
@@ -84,9 +84,9 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.ScheduleAdvisementMode
             };
         }
 
-        private StudentAdvisementManagerWebApp.Models.Hold getHold(string holdReason)
+        private AdvisementManagerSharedLibrary.Models.Hold getHold(string holdReason)
         {
-            return new StudentAdvisementManagerWebApp.Models.Hold
+            return new AdvisementManagerSharedLibrary.Models.Hold
             {
                 Id = 1,
                 Reason = holdReason,

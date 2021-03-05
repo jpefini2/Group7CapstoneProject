@@ -8,7 +8,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.ErrorViewModel
         [TestMethod]
         public void InitializerTest()
         {
-            var error = new AdvisementManagerWebApp.Models.ErrorViewModel {
+            var error = new AdvisementManagerSharedLibrary.Models.ErrorViewModel {
                 RequestId = "a",
             };
 

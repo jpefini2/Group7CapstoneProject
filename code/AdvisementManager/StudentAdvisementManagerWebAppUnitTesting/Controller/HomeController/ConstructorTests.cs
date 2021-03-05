@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AdvisementManagerSharedLibrary.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StudentAdvisementManagerWebApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Controller.HomeController
+namespace AdvisementManagerSharedLibraryUnitTesting.Controller.HomeController
 {
     [TestClass]
     public class ConstructorTests

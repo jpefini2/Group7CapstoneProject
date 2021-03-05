@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
 {
     [TestClass]
     public class AdvisementSessionStatusMessageTests
@@ -13,8 +13,8 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithMeetingNotPassedTest()
         {
-            var session = new StudentAdvisementManagerWebApp.Models.AdvisementSession{Date = DateTime.Now.AddMinutes(30)};
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession{Date = DateTime.Now.AddMinutes(30)};
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",
@@ -33,7 +33,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithNoMeetingScheduledTest()
         {
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",
@@ -52,8 +52,8 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithMeetingPassedAndCompleted()
         {
-            var session = new StudentAdvisementManagerWebApp.Models.AdvisementSession { Date = DateTime.Now, Completed = true };
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = DateTime.Now, Completed = true };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",
@@ -72,8 +72,8 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Student
         [TestMethod]
         public void AdvisementSessionStatusMessageWithMeetingPassedAndNotCompleted()
         {
-            var session = new StudentAdvisementManagerWebApp.Models.AdvisementSession { Date = DateTime.Now, Completed = false };
-            var student = new StudentAdvisementManagerWebApp.Models.Student
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = DateTime.Now, Completed = false };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
                 LastName = "b",

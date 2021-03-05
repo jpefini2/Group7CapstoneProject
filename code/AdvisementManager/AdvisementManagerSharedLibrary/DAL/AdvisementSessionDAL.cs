@@ -37,5 +37,19 @@ namespace AdvisementManagerSharedLibrary.DAL
                     where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true && oldSessions.StudentId
                         == student.Id select oldSessions).ToList();
         }
+
+        /// <summary>Obtains the session.</summary>
+        /// <param name="studentId">The identifier.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The retrieved session
+        /// </returns>
+        public AdvisementSession ObtainLatestIncompleteSession(int? studentId, ApplicationDbContext context)
+        {
+            var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == studentId && sessionToFind.Completed == false select sessionToFind;
+            var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
+
+            return upcomingSession;
+        }
     }
 }

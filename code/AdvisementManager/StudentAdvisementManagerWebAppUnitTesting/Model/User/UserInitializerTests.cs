@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.User
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.User
 {
     [TestClass]
     public class UserInitializerTests
@@ -13,7 +13,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.User
         [TestMethod]
         public void UserInitializerTest()
         {
-            var user = new StudentAdvisementManagerWebApp.Models.User
+            var user = new AdvisementManagerSharedLibrary.Models.User
             {
                 Username = "jJohnson",
                 PasswordHash = "hashedPassword"

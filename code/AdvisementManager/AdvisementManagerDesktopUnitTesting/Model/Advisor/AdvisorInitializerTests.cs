@@ -1,4 +1,4 @@
-﻿using AdvisementManagerWebApp.Models;
+﻿using AdvisementManagerSharedLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
@@ -9,7 +9,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.AdvisementSession
         [TestMethod]
         public void InitializerTest()
         {
-            var advisor = new AdvisementManagerWebApp.Models.Advisor {
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor {
                 FirstName = "a",
                 LastName = "b",
                 Id = 1,

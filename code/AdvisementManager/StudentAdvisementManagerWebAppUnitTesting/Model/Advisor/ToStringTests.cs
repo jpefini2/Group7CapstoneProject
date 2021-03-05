@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentAdvisementManagerWebAppUnitTesting.Model.Advisor
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Advisor
 {
     [TestClass]
     public class ToStringTests
@@ -13,7 +13,7 @@ namespace StudentAdvisementManagerWebAppUnitTesting.Model.Advisor
         [TestMethod]
         public void ToStringTest()
         {
-            var advisor = new StudentAdvisementManagerWebApp.Models.Advisor
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor
             {
                 FirstName = "John",
                 LastName = "Johnson",

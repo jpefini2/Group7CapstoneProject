@@ -1,6 +1,6 @@
 ﻿using System;
-using AdvisementManagerWebApp.Data;
-using AdvisementManagerWebApp.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,7 +27,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisementSessionDAL
 
             using (var context = new ApplicationDbContext(options))
             {
-                var sessionDal = new AdvisementManagerWebApp.DAL.AdvisementSessionDAL();
+                var sessionDal = new AdvisementManagerSharedLibrary.DAL.AdvisementSessionDAL();
                 var expectedSession = sessionDal.ObtainSession(2, context);
 
                 Assert.AreEqual(1, expectedSession.Id);

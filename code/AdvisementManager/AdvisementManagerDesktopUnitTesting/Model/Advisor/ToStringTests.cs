@@ -14,7 +14,7 @@ namespace AdvisementManagerWebAppUnitTesting.Model.Advisor
         [TestMethod]
         public void ToStringTest()
         {
-            var advisor = new AdvisementManagerWebApp.Models.Advisor
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor
             {
                 FirstName = "a",
                 LastName = "b",
