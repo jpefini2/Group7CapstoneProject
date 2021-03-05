@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using AdvisementManagerDesktopApp.DAL;
+﻿using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
+using System;
+using System.Collections.Generic;
 
 namespace AdvisementManagerDesktopApp.Controller
 {

@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdvisementDesktop\AdvisementDesktop.csproj">
+    <ProjectReference Include="..\AdvisementManagerDesktopApp\AdvisementManagerDesktopApp.csproj">
       <Project>{c1d4d37a-7f32-4689-9f0e-ccbfc4f8ea93}</Project>
-      <Name>AdvisementDesktop</Name>
+      <Name>AdvisementManagerDesktopApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

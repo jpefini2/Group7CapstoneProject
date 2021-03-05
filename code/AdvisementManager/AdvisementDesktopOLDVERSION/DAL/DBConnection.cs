@@ -25,13 +25,12 @@ namespace AdvisementManagerDesktopApp.DAL
             const int firstHalfOfDirectoryPath = 0;
             var directoryPath = Environment.CurrentDirectory;
 
-            string[] stringSeparators = new string[] { "AdvisementManagerDesktopApp" };
-            var splitPath1 = directoryPath.Split(stringSeparators, StringSplitOptions.None);
-            var connDirectoryPath = splitPath1[firstHalfOfDirectoryPath] + "ADVISEMENTMANAGERDESKTOPAPP\\ADVISEMENTMANAGMENTDB.MDF";
+            var splitPath = directoryPath.Split("AdvisementManagerDesktopApp");
+            var connDirectoryPath = splitPath[firstHalfOfDirectoryPath] + "ADVISEMENTMANAGERDESKTOPAPP\\ADVISEMENTMANAGMENTDB.MDF";
             var fullConn = ConnStringPart1 + connDirectoryPath + ConnStringPart3;
 
-            return new SqlConnection(fullConn);
-            //return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True");
+           return new SqlConnection(fullConn);
+           //return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\CapStone\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerDesktopApp\ADVISEMENTMANAGERDB.mdf;Integrated Security=True");
         }
     }
 }

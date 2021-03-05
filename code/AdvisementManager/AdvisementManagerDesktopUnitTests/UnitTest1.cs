@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using AdvisementDesktop.Model;
+using AdvisementManagerDesktopApp.Model;
 
 namespace AdvisementManagerDesktopUnitTests
 {
