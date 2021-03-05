@@ -34,36 +34,42 @@ namespace AdvisementManagerSharedLibrary.DAL
             {
                 return null;
             }
-            User user = this.Context.Login.Find(username);
-
-            if (loginType == LoginType.ADVISOR)
+            try
             {
-                Advisor advisor = this.Context.Advisor.First(user => user.UserName.Equals(username));
+                User user = this.Context.Login.Find(username);
 
-                if (advisor == null)
+                if (loginType == LoginType.ADVISOR)
                 {
-                    return null;
+                    Advisor advisor = this.Context.Advisor.First(user => user.UserName.Equals(username));
+
+                    if (advisor == null)
+                    {
+                        return null;
+                    }
+                }
+                else if (loginType == LoginType.STUDENT)
+                {
+                    Student student = this.Context.Student.First(user => user.UserName.Equals(username));
+
+                    if (student == null)
+                    {
+                        return null;
+                    }
+                }
+                string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+                Trace.WriteLine(username + "'s password hash: " + passwordHash);
+
+                if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+                {
+                    Trace.WriteLine("Returned " + passwordHash);
+                    return passwordHash;
                 }
             }
-            else if (loginType == LoginType.STUDENT)
+            catch (InvalidOperationException)
             {
-                Student student = this.Context.Student.First(user => user.UserName.Equals(username));
-
-                if (student == null)
-                {
-                    return null;
-                }
-            }
-
-            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
-
-            Trace.WriteLine(username + "'s password hash: " + passwordHash);
-
-            if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
-            {
-                Trace.WriteLine("Returned " + passwordHash);
-                return passwordHash;
+                return null;
             }
             return null;
         }

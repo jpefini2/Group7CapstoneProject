@@ -18,14 +18,12 @@ namespace AdvisementManagerSharedLibrary.DAL
 
         private AdvisementSessionDAL advisementSessionDal = new();
 
-        /// <summary>Obtains the students with active holds from the DbContext</summary>
-        /// <param name="context">The context.</param>
-        /// <returns>
-        ///   The list of students with active holds
-        /// </returns>
         public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context, Advisor user)
         {
-            return (from student in context.Student join hold in context.Hold on student.Id equals hold.StudentId into studentWithHold from hold in studentWithHold where hold.IsActive && (student.facultyAdvisorId == user.Id || student.generalAdvisorId == user.Id) select student).ToList();
+            return (from student in context.Student join hold in context.Hold on student.Id equals 
+                        hold.StudentId into studentWithHold from hold in studentWithHold where 
+                        hold.IsActive && (student.facultyAdvisorId == user.Id || student.generalAdvisorId == user.Id)  
+                        select student).ToList();
         }
 
         /// <summary>Obtains the student with the specified id from the DbContext.</summary>
@@ -37,6 +35,7 @@ namespace AdvisementManagerSharedLibrary.DAL
         public Student ObtainStudentWithId(int id, ApplicationDbContext context)
         {
             Student student = context.Student.Find(id);
+
             student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
             student.Hold = this.holdDal.ObtainHold(id, context);
@@ -60,7 +59,7 @@ namespace AdvisementManagerSharedLibrary.DAL
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
 
             student.Hold = this.holdDal.ObtainHold(student.Id, context);
-            student.Meeting = this.advisementSessionDal.ObtainLatestSession(student.Id, context);
+            student.Meeting = this.advisementSessionDal.ObtainSession(student.Id, context);
 
             return student;
         }

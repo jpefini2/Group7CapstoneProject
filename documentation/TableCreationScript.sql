@@ -107,7 +107,7 @@ INSERT INTO Login(username, passwordHash) VALUES
 ('wkala', '$2a$12$bHDDjza0WCythx2A7kndf.8C7tH9ZX9Iu0Hq7oaxlNd8ETUL8V3mq'), 			/* s3cret */
 ('terichsen', '$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO'), 		/* password1 */
 ('bhart', '$2a$12$z7PkhUJcfmI/75USop3Dw.CKwdihcUcnTGW/aykwo8LfVTKFbQFma'), 			/* password1 */
-('jothewood', '$2a$12$5bL75OZSjSabRZyCN2AJFOw5cpwLb0b2.Nrd1fLd5X8X1LP23Jsia'), 		/* b3st_p@$$ */
+('jothewood', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), 		/* password1 */
 ('gsmith', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), 		/* password1 */
 ('hHill', '$2a$12$IjltwHUl7WTdjzEbbfoIgOd1HAWaVGxTfPr9w.t4BLPtNs1kNfFSe'), 			/* password1 */
 ('kSmith', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), 		/* password1 */
@@ -136,10 +136,10 @@ INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacult
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 1),
 ('waiting for hold to be removed', '12-20-2020', 1, 2),
-('ready to register', '11-20-2020', 1, 3),
+('need to meet with dept advisor', '11-20-2020', 1, 3),
 ('need to meet with dept advisor', '1-16-2021', 1, 4),
 ('need to meet with faculty advisor', '1-16-2021', 1, 5),
-('ready to register', '1-16-2021', 1, 6),
+('need to meet with dept advisor', '1-16-2021', 1, 6),
 ('need to meet with faculty advisor', '1-16-2021', 1, 7)
 
 INSERT INTO AdvisementSession (studentID, advisorID, holdID, sessionDate, stage, completed, notes) VALUES

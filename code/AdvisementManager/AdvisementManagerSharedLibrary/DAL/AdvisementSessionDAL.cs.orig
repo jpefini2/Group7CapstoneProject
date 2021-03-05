@@ -1,8 +1,14 @@
+<<<<<<< HEAD:code/AdvisementManager/AdvisementManagerSharedLibrary/DAL/AdvisementSessionDAL.cs
 ﻿using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
+=======
+﻿using System.Collections.Generic;
+using AdvisementManagerWebApp.Models;
+>>>>>>> origin/main:code/AdvisementManager/AdvisementManagerWebApp/DAL/AdvisementSessionDAL.cs
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdvisementManagerSharedLibrary.DAL
 {
@@ -27,6 +33,14 @@ namespace AdvisementManagerSharedLibrary.DAL
             return upcomingSession;
         }
 
+<<<<<<< HEAD:code/AdvisementManager/AdvisementManagerSharedLibrary/DAL/AdvisementSessionDAL.cs
+        public AdvisementSession ObtainLatestSession(int? studentId, ApplicationDbContext context)
+        {
+            var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == studentId select sessionToFind;
+            var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
+
+            return upcomingSession;
+=======
         /// <summary>Obtains the past sessions for the desired student that are a part of the students hold period</summary>
         /// <param name="context">The context.</param>
         /// <param name="student">The student.</param>
@@ -36,6 +50,7 @@ namespace AdvisementManagerSharedLibrary.DAL
             return (from oldSessions in context.AdvisementSession
                     where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true && oldSessions.StudentId
                         == student.Id select oldSessions).ToList();
+>>>>>>> origin/main:code/AdvisementManager/AdvisementManagerWebApp/DAL/AdvisementSessionDAL.cs
         }
     }
 }

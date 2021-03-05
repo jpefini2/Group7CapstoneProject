@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using StudentAdvisementManagerWebApp.Models;
 using System.Linq;
-using AdvisementManagerSharedLibrary.Models;
-using AdvisementManagerSharedLibrary.Data;
+using StudentAdvisementManagerWebApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAdvisementManagerWebApp.DAL
 {
