@@ -10,12 +10,7 @@ namespace AdvisementManagerDesktopUnitTests
         [TestMethod]
         public void TestMethod1()
         {
-            var hello = "hello";
-            var test = new testModelClass {
-                hello = hello
-            };
 
-            Assert.AreEqual(hello, hello);
         }
     }
 }
