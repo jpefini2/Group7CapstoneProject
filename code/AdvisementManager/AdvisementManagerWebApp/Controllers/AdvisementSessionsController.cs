@@ -54,6 +54,39 @@ namespace AdvisementManagerWebApp.Controllers
             return View(viewModel);
         }
 
+        public IActionResult AdvisementSession(int? id)
+        {
+            var sessionVM = this.setUpAdvisementSessionViewModel(id);
+
+            return View(sessionVM);
+        }
+
+        private AdvisementSessionVM setUpAdvisementSessionViewModel(int? meetingId)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(meetingId, this.context);
+            var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+            var advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+
+            var pastSessions = this.sessionDal.ObtainPastSessions(this.context, student);
+
+            foreach (var pastSession in pastSessions)
+            {
+                pastSession.Advisor = this.advisorDal.ObtainAdvisorWithId(pastSession.AdvisorId, this.context);
+            }
+
+            var advisementSessionVM = new AdvisementSessionVM
+            {
+                sessionId = session.Id,
+                student = student,
+                advisor = advisor,
+                Notes = session.Notes,
+                meetingTime = session.Date,
+                PastSessions = pastSessions
+            };
+
+            return advisementSessionVM;
+        }
+
         /// <summary>
         ///     Gets the current advisement session for the student with the passed in Id, and the currently logged in advisor.
         ///     Sets the current advisor and student in the sessionVM and returns the view with that viewmodel to be displayed and used
@@ -72,17 +105,17 @@ namespace AdvisementManagerWebApp.Controllers
                 return NotFound();
             }
 
-            var sessionVM = await this.setUpAdvisementSessionViewModel(id, user);
+            var sessionVM = await this.setUpStudentAdvisementViewModel(id, user);
 
             return View(sessionVM);
         }
 
-        private async Task<AdvisementSessionVM> setUpAdvisementSessionViewModel(int? id, Advisor user)
+        private async Task<AdvisementSessionVM> setUpStudentAdvisementViewModel(int? id, Advisor user)
         {
             var student = await this.context.Student.FindAsync(id);
             var advisor = await this.context.Advisor.FindAsync(user.Id);
 
-            student.Meeting = this.sessionDal.ObtainSession(id, this.context);
+            student.Meeting = this.sessionDal.ObtainLatestIncompleteSessionFromStudent(id, this.context);
             student.Hold = this.holdDal.ObtainHold(id, this.context);
 
             var pastSessions = this.sessionDal.ObtainPastSessions(this.context, student);
@@ -98,6 +131,41 @@ namespace AdvisementManagerWebApp.Controllers
                 PastSessions = pastSessions
             };
             return sessionVM;
+        }
+
+        [HttpPost]
+        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, int? holdId)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+
+            if (session.Date > DateTime.Now)
+            {
+                return RedirectToAdvisementSession(id);
+            }
+
+            var advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+            var hold = this.holdDal.ObtainHold(student.Hold.Id, this.context);
+
+            session.Notes = notes;
+            session.Completed = true;
+            updateHoldReason(advisor, hold);
+            this.context.SaveChanges();
+
+            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" }); ;
+        }
+
+        private RedirectToRouteResult RedirectToAdvisementSession(int? id)
+        {
+            TempData["MeetingTimeError"] = "Please wait until the meeting time to approve";
+
+            var redirectRoute = RedirectToRoute(new
+            {
+                action = "AdvisementSession",
+                controller = "AdvisementSessions",
+                id
+            });
+            return redirectRoute;
         }
 
         /// <summary>
@@ -121,7 +189,7 @@ namespace AdvisementManagerWebApp.Controllers
 
             if (time > DateTime.Now)
             {
-                redirectRoute = this.redirectToCurrentPage(holdId);
+                redirectRoute = this.redirectToStudentAdvisementSummaryPage(holdId);
             }
             else
             {
@@ -138,7 +206,7 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        private RedirectToRouteResult redirectToCurrentPage(int? id)
+        private RedirectToRouteResult redirectToStudentAdvisementSummaryPage(int? id)
         {
             TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
 

@@ -42,7 +42,7 @@
                                 @Html.DisplayFor(modelItem => meeting.Date)
                             </td>
                             <td>
-                                <a asp-action="StudentAdvisementSummary" asp-route-id="@meeting.Student.Id">View Details</a>
+                                <a asp-action="AdvisementSession" asp-route-id="@meeting.Id">View Details</a>
                             </td>
                         </tr>
                     }

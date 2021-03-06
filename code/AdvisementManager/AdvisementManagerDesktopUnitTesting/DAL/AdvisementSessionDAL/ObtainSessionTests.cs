@@ -28,7 +28,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisementSessionDAL
             using (var context = new ApplicationDbContext(options))
             {
                 var sessionDal = new AdvisementManagerSharedLibrary.DAL.AdvisementSessionDAL();
-                var expectedSession = sessionDal.ObtainSession(2, context);
+                var expectedSession = sessionDal.ObtainLatestIncompleteSessionFromStudent(2, context);
 
                 Assert.AreEqual(1, expectedSession.Id);
                 context.Database.EnsureDeleted();

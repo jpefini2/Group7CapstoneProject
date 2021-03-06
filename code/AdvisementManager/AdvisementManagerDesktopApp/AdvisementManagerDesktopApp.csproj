@@ -405,12 +405,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ADVISEMENTMANAGMENTDB.mdf">
+    <Content Include="AdvisementManagmentDb.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ADVISEMENTMANAGMENTDB_log.ldf">
+    <Content Include="AdvisementManagmentDb_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>ADVISEMENTMANAGMENTDB.mdf</DependentUpon>
+      <DependentUpon>AdvisementManagmentDb.mdf</DependentUpon>
     </Content>
     <Content Include="Resources\lock.png" />
   </ItemGroup>

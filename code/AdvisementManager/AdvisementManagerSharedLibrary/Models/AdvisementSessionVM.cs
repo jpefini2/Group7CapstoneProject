@@ -11,6 +11,8 @@ namespace AdvisementManagerSharedLibrary.Models
     /// </summary>
     public class AdvisementSessionVM
     {
+        public int sessionId { get; set; }
+
         /// <summary>Gets or sets the student doe this session</summary>
         /// <value>The student.</value>
         public Student student { get; set; }
@@ -18,6 +20,10 @@ namespace AdvisementManagerSharedLibrary.Models
         /// <summary>Gets or sets the advisor for this session</summary>
         /// <value>The advisor.</value>
         public Advisor advisor { get; set; }
+
+        /// <summary>Gets or sets the meeting time for this session</summary>
+        /// <value>The meeting time.</value>
+        public DateTime meetingTime { get; set; }
 
         /// <summary>Gets or sets the notes.</summary>
         /// <value>The notes.</value>

@@ -11,16 +11,25 @@ namespace AdvisementManagerSharedLibrary.DAL
     /// </summary>
     public class AdvisementSessionDAL
     {
+        public AdvisementSession ObtainSessionFromId(int? id, ApplicationDbContext context)
+        {
+            var session = (from sessionToFind in context.AdvisementSession 
+                          where sessionToFind.Id == id
+                          select sessionToFind).FirstOrDefault();
+
+            return session;
+        }
+
         /// <summary>Obtains the session, with the passed in session Id, from the DbContext.</summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="studentId">The identifier.</param>
         /// <param name="context">The context.</param>
         /// <returns>
         ///   The session found in the DbContext.
         /// </returns>
-        public AdvisementSession ObtainSession(int? id, ApplicationDbContext context)
+        public AdvisementSession ObtainLatestIncompleteSessionFromStudent(int? studentId, ApplicationDbContext context)
         {
             var sessions = from sessionToFind in context.AdvisementSession where 
-                               sessionToFind.StudentId == id && sessionToFind.Completed == false select sessionToFind;
+                               sessionToFind.StudentId == studentId && sessionToFind.Completed == false select sessionToFind;
 
             var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
 

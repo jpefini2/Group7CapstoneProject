@@ -39,7 +39,7 @@ namespace AdvisementManagerSharedLibrary.DAL
             student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
             student.Hold = this.holdDal.ObtainHold(id, context);
-            student.Meeting = this.advisementSessionDal.ObtainSession(id, context);
+            student.Meeting = this.advisementSessionDal.ObtainLatestIncompleteSessionFromStudent(id, context);
 
             return student;
         }
@@ -59,7 +59,7 @@ namespace AdvisementManagerSharedLibrary.DAL
             student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
 
             student.Hold = this.holdDal.ObtainHold(student.Id, context);
-            student.Meeting = this.advisementSessionDal.ObtainSession(student.Id, context);
+            student.Meeting = this.advisementSessionDal.ObtainLatestIncompleteSessionFromStudent(student.Id, context);
 
             return student;
         }
