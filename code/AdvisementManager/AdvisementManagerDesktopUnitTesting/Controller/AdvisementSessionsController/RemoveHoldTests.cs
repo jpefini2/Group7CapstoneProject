@@ -36,7 +36,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new AdvisementManagerWebApp.Controllers.AdvisementSessionsController(context);
-                controller.RemoveHold(1);
+                controller.RemoveHold(1, "wakala");
 
                 Assert.AreEqual(false, context.Hold.Find(1).IsActive);
                 context.Database.EnsureDeleted(); // Deletes inMemory database so the content doesn't affect unit test that are called after each other.

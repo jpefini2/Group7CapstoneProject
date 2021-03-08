@@ -68,7 +68,7 @@ namespace AdvisementManagerWebApp.Controllers
                         ViewBag.Message = "Something went wrong trying to create a new login session.";
                         return View(model);
                     }
-                    return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
+                    return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", username});
                 }
             }
             return View(model);

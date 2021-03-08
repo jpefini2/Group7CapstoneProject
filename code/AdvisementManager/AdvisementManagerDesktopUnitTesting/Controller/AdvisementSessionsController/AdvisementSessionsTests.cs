@@ -13,9 +13,8 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
     [TestClass]
     public class AdvisementSessionsTests
     {
-        //TODO need to fix this test now that is it using the cookies.
         [TestMethod]
-        private void AdvisementSessionsTest()
+        public void AdvisementSessionsTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                           .UseInMemoryDatabase(databaseName: "AdvisementManagement")
@@ -23,6 +22,8 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
 
             using (var context = new ApplicationDbContext(options))
             {
+                context.Advisor.Add(new Advisor {Id = 1, UserName = "wakala"});
+
                 context.Hold.Add(new Hold { Id = 1, Reason = string.Empty });
                 context.Student.Add(new Student
                 {
@@ -49,7 +50,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new AdvisementManagerWebApp.Controllers.AdvisementSessionsController(context);
-                var studentsWithHolds = controller.AdvisementSessions();
+                var studentsWithHolds = controller.AdvisementSessions("wakala");
 
                 Assert.IsNotNull(studentsWithHolds);
                 context.Database.EnsureDeleted();

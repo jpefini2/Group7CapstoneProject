@@ -85,7 +85,7 @@
                                 @Html.DisplayFor(modelItem => student.Email)
                             </td>
                             <td>
-                                <a asp-action="StudentAdvisementSummary" asp-route-id="@student.Id">View Details</a>
+                                <a asp-action="StudentAdvisementSummary" asp-route-id="@student.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]">View Details</a>
                             </td>
                         </tr>
                     }

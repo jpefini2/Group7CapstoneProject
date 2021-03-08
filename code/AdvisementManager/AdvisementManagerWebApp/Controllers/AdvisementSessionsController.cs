@@ -34,15 +34,20 @@ namespace AdvisementManagerWebApp.Controllers
             this.context = context;
         }
 
-        /// <summary>Obtains a list of students that have holds.
+        /// <summary>
+        /// Obtains a list of students that have holds.
         /// Returns a page back to the user with the results. This
         /// should not be used to gather a list of students for a
-        /// different advisor than the one that is assigned to the advisor.</summary>
-        /// <returns>The current views students with holds</returns>
-        public IActionResult AdvisementSessions()
+        /// different advisor than the one that is assigned to the advisor.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>
+        /// The current views students with holds
+        /// </returns>
+        public IActionResult AdvisementSessions(string userName)
         {
             var user = this.context.Advisor
-                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["AdvisementManager.LoginUser"]);
+                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == userName);
 
             var studentsWithHolds = this.studentDal.ObtainStudentsWithHolds(this.context, user);
             var upcomingMeetings = this.sessionDal.ObtainUpcomingSessions(this.context, user);
@@ -88,18 +93,19 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        ///     Gets the current advisement session for the student with the passed in Id, and the currently logged in advisor.
-        ///     Sets the current advisor and student in the sessionVM and returns the view with that viewmodel to be displayed and used
-        ///     in the advisement sessions page.
+        /// Gets the current advisement session for the student with the passed in Id, and the currently logged in advisor.
+        /// Sets the current advisor and student in the sessionVM and returns the view with that viewmodel to be displayed and used
+        /// in the advisement sessions page.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>
-        ///     The current views student or the not found page if the id or user is null.
+        /// The current views student or the not found page if the id or user is null.
         /// </returns>
-        public async Task<IActionResult> StudentAdvisementSummary(int? id)
+        public async Task<IActionResult> StudentAdvisementSummary(int? id, string userName)
         {
             var user = this.context.Advisor
-                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == Request.Cookies["AdvisementManager.LoginUser"]);
+                           .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == userName);
             if (id == null || user == null)
             {
                 return NotFound();
@@ -133,8 +139,16 @@ namespace AdvisementManagerWebApp.Controllers
             return sessionVM;
         }
 
+        /// <summary>
+        /// Approves the meeting and update hold.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="notes">The notes.</param>
+        /// <param name="holdId">The hold identifier.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>redirect to advisement sessions action method</returns>
         [HttpPost]
-        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, int? holdId)
+        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, int? holdId, string userName)
         {
             var session = this.sessionDal.ObtainSessionFromId(id, this.context);
 
@@ -152,7 +166,7 @@ namespace AdvisementManagerWebApp.Controllers
             updateHoldReason(advisor, hold);
             this.context.SaveChanges();
 
-            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" }); ;
+            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName }); ;
         }
 
         private RedirectToRouteResult RedirectToAdvisementSession(int? id)
@@ -179,17 +193,18 @@ namespace AdvisementManagerWebApp.Controllers
         /// <param name="advisorId">The advisor identifier.</param>
         /// <param name="meetingId">The meeting identifier.</param>
         /// <param name="notes">The notes.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>
         /// A redirection to the advisement sessions view
         /// </returns>
         [HttpPost]
-        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId, string notes)
+        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId, string notes, string userName)
         {
-            var redirectRoute = RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
+            var redirectRoute = RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName });
 
             if (time > DateTime.Now)
             {
-                redirectRoute = this.redirectToStudentAdvisementSummaryPage(holdId);
+                redirectRoute = this.redirectToStudentAdvisementSummaryPage(holdId, userName);
             }
             else
             {
@@ -206,14 +221,15 @@ namespace AdvisementManagerWebApp.Controllers
             return redirectRoute;
         }
 
-        private RedirectToRouteResult redirectToStudentAdvisementSummaryPage(int? id)
+        private RedirectToRouteResult redirectToStudentAdvisementSummaryPage(int? id, string userName)
         {
             TempData["MeetingTimeError"] = "Please wait until the meeting time to approve a student";
 
             var redirectRoute = RedirectToRoute(new {
                 action = "StudentAdvisementSummary",
                 controller = "AdvisementSessions",
-                id
+                id,
+                userName
             });
             return redirectRoute;
         }
@@ -232,15 +248,16 @@ namespace AdvisementManagerWebApp.Controllers
         }
 
         /// <summary>
-        ///     Removes the hold in the DbContext with the passed in hold id by setting the IsActive flag to false in the
-        ///     DbContext then updating the hold reason. Afterwords it saves the changes in the DbContext to the database
-        ///     then redirects the user to the advisement sessions page. 
+        /// Removes the hold in the DbContext with the passed in hold id by setting the IsActive flag to false in the
+        /// DbContext then updating the hold reason. Afterwords it saves the changes in the DbContext to the database
+        /// then redirects the user to the advisement sessions page.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>
-        ///     A redirection to the advisement sessions view
+        /// A redirection to the advisement sessions view
         /// </returns>
-        public RedirectToRouteResult RemoveHold(int? id)
+        public RedirectToRouteResult RemoveHold(int? id, string userName)
         {
             var hold = this.context.Hold.First(holdToFind => holdToFind.Id == id);
 
@@ -248,7 +265,7 @@ namespace AdvisementManagerWebApp.Controllers
             hold.Reason = ConstantManager.ReadyToRegister;
             this.context.SaveChanges();
 
-            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions" });
+            return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName });
         }
     }
 }

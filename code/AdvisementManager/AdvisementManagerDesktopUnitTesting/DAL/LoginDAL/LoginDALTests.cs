@@ -69,6 +69,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
                     throw new AssertFailedException();
                 }
                 Assert.IsTrue(BCrypt.Net.BCrypt.Verify(correctpassword, user.PasswordHash));
+                context.Database.EnsureDeleted();
             }
         }
 
@@ -93,6 +94,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
                 string hash = loginDAL.AttemptLogin("gsmith", wrongpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
                 Assert.IsFalse(BCrypt.Net.BCrypt.Verify(wrongpassword, user.PasswordHash));
+                context.Database.EnsureDeleted();
             }
         }
 
@@ -116,6 +118,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
                 string hash = loginDAL.AttemptLogin("gsmith", inputpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
                 Assert.IsFalse(BCrypt.Net.BCrypt.Verify(inputpassword, user.PasswordHash));
+                context.Database.EnsureDeleted();
             }
         }
 
@@ -138,6 +141,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
                 var loginDAL = new AdvisementManagerSharedLibrary.DAL.LoginDAL(context);
                 string hash = loginDAL.AttemptLogin("", inputpassword, LoginType.ADVISOR);
                 Assert.IsNull(hash);
+                context.Database.EnsureDeleted();
             }
         }
     }

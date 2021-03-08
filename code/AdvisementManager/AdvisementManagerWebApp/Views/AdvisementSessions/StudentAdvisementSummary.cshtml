@@ -63,7 +63,7 @@ else
                         {
                             <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes" 
                                   asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" 
-                                  asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id" 
+                                  asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                                   method="post">
                                 <textarea asp-for="Notes" class="form-control" cols="40" rows ="5"></textarea>
                                 <button type="submit" class="btn btn-primary">Approve</button>
@@ -72,11 +72,11 @@ else
                     }
                     else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))
                     {
-                        <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id"
+                        <a asp-action="RemoveHold" asp-route-id="@Model.student.Hold.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                            class="btn btn-danger">Remove Hold</a>
                     }
 
-                    <a asp-action="AdvisementSessions"
+                    <a asp-action="AdvisementSessions" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                        class="btn btn-secondary">Cancel</a>
                 </div>
             </td>

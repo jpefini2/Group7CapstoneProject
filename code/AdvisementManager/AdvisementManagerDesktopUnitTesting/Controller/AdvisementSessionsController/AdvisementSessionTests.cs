@@ -27,9 +27,8 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
     public class AdvisementSessionTests : IClassFixture<WebApplicationFactory<Startup>>
     {
 
-        //TODO finish this one.
-            [TestMethod]
-        private void AdvisementSessionTest()
+        [TestMethod]
+        public void AdvisementSessionTest()
         {
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -37,9 +36,8 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
                           .Options;
             using (var context = new ApplicationDbContext(options))
             {
-                context.Hold.Add(new Hold { Id = 1, Reason = string.Empty });
-                context.Student.Add(new Student
-                {
+                context.Hold.Add(new Hold { Id = 1, Reason = "Meet advisor", StudentId = 1, IsActive = false, Date = DateTime.Now});
+                var student = new Student {
                     Id = 1,
                     FirstName = "a",
                     LastName = "b",
@@ -47,29 +45,15 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
                     facultyAdvisorId = 1,
                     generalAdvisorId = 2,
                     Hold = context.Hold.Find(1)
-                });
-
-                context.Advisor.Add(new Advisor { Id = 2, UserName = "terichsen" });
-                context.AdvisementSession.Add(new AdvisementSession { StudentId = 1 });
-                context.Login.Add(new User
-                {
-                    Username = "terichsen",
-                    PasswordHash = "$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO"
-                });
-
-
-                var loginVM = new LoginViewModel
-                {
-                    Username = "terichsen",
-                    Password = "password1"
                 };
 
+                context.Student.Add(student);
+
+                context.Advisor.Add(new Advisor { Id = 2, UserName = "terichsen" });
+                context.Advisor.Add(new Advisor {Id = 1});
+                context.AdvisementSession.Add(new AdvisementSession {Id = 1, AdvisorId = 1, Student = student, StudentId = 1});
+
                 context.SaveChanges();
-                var accountController = new AccountController(context);
-
-                accountController.Login(loginVM, 2);
-
-                //context.SaveChanges();
             }
 
             using (var context = new ApplicationDbContext(options))
@@ -81,36 +65,6 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
                 context.Database.EnsureDeleted();
             }
         }
-
-        [TestMethod]
-        public void Request_Cookies_Should_Not_Be_Null()
-        {
-            //Arrange
-            var cookies = new CookieCollection
-            {
-                new Cookie("AdvisementManager.LoginUser", "terichsen"),
-                new Cookie("AdvisementManager.LoginSession","$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO")
-            };
-
-            var mockHttpContext = Substitute.For<HttpContext>();
-            var cookie = mockHttpContext.Request.Cookies;
-            // mockHttpContext.Setup(m => m.Request.Cookies).Returns(cookies);
-
-            /*var sut = new AdvisementManagerWebApp.Controllers.AdvisementSessionsController(context);
-            sut.ControllerContext = new ControllerContext
-            {
-                HttpContext = mockHttpContext
-            };
-
-            //Act
-            var user  = sut.Request.Cookies["AdvisementManager.LoginUser"];
-            var result = sut.Dashboard() as ViewResult;
-
-            //Assert
-            Assert.IsNotNull(result);*/
-        }
-
-
     }
 
 }

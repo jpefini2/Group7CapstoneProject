@@ -46,7 +46,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
 
             var hasMeeting = student.AdvisementSessionStatusMessage;
 
-            Assert.AreEqual("No meeting scheduled.", hasMeeting);
+            Assert.AreEqual("No meeting scheduled", hasMeeting);
         }
 
         [TestMethod]
@@ -59,20 +59,21 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
                 LastName = "b",
                 Id = 1,
                 Email = "ab",
-                Meeting = session,
+                Meeting = null,
                 facultyAdvisorId = 1,
                 generalAdvisorId = 2
             };
 
             var hasMeeting = student.AdvisementSessionStatusMessage;
 
-            Assert.AreEqual("No meeting scheduled.", hasMeeting);
+            Assert.AreEqual("No meeting scheduled", hasMeeting);
         }
 
         [TestMethod]
         public void AdvisementSessionStatusMessageWithMeetingPassedAndNotCompleted()
         {
-            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = DateTime.Now, Completed = false };
+            var date = DateTime.Now;
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = date, Completed = false };
             var student = new AdvisementManagerSharedLibrary.Models.Student
             {
                 FirstName = "a",
@@ -86,7 +87,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
 
             var hasMeeting = student.AdvisementSessionStatusMessage;
 
-            Assert.AreEqual("Meeting awaiting approval.", hasMeeting);
+            Assert.AreEqual("Meeting at " + date, hasMeeting);
         }
     }
 }

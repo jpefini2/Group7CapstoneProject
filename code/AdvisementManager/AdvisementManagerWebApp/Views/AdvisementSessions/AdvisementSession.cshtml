@@ -48,7 +48,7 @@
     <label class="text-center" style="font-size:larger">Notes</label>
 
     <form asp-action="ApproveMeetingAndUpdateHold" asp-route-id="@Model.sessionId"
-          asp-route-notes="@Model.Notes" asp-route-holdId="@Model.student.Hold.Id"
+          asp-route-notes="@Model.Notes" asp-route-holdId="@Model.student.Hold.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
         method="post">
         <textarea asp-for="Notes" class="form-control" cols="40" rows="7"></textarea>
         
@@ -56,7 +56,7 @@
             <center>
                 <button type="submit" class="btn btn-primary" style="padding-right:1em">Approve</button>
 
-                <a asp-action="AdvisementSessions"
+                <a asp-action="AdvisementSessions" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                    class="btn btn-secondary" style="padding-left:1em">Cancel</a>
             </center>
         </div>
