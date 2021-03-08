@@ -342,15 +342,21 @@
     <Compile Include="View\AdvisementSessionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AdvisementSessionForm.Designer.cs">
+    <Compile Include="View\AdvisementSessionForm.designer.cs">
       <DependentUpon>AdvisementSessionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentAdvisementSummaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\StudentAdvisementSummaryForm.Designer.cs">
+      <DependentUpon>StudentAdvisementSummaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\AdvisementSessionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AdvisementSessionsForm.Designer.cs">
+    <Compile Include="View\AdvisementSessionsForm.designer.cs">
       <DependentUpon>AdvisementSessionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\LoginForm.cs">
@@ -371,6 +377,9 @@
     </Compile>
     <EmbeddedResource Include="View\AdvisementSessionForm.resx">
       <DependentUpon>AdvisementSessionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StudentAdvisementSummaryForm.resx">
+      <DependentUpon>StudentAdvisementSummaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AdvisementSessionsForm.resx">
       <DependentUpon>AdvisementSessionsForm.cs</DependentUpon>
@@ -405,12 +414,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdvisementManagmentDb.mdf">
+    <Content Include="AdvisementManagmentDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AdvisementManagmentDb_log.ldf">
+    <Content Include="AdvisementManagmentDB_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>AdvisementManagmentDb.mdf</DependentUpon>
+      <DependentUpon>AdvisementManagmentDB.mdf</DependentUpon>
     </Content>
     <Content Include="Resources\lock.png" />
   </ItemGroup>
