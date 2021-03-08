@@ -109,20 +109,25 @@ INSERT INTO Login(username, passwordHash) VALUES
 ('bhart', '$2a$12$z7PkhUJcfmI/75USop3Dw.CKwdihcUcnTGW/aykwo8LfVTKFbQFma'), 			/* password1 */
 ('jothewood', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), 		/* password1 */
 ('gsmith', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), 		/* password1 */
+('fadvisor', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), 		/* password1 */
+('dadvisor', '$2a$12$jnd03xkWPH.8JZcYf1nNC.Z/RmpYV5q3VsmRqYjumwLryMHMfBfDS'), 		/* password1 */
 ('hHill', '$2a$12$IjltwHUl7WTdjzEbbfoIgOd1HAWaVGxTfPr9w.t4BLPtNs1kNfFSe'), 			/* password1 */
 ('kSmith', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC'), 		/* password1 */
 ('jWood', '$2a$12$9CrXSNd7Yt.lM10X4dOnqeJcsWL50Id.FKv5Uv6smnyU9v7MyJMqO'), 			/* p@ssw0rd */
 ('dMcCollum', '$2a$12$VvHlMGYNoTlZbmBgVmIcGuiujku7W4.ufHbK47jt7NGINwWtFVOPS'), 		/* password1234 */
 ('bThatcher', '$2a$12$jKNkgEtMuKzgKgbUSFc9YONZiLk.k4N8nIeAEbEbkU7iKjNW3mSeW'), 		/* sup3r_s3cret*/
 ('hAnderson', '$2a$12$ggkjrW0zrgiMlNUvB/ahX.sckqEvrRNrglqvqZOfzVynaFirLjWVq'), 		/* p@rr0ts */
-('cBrooks', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
+('cBrooks', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK'),		/* password2 */
+('student', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
 
 INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
 ('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),
 ('Tom', 'Erichsen', 1, 'terichsen@askj.net', 'terichsen', 'male'),
 ('Jenny', 'Othewood', 0, 'jothewood@askj.net', 'jothewood', 'female'),
 ('Bob', 'Hart', 0, 'bhart@askj.net', 'bhart', 'male'),
-('Gina', 'Smith', 1, 'gsmith@askj.net', 'gsmith', 'female')
+('Gina', 'Smith', 1, 'gsmith@askj.net', 'gsmith', 'female'),
+('Department', 'Advisor', 0, 'dadvisor@askj.net', 'dadvisor', 'female'),
+('Faculty', 'Advisor', 1, 'fadvisor@askj.net', 'fadvisor', 'female')
 
 INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, username, gender) VALUES
 ('Hank', 'Hill', 'hhill@my.askj.net', 1, 2, 'hHill', 'male'),
@@ -131,7 +136,8 @@ INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacult
 ('Derek', 'McCollum', 'dwilson@my.askj.net', 3, 5, 'dMcCollum', 'male'),
 ('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'bThatcher', 'female'),
 ('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'hAnderson', 'male'),
-('Cody', 'Brooks', 'cbrooks@my.askj.net', 4, 2, 'cBrooks', 'male')
+('Cody', 'Brooks', 'cbrooks@my.askj.net', 4, 2, 'cBrooks', 'male'),
+('Student', 'Student', 'studen@my.askj.net', 6, 7, 'student', 'male')
 
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 1),
@@ -140,12 +146,8 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with dept advisor', '1-16-2021', 1, 4),
 ('need to meet with faculty advisor', '1-16-2021', 1, 5),
 ('need to meet with dept advisor', '1-16-2021', 1, 6),
-('need to meet with faculty advisor', '1-16-2021', 1, 7)
-
-INSERT INTO AdvisementSession (studentID, advisorID, holdID, sessionDate, stage, completed, notes) VALUES
-(1, 1, 1, '11-16-2020', 0, 0, 'Works full time this semester'),
-(2, 3, 2, '11-22-2020', 0, 0, 'Trying to stay under 16 credit hours'),
-(4, 3, 4, '11-30-2020', 0, 0, '')
+('need to meet with faculty advisor', '1-16-2021', 1, 7),
+('need to meet with dept advisor', '12-26-2020', 1, 8)
 
 INSERT INTO Availability (timeBegin, timeEnd, advisorID) VALUES
 ('2020-11-23 07:30:00', '2020-11-23 10:00:00', 1),
