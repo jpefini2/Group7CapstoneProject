@@ -17,6 +17,12 @@ namespace AdvisementManagerDesktopApp.Model
         /// <value>The student.</value>
         public Student Student { get; set; }
 
+        /// <summary>
+        ///   Gets or sets the student identifier.
+        /// </summary>
+        /// <value>The student identifier.</value>
+        public int StudentID { get; set; }
+
         /// <summary>Gets or sets the advisor the session is for.</summary>
         /// <value>The advisor.</value>
         public Advisor Advisor { get; set; }
@@ -30,6 +36,10 @@ namespace AdvisementManagerDesktopApp.Model
         /// <summary>Gets or sets the hold identifier.</summary>
         /// <value>The hold identifier.</value>
         public int HoldID { get; set; }
+
+        /// <summary>Gets or sets the hold.</summary>
+        /// <value>The hold.</value>
+        public Hold Hold { get; set; }
 
         /// <summary>Gets or sets the date the session is to be held.</summary>
         /// <value>The date.</value>
@@ -48,8 +58,5 @@ namespace AdvisementManagerDesktopApp.Model
         /// <summary>Gets or sets the notes.</summary>
         /// <value>The notes.</value>
         public string Notes { get; set; }
-
-
-
     }
 }
