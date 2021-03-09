@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\Student\ToStringTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
+{
+    [TestClass]
+    public class ToStringTests
+    {
+        [TestMethod]
+        public void ToStringTest()
+        {
+            var student = new AdvisementManagerSharedLibrary.Models.Student {
+                FirstName = &quot;a&quot;,
+                LastName = &quot;b&quot;
+            };
+
+            Assert.AreEqual(&quot;a b&quot;, student.ToString());
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,19,15,1],[21,13,21,56,1],[22,9,22,10,1]]);
+    </script>
+  </body>
+</html>

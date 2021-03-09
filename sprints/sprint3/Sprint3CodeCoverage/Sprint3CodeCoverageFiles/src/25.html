@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerWebApp\Controllers\AdvisementSessionsController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary;
+using AdvisementManagerWebApp.Resources;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace AdvisementManagerWebApp.Controllers
+{
+    /// &lt;summary&gt;
+    ///   The Advisement Sessions Controller class for managing data between the view, model and DAL.
+    /// &lt;/summary&gt;
+    public class AdvisementSessionsController : Controller
+    {
+        /// &lt;summary&gt;Gets the Dbcontext for editing and pulling information in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The Dbcontext.&lt;/value&gt;
+        public ApplicationDbContext context { get; }
+        private readonly StudentDal studentDal = new();
+        private readonly HoldDAL holdDal = new();
+        private readonly AdvisementSessionDAL sessionDal= new();
+        private readonly AdvisorDAL advisorDal = new();
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;AdvisementSessionsController&quot;/&gt; class.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The Dbcontext.&lt;/param&gt;
+        public AdvisementSessionsController(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
+        /// &lt;summary&gt;
+        /// Obtains a list of students that have holds.
+        /// Returns a page back to the user with the results. This
+        /// should not be used to gather a list of students for a
+        /// different advisor than the one that is assigned to the advisor.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;userName&quot;&gt;Name of the user.&lt;/param&gt;
+        /// &lt;returns&gt;
+        /// The current views students with holds
+        /// &lt;/returns&gt;
+        public IActionResult AdvisementSessions(string userName)
+        {
+            var user = this.context.Advisor
+                           .FirstOrDefault(loggedInAdvisor =&gt; loggedInAdvisor.UserName == userName);
+
+            var studentsWithHolds = this.studentDal.ObtainStudentsWithHolds(this.context, user);
+            var upcomingMeetings = this.sessionDal.ObtainUpcomingSessions(this.context, user);
+
+            var viewModel = new AdvisorHomeVM {
+                StudentsWithHolds = studentsWithHolds,
+                UpcomingMeetings = upcomingMeetings
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult AdvisementSession(int? id)
+        {
+            var sessionVM = this.setUpAdvisementSessionViewModel(id);
+
+            return View(sessionVM);
+        }
+
+        private AdvisementSessionVM setUpAdvisementSessionViewModel(int? meetingId)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(meetingId, this.context);
+            var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+            var advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+
+            var pastSessions = this.sessionDal.ObtainPastSessions(this.context, student);
+
+            foreach (var pastSession in pastSessions)
+            {
+                pastSession.Advisor = this.advisorDal.ObtainAdvisorWithId(pastSession.AdvisorId, this.context);
+            }
+
+            var advisementSessionVM = new AdvisementSessionVM
+            {
+                sessionId = session.Id,
+                student = student,
+                advisor = advisor,
+                Notes = session.Notes,
+                meetingTime = session.Date,
+                PastSessions = pastSessions
+            };
+
+            return advisementSessionVM;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the current advisement session for the student with the passed in Id, and the currently logged in advisor.
+        /// Sets the current advisor and student in the sessionVM and returns the view with that viewmodel to be displayed and used
+        /// in the advisement sessions page.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;userName&quot;&gt;Name of the user.&lt;/param&gt;
+        /// &lt;returns&gt;
+        /// The current views student or the not found page if the id or user is null.
+        /// &lt;/returns&gt;
+        public async Task&lt;IActionResult&gt; StudentAdvisementSummary(int? id, string userName)
+        {
+            var user = this.context.Advisor
+                           .FirstOrDefault(loggedInAdvisor =&gt; loggedInAdvisor.UserName == userName);
+            if (id == null || user == null)
+            {
+                return NotFound();
+            }
+
+            var sessionVM = await this.setUpStudentAdvisementViewModel(id, user);
+
+            return View(sessionVM);
+        }
+
+        private async Task&lt;AdvisementSessionVM&gt; setUpStudentAdvisementViewModel(int? id, Advisor user)
+        {
+            var student = await this.context.Student.FindAsync(id);
+            var advisor = await this.context.Advisor.FindAsync(user.Id);
+
+            student.Meeting = this.sessionDal.ObtainLatestIncompleteSessionFromStudent(id, this.context);
+            student.Hold = this.holdDal.ObtainHold(id, this.context);
+
+            var pastSessions = this.sessionDal.ObtainPastSessions(this.context, student);
+
+            foreach (var session in pastSessions)
+            {
+                session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            }
+
+            var sessionVM = new AdvisementSessionVM {
+                student = student,
+                advisor = advisor,
+                PastSessions = pastSessions
+            };
+            return sessionVM;
+        }
+
+        /// &lt;summary&gt;
+        /// Approves the meeting and update hold.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;notes&quot;&gt;The notes.&lt;/param&gt;
+        /// &lt;param name=&quot;holdId&quot;&gt;The hold identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;userName&quot;&gt;Name of the user.&lt;/param&gt;
+        /// &lt;returns&gt;redirect to advisement sessions action method&lt;/returns&gt;
+        [HttpPost]
+        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, int? holdId, string userName)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+
+            if (session.Date &gt; DateTime.Now)
+            {
+                return RedirectToAdvisementSession(id);
+            }
+
+            var advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+            var hold = this.holdDal.ObtainHold(student.Hold.Id, this.context);
+
+            session.Notes = notes;
+            session.Completed = true;
+            updateHoldReason(advisor, hold);
+            this.context.SaveChanges();
+
+            return RedirectToRoute(new { action = &quot;AdvisementSessions&quot;, controller = &quot;AdvisementSessions&quot;, userName }); ;
+        }
+
+        private RedirectToRouteResult RedirectToAdvisementSession(int? id)
+        {
+            TempData[&quot;MeetingTimeError&quot;] = &quot;Please wait until the meeting time to approve&quot;;
+
+            var redirectRoute = RedirectToRoute(new
+            {
+                action = &quot;AdvisementSession&quot;,
+                controller = &quot;AdvisementSessions&quot;,
+                id
+            });
+            return redirectRoute;
+        }
+
+        /// &lt;summary&gt;
+        /// Approves the meeting meeting in the DbContext then saves the changes to the database.
+        /// After approval the user is redirected back to the advisementSessions page. If the time passed
+        /// in is not after the current time then the user is redirected back to the current page to wait until the time has passed
+        /// before being able to approve the meeting.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;holdId&quot;&gt;The hold identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;time&quot;&gt;The time.&lt;/param&gt;
+        /// &lt;param name=&quot;advisorId&quot;&gt;The advisor identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;meetingId&quot;&gt;The meeting identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;notes&quot;&gt;The notes.&lt;/param&gt;
+        /// &lt;param name=&quot;userName&quot;&gt;Name of the user.&lt;/param&gt;
+        /// &lt;returns&gt;
+        /// A redirection to the advisement sessions view
+        /// &lt;/returns&gt;
+        [HttpPost]
+        public RedirectToRouteResult ApproveMeeting(int? holdId, DateTime? time, int advisorId, int? meetingId, string notes, string userName)
+        {
+            var redirectRoute = RedirectToRoute(new { action = &quot;AdvisementSessions&quot;, controller = &quot;AdvisementSessions&quot;, userName });
+
+            if (time &gt; DateTime.Now)
+            {
+                redirectRoute = this.redirectToStudentAdvisementSummaryPage(holdId, userName);
+            }
+            else
+            {
+                var advisor = this.context.Advisor.Find(advisorId);
+                var hold = this.context.Hold.First(holdToFind =&gt; holdToFind.Id == holdId);
+                var session = this.context.AdvisementSession.First(sessionToFind =&gt; sessionToFind.Id == meetingId);
+                session.Completed = true;
+                session.Notes = notes;
+                updateHoldReason(advisor, hold);
+
+                this.context.SaveChanges();
+            }
+
+            return redirectRoute;
+        }
+
+        private RedirectToRouteResult redirectToStudentAdvisementSummaryPage(int? id, string userName)
+        {
+            TempData[&quot;MeetingTimeError&quot;] = &quot;Please wait until the meeting time to approve a student&quot;;
+
+            var redirectRoute = RedirectToRoute(new {
+                action = &quot;StudentAdvisementSummary&quot;,
+                controller = &quot;AdvisementSessions&quot;,
+                id,
+                userName
+            });
+            return redirectRoute;
+        }
+
+
+        private static void updateHoldReason(Advisor advisor, Hold hold)
+        {
+            if (advisor.IsFacultyAdvisor)
+            {
+                hold.Reason = ConstantManager.WaitingForHoldRemoval;
+            }
+            else
+            {
+                hold.Reason = ConstantManager.NeedToMeetFacAdvisor;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Removes the hold in the DbContext with the passed in hold id by setting the IsActive flag to false in the
+        /// DbContext then updating the hold reason. Afterwords it saves the changes in the DbContext to the database
+        /// then redirects the user to the advisement sessions page.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;userName&quot;&gt;Name of the user.&lt;/param&gt;
+        /// &lt;returns&gt;
+        /// A redirection to the advisement sessions view
+        /// &lt;/returns&gt;
+        public RedirectToRouteResult RemoveHold(int? id, string userName)
+        {
+            var hold = this.context.Hold.First(holdToFind =&gt; holdToFind.Id == id);
+
+            hold.IsActive = false;
+            hold.Reason = ConstantManager.ReadyToRegister;
+            this.context.SaveChanges();
+
+            return RedirectToRoute(new { action = &quot;AdvisementSessions&quot;, controller = &quot;AdvisementSessions&quot;, userName });
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,47,22,51,0],[23,9,23,56,0],[24,9,24,50,0],[25,9,25,65,0],[26,9,26,56,0],[32,9,32,74,0],[33,9,33,10,0],[34,13,34,36,0],[35,9,35,10,0],[48,9,48,10,0],[49,13,50,101,0],[52,13,52,97,0],[53,13,53,95,0],[55,13,58,15,0],[59,13,59,36,0],[60,9,60,10,0],[63,9,63,10,0],[64,13,64,70,0],[66,13,66,36,0],[67,9,67,10,0],[70,9,70,10,0],[71,13,71,88,0],[72,13,72,96,0],[73,13,73,96,0],[75,13,75,90,0],[77,13,77,20,0],[77,22,77,37,0],[77,38,77,40,0],[77,41,77,53,0],[78,13,78,14,0],[79,17,79,112,0],[80,13,80,14,0],[82,13,90,15,0],[92,13,92,40,0],[93,9,93,10,0],[106,9,106,10,0],[107,13,108,101,0],[109,13,109,44,0],[110,13,110,14,0],[111,17,111,35,0],[114,13,114,82,0],[116,13,116,36,0],[117,9,117,10,0],[120,9,120,10,0],[121,13,121,68,0],[122,13,122,73,0],[124,13,124,106,0],[125,13,125,70,0],[127,13,127,90,0],[129,13,129,20,0],[129,22,129,33,0],[129,34,129,36,0],[129,37,129,49,0],[130,13,130,14,0],[131,17,131,104,0],[132,13,132,14,0],[134,13,138,15,0],[139,13,139,30,0],[140,9,140,10,0],[152,9,152,10,0],[153,13,153,81,0],[155,13,155,45,0],[156,13,156,14,0],[157,17,157,56,0],[160,13,160,96,0],[161,13,161,96,0],[162,13,162,79,0],[164,13,164,35,0],[165,13,165,38,0],[166,13,166,45,0],[167,13,167,40,0],[169,13,169,120,0],[170,9,170,10,0],[173,9,173,10,0],[174,13,174,92,0],[176,13,181,16,0],[182,13,182,34,0],[183,9,183,10,0],[202,9,202,10,0],[203,13,203,133,0],[205,13,205,37,0],[206,13,206,14,0],[207,17,207,95,0],[208,13,208,14,0],[210,13,210,14,0],[211,17,211,68,0],[212,17,212,91,0],[213,17,213,116,0],[214,17,214,42,0],[215,17,215,39,0],[216,17,216,49,0],[218,17,218,44,0],[219,13,219,14,0],[221,13,221,34,0],[222,9,222,10,0],[225,9,225,10,0],[226,13,226,102,0],[228,13,233,16,0],[234,13,234,34,0],[235,9,235,10,0],[239,9,239,10,0],[240,13,240,42,0],[241,13,241,14,0],[242,17,242,69,0],[243,13,243,14,0],[245,13,245,14,0],[246,17,246,68,0],[247,13,247,14,0],[248,9,248,10,0],[261,9,261,10,0],[262,13,262,83,0],[264,13,264,35,0],[265,13,265,59,0],[266,13,266,40,0],[268,13,268,120,0],[269,9,269,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\Hold.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    /// &lt;summary&gt;
+    ///   The holds class for managing a students hold
+    /// &lt;/summary&gt;
+    public class Hold
+    {
+        /// &lt;summary&gt;Gets or sets the unique identifier for the hold.&lt;/summary&gt;
+        /// &lt;value&gt;The identifier.&lt;/value&gt;
+        [Key]
+        [Column(&quot;holdID&quot;)]
+        public int Id { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the reason for the hold.&lt;/summary&gt;
+        /// &lt;value&gt;The reason.&lt;/value&gt;
+        [Column(&quot;reason&quot;)]
+        public string Reason { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the date the hold as applied.&lt;/summary&gt;
+        /// &lt;value&gt;The date.&lt;/value&gt;
+        [Column(&quot;dateAdded&quot;)]
+        public DateTime Date { get; set; }
+
+        /// &lt;summary&gt;Gets or sets a value indicating whether the hold is active.&lt;/summary&gt;
+        /// &lt;value&gt;
+        ///   &lt;c&gt;true&lt;/c&gt; if this instance is active; otherwise, &lt;c&gt;false&lt;/c&gt;.&lt;/value&gt;
+        [Column(&quot;isActive&quot;)]
+        public bool IsActive { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the studentID associated with this hold.
+        /// &lt;/summary&gt;
+        /// &lt;value&gt;The studentID&lt;/value&gt;
+        [Column(&quot;studentID&quot;)]
+        public int StudentId { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets the string that represents this Hold.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;A string representing this Hold.&lt;/returns&gt;
+        public override string ToString()
+        {
+            if (this.IsActive)
+            {
+                return &quot;Hold: &quot; + this.Reason;
+            }
+            else
+            {
+                return &quot;No Hold&quot;;
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,25,19,29,1],[19,30,19,34,1],[24,32,24,36,1],[24,37,24,41,1],[29,32,29,36,1],[29,37,29,41,1],[35,32,35,36,1],[35,37,35,41,1],[42,32,42,36,1],[42,37,42,41,1],[49,9,49,10,1],[50,13,50,31,1],[51,13,51,14,1],[52,17,52,47,1],[55,13,55,14,1],[56,17,56,34,1],[58,9,58,10,1]]);
+    </script>
+  </body>
+</html>

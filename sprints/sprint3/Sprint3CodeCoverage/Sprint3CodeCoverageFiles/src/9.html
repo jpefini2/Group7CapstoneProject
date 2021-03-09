@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\LoginSession.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    public class LoginSession
+    {
+        /// &lt;summary&gt;
+        /// The username associated with this session.
+        /// &lt;/summary&gt;
+        [Key]
+        [Column(&quot;username&quot;)]
+        public string Username { get; set; }
+
+        /// &lt;summary&gt;
+        /// The random SessionKey associated with this session.
+        /// &lt;/summary&gt;
+        [Column(&quot;sessionKey&quot;)]
+        public string SessionKey { get; set; }
+
+        /// &lt;summary&gt;
+        /// The time this session should expire.
+        /// &lt;/summary&gt;
+        [Column(&quot;expirationDate&quot;)]
+        public DateTime ExpirationDate { get; set; }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,34,17,38,0],[17,39,17,43,0],[23,36,23,40,0],[23,41,23,45,0],[29,42,29,46,0],[29,47,29,51,0]]);
+    </script>
+  </body>
+</html>

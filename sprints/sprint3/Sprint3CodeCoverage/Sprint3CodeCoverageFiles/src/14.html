@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Data\ApplicationDBContext.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace AdvisementManagerSharedLibrary.Data
+{
+    /// &lt;summary&gt;
+    ///   The Application data context class for managing data from the database within the application.
+    /// &lt;/summary&gt;
+    public class ApplicationDbContext : IdentityDbContext
+    {
+        /// &lt;summary&gt;Initializes a new instance of the &lt;see cref=&quot;ApplicationDbContext&quot; /&gt; class.&lt;/summary&gt;
+        /// &lt;param name=&quot;options&quot;&gt;The options.&lt;/param&gt;
+        public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+            : base(options)
+        {
+        }
+
+        /// &lt;summary&gt;Gets or sets the students data from the relevant student table in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The student.&lt;/value&gt;
+        public DbSet&lt;Student&gt; Student { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisement sessions from the relevant advisement session table in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The advisement session.&lt;/value&gt;
+        public DbSet&lt;AdvisementSession&gt; AdvisementSession { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the holds from the relevant hold table in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The hold.&lt;/value&gt;
+        public DbSet&lt;Hold&gt; Hold { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisors from the relevant advisor table in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        public DbSet&lt;Advisor&gt; Advisor { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the user from the relevant login table in the database.&lt;/summary&gt;
+        /// &lt;value&gt;The user.&lt;/value&gt;
+        public DbSet&lt;User&gt; Login { get; set; }
+
+        /// &lt;summary&gt;Login Sessions stored in the database&lt;/summary&gt;
+        /// &lt;value&gt;The login session.&lt;/value&gt;
+        public DbSet&lt;LoginSession&gt; LoginSession { get; set; }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,15,15,28,1],[16,9,16,10,1],[17,9,17,10,1],[21,41,21,45,1],[21,46,21,50,1],[25,61,25,65,1],[25,66,25,70,1],[29,35,29,39,1],[29,40,29,44,1],[33,41,33,45,1],[33,46,33,50,1],[37,36,37,40,0],[37,41,37,45,1],[41,51,41,55,0],[41,56,41,60,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\AdvisementSessionVM.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    /// &lt;summary&gt;
+    ///   The Advisement session view model for passing session information to the view from the model classes that come together to
+    ///   make up the view.
+    /// &lt;/summary&gt;
+    public class AdvisementSessionVM
+    {
+        public int sessionId { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the student doe this session&lt;/summary&gt;
+        /// &lt;value&gt;The student.&lt;/value&gt;
+        public Student student { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisor for this session&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        public Advisor advisor { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the meeting time for this session&lt;/summary&gt;
+        /// &lt;value&gt;The meeting time.&lt;/value&gt;
+        public DateTime meetingTime { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the notes.&lt;/summary&gt;
+        /// &lt;value&gt;The notes.&lt;/value&gt;
+        public string Notes { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the past sessions.&lt;/summary&gt;
+        /// &lt;value&gt;The past sessions.&lt;/value&gt;
+        public IList&lt;AdvisementSession&gt; PastSessions { get; set; }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,32,14,36,0],[14,37,14,41,0],[18,34,18,38,0],[18,39,18,43,0],[22,34,22,38,0],[22,39,22,43,0],[26,39,26,43,0],[26,44,26,48,0],[30,31,30,35,0],[30,36,30,40,0],[34,56,34,60,0],[34,61,34,65,0]]);
+    </script>
+  </body>
+</html>

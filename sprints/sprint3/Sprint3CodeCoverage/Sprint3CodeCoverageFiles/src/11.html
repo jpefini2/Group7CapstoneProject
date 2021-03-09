@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\ScheduleAdvisementModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    /// &lt;summary&gt;
+    ///   The schedule advisement model
+    /// &lt;/summary&gt;
+    public class ScheduleAdvisementModel
+    {
+        /// &lt;summary&gt;Gets or sets the student.&lt;/summary&gt;
+        /// &lt;value&gt;The student.&lt;/value&gt;
+        public Student Student { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisor.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        public Advisor Advisor { get; set; }
+
+        /// &lt;summary&gt;Gets the student identifier.&lt;/summary&gt;
+        /// &lt;value&gt;The student identifier.&lt;/value&gt;
+        public int StudentId
+        {
+            get { return Student.Id; }
+        }
+
+        /// &lt;summary&gt;Gets the advisor identifier.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor identifier.&lt;/value&gt;
+        public int AdvisorId
+        {
+            get { return Advisor.Id; }
+        }
+
+        /// &lt;summary&gt;Gets or sets the date.&lt;/summary&gt;
+        /// &lt;value&gt;The date.&lt;/value&gt;
+        [BindProperty(SupportsGet = true)]
+        public DateTime Date { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the time.&lt;/summary&gt;
+        /// &lt;value&gt;The time.&lt;/value&gt;
+        [BindProperty(SupportsGet = true)]
+        public TimeSpan Time { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the available session times.&lt;/summary&gt;
+        /// &lt;value&gt;The available session times.&lt;/value&gt;
+        public IList&lt;SelectListItem&gt; AvailableSessionTimes { get; set; }
+
+        public bool IsSessionTimeValid
+        {
+            get
+            {
+                var sessionTime = this.Date.AddMinutes(this.Time.TotalMinutes);
+                return DateTime.Compare(sessionTime, DateTime.Now) &lt; 0;
+            }
+        }
+
+
+        /// &lt;summary&gt;Sets the available session times list items.&lt;/summary&gt;
+        /// &lt;param name=&quot;advisor&quot;&gt;The advisor.&lt;/param&gt;
+        public void SetAvailableSessionTimesListItems(Advisor advisor)
+        {
+            List&lt;SelectListItem&gt; availableTimes = new List&lt;SelectListItem&gt;();
+
+            foreach (var time in advisor.AvailableAdvisementSessionTimes)
+            {
+                availableTimes.Add(new SelectListItem { Value = time.ToString(), Text = time.ToString() });
+            }
+
+            this.AvailableSessionTimes = availableTimes;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,34,15,38,1],[15,39,15,43,1],[19,34,19,38,1],[19,39,19,43,1],[25,17,25,18,1],[25,19,25,37,1],[25,38,25,39,1],[32,17,32,18,1],[32,19,32,37,1],[32,38,32,39,1],[38,32,38,36,1],[38,37,38,41,1],[43,32,43,36,1],[43,37,43,41,1],[47,62,47,66,1],[47,67,47,71,1],[52,13,52,14,1],[53,17,53,80,1],[54,17,54,72,1],[55,13,55,14,1],[62,9,62,10,1],[63,13,63,78,1],[65,13,65,20,1],[65,22,65,30,1],[65,31,65,33,1],[65,34,65,73,1],[66,13,66,14,1],[67,17,67,108,1],[68,13,68,14,1],[70,13,70,57,1],[71,9,71,10,1]]);
+    </script>
+  </body>
+</html>

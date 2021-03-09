@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\Student\StudentInitializerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.Generic;
+using AdvisementManagerSharedLibrary.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.AdvisementSession
+{
+    [TestClass]
+    public class StudentInitializerTests
+    {
+        [TestMethod]
+        public void InitializerTest()
+        {
+            var general = new AdvisementManagerSharedLibrary.Models.Advisor();
+            var faculty = new AdvisementManagerSharedLibrary.Models.Advisor();
+            var hold = new AdvisementManagerSharedLibrary.Models.Hold();
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession();
+            var student = new AdvisementManagerSharedLibrary.Models.Student {
+                FirstName = &quot;John&quot;,
+                LastName = &quot;Johnson&quot;,
+                Id = 1,
+                Email = &quot;jJohnson@gmail.com&quot;,
+                UserName = &quot;jJohnson&quot;,
+                GeneralAdvisor = general,
+                FacultyAdvisor = faculty,
+                Hold = hold,
+                Meeting = session,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2,
+            };
+
+            Assert.AreEqual(student.FirstName, &quot;John&quot;);
+            Assert.AreEqual(student.LastName, &quot;Johnson&quot;);
+            Assert.AreEqual(student.Id, 1);
+            Assert.AreEqual(student.Email, &quot;jJohnson@gmail.com&quot;);
+            Assert.AreEqual(student.GeneralAdvisor, general);
+            Assert.AreEqual(student.FacultyAdvisor, faculty);
+            Assert.AreEqual(student.Hold, hold);
+            Assert.AreEqual(student.Meeting, session);
+            Assert.AreEqual(student.FullName, &quot;John Johnson&quot;);
+            Assert.AreEqual(student.facultyAdvisorId, 1);
+            Assert.AreEqual(student.generalAdvisorId, 2);
+            Assert.AreEqual(student.UserName, &quot;jJohnson&quot;);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,9,12,10,1],[13,13,13,79,1],[14,13,14,79,1],[15,13,15,73,1],[16,13,16,89,1],[17,13,29,15,1],[31,13,31,56,1],[32,13,32,58,1],[33,13,33,44,1],[34,13,34,66,1],[35,13,35,62,1],[36,13,36,62,1],[37,13,37,49,1],[38,13,38,55,1],[39,13,39,63,1],[40,13,40,58,1],[41,13,41,58,1],[42,13,42,59,1],[43,9,43,10,1]]);
+    </script>
+  </body>
+</html>

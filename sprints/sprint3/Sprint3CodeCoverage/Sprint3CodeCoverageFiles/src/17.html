@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\DAL\HoldDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using System.Linq;
+
+namespace AdvisementManagerSharedLibrary.DAL
+{
+    /// &lt;summary&gt;
+    ///   The hold DAL class for managing, updating and pulling information from the student table in the DbContext/Database.
+    /// &lt;/summary&gt;
+    public class HoldDAL
+    {
+        /// &lt;summary&gt;Obtains the hold with a particular holds student Id from the hold table in the DbContext.&lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The retrieved hold from the DbContext.
+        /// &lt;/returns&gt;
+        public Hold ObtainHold(int? id, ApplicationDbContext context)
+        {
+            return (from hold in context.Hold where hold.StudentId == id select hold).FirstOrDefault();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,9,19,10,1],[20,13,20,104,1],[21,9,21,10,1]]);
+    </script>
+  </body>
+</html>

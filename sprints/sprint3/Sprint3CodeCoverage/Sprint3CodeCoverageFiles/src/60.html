@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Controller\HomeController\StudentHomeTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Controller.HomeController
+{
+    [TestClass]
+    public class StudentHomeTests
+    {
+        [TestMethod]
+        public void AdvisementSessionsTest()
+        {
+            var options = new DbContextOptionsBuilder&lt;ApplicationDbContext&gt;()
+                          .UseInMemoryDatabase(databaseName: &quot;AdvisementManagement&quot;)
+                          .Options;
+
+            Hold hold = this.getHold(&quot;need to meet with dept advisor&quot;);
+            Advisor dAdvisor = this.getDeptAdvisor();
+            Advisor fAdvisor = this.getFacultyAdvisor();
+            Student student = this.getStudent(dAdvisor, fAdvisor, hold);
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var controller = new StudentAdvisementManagerWebApp.Controllers.HomeController(context);
+                var studentResult = controller.StudentHome(student);
+
+                Assert.IsNotNull(studentResult);
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        #region Helpers
+
+        private Student getStudent(Advisor dAdvisor, Advisor fAdvisor, Hold hold)
+        {
+            return new Student
+            {
+                Id = 1,
+                FirstName = &quot;John&quot;,
+                LastName = &quot;Johnson&quot;,
+                Email = &quot;jJohnson@gmail.com&quot;,
+                generalAdvisorId = 1,
+                facultyAdvisorId = 2,
+                GeneralAdvisor = dAdvisor,
+                FacultyAdvisor = fAdvisor,
+                Hold = hold
+            };
+        }
+
+        private Advisor getDeptAdvisor()
+        {
+            return new Advisor
+            {
+                Id = 1,
+                FirstName = &quot;Department&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;dAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = false
+            };
+        }
+
+        private Advisor getFacultyAdvisor()
+        {
+            return new Advisor
+            {
+                Id = 2,
+                FirstName = &quot;Faculty&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;fAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = true
+            };
+        }
+
+        private Hold getHold(string holdReason)
+        {
+            return new Hold
+            {
+                Id = 1,
+                Reason = holdReason,
+                Date = DateTime.Now,
+                IsActive = true,
+                StudentId = 1,
+            };
+        }
+
+        #endregion
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,10,1],[19,13,21,36,1],[23,13,23,72,1],[24,13,24,54,1],[25,13,25,57,1],[26,13,26,73,1],[28,20,28,67,1],[29,13,29,14,1],[30,17,30,105,1],[31,17,31,69,1],[33,17,33,49,1],[34,17,34,50,1],[35,13,35,14,1],[36,9,36,10,1],[41,9,41,10,1],[42,13,53,15,1],[54,9,54,10,1],[57,9,57,10,1],[58,13,65,15,1],[66,9,66,10,1],[69,9,69,10,1],[70,13,77,15,1],[78,9,78,10,1],[81,9,81,10,1],[82,13,89,15,1],[90,9,90,10,1]]);
+    </script>
+  </body>
+</html>

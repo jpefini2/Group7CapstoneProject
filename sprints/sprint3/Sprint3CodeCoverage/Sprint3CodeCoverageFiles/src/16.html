@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\DAL\AdvisorDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+
+namespace AdvisementManagerSharedLibrary.DAL
+{
+    public class AdvisorDAL
+    {
+        /// &lt;summary&gt;Obtains the advisor with the specified id.&lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The id.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The advisor with the given id.
+        /// &lt;/returns&gt;
+        public Advisor ObtainAdvisorWithId(int id, ApplicationDbContext context)
+        {
+            return context.Advisor.Find(id);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,16,45,1],[17,9,17,10,1]]);
+    </script>
+  </body>
+</html>
