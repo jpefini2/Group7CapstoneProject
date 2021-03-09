@@ -1,0 +1,42 @@
+﻿@model AdvisementManagerSharedLibrary.Models.AdvisementSession
+
+@{
+    ViewData["Title"] = "Advisement Session";
+}
+
+<div class="text-center">
+    <h2 class="display-3">Advisement Session</h2>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <label style="font-size:larger">Student: @Model.Advisor.FullName</label>
+        </div>
+        <div class="row">
+            <label style="font-size:larger">Email: @Model.Advisor.Email</label>
+
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <label style="font-size:larger">Meeting Time: @Model.Date</label>
+        </div>
+        <div class="row">
+            <label style="font-size:larger">Current Hold: @Model.Student.Hold.Reason</label>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-bottom:2em">
+    <label class="text-center" style="font-size:larger">Advisor Notes</label>
+    <textarea class="form-control" readonly cols="25" rows="7">@Model.Notes</textarea>
+</div>
+
+<div class="row">
+    <a asp-controller="AdvisementSession" asp-action="AdvisementSessions" class="btn btn-secondary"
+       asp-route-studentid="@Model.StudentId"
+       asp-route-holdid="@Model.HoldId">
+        Close
+    </a>
+</div>

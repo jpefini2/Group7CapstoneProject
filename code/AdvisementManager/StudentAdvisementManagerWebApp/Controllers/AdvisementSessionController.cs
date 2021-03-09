@@ -138,6 +138,11 @@ namespace StudentAdvisementManagerWebApp.Controllers
             this.sessionDal.ScheduleAdvisementSession(session, this.context);
         }
 
+        /// <summary>Displays a view showing a list of the students previous sessions from this semester</summary>
+        /// <param name="id">The asession id.</param>
+        /// <returns>
+        ///   The view to the advisement sessions list
+        /// </returns>
         public IActionResult AdvisementSessions(int? studentid, int? holdid)
         {
             var studentsSessions = this.sessionDal.ObtainPastSessionsFromIDs(this.context, studentid.Value, holdid.Value);
@@ -148,6 +153,20 @@ namespace StudentAdvisementManagerWebApp.Controllers
             }
 
             return View(studentsSessions);
+        }
+
+        /// <summary>Displays an advisement session</summary>
+        /// <param name="id">The asession id.</param>
+        /// <returns>
+        ///   The view to the advisement session
+        /// </returns>
+        public IActionResult AdvisementSession(int? id)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+            session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            session.Student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+
+            return View(session);
         }
     }
 }
