@@ -1,0 +1,48 @@
+﻿@model List<AdvisementSession>
+@{
+    ViewData["Title"] = "Advisement Sessions";
+}
+
+<div class="row">
+    <table class="table table-bordered table-striped" style="margin:5px">
+        <thead>
+            <tr>
+                <th>
+                    Advisor
+                </th>
+                <th>
+                    Meeting Time
+                </th>
+                <th>
+                    Completed
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meeting in Model)
+            {
+                <tr>
+                    <td>
+                        @meeting.Advisor.FullName
+                    </td>
+                    <td>
+                        @meeting.Date
+                    </td>
+                    <td>
+                        @meeting.Completed
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="AdvisementSession" asp-route-id="@meeting.Id">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="StudentHome">Close</a>
+</div>
+
+

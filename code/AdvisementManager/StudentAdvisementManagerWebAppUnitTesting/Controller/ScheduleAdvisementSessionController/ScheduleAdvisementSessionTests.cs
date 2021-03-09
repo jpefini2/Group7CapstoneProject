@@ -37,7 +37,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
 
             using (var context = new ApplicationDbContext(options))
             {
-                var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+                var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
                 var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
 
                 Assert.IsNotNull(scheduleAdvisement);
@@ -69,7 +69,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
 
             using (var context = new ApplicationDbContext(options))
             {
-                var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+                var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
                 var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
 
                 Assert.IsNotNull(scheduleAdvisement);
@@ -101,7 +101,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
 
             using (var context = new ApplicationDbContext(options))
             {
-                var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+                var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
                 var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
 
                 Assert.IsNotNull(scheduleAdvisement);

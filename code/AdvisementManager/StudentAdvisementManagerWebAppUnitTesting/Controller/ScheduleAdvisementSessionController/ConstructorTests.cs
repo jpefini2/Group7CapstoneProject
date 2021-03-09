@@ -21,7 +21,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
                           .Options;
 
             using var context = new ApplicationDbContext(options);
-            var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+            var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
 
             Assert.AreEqual(context, controller.context);
             context.Database.EnsureDeleted();

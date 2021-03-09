@@ -41,7 +41,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
                 DateTime date = DateTime.Now;
                 TimeSpan time = TimeSpan.FromSeconds(100);
 
-                var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+                var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
                 controller.ConfirmAppointment(student.Id, student.generalAdvisorId, date, time);
 
                 AdvisementSessionDAL sessionDal = new AdvisementSessionDAL();
@@ -78,7 +78,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
                 DateTime date = DateTime.Now;
                 TimeSpan time = TimeSpan.Zero;
 
-                var controller = new StudentAdvisementManagerWebApp.Controllers.ScheduleAdvisementSessionController(context);
+                var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
                 controller.ConfirmAppointment(student.Id, student.generalAdvisorId, date, time);
 
                 AdvisementSessionDAL sessionDal = new AdvisementSessionDAL();
