@@ -1,0 +1,14 @@
+Advisor Availability:
+
+Context: The user is currently viewing the availability page
+
+Primary Flow:
+1. The user fills out the prompt info for availability.
+2. The user hits the confirm button.
+3. The system updates the availability information in the database.
+4. The system notifies the user of the update
+5. The system returns the user to the previous page. 
+
+Alternate Flow: 
+	A2. The user hits cancel.
+	A3. The system returns the user to the previous page.
