@@ -23,5 +23,18 @@ namespace AdvisementManagerDesktopApp.Controller
 
             return students;
         }
+
+        /// <summary>Obtains the upcoming meetings of the advisor from the database to be passed to the view.</summary>
+        /// <returns>
+        ///   The list of upcoming meetings for the advisor.
+        /// </returns>
+        public IList<AdvisementSession> ObtainUpcomingMeetings(Advisor advisor)
+        {
+            var sessionDal = new AdvisementSessionDal();
+
+            var sessions = sessionDal.ObtainAdvisorsUpcomingSessions(advisor);
+
+            return sessions;
+        }
     }
 }

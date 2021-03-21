@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\DAL\AdvisementSessionDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AdvisementManagerSharedLibrary.DAL
+{
+    /// &lt;summary&gt;
+    ///   The Advisement sessions DAL class for managing, updating and pulling infomration related to the advisement session table in the DbContext/Database.
+    /// &lt;/summary&gt;
+    public class AdvisementSessionDAL
+    {
+        public AdvisementSession ObtainSessionFromId(int? id, ApplicationDbContext context)
+        {
+            var session = (from sessionToFind in context.AdvisementSession 
+                          where sessionToFind.Id == id
+                          select sessionToFind).FirstOrDefault();
+
+            return session;
+        }
+
+        /// &lt;summary&gt;Obtains the session, with the passed in session Id, from the DbContext.&lt;/summary&gt;
+        /// &lt;param name=&quot;studentId&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The session found in the DbContext.
+        /// &lt;/returns&gt;
+        public AdvisementSession ObtainLatestIncompleteSessionFromStudent(int? studentId, ApplicationDbContext context)
+        {
+            var sessions = from sessionToFind in context.AdvisementSession where 
+                               sessionToFind.StudentId == studentId &amp;&amp; sessionToFind.Completed == false select sessionToFind;
+
+            var upcomingSession = sessions.FirstOrDefault(s =&gt; s.Date == sessions.Max(x =&gt; x.Date));
+
+            return upcomingSession;
+        }
+
+        /// &lt;summary&gt;Obtains the past sessions for the desired student that are a part of the students hold period&lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;param name=&quot;student&quot;&gt;The student.&lt;/param&gt;
+        /// &lt;returns&gt;A list of past advisement sessions that are part of the current hold period for the student.&lt;/returns&gt;
+        public IList&lt;AdvisementSession&gt; ObtainPastSessions(ApplicationDbContext context, Student student)
+        {
+            return this.ObtainPastSessionsFromIDs(context, student.Id, student.Hold.Id);
+        }
+
+        public IList&lt;AdvisementSession&gt; ObtainPastSessionsFromIDs(ApplicationDbContext context, int studentId, int holdId)
+        {
+            return (from oldSessions in context.AdvisementSession
+                    where oldSessions.HoldId == holdId &amp;&amp; oldSessions.Completed == true &amp;&amp; oldSessions.StudentId
+                        == studentId
+                    select oldSessions).ToList();
+        }
+
+        /// &lt;summary&gt;Obtains the upcoming sessions for the desired advisor&lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;param name=&quot;advisor&quot;&gt;The advisor.&lt;/param&gt;
+        /// &lt;returns&gt;A list of the advisor&#39;s upcoming advisement sessions&lt;/returns&gt;
+        public IList&lt;AdvisementSession&gt; ObtainUpcomingSessions(ApplicationDbContext context, Advisor advisor)
+        {
+            List&lt;AdvisementSession&gt; upcomingSessions = (from upcomingSession in context.AdvisementSession
+                                                        where upcomingSession.AdvisorId == advisor.Id &amp;&amp; upcomingSession.Completed == false
+                                                        select upcomingSession).ToList();
+            StudentDal studentDal = new StudentDal();
+            foreach (var session in upcomingSessions)
+            {
+                session.Student = studentDal.ObtainStudentWithId(session.StudentId, context);
+                session.Advisor = advisor;
+            }
+
+            return upcomingSessions;
+        }
+
+        /// &lt;summary&gt;Obtains the session.&lt;/summary&gt;
+        /// &lt;param name=&quot;studentId&quot;&gt;The identifier.&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The retrieved session
+        /// &lt;/returns&gt;
+        public AdvisementSession ObtainLatestIncompleteSession(int? studentId, ApplicationDbContext context)
+        {
+            var sessions = from sessionToFind in context.AdvisementSession where sessionToFind.StudentId == studentId &amp;&amp; sessionToFind.Completed == false select sessionToFind;
+            var upcomingSession = sessions.FirstOrDefault(s =&gt; s.Date == sessions.Max(x =&gt; x.Date));
+
+            return upcomingSession;
+        }
+
+        /// &lt;summary&gt;Inserts a new advisement session&lt;/summary&gt;
+        /// &lt;param name=&quot;session&quot;&gt;The session model&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        public void ScheduleAdvisementSession(AdvisementSession session, ApplicationDbContext context)
+        {
+            context.Entry(session).State = EntityState.Added;
+            context.SaveChanges();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,10,0],[17,13,19,66,0],[21,13,21,28,0],[22,9,22,10,0],[31,9,31,10,1],[32,13,33,126,1],[35,13,35,101,1],[37,13,37,36,1],[38,9,38,10,1],[45,9,45,10,0],[46,13,46,89,0],[47,9,47,10,0],[50,9,50,10,0],[51,13,54,50,0],[55,9,55,10,0],[62,9,62,10,0],[63,13,65,90,0],[66,13,66,54,0],[67,13,67,20,0],[67,22,67,33,0],[67,34,67,36,0],[67,37,67,53,0],[68,13,68,14,0],[69,17,69,94,0],[70,17,70,43,0],[71,13,71,14,0],[73,13,73,37,0],[74,9,74,10,0],[83,9,83,10,1],[84,13,84,176,1],[85,13,85,101,1],[87,13,87,36,1],[88,9,88,10,1],[94,9,94,10,1],[95,13,95,62,1],[96,13,96,35,1],[97,9,97,10,1]]);
+    </script>
+  </body>
+</html>

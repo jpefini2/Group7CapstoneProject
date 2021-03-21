@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\DAL\StudentDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibrary.DAL
+{
+    /// &lt;summary&gt;
+    ///   The student DAL class for managing, updating and pulling information from the student table in the database/context.
+    /// &lt;/summary&gt;
+    public class StudentDal
+    {
+        private AdvisorDAL advisorDal = new();
+
+        private HoldDAL holdDal = new();
+
+        private AdvisementSessionDAL advisementSessionDal = new();
+
+        public IList&lt;Student&gt; ObtainStudentsWithHolds(ApplicationDbContext context, Advisor user)
+        {
+            return (from student in context.Student join hold in context.Hold on student.Id equals 
+                        hold.StudentId into studentWithHold from hold in studentWithHold where 
+                        hold.IsActive &amp;&amp; (student.facultyAdvisorId == user.Id || student.generalAdvisorId == user.Id)  
+                        select student).ToList();
+        }
+
+        /// &lt;summary&gt;Obtains the student with the specified id from the DbContext.&lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The id.&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The student with the given id.
+        /// &lt;/returns&gt;
+        public Student ObtainStudentWithId(int id, ApplicationDbContext context)
+        {
+            Student student = context.Student.Find(id);
+
+            student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
+            student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
+            student.Hold = this.holdDal.ObtainHold(id, context);
+            student.Meeting = this.advisementSessionDal.ObtainLatestIncompleteSessionFromStudent(id, context);
+
+            return student;
+        }
+
+        /// &lt;summary&gt;Obtains the student with the specified username.&lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The student&#39;s username.&lt;/param&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The student with the given username.
+        /// &lt;/returns&gt;
+        public Student ObtainStudentWithUsername(string username, ApplicationDbContext context)
+        {
+            var student = context.Student.
+                FirstOrDefault(loggedInStudent =&gt; loggedInStudent.UserName == username);
+
+            student.GeneralAdvisor = this.advisorDal.ObtainAdvisorWithId(student.generalAdvisorId, context);
+            student.FacultyAdvisor = this.advisorDal.ObtainAdvisorWithId(student.facultyAdvisorId, context);
+
+            student.Hold = this.holdDal.ObtainHold(student.Id, context);
+            student.Meeting = this.advisementSessionDal.ObtainLatestIncompleteSessionFromStudent(student.Id, context);
+
+            return student;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,47,1],[17,9,17,41,1],[19,9,19,67,1],[22,9,22,10,0],[23,13,26,50,0],[27,9,27,10,0],[36,9,36,10,1],[37,13,37,56,1],[39,13,39,109,1],[40,13,40,109,1],[41,13,41,65,1],[42,13,42,111,1],[44,13,44,28,1],[45,9,45,10,1],[54,9,54,10,1],[55,13,56,89,1],[58,13,58,109,1],[59,13,59,109,1],[61,13,61,73,1],[62,13,62,119,1],[64,13,64,28,1],[65,9,65,10,1]]);
+    </script>
+  </body>
+</html>

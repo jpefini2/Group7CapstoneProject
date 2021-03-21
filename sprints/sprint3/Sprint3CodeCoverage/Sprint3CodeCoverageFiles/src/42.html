@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\Student\AdvisementSessionStatusMessageTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Student
+{
+    [TestClass]
+    public class AdvisementSessionStatusMessageTests
+    {
+        [TestMethod]
+        public void AdvisementSessionStatusMessageWithMeetingNotPassedTest()
+        {
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession{Date = DateTime.Now.AddMinutes(30)};
+            var student = new AdvisementManagerSharedLibrary.Models.Student
+            {
+                FirstName = &quot;a&quot;,
+                LastName = &quot;b&quot;,
+                Id = 1,
+                Email = &quot;ab&quot;,
+                Meeting = session,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2
+            };
+
+            var hasMeeting = student.AdvisementSessionStatusMessage;
+
+            Assert.AreEqual(&quot;Meeting at &quot; + student.Meeting.Date, hasMeeting);
+        }
+
+        [TestMethod]
+        public void AdvisementSessionStatusMessageWithNoMeetingScheduledTest()
+        {
+            var student = new AdvisementManagerSharedLibrary.Models.Student
+            {
+                FirstName = &quot;a&quot;,
+                LastName = &quot;b&quot;,
+                Id = 1,
+                Email = &quot;ab&quot;,
+                Meeting = null,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2
+            };
+
+            var hasMeeting = student.AdvisementSessionStatusMessage;
+
+            Assert.AreEqual(&quot;No meeting scheduled&quot;, hasMeeting);
+        }
+
+        [TestMethod]
+        public void AdvisementSessionStatusMessageWithMeetingPassedAndCompleted()
+        {
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = DateTime.Now, Completed = true };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
+            {
+                FirstName = &quot;a&quot;,
+                LastName = &quot;b&quot;,
+                Id = 1,
+                Email = &quot;ab&quot;,
+                Meeting = null,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2
+            };
+
+            var hasMeeting = student.AdvisementSessionStatusMessage;
+
+            Assert.AreEqual(&quot;No meeting scheduled&quot;, hasMeeting);
+        }
+
+        [TestMethod]
+        public void AdvisementSessionStatusMessageWithMeetingPassedAndNotCompleted()
+        {
+            var date = DateTime.Now;
+            var session = new AdvisementManagerSharedLibrary.Models.AdvisementSession { Date = date, Completed = false };
+            var student = new AdvisementManagerSharedLibrary.Models.Student
+            {
+                FirstName = &quot;a&quot;,
+                LastName = &quot;b&quot;,
+                Id = 1,
+                Email = &quot;ab&quot;,
+                Meeting = session,
+                facultyAdvisorId = 1,
+                generalAdvisorId = 2
+            };
+
+            var hasMeeting = student.AdvisementSessionStatusMessage;
+
+            Assert.AreEqual(&quot;Meeting at &quot; + date, hasMeeting);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,16,123,1],[17,13,26,15,1],[28,13,28,69,1],[30,13,30,79,1],[31,9,31,10,1],[35,9,35,10,1],[36,13,45,15,1],[47,13,47,69,1],[49,13,49,65,1],[50,9,50,10,1],[54,9,54,10,1],[55,13,55,129,1],[56,13,65,15,1],[67,13,67,69,1],[69,13,69,65,1],[70,9,70,10,1],[74,9,74,10,1],[75,13,75,37,1],[76,13,76,122,1],[77,13,86,15,1],[88,13,88,69,1],[90,13,90,63,1],[91,9,91,10,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\ScheduleAdvisementModel\IsSessionTimeValidTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.ScheduleAdvisementModel
+{
+    [TestClass]
+    public class IsSessionTimeValidTests
+    {
+        [TestMethod]
+        public void TestIsSessionTimeValid()
+        {
+            var hold = this.getHold(&quot;No holds&quot;);
+            var dAdvisor = this.getDeptAdvisor();
+            var fAdvisor = this.getFacultyAdvisor();
+            var student = this.getStudent(dAdvisor, fAdvisor, hold);
+
+            var date = DateTime.Now;
+            var time = TimeSpan.FromSeconds(100);
+
+            var model = new AdvisementManagerSharedLibrary.Models.ScheduleAdvisementModel
+            {
+                Student = student,
+                Advisor = dAdvisor,
+                Date = date,
+                Time = time
+            };
+
+            Assert.IsFalse(model.IsSessionTimeValid);
+        }
+
+
+        #region Helpers
+
+        private AdvisementManagerSharedLibrary.Models.Student getStudent(AdvisementManagerSharedLibrary.Models.Advisor dAdvisor,
+                AdvisementManagerSharedLibrary.Models.Advisor fAdvisor, AdvisementManagerSharedLibrary.Models.Hold hold)
+        {
+            return new AdvisementManagerSharedLibrary.Models.Student
+            {
+                Id = 1,
+                FirstName = &quot;John&quot;,
+                LastName = &quot;Johnson&quot;,
+                Email = &quot;jJohnson@gmail.com&quot;,
+                generalAdvisorId = 1,
+                facultyAdvisorId = 2,
+                GeneralAdvisor = dAdvisor,
+                FacultyAdvisor = fAdvisor,
+                Hold = hold
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Advisor getDeptAdvisor()
+        {
+            return new AdvisementManagerSharedLibrary.Models.Advisor
+            {
+                Id = 1,
+                FirstName = &quot;Department&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;dAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = false
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Advisor getFacultyAdvisor()
+        {
+            return new AdvisementManagerSharedLibrary.Models.Advisor
+            {
+                Id = 2,
+                FirstName = &quot;Faculty&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;fAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = true
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Hold getHold(string holdReason)
+        {
+            return new AdvisementManagerSharedLibrary.Models.Hold
+            {
+                Id = 1,
+                Reason = holdReason,
+                Date = DateTime.Now,
+                IsActive = true,
+                StudentId = 1,
+            };
+        }
+
+        #endregion
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,10,1],[17,13,17,49,1],[18,13,18,50,1],[19,13,19,53,1],[20,13,20,69,1],[22,13,22,37,1],[23,13,23,50,1],[25,13,31,15,1],[33,13,33,54,1],[34,9,34,10,1],[41,9,41,10,1],[42,13,53,15,1],[54,9,54,10,1],[57,9,57,10,1],[58,13,65,15,1],[66,9,66,10,1],[69,9,69,10,1],[70,13,77,15,1],[78,9,78,10,1],[81,9,81,10,1],[82,13,89,15,1],[90,9,90,10,1]]);
+    </script>
+  </body>
+</html>

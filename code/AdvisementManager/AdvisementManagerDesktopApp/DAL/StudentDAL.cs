@@ -76,5 +76,60 @@ namespace AdvisementManagerDesktopApp.DAL
                 students.Add(student);
             }
         }
+
+        /// <summary>
+        ///     Searches the database forthe student the given id
+        ///     into the system to be used, managed and updated as needed.
+        /// </summary>
+        /// <returns>
+        ///   The student with the id
+        /// </returns>
+        public Student ObtainStudentWithId(int id)
+        {
+            var students = new List<Student>();
+
+            var conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                const string selectQuery =
+                    " SELECT Student.studentID, Student.firstName, Student.lastName, Student.email FROM Student WHERE studentID = @studentID";
+                using (var cmd = new SqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.Add("@studentID", SqlDbType.Int);
+                    cmd.Parameters["@studentID"].Value = id;
+
+                    students = createStudents(cmd);
+
+                    return students[0];
+                }
+            }
+        }
+
+        private static List<Student> createStudents(SqlCommand cmd)
+        {
+            var students = new List<Student>();
+            using var reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                var studentIdOrdinal = reader.GetOrdinal("studentID");
+                var firstNameOrdinal = reader.GetOrdinal("firstName");
+                var lastNameOrdinal = reader.GetOrdinal("lastName");
+                var emailOrdinal = reader.GetOrdinal("email");
+
+                while (reader.Read())
+                {
+                    students.Add(new Student
+                    {
+                        Id = reader[studentIdOrdinal] == DBNull.Value ? 0 : reader.GetInt32(studentIdOrdinal),
+                        FirstName = reader[firstNameOrdinal] == DBNull.Value ? null : reader.GetString(firstNameOrdinal),
+                        LastName = reader[lastNameOrdinal] == DBNull.Value ? null : reader.GetString(lastNameOrdinal),
+                        Email = reader[emailOrdinal] == DBNull.Value ? null : reader.GetString(emailOrdinal)
+                    });
+                }
+            }
+
+            return students;
+        }
     }
 }

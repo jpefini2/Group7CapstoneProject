@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\AdvisementSession.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    /// &lt;summary&gt;
+    ///   The advisement session class for managing meetings
+    /// &lt;/summary&gt;
+    public class AdvisementSession
+    {
+        /// &lt;summary&gt;Gets or sets the end date of the session.&lt;/summary&gt;
+        /// &lt;value&gt;The end date.&lt;/value&gt;
+        [NotMapped]
+        public DateTime EndDate { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the unique identifier for the session.&lt;/summary&gt;
+        /// &lt;value&gt;The identifier.&lt;/value&gt;
+        [Key]
+        [Column(&quot;sessionID&quot;)]
+        public int Id { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the student the session is for.&lt;/summary&gt;
+        /// &lt;value&gt;The student.&lt;/value&gt;
+        [NotMapped]
+        public Student Student { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the studentId.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        [Column(&quot;studentID&quot;)]
+        public int StudentId { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisor the session is for.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        [NotMapped]
+        public Advisor Advisor { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the advisorId.&lt;/summary&gt;
+        /// &lt;value&gt;The advisor.&lt;/value&gt;
+        [Column(&quot;advisorID&quot;)]
+        public int AdvisorId { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the date the session is to be held.&lt;/summary&gt;
+        /// &lt;value&gt;The date.&lt;/value&gt;
+        [Column(&quot;sessionDate&quot;)]
+        public DateTime Date { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the stage the session is in.&lt;/summary&gt;
+        /// &lt;value&gt;The stage.&lt;/value&gt;
+        [Column(&quot;stage&quot;)]
+        public short Stage { get; set; }
+
+        /// &lt;summary&gt;Gets or sets a value indicating whether this &lt;see cref=&quot;AdvisementSession&quot; /&gt; is completed.&lt;/summary&gt;
+        /// &lt;value&gt;
+        ///   &lt;c&gt;true&lt;/c&gt; if completed; otherwise, &lt;c&gt;false&lt;/c&gt;.&lt;/value&gt;
+        [Column(&quot;completed&quot;)]
+        public bool Completed { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the notes.&lt;/summary&gt;
+        /// &lt;value&gt;The notes.&lt;/value&gt;
+        [Column(&quot;notes&quot;)]
+        public string Notes { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the hold identifier.&lt;/summary&gt;
+        /// &lt;value&gt;The hold identifier.&lt;/value&gt;
+        [Column(&quot;holdID&quot;)]
+        public int HoldId { get; set; }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,35,15,39,1],[15,40,15,44,1],[21,25,21,29,1],[21,30,21,34,1],[26,34,26,38,1],[26,39,26,43,1],[31,32,31,36,1],[31,37,31,41,1],[36,34,36,38,1],[36,39,36,43,1],[41,32,41,36,1],[41,37,41,41,1],[46,32,46,36,1],[46,37,46,41,1],[51,30,51,34,1],[51,35,51,39,1],[57,33,57,37,1],[57,38,57,42,1],[62,31,62,35,0],[62,36,62,40,0],[67,29,67,33,0],[67,34,67,38,1]]);
+    </script>
+  </body>
+</html>

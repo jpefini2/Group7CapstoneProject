@@ -1,0 +1,10 @@
+View Advisor Availability:
+
+Context: The user is currently viewing their advisors availability page
+
+Primary Flow:
+1. The system popultes the page with the advisor availability information
+2. The user hits cancel.
+3. The user is returned to the previous page.
+
+	

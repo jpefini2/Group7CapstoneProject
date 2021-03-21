@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebApp\Controllers\AccountController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AdvisementManagerSharedLibrary.DAL;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
+
+namespace StudentAdvisementManagerWebApp.Controllers
+{
+    /// &lt;summary&gt;
+    ///   The account controllers class
+    /// &lt;/summary&gt;
+    public class AccountController : Controller
+    {
+        private readonly ApplicationDbContext context;
+
+        private LoginViewModel loginViewModel = new();
+
+        private LoginDAL loginDAL;
+
+        /// &lt;summary&gt;Initializes a new instance of the &lt;see cref=&quot;AccountController&quot; /&gt; class.&lt;/summary&gt;
+        /// &lt;param name=&quot;logger&quot;&gt;The logger.&lt;/param&gt;
+        public AccountController(ApplicationDbContext context)
+        {
+            this.context = context;
+            loginDAL = new LoginDAL(context);
+        }
+
+        /// &lt;summary&gt;
+        /// Attempts to log the user in with the provided credentials.
+        /// If successful, creates a session cookie and sends the user
+        /// to the advisement sessions page. If id == 1, logs the
+        /// current user out and deletes their session cookie.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;model&quot;&gt;The LoginViewModel&lt;/param&gt;
+        /// &lt;param name=&quot;id?&quot;&gt;The id indicator.&lt;/param&gt;
+        /// &lt;returns&gt;The current page.&lt;/returns&gt;
+        /// &lt;returns&gt;The advisement sessions page.&lt;/returns&gt;
+        [HttpPost]
+        public ActionResult Login([Bind] LoginViewModel model, int? id)
+        {
+            var username = model.Username;
+            var password = model.Password;
+
+            if (id==1 &amp;&amp; (Request.Cookies[&quot;AdvisementManager.LoginUser&quot;] != null))
+            {
+                Response.Cookies.Delete(&quot;AdvisementManager.LoginUser&quot;);
+                Response.Cookies.Delete(&quot;AdvisementManager.LoginSession&quot;);
+                return RedirectToRoute(new { action = &quot;Login&quot;, controller = &quot;Account&quot; });
+            }
+
+            if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
+            {
+                String sessionKey = this.loginDAL.AttemptLogin(username, password, LoginType.STUDENT);
+
+                if (String.IsNullOrEmpty(sessionKey)) {
+                    ViewBag.Message = &quot;Login failed. Check username or password.&quot;;
+                } else
+                {
+                    if (loginDAL.createNewLoginSession(username, sessionKey))
+                    {
+                        Response.Cookies.Append(&quot;AdvisementManager.LoginUser&quot;, username);
+                        Response.Cookies.Append(&quot;AdvisementManager.LoginSession&quot;, sessionKey);
+                    }
+                    else
+                    {
+                        ViewBag.Message = &quot;Something went wrong trying to create a new login session.&quot;;
+                        return View(model);
+                    }
+                    return RedirectToRoute(new { action = &quot;StudentHome&quot;, controller = &quot;Home&quot; });
+                }
+            }
+            return View(model);
+        }
+
+        /// &lt;summary&gt;
+        /// Redirects the user to the current page.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public RedirectToRouteResult RedirectToCurrentPage()
+        {
+            ViewBag.Message = &quot;Login failed. Check input fields&quot;;
+            return RedirectToRoute(new { action = &quot;Login&quot;, controller = &quot;Account&quot;});
+        }
+        
+        /// &lt;summary&gt;
+        /// Redirects the user to Login()
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public IActionResult Login()
+        {
+            return View();
+        }
+    }
+}
+
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,55,0],[22,9,22,63,0],[23,9,23,10,0],[24,13,24,36,0],[25,13,25,46,0],[26,9,26,10,0],[40,9,40,10,0],[41,13,41,43,0],[42,13,42,43,0],[44,13,44,83,0],[45,13,45,14,0],[46,17,46,72,0],[47,17,47,75,0],[48,17,48,90,0],[51,13,51,85,0],[52,13,52,14,0],[53,17,53,103,0],[55,17,55,54,0],[55,55,55,56,0],[56,21,56,83,0],[57,17,57,18,0],[58,17,58,18,0],[59,21,59,78,0],[60,21,60,22,0],[61,25,61,90,0],[62,25,62,95,0],[63,21,63,22,0],[65,21,65,22,0],[66,25,66,104,0],[67,25,67,44,0],[69,21,69,97,0],[71,13,71,14,0],[72,13,72,32,0],[73,9,73,10,0],[80,9,80,10,0],[81,13,81,66,0],[82,13,82,85,0],[83,9,83,10,0],[90,9,90,10,0],[91,13,91,27,0],[92,9,92,10,0]]);
+    </script>
+  </body>
+</html>

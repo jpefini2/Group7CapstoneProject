@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\User\UserInitializerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.User
+{
+    [TestClass]
+    public class UserInitializerTests
+    {
+        [TestMethod]
+        public void UserInitializerTest()
+        {
+            var user = new AdvisementManagerSharedLibrary.Models.User
+            {
+                Username = &quot;jJohnson&quot;,
+                PasswordHash = &quot;hashedPassword&quot;
+            };
+
+            Assert.AreEqual(&quot;jJohnson&quot;, user.Username);
+            Assert.AreEqual(&quot;hashedPassword&quot;, user.PasswordHash);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,20,15,1],[22,13,22,56,1],[23,13,23,66,1],[24,9,24,10,1]]);
+    </script>
+  </body>
+</html>

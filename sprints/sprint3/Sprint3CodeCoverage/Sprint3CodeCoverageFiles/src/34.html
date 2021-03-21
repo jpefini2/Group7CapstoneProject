@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebApp\Controllers\AdvisementSessionController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.DAL;
+
+namespace StudentAdvisementManagerWebApp.Controllers
+{
+    /// &lt;summary&gt;
+    ///   The Schedule advisement session controller class
+    /// &lt;/summary&gt;
+    public class AdvisementSessionController : Controller
+    {
+        private readonly string departmentAdvisementHoldReason = &quot;need to meet with dept advisor&quot;;
+
+        private readonly string facultyAdvisementHoldReason = &quot;need to meet with faculty advisor&quot;;
+
+        public ApplicationDbContext context { get; }
+
+        private readonly AdvisementSessionDAL sessionDal = new();
+        private readonly StudentDal studentDal = new();
+        private readonly AdvisorDAL advisorDal = new();
+        private readonly HoldDAL holdDal = new();
+
+        /// &lt;summary&gt;Initializes a new instance of the &lt;see cref=&quot;AdvisementSessionController&quot; /&gt; class.&lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The context.&lt;/param&gt;
+        public AdvisementSessionController(ApplicationDbContext context)
+        {
+            this.context = context;
+            ViewBag.InvalidInputMessage = String.Empty;
+        }
+
+        /// &lt;summary&gt;Schedules the advisement session asynchronous.&lt;/summary&gt;
+        /// &lt;param name=&quot;studentid&quot;&gt;The studentid.&lt;/param&gt;
+        /// &lt;param name=&quot;holdreason&quot;&gt;The holdreason.&lt;/param&gt;
+        /// &lt;param name=&quot;generaladvisorid&quot;&gt;The generaladvisorid.&lt;/param&gt;
+        /// &lt;param name=&quot;facultyadvisorid&quot;&gt;The facultyadvisorid.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The view to the schedule advisement session
+        /// &lt;/returns&gt;
+        public IActionResult ScheduleAdvisementSession(int studentid, string holdreason, int generaladvisorid, int facultyadvisorid)
+        {
+            ScheduleAdvisementModel model = InitializeScheduleAdvismentModel(studentid);
+
+            return View(&quot;../AdvisementSession/ScheduleAdvisementSession&quot;, model);
+        }
+
+        /// &lt;summary&gt;
+        ///     Initializes the schedule advisment model. 
+        ///     Determines which advisor the student must meet with and gets there available times to display.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;student&quot;&gt;The student.&lt;/param&gt;
+        /// &lt;param name=&quot;holdreason&quot;&gt;The holdreason.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The schedule model
+        /// &lt;/returns&gt;
+        private ScheduleAdvisementModel InitializeScheduleAdvismentModel(int studentId)
+        {
+            ScheduleAdvisementModel scheduleModel = new ScheduleAdvisementModel();
+            Student student = this.studentDal.ObtainStudentWithId(studentId, this.context);
+
+            scheduleModel.Student = student;
+
+            if (student.Hold.Reason == this.departmentAdvisementHoldReason)
+            {
+                scheduleModel.Advisor = scheduleModel.Student.GeneralAdvisor;
+            }
+            else if (student.Hold.Reason == this.facultyAdvisementHoldReason)
+            {
+                scheduleModel.Advisor = scheduleModel.Student.FacultyAdvisor;
+            }
+            else
+            {
+                Debug.Print(&quot;Must add students that have standard reasons&quot;);
+                scheduleModel.Advisor = scheduleModel.Student.GeneralAdvisor;
+            }
+
+            scheduleModel.SetAvailableSessionTimesListItems(scheduleModel.Student.GeneralAdvisor);
+            return scheduleModel;
+        }
+
+        /// &lt;summary&gt;
+        ///     Confirms the appointment is scheduled for a valid time and date,
+        ///     returns Schedule view if not, schedules session on the database if so.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;studentid&quot;&gt;The studentid.&lt;/param&gt;
+        /// &lt;param name=&quot;advisorid&quot;&gt;The advisorid.&lt;/param&gt;
+        /// &lt;param name=&quot;date&quot;&gt;The date.&lt;/param&gt;
+        /// &lt;param name=&quot;time&quot;&gt;The time.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///     Redirections to the student home page, or
+        ///     return Schedule view to get new dateTime.
+        /// &lt;/returns&gt;
+        public IActionResult ConfirmAppointment(int? studentid, int? advisorid, DateTime date, TimeSpan time)
+        {
+            var sessionTime = date.AddMinutes(time.TotalMinutes);
+
+            if (IsSessionTimeInTheFuture(sessionTime))
+            {
+                this.ScheduleSession(studentid.Value, advisorid.Value, sessionTime);
+                return RedirectToAction(&quot;StudentHome&quot;, &quot;Home&quot;);
+            }
+
+            ScheduleAdvisementModel scheduleModel = InitializeScheduleAdvismentModel(studentid.Value);
+
+            ViewBag.InvalidInputMessage = &quot;The appointment time cannot be in the past.&quot;;
+
+            return View(&quot;../AdvisementSession/ScheduleAdvisementSession&quot;, scheduleModel);
+        }
+
+        /// &lt;summary&gt;Determines if the appointment time is in the future&lt;/summary&gt;
+        /// &lt;param name=&quot;sessionTime&quot;&gt;The date of the session.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   bool, if the sessionTime is in the future or not.
+        /// &lt;/returns&gt;
+        private bool IsSessionTimeInTheFuture(DateTime sessionTime)
+        {
+            return DateTime.Compare(sessionTime, DateTime.Now) &gt; 0;
+        }
+
+        /// &lt;summary&gt;Schedules the advisement session to the database.&lt;/summary&gt;
+        /// &lt;param name=&quot;studentid&quot;&gt;The studentid.&lt;/param&gt;
+        /// &lt;param name=&quot;advisorid&quot;&gt;The advisorid.&lt;/param&gt;
+        /// &lt;param name=&quot;sessionTime&quot;&gt;The date of the session.&lt;/param&gt;
+        private void ScheduleSession(int studentId, int advisorId, DateTime sessionTime)
+        {
+            AdvisementSession session = new AdvisementSession
+            {
+                StudentId = studentId,
+                AdvisorId = advisorId,
+                Date = sessionTime,
+                Completed = false,
+                HoldId = this.holdDal.ObtainHold(studentId, this.context).Id
+            };
+            this.sessionDal.ScheduleAdvisementSession(session, this.context);
+        }
+
+        /// &lt;summary&gt;Displays a view showing a list of the students previous sessions from this semester&lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The asession id.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The view to the advisement sessions list
+        /// &lt;/returns&gt;
+        public IActionResult AdvisementSessions(int? studentid, int? holdid)
+        {
+            var studentsSessions = this.sessionDal.ObtainPastSessionsFromIDs(this.context, studentid.Value, holdid.Value);
+
+            foreach (var session in studentsSessions)
+            {
+                session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            }
+
+            return View(studentsSessions);
+        }
+
+        /// &lt;summary&gt;Displays an advisement session&lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The asession id.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The view to the advisement session
+        /// &lt;/returns&gt;
+        public IActionResult AdvisementSession(int? id)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+            session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            session.Student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+
+            return View(session);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,9,17,99,1],[19,9,19,99,1],[21,47,21,51,1],[23,9,23,66,1],[24,9,24,56,1],[25,9,25,56,1],[26,9,26,50,1],[30,9,30,73,1],[31,9,31,10,1],[32,13,32,36,1],[33,13,33,56,1],[34,9,34,10,1],[45,9,45,10,1],[46,13,46,89,1],[48,13,48,82,1],[49,9,49,10,1],[61,9,61,10,1],[62,13,62,83,1],[63,13,63,92,1],[65,13,65,45,1],[67,13,67,76,1],[68,13,68,14,1],[69,17,69,78,1],[70,13,70,14,1],[71,18,71,78,1],[72,13,72,14,1],[73,17,73,78,1],[74,13,74,14,1],[76,13,76,14,1],[77,17,77,77,1],[78,17,78,78,1],[79,13,79,14,1],[81,13,81,99,1],[82,13,82,34,1],[83,9,83,10,1],[98,9,98,10,1],[99,13,99,66,1],[101,13,101,55,1],[102,13,102,14,1],[103,17,103,85,1],[104,17,104,64,1],[107,13,107,103,1],[109,13,109,89,1],[111,13,111,90,1],[112,9,112,10,1],[120,9,120,10,1],[121,13,121,68,1],[122,9,122,10,1],[129,9,129,10,1],[130,13,137,15,1],[138,13,138,78,1],[139,9,139,10,1],[147,9,147,10,0],[148,13,148,123,0],[150,13,150,20,0],[150,22,150,33,0],[150,34,150,36,0],[150,37,150,53,0],[151,13,151,14,0],[152,17,152,104,0],[153,13,153,14,0],[155,13,155,43,0],[156,9,156,10,0],[164,9,164,10,0],[165,13,165,81,0],[166,13,166,100,0],[167,13,167,100,0],[169,13,169,34,0],[170,9,170,10,0]]);
+    </script>
+  </body>
+</html>

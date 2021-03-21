@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using AdvisementManagerDesktopApp.Model;
+using Microsoft.Data.SqlClient;
 
 namespace AdvisementManagerDesktopApp.DAL
 {
@@ -115,6 +116,51 @@ namespace AdvisementManagerDesktopApp.DAL
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        /// <summary>
+        ///     Searches the database for the hold the given id
+        ///     into the system to be used, managed and updated as needed.
+        /// </summary>
+        /// <returns>
+        ///   The hold with the id
+        /// </returns>
+        public Hold ObtainHoldWithId(int id)
+        {
+            var conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                const string selectQuery =
+                    " SELECT Hold.holdID, Hold.reason FROM Hold WHERE holdID = @holdID";
+                using (var cmd = new SqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.Add("@holdID", SqlDbType.Int);
+                    cmd.Parameters["@holdID"].Value = id;
+
+                    return createHold(cmd);
+                }
+            }
+        }
+
+        private static Hold createHold(SqlCommand cmd)
+        {
+            using var reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                var holdIdOrdinal = reader.GetOrdinal("holdID");
+                var reasonOrdinal = reader.GetOrdinal("reason");
+
+                reader.Read();
+
+                return new Hold
+                {
+                    Id = reader[holdIdOrdinal] == DBNull.Value ? 0 : reader.GetInt32(holdIdOrdinal),
+                    Reason = reader[reasonOrdinal] == DBNull.Value ? null : reader.GetString(reasonOrdinal)
+                };
+            }
+
+            return null;
         }
     }
 }

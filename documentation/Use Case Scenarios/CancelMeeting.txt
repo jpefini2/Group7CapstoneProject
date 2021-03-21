@@ -1,0 +1,20 @@
+Cancel Meeting:
+
+Context: The user is currently viewing the cancel meeting page
+
+Primary Flow:
+1. The system pulls the meeting info and displays it.
+2. The system prompts the user if they want to cancel.
+3. The user hits Yes.
+4. The system removes the meeting from the database.
+5. The system confirms then meeting is cancelled to the user. 
+6. The system returns the user to the previous page.
+
+Alternate Flow: 
+	A3. The user hits no.
+	A4. The system returns the user to the previous page.
+	
+Alternate Flow:
+	A2. The users is a student and the meeting is for the same day.
+	A3. The system prompts the user that they can not cancel a meeting on the same day.
+	A4. The system prompts the user to contact their advisor.

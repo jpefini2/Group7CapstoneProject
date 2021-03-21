@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\Advisor\AdvisorInitializerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.Advisor
+{
+    [TestClass]
+    public class AdvisorInitializerTests
+    {
+        [TestMethod]
+        public void InitializerTest()
+        {
+            var advisor = new AdvisementManagerSharedLibrary.Models.Advisor
+            {
+                FirstName = &quot;John&quot;,
+                LastName = &quot;Johnson&quot;,
+                Id = 1,
+                IsFacultyAdvisor = false,
+                Email = &quot;jJohnson@gmail.com&quot;
+            };
+
+
+            Assert.AreEqual(advisor.FirstName, &quot;John&quot;);
+            Assert.AreEqual(advisor.LastName, &quot;Johnson&quot;);
+            Assert.AreEqual(advisor.Id, 1);
+            Assert.AreEqual(advisor.IsFacultyAdvisor, false);
+            Assert.AreEqual(advisor.Email, &quot;jJohnson@gmail.com&quot;);
+            Assert.AreEqual(advisor.FullName, &quot;John Johnson&quot;);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,23,15,1],[26,13,26,56,1],[27,13,27,58,1],[28,13,28,44,1],[29,13,29,62,1],[30,13,30,66,1],[31,13,31,63,1],[32,9,32,10,1]]);
+    </script>
+  </body>
+</html>

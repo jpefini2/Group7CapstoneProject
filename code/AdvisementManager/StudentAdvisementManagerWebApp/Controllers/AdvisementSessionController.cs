@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using StudentAdvisementManagerWebApp.DAL;
 using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.DAL;
@@ -13,7 +12,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
     /// <summary>
     ///   The Schedule advisement session controller class
     /// </summary>
-    public class ScheduleAdvisementSessionController : Controller
+    public class AdvisementSessionController : Controller
     {
         private readonly string departmentAdvisementHoldReason = "need to meet with dept advisor";
 
@@ -21,17 +20,14 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
         public ApplicationDbContext context { get; }
 
-        private readonly ScheduleAdvisementSessionDAL scheduleDal = new();
-
+        private readonly AdvisementSessionDAL sessionDal = new();
         private readonly StudentDal studentDal = new();
-
         private readonly AdvisorDAL advisorDal = new();
-
         private readonly HoldDAL holdDal = new();
 
-        /// <summary>Initializes a new instance of the <see cref="ScheduleAdvisementSessionController" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="AdvisementSessionController" /> class.</summary>
         /// <param name="context">The context.</param>
-        public ScheduleAdvisementSessionController(ApplicationDbContext context)
+        public AdvisementSessionController(ApplicationDbContext context)
         {
             this.context = context;
             ViewBag.InvalidInputMessage = String.Empty;
@@ -49,7 +45,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         {
             ScheduleAdvisementModel model = InitializeScheduleAdvismentModel(studentid);
 
-            return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", model);
+            return View("../AdvisementSession/ScheduleAdvisementSession", model);
         }
 
         /// <summary>
@@ -112,7 +108,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
             ViewBag.InvalidInputMessage = "The appointment time cannot be in the past.";
 
-            return View("../ScheduleAdvisementSession/ScheduleAdvisementSession", scheduleModel);
+            return View("../AdvisementSession/ScheduleAdvisementSession", scheduleModel);
         }
 
         /// <summary>Determines if the appointment time is in the future</summary>
@@ -139,7 +135,38 @@ namespace StudentAdvisementManagerWebApp.Controllers
                 Completed = false,
                 HoldId = this.holdDal.ObtainHold(studentId, this.context).Id
             };
-            this.scheduleDal.ScheduleAdvisementSession(session, this.context);
+            this.sessionDal.ScheduleAdvisementSession(session, this.context);
+        }
+
+        /// <summary>Displays a view showing a list of the students previous sessions from this semester</summary>
+        /// <param name="id">The asession id.</param>
+        /// <returns>
+        ///   The view to the advisement sessions list
+        /// </returns>
+        public IActionResult AdvisementSessions(int? studentid, int? holdid)
+        {
+            var studentsSessions = this.sessionDal.ObtainPastSessionsFromIDs(this.context, studentid.Value, holdid.Value);
+
+            foreach (var session in studentsSessions)
+            {
+                session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            }
+
+            return View(studentsSessions);
+        }
+
+        /// <summary>Displays an advisement session</summary>
+        /// <param name="id">The asession id.</param>
+        /// <returns>
+        ///   The view to the advisement session
+        /// </returns>
+        public IActionResult AdvisementSession(int? id)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+            session.Advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            session.Student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+
+            return View(session);
         }
     }
 }

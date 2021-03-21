@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\ErrorViewModel\ErrorViewModelInitializerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.ErrorViewModel
+{
+    [TestClass]
+    public class ErrorViewModelInitializerTests
+    {
+        [TestMethod]
+        public void InitializerTest()
+        {
+            var error = new AdvisementManagerSharedLibrary.Models.ErrorViewModel
+            {
+                RequestId = &quot;a&quot;,
+            };
+
+            Assert.AreEqual(error.RequestId, &quot;a&quot;);
+            Assert.AreEqual(error.ShowRequestId, true);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,19,15,1],[21,13,21,51,1],[22,13,22,56,1],[23,9,23,10,1]]);
+    </script>
+  </body>
+</html>

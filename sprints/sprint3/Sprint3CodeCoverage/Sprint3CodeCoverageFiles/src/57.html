@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Controller\ScheduleAdvisementSessionController\ConstructorTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisementSessionController
+{
+    [TestClass]
+    public class ConstructorTests
+    {
+        [TestMethod]
+        public void ConstructorTest()
+        {
+            var options = new DbContextOptionsBuilder&lt;ApplicationDbContext&gt;()
+                          .UseInMemoryDatabase(databaseName: &quot;AdvisementManagement&quot;)
+                          .Options;
+
+            using var context = new ApplicationDbContext(options);
+            var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
+
+            Assert.AreEqual(context, controller.context);
+            context.Database.EnsureDeleted();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,10,1],[19,13,21,36,1],[23,13,23,67,1],[24,13,24,114,1],[26,13,26,58,1],[27,13,27,46,1],[28,9,28,10,1],[28,9,28,10,1]]);
+    </script>
+  </body>
+</html>

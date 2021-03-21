@@ -17,6 +17,7 @@ namespace AdvisementManagerDesktopApp.View
         private readonly AdvisementSessionsController sessionController = new();
 
         private IList<Student> students;
+        private IList<AdvisementSession> upcomingMeetings;
 
         /// <summary>Initializes a new instance of the <see cref="AdvisementSessionsForm" /> class.</summary>
         public AdvisementSessionsForm(Advisor advisor)
@@ -25,7 +26,6 @@ namespace AdvisementManagerDesktopApp.View
             this.advisor = advisor;
 
             this.setUpScreen();
-
         }
 
         private void setUpScreen()
@@ -33,16 +33,22 @@ namespace AdvisementManagerDesktopApp.View
             this.studentsWithHoldsListBox.Items.Clear();
             this.students = this.sessionController.ObtainStudentsWithHolds(this.advisor);
 
+            this.upcomingMeetingsListBox.Items.Clear();
+            this.upcomingMeetings = this.sessionController.ObtainUpcomingMeetings(this.advisor);
+
             foreach (var student in this.students)
             {
                 this.studentsWithHoldsListBox.Items.Add(student.FirstName + " " + student.LastName);
             }
 
+            foreach (var meeting in this.upcomingMeetings)
+            {
+                this.upcomingMeetingsListBox.Items.Add(meeting.Student.FirstName + " " + meeting.Student.LastName + " - " + meeting.Date);
+            }
         }
 
-        private void viewBtn_Click(object sender, EventArgs e)
+        private void viewStudentBtn_Click(object sender, EventArgs e)
         {
-
             var selectedStudentIndex = this.studentsWithHoldsListBox.SelectedIndex;
             if (selectedStudentIndex < 0)
             {
@@ -51,10 +57,23 @@ namespace AdvisementManagerDesktopApp.View
             
             var selectedStudent = this.students[selectedStudentIndex];
             selectedStudent.GeneralAdvisor = this.advisor;
-            var advisementSessionForm = new AdvisementSessionForm(selectedStudent, this.advisor);
+            var studentAdvisementSummaryForm = new StudentAdvisementSummaryForm(selectedStudent, this.advisor);
+
+            studentAdvisementSummaryForm.Show();
+        }
+
+        private void viewMeetingButton_Click(object sender, EventArgs e)
+        {
+            var selectedMeetingIndex = this.upcomingMeetingsListBox.SelectedIndex;
+            if (selectedMeetingIndex < 0)
+            {
+                return;
+            }
+
+            var selectedMeeting = this.upcomingMeetings[selectedMeetingIndex];
+            var advisementSessionForm = new AdvisementSessionForm(selectedMeeting);
 
             advisementSessionForm.Show();
-
         }
 
         private void AdvisementSessionsForm_Activated(object sender, EventArgs e)

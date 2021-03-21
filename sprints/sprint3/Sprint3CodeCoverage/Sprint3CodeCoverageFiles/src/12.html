@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Models\Student.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AdvisementManagerSharedLibrary.Models
+{
+    /// &lt;summary&gt;
+    ///   The student class for managing a student in the system.
+    /// &lt;/summary&gt;
+    public class Student
+    {
+        /// &lt;summary&gt;Gets or sets the unique identifier of the student.&lt;/summary&gt;
+        /// &lt;value&gt;The identifier.&lt;/value&gt;
+        [Key]
+        [Column(&quot;studentID&quot;)]
+        public int Id { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the first name of the student.&lt;/summary&gt;
+        /// &lt;value&gt;The first name.&lt;/value&gt;
+        [Display(Name = &quot;First Name&quot;)]
+        [Column(&quot;firstName&quot;)]
+        public string FirstName { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the last name of the student.&lt;/summary&gt;
+        /// &lt;value&gt;The last name.&lt;/value&gt;
+        [Display(Name = &quot;Last Name&quot;)]
+        [Column(&quot;lastName&quot;)]
+        public string LastName { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the email of the student.&lt;/summary&gt;
+        /// &lt;value&gt;The email.&lt;/value&gt;
+        [Display(Name = &quot;Email&quot;)]
+        [Column(&quot;email&quot;)]
+        public string Email { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the general advisors id assigned to the current student.&lt;/summary&gt;
+        /// &lt;value&gt;The general advisor identifier.&lt;/value&gt;
+        [Column(&quot;advisorGeneralId&quot;)]
+        public int generalAdvisorId { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the faculty advisor id assigned to the current student.&lt;/summary&gt;
+        /// &lt;value&gt;The faculty advisor identifier.&lt;/value&gt;
+        [Column(&quot;advisorFacultyId&quot;)]
+        public int facultyAdvisorId { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the general advisor assigned to the student.&lt;/summary&gt;
+        /// &lt;value&gt;The general advisor.&lt;/value&gt;
+        [NotMapped]
+        public Advisor GeneralAdvisor { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the faculty advisor assigned to the student.&lt;/summary&gt;
+        /// &lt;value&gt;The faculty advisor.&lt;/value&gt;
+        [NotMapped]
+        public Advisor FacultyAdvisor { get; set; }
+
+
+        /// &lt;summary&gt;Gets or sets the hold that a student has.&lt;/summary&gt;
+        /// &lt;value&gt;The hold.&lt;/value&gt;
+        [NotMapped]
+        public Hold Hold { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the meetings that a student currently has.&lt;/summary&gt;
+        /// &lt;value&gt;The meetings.&lt;/value&gt;
+        [NotMapped]
+        public AdvisementSession Meeting { get; set; }
+
+        /// &lt;summary&gt;Gets or sets the multiple meetings that a student has/had.&lt;/summary&gt;
+        /// &lt;value&gt;The meetings.&lt;/value&gt;
+        [NotMapped]
+        public IList&lt;AdvisementSession&gt; Meetings { get; set; }
+
+        [Column(&quot;username&quot;)]
+        public string UserName { get; set; }
+
+        /// &lt;summary&gt; Gets the Student&#39;s full name&lt;/summary&gt;
+        /// &lt;value&gt; FirstName + &quot; &quot; + LastName&lt;/value&gt;
+        public string FullName =&gt; this.FirstName + &quot; &quot; + LastName;
+
+        /// &lt;summary&gt; Gets a message describing the students advisement status&lt;/summary&gt;
+        /// &lt;value&gt; Incomplete or Complete and Hold reeason if incomplete&lt;/value&gt;
+        public string AdvisementStatusMessage
+        {
+            get
+            {
+                if (this.Hold.IsActive)
+                {
+                    return &quot;Incomplete - &quot; + this.Hold.Reason;
+                }
+                else
+                {
+                    return &quot;Complete&quot;;
+                }
+            }
+        }
+
+        /// &lt;summary&gt; Gets a message indicating whether the student is scheduled for an advisement&lt;/summary&gt;
+        /// &lt;value&gt; Datetime of meeting if already scheduled&lt;/value&gt;
+        public string AdvisementSessionStatusMessage
+        {
+            get
+            {
+                if (this.hasUpcomingAdvisementSession())
+                {
+                    return &quot;Meeting at &quot; + this.Meeting.Date;
+                }
+                else
+                {
+                    return &quot;No meeting scheduled&quot;;
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Returns if the student&#39;s latest meeting is incomplete.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;bool of if the student&#39;s latest meeting is incomplete&lt;/returns&gt;
+        private bool isLastMeetingIncomplete()
+        {
+            return this.Meeting != null &amp;&amp; !this.Meeting.Completed;
+        }
+
+        /// &lt;summary&gt;
+        /// Returns if the student is ready to schedule a meeting;
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;bool of if the student is ready to schedule a meeting&lt;/returns&gt;
+        public bool CanScheduleMeeting()
+        {
+            if (this.hasUpcomingAdvisementSession())
+                return false;
+
+            if (this.isLastMeetingIncomplete())
+                return false;
+
+            return this.Hold.Reason.ToLower() == &quot;need to meet with dept advisor&quot; || this.Hold.Reason.ToLower() == &quot;need to meet with faculty advisor&quot;;
+        }
+
+
+        /// &lt;summary&gt;Initializes a new instance of the &lt;see cref=&quot;Student&quot; /&gt;.&lt;/summary&gt;
+        public Student()
+        {
+            this.Meetings = new List&lt;AdvisementSession&gt;();
+        }
+
+        /// &lt;summary&gt;
+        /// Returns if the student has an upcoming meeting;
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;bool of if the student has an upcoming meeting&lt;/returns&gt;
+        private bool hasUpcomingAdvisementSession()
+        {
+            return this.Meeting != null;
+        }
+
+        /// &lt;summary&gt;converts the students full name via the ToString method.&lt;/summary&gt;
+        /// &lt;returns&gt;A &lt;see cref=&quot;System.String&quot; /&gt; that represents this instance.&lt;/returns&gt;
+        public override string ToString()
+        {
+            return this.FullName;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,25,17,29,1],[17,30,17,34,1],[23,35,23,39,1],[23,40,23,44,1],[29,34,29,38,1],[29,39,29,43,1],[35,31,35,35,1],[35,36,35,40,1],[40,39,40,43,1],[40,44,40,48,1],[45,39,45,43,1],[45,44,45,48,1],[50,41,50,45,1],[50,46,50,50,1],[55,41,55,45,1],[55,46,55,50,1],[61,28,61,32,1],[61,33,61,37,1],[66,44,66,48,1],[66,49,66,53,1],[71,52,71,56,0],[71,57,71,61,1],[74,34,74,38,1],[74,39,74,43,1],[78,35,78,66,1],[85,13,85,14,1],[86,17,86,40,1],[87,17,87,18,1],[88,21,88,63,1],[91,17,91,18,1],[92,21,92,39,1],[94,13,94,14,1],[102,13,102,14,1],[103,17,103,57,1],[104,17,104,18,1],[105,21,105,62,1],[108,17,108,18,1],[109,21,109,51,1],[111,13,111,14,1],[119,9,119,10,1],[120,13,120,68,1],[121,9,121,10,1],[128,9,128,10,1],[129,13,129,53,1],[130,17,130,30,1],[132,13,132,48,1],[133,17,133,30,0],[135,13,135,152,1],[136,9,136,10,1],[140,9,140,25,1],[141,9,141,10,1],[142,13,142,59,1],[143,9,143,10,1],[150,9,150,10,1],[151,13,151,41,1],[152,9,152,10,1],[157,9,157,10,1],[158,13,158,34,1],[159,9,159,10,1]]);
+    </script>
+  </body>
+</html>

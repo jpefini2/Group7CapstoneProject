@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebAppUnitTesting\Model\ScheduleAdvisementModel\ScheduleAdvisementModelInitializerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AdvisementManagerSharedLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibraryUnitTesting.Model.ScheduleAdvisementModel
+{
+    [TestClass]
+    public class ScheduleAdvisementModelInitializerTests
+    {
+        [TestMethod]
+        public void InitializerTest()
+        {
+            var hold = this.getHold(&quot;No holds&quot;);
+            var dAdvisor = this.getDeptAdvisor();
+            var fAdvisor = this.getFacultyAdvisor();
+            var student = this.getStudent(dAdvisor, fAdvisor, hold);
+
+            var date = DateTime.Now;
+            var time = TimeSpan.Zero;
+
+            var model = new AdvisementManagerSharedLibrary.Models.ScheduleAdvisementModel
+            {
+                Student = student,
+                Advisor = dAdvisor,
+                Date = date,
+                Time = time
+            };
+            model.SetAvailableSessionTimesListItems(dAdvisor);
+
+            Assert.AreEqual(model.Student, student);
+            Assert.AreEqual(model.Advisor, dAdvisor);
+            Assert.AreEqual(model.StudentId, student.Id);
+            Assert.AreEqual(model.AdvisorId, dAdvisor.Id);
+            Assert.AreEqual(model.Date, date);
+            Assert.AreEqual(model.Time, time);
+            Assert.IsTrue(model.AvailableSessionTimes.Count &gt; 0);
+        }
+
+
+        #region Helpers
+
+        private AdvisementManagerSharedLibrary.Models.Student getStudent(AdvisementManagerSharedLibrary.Models.Advisor dAdvisor,
+                AdvisementManagerSharedLibrary.Models.Advisor fAdvisor, AdvisementManagerSharedLibrary.Models.Hold hold)
+        {
+            return new AdvisementManagerSharedLibrary.Models.Student
+            {
+                Id = 1,
+                FirstName = &quot;John&quot;,
+                LastName = &quot;Johnson&quot;,
+                Email = &quot;jJohnson@gmail.com&quot;,
+                generalAdvisorId = 1,
+                facultyAdvisorId = 2,
+                GeneralAdvisor = dAdvisor,
+                FacultyAdvisor = fAdvisor,
+                Hold = hold
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Advisor getDeptAdvisor()
+        {
+            return new AdvisementManagerSharedLibrary.Models.Advisor
+            {
+                Id = 1,
+                FirstName = &quot;Department&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;dAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = false
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Advisor getFacultyAdvisor()
+        {
+            return new AdvisementManagerSharedLibrary.Models.Advisor
+            {
+                Id = 2,
+                FirstName = &quot;Faculty&quot;,
+                LastName = &quot;Advisor&quot;,
+                Email = &quot;fAdvisor@gmail.com&quot;,
+                IsFacultyAdvisor = true
+            };
+        }
+
+        private AdvisementManagerSharedLibrary.Models.Hold getHold(string holdReason)
+        {
+            return new AdvisementManagerSharedLibrary.Models.Hold
+            {
+                Id = 1,
+                Reason = holdReason,
+                Date = DateTime.Now,
+                IsActive = true,
+                StudentId = 1,
+            };
+        }
+
+        #endregion
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,10,1],[17,13,17,49,1],[18,13,18,50,1],[19,13,19,53,1],[20,13,20,69,1],[22,13,22,37,1],[23,13,23,38,1],[25,13,31,15,1],[32,13,32,63,1],[34,13,34,53,1],[35,13,35,54,1],[36,13,36,58,1],[37,13,37,59,1],[38,13,38,47,1],[39,13,39,47,1],[40,13,40,66,1],[41,9,41,10,1],[48,9,48,10,1],[49,13,60,15,1],[61,9,61,10,1],[64,9,64,10,1],[65,13,72,15,1],[73,9,73,10,1],[76,9,76,10,1],[77,13,84,15,1],[85,9,85,10,1],[88,9,88,10,1],[89,13,96,15,1],[97,9,97,10,1]]);
+    </script>
+  </body>
+</html>

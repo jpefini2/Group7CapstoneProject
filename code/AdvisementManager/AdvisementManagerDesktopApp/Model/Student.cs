@@ -29,7 +29,6 @@
         /// <value>The faculty advisor.</value>
         public Advisor FacultyAdvisor { get; set; }
 
-
         /// <summary>Gets or sets the hold that a student has.</summary>
         /// <value>The hold.</value>
         public Hold Hold { get; set; }

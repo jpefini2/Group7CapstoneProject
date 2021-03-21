@@ -1,5 +1,6 @@
 ﻿using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,15 @@ namespace AdvisementManagerSharedLibrary.DAL
         /// <returns>A list of past advisement sessions that are part of the current hold period for the student.</returns>
         public IList<AdvisementSession> ObtainPastSessions(ApplicationDbContext context, Student student)
         {
+            return this.ObtainPastSessionsFromIDs(context, student.Id, student.Hold.Id);
+        }
+
+        public IList<AdvisementSession> ObtainPastSessionsFromIDs(ApplicationDbContext context, int studentId, int holdId)
+        {
             return (from oldSessions in context.AdvisementSession
-                    where oldSessions.HoldId == student.Hold.Id && oldSessions.Completed == true && oldSessions.StudentId
-                        == student.Id select oldSessions).ToList();
+                    where oldSessions.HoldId == holdId && oldSessions.Completed == true && oldSessions.StudentId
+                        == studentId
+                    select oldSessions).ToList();
         }
 
         /// <summary>Obtains the upcoming sessions for the desired advisor</summary>
@@ -78,6 +85,15 @@ namespace AdvisementManagerSharedLibrary.DAL
             var upcomingSession = sessions.FirstOrDefault(s => s.Date == sessions.Max(x => x.Date));
 
             return upcomingSession;
+        }
+
+        /// <summary>Inserts a new advisement session</summary>
+        /// <param name="session">The session model</param>
+        /// <param name="context">The context.</param>
+        public void ScheduleAdvisementSession(AdvisementSession session, ApplicationDbContext context)
+        {
+            context.Entry(session).State = EntityState.Added;
+            context.SaveChanges();
         }
     }
 }

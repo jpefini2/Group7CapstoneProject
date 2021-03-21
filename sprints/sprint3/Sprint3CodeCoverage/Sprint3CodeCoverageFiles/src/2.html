@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\Source\Repos\Group7CapstoneProject\code\AdvisementManager\AdvisementManagerSharedLibrary\Startup.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AdvisementManagerSharedLibrary
+{
+    public class Startup
+    {
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =&gt;
+            {
+                endpoints.MapGet(&quot;/&quot;, async context =&gt;
+                {
+                    await context.Response.WriteAsync(&quot;Hello World!&quot;);
+                });
+            });
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,10,0],[19,9,19,10,0],[23,9,23,10,0],[24,13,24,37,0],[25,13,25,14,0],[26,17,26,49,0],[27,13,27,14,0],[29,13,29,30,0],[31,13,32,13,0],[32,13,32,14,0],[32,14,33,17,0],[33,17,34,17,0],[34,17,34,18,0],[34,18,35,21,0],[35,21,35,71,0],[35,71,36,17,0],[36,17,36,18,0],[36,18,36,20,0],[33,17,36,20,0],[36,20,37,13,0],[37,13,37,14,0],[37,14,37,16,0],[31,13,37,16,0],[38,9,38,10,0]]);
+    </script>
+  </body>
+</html>

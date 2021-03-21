@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\joshp\source\repos\Group7CapstoneProject\code\AdvisementManager\StudentAdvisementManagerWebApp\Controllers\HomeController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.DAL;
+
+namespace StudentAdvisementManagerWebApp.Controllers
+{
+    /// &lt;summary&gt;
+    ///   The home controllers class
+    /// &lt;/summary&gt;
+    public class HomeController : Controller
+    {
+        public ApplicationDbContext context { get; }
+
+        private Student studentModel;
+
+        private readonly StudentDal studentDal = new();
+
+        /// &lt;summary&gt;Initializes a new instance of the &lt;see cref=&quot;HomeController&quot; /&gt; class.&lt;/summary&gt;
+        /// &lt;param name=&quot;logger&quot;&gt;The logger.&lt;/param&gt;
+        public HomeController(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
+        /// &lt;summary&gt;Obtains the logged in user from Cookies,
+        ///     then loads a StudentHome view to display it.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;
+        ///   The StudentHome view bound to the logged in student model.
+        /// &lt;/returns&gt;
+        [HttpGet]
+        public IActionResult StudentHome()
+        {
+            this.studentModel = this.studentDal.ObtainStudentWithUsername(Request.Cookies[&quot;AdvisementManager.LoginUser&quot;], this.context);
+            return View(this.studentModel);
+        }
+
+        /// &lt;summary&gt;returns a StudentHome view to display the passed Student.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;model&quot;&gt;The student model.&lt;/param&gt;
+        /// &lt;returns&gt;
+        ///   The StudentHome view bound to the passed student model.
+        /// &lt;/returns&gt;
+        [HttpPost]
+        public IActionResult StudentHome(Student model)
+        {
+            return View(model);
+        }
+
+        /// &lt;summary&gt;Errors this instance.&lt;/summary&gt;
+        /// &lt;returns&gt;
+        ///   The errors views model
+        /// &lt;/returns&gt;
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,47,14,51,1],[18,9,18,56,1],[22,9,22,60,1],[23,9,23,10,1],[24,13,24,36,1],[25,9,25,10,1],[35,9,35,10,0],[36,13,36,137,0],[37,13,37,44,0],[38,9,38,10,0],[48,9,48,10,1],[49,13,49,32,1],[50,9,50,10,1],[58,9,58,10,0],[59,13,59,113,0],[60,9,60,10,0]]);
+    </script>
+  </body>
+</html>
