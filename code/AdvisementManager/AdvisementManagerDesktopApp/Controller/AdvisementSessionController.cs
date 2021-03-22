@@ -76,5 +76,10 @@ namespace AdvisementManagerDesktopApp.Controller
         {
             return this.holdsDal.CheckForMeetings(student);
         }
+
+        public void CancelMeeting(int meetingId)
+        {
+            //TODO add cancelling meeting functionality here.
+        }
     }
 }

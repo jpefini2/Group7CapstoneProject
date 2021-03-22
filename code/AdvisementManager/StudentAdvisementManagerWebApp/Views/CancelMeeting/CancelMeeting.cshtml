@@ -1,0 +1,30 @@
+﻿@model CancelMeetingVM
+@{
+    ViewBag.Title = "Student Advisement Manager Cancel Meeting";
+}
+
+@if (Model.Meeting.Date <= DateTime.Now.Date)
+{
+    <p>Sorry you can't cancel a meeting the day of the appointment or later please see your advisor.</p>
+}
+else
+{
+    <p>Are you sure you want to cancel your meeting?</p>
+}
+
+<div>
+    <p>Advisor: @Model.Advisor.FullName</p>
+    <p>Student: @Model.Student.FullName</p>
+    <p>Meeting Time: @Model.Meeting.Date</p>
+</div>
+
+<div>
+    @if(Model.Meeting.Date > DateTime.Now.Date)
+    {
+        <a asp-controller="CancelMeeting" asp-action="ConfirmCancel" 
+           asp-route-meetingId="@Model.Meeting.Id" class="btn btn-danger">Yes</a>
+    }
+    
+    <a asp-controller="Home" asp-action="StudentHome" class="btn btn-outline-primary">No</a>
+
+</div>

@@ -41,13 +41,14 @@ namespace AdvisementManagerDesktopApp.View
             this.notesTxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.notesLbl = new System.Windows.Forms.Label();
+            this.cancelMeetingBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // approveBtn
             // 
-            this.approveBtn.Location = new System.Drawing.Point(229, 453);
+            this.approveBtn.Location = new System.Drawing.Point(196, 393);
             this.approveBtn.Name = "approveBtn";
-            this.approveBtn.Size = new System.Drawing.Size(106, 54);
+            this.approveBtn.Size = new System.Drawing.Size(91, 47);
             this.approveBtn.TabIndex = 1;
             this.approveBtn.Text = "Approve";
             this.approveBtn.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(372, 453);
+            this.cancelBtn.Location = new System.Drawing.Point(319, 393);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(106, 54);
+            this.cancelBtn.Size = new System.Drawing.Size(91, 47);
             this.cancelBtn.TabIndex = 2;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -67,44 +68,44 @@ namespace AdvisementManagerDesktopApp.View
             // studentNameLbl
             // 
             this.studentNameLbl.AutoSize = true;
-            this.studentNameLbl.Location = new System.Drawing.Point(183, 72);
+            this.studentNameLbl.Location = new System.Drawing.Point(157, 62);
             this.studentNameLbl.Name = "studentNameLbl";
-            this.studentNameLbl.Size = new System.Drawing.Size(83, 15);
+            this.studentNameLbl.Size = new System.Drawing.Size(75, 13);
             this.studentNameLbl.TabIndex = 3;
             this.studentNameLbl.Text = "Student Name";
             // 
             // meetingTimeLbl
             // 
             this.meetingTimeLbl.AutoSize = true;
-            this.meetingTimeLbl.Location = new System.Drawing.Point(481, 72);
+            this.meetingTimeLbl.Location = new System.Drawing.Point(412, 62);
             this.meetingTimeLbl.Name = "meetingTimeLbl";
-            this.meetingTimeLbl.Size = new System.Drawing.Size(57, 15);
+            this.meetingTimeLbl.Size = new System.Drawing.Size(53, 13);
             this.meetingTimeLbl.TabIndex = 4;
             this.meetingTimeLbl.Text = "DateTime";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(283, 118);
+            this.label3.Location = new System.Drawing.Point(243, 102);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 15);
+            this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Stage:";
             // 
             // stageLbl
             // 
             this.stageLbl.AutoSize = true;
-            this.stageLbl.Location = new System.Drawing.Point(346, 118);
+            this.stageLbl.Location = new System.Drawing.Point(297, 102);
             this.stageLbl.Name = "stageLbl";
-            this.stageLbl.Size = new System.Drawing.Size(123, 15);
+            this.stageLbl.Size = new System.Drawing.Size(111, 13);
             this.stageLbl.TabIndex = 6;
             this.stageLbl.Text = "stage placeholder text";
             // 
             // removeHoldBtn
             // 
-            this.removeHoldBtn.Location = new System.Drawing.Point(230, 453);
+            this.removeHoldBtn.Location = new System.Drawing.Point(197, 393);
             this.removeHoldBtn.Name = "removeHoldBtn";
-            this.removeHoldBtn.Size = new System.Drawing.Size(105, 54);
+            this.removeHoldBtn.Size = new System.Drawing.Size(90, 47);
             this.removeHoldBtn.TabIndex = 7;
             this.removeHoldBtn.Text = "Remove Hold";
             this.removeHoldBtn.UseVisualStyleBackColor = true;
@@ -114,9 +115,9 @@ namespace AdvisementManagerDesktopApp.View
             // loggedInLabel
             // 
             this.loggedInLabel.AutoSize = true;
-            this.loggedInLabel.Location = new System.Drawing.Point(557, 9);
+            this.loggedInLabel.Location = new System.Drawing.Point(477, 8);
             this.loggedInLabel.Name = "loggedInLabel";
-            this.loggedInLabel.Size = new System.Drawing.Size(66, 15);
+            this.loggedInLabel.Size = new System.Drawing.Size(60, 13);
             this.loggedInLabel.TabIndex = 8;
             this.loggedInLabel.Text = "Logged in: ";
             // 
@@ -124,43 +125,55 @@ namespace AdvisementManagerDesktopApp.View
             // 
             this.waitForMeetingTimeLbl.AutoSize = true;
             this.waitForMeetingTimeLbl.ForeColor = System.Drawing.Color.Red;
-            this.waitForMeetingTimeLbl.Location = new System.Drawing.Point(230, 420);
+            this.waitForMeetingTimeLbl.Location = new System.Drawing.Point(197, 364);
             this.waitForMeetingTimeLbl.Name = "waitForMeetingTimeLbl";
-            this.waitForMeetingTimeLbl.Size = new System.Drawing.Size(298, 15);
+            this.waitForMeetingTimeLbl.Size = new System.Drawing.Size(264, 13);
             this.waitForMeetingTimeLbl.TabIndex = 9;
             this.waitForMeetingTimeLbl.Text = "Please wait until the meeting time to approve a student";
             this.waitForMeetingTimeLbl.Visible = false;
             // 
             // notesTxtBox
             // 
-            this.notesTxtBox.Location = new System.Drawing.Point(12, 327);
+            this.notesTxtBox.Location = new System.Drawing.Point(10, 283);
             this.notesTxtBox.Multiline = true;
             this.notesTxtBox.Name = "notesTxtBox";
-            this.notesTxtBox.Size = new System.Drawing.Size(776, 90);
+            this.notesTxtBox.Size = new System.Drawing.Size(666, 79);
             this.notesTxtBox.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 158);
+            this.label1.Location = new System.Drawing.Point(31, 137);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 15);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Notes:";
             // 
             // notesLbl
             // 
             this.notesLbl.AutoSize = true;
-            this.notesLbl.Location = new System.Drawing.Point(43, 184);
+            this.notesLbl.Location = new System.Drawing.Point(37, 159);
             this.notesLbl.Name = "notesLbl";
-            this.notesLbl.Size = new System.Drawing.Size(0, 15);
+            this.notesLbl.Size = new System.Drawing.Size(0, 13);
             this.notesLbl.TabIndex = 12;
             // 
-            // AdvisementSessionForm
+            // cancelMeetingBtn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.cancelMeetingBtn.Location = new System.Drawing.Point(564, 393);
+            this.cancelMeetingBtn.Name = "cancelMeetingBtn";
+            this.cancelMeetingBtn.Size = new System.Drawing.Size(110, 47);
+            this.cancelMeetingBtn.TabIndex = 16;
+            this.cancelMeetingBtn.Text = "Cancel Meeting";
+            this.cancelMeetingBtn.UseVisualStyleBackColor = true;
+            this.cancelMeetingBtn.Visible = false;
+            this.cancelMeetingBtn.Click += new System.EventHandler(this.cancelMeetingBtn_Click);
+            // 
+            // StudentAdvisementSummaryForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 527);
+            this.ClientSize = new System.Drawing.Size(686, 457);
+            this.Controls.Add(this.cancelMeetingBtn);
             this.Controls.Add(this.notesLbl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.notesTxtBox);
@@ -173,7 +186,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.studentNameLbl);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.approveBtn);
-            this.Name = "AdvisementSessionForm";
+            this.Name = "StudentAdvisementSummaryForm";
             this.Text = "Advisement Session";
             this.Load += new System.EventHandler(this.AdvisementSessionForm_Load);
             this.ResumeLayout(false);
@@ -194,6 +207,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.TextBox notesTxtBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label notesLbl;
+        private System.Windows.Forms.Button cancelMeetingBtn;
     }
 }
 

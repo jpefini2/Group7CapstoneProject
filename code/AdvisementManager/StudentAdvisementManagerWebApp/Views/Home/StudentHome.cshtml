@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Student Advisement Manager Home";
 }
+
+@TempData["CancelMeetingConfirmation"]
 <div class="container">
     <main>
         <form method="get" class="form-horizontal">
@@ -60,6 +62,12 @@
                asp-route-holdid="@Model.Hold.Id">
                 View Previous Meetings
             </a>
+            
+            @if (Model.Meeting != null)
+            {
+                <a asp-controller="CancelMeeting" asp-action="CancelMeeting" asp-route-meetingId="@Model.Meeting.Id" 
+                   asp-route-studentId="@Model.Id" class="btn btn-danger">Cancel Meeting</a>
+            }
         </form>
     </main>
 </div>

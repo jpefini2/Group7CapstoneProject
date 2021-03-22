@@ -18,7 +18,7 @@ else
     ViewBag.MeetingTime = @Model.student.Meeting.Date;
 }
 
-
+@TempData["CancelMeetingConfirmation"]
 <table class="table">
     <tbody>
         <tr>
@@ -37,21 +37,25 @@ else
             <td></td>
             <td></td>
         </tr>
-    <tr>
-        <td>
-            Hold: @Model.student.Hold.Reason
-        </td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Notes: @(Environment.NewLine)@foreach (var session in Model.PastSessions)
-        {
-            <p>Advisor: @session.Advisor.FirstName @(session.Advisor.LastName) <br />
-            Date: @(session.Date) <br />
-            Notes: @(session.Notes)<br /><br /></p>
-        } </td>
-    </tr>
+        <tr>
+            <td>
+                Hold: @Model.student.Hold.Reason
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Notes: @(Environment.NewLine)@foreach (var session in Model.PastSessions)
+                {
+                    <p>
+                        Advisor: @session.Advisor.FirstName @(session.Advisor.LastName) <br />
+                        Date: @(session.Date) <br />
+                        Notes: @(session.Notes)<br /><br />
+                    </p>
+                }
+            </td>
+        </tr>
         <tr>
             <td></td>
             <td>
@@ -61,13 +65,17 @@ else
                         if (advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetFacAdvisor) ||
                             !advisorType && cleanedReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
                         {
-                            <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes" 
-                                  asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date" 
-                                  asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
+                            <form asp-action="ApproveMeeting" asp-route-notes="@Model.Notes"
+                                  asp-route-holdId="@Model.student.Hold.Id" asp-route-time="@Model.student.Meeting.Date"
+                                  asp-route-advisorId="@Model.advisor.Id" asp-route-meetingId="@Model.student.Meeting.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                                   method="post">
-                                <textarea asp-for="Notes" class="form-control" cols="40" rows ="5"></textarea>
+                                <textarea asp-for="Notes" class="form-control" cols="40" rows="5"></textarea>
                                 <button type="submit" class="btn btn-primary">Approve</button>
                             </form>
+
+                            <a asp-controller="CancelMeeting" asp-action="CancelMeeting"
+                               asp-route-meetingId="@Model.student.Meeting.Id" asp-route-studentId="@Model.student.Id"
+                               class="btn btn-danger">Cancel Meeting</a>
                         }
                     }
                     else if (!advisorType && cleanedReason.Equals(ConstantManager.WaitingForHoldRemoval))

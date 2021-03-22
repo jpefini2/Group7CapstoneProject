@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <label style="font-size:larger">Email: @Model.student.Email</label>
-            
+
         </div>
     </div>
     <div class="col">
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-@{ 
+@{
     string pastMeetingNotes = string.Empty;
 
     foreach (var meeting in Model.PastSessions)
@@ -49,15 +49,22 @@
 
     <form asp-action="ApproveMeetingAndUpdateHold" asp-route-id="@Model.sessionId"
           asp-route-notes="@Model.Notes" asp-route-holdId="@Model.student.Hold.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
-        method="post">
+          method="post">
         <textarea asp-for="Notes" class="form-control" cols="40" rows="7"></textarea>
-        
+
         <div class="row" style="padding-top:1em">
             <center>
                 <button type="submit" class="btn btn-primary" style="padding-right:1em">Approve</button>
 
                 <a asp-action="AdvisementSessions" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]"
                    class="btn btn-secondary" style="padding-left:1em">Cancel</a>
+
+                @if (Model.student.Meeting != null)
+                {
+                    <a asp-controller="CancelMeeting" asp-action="CancelMeeting"
+                       asp-route-meetingId="@Model.student.Meeting.Id" asp-route-studentId="@Model.student.Id"
+                       class="btn btn-danger">Cancel Meeting</a>
+                }
             </center>
         </div>
     </form>

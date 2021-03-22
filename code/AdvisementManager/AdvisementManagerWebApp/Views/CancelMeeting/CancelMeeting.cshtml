@@ -1,0 +1,17 @@
+﻿@model CancelMeetingVM
+@{
+    ViewBag.Title = "Student Advisement Manager Cancel Meeting";
+}
+
+<p>Are you sure you want to cancel your meeting?</p>
+
+<div>
+    <p>Advisor: @Model.Advisor.FullName</p>
+    <p>Student: @Model.Student.FullName</p>
+    <p>Meeting Time: @Model.Meeting.Date</p>
+</div>
+
+<div>
+    <a asp-controller="CancelMeeting" asp-action="ConfirmCancel" asp-route-meetingId="@Model.Meeting.Id"  asp-route-user="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-danger">Yes</a>
+    <a asp-controller="AdvisementSessions" asp-action="AdvisementSessions" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-outline-primary">No</a>
+</div>

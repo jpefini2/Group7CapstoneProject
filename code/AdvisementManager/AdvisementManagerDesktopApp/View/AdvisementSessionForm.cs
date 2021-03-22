@@ -83,5 +83,16 @@ namespace AdvisementManagerDesktopApp.View
         {
             Close();
         }
+
+        private void cancelMeetingBtn_Click(object sender, EventArgs e)
+        {
+            var meetingCancelResult = MessageBox.Show(@"Are you sure you want to cancel the meeting?", @"Cancel Meeting", MessageBoxButtons.YesNo);
+
+            if (meetingCancelResult == DialogResult.Yes)
+            {
+                MessageBox.Show(@"Meeting Canceled!");
+                Close();
+            }
+        }
     }
 }

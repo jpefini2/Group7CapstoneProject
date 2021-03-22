@@ -100,9 +100,11 @@ namespace AdvisementManagerDesktopApp.View
             var holdReason = this.student.Hold.Reason.Trim();
             var advisorType = this.advisor.IsFacultyAdvisor;
 
-            if (advisorType && holdReason.Equals(ConstantManager.NeedToMeetFacAdvisor) || !advisorType && holdReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
+            if (advisorType && holdReason.Equals(ConstantManager.NeedToMeetFacAdvisor) 
+                || !advisorType && holdReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
             {
                 this.approveBtn.Visible = true;
+                this.cancelMeetingBtn.Visible = true;
             } 
             else if (!advisorType && holdReason.Equals(ConstantManager.WaitingForHoldRemoval))
             {
@@ -161,6 +163,17 @@ namespace AdvisementManagerDesktopApp.View
         private void AdvisementSessionForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cancelMeetingBtn_Click(object sender, EventArgs e)
+        {
+            var meetingCancelResult = MessageBox.Show(@"Are you sure you want to cancel the meeting?", @"Cancel Meeting", MessageBoxButtons.YesNo);
+
+            if (meetingCancelResult == DialogResult.Yes)
+            {
+                MessageBox.Show(@"Meeting Canceled!");
+                Close();
+            }
         }
     }
 }
