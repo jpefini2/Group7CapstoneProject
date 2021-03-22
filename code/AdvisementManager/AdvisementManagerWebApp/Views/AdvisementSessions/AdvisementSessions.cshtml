@@ -9,6 +9,8 @@
 </div>
 
 @TempData["CancelMeetingConfirmation"]
+
+<a asp-controller="UpdateAvailability" asp-action="UpdateAvailability"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-outline-primary">Update Availability</a>
 <div class="row">
     <div class="col">
         <h2 align="center">Upcoming Meetings</h2>

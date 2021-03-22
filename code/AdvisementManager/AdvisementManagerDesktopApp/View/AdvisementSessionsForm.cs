@@ -80,5 +80,11 @@ namespace AdvisementManagerDesktopApp.View
         {
             this.setUpScreen();
         }
+
+        private void updatedAvailabilityBtn_Click(object sender, EventArgs e)
+        {
+            var availabilityFrom = new UpdateAvailabilityForm(this.advisor);
+            availabilityFrom.Show();
+        }
     }
 }

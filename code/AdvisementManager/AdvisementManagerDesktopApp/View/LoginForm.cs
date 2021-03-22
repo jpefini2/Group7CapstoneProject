@@ -9,7 +9,6 @@ namespace AdvisementManagerDesktopApp.View
     public partial class LoginForm : Form
     {
         private readonly LoginController loginController = new();
-        private DbContext context;
 
         public LoginForm()
         {
