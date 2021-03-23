@@ -1,1 +1,48 @@
-﻿<p>update availability page starts here</p>
+﻿@using System.Collections
+@model AvailabilityVM
+
+@{
+    ViewBag.Title = "Advisor Advisement Manager Update Availability";
+}
+
+<h1>Availability</h1>
+
+<div class="row">
+    <form asp-action="AddTime">
+        <input asp-for="AdvisorId" type="hidden" />
+
+        <label class="control-label col-sm-2">Day:</label>
+        <select asp-for="Day" asp-items="Model.DaysOfWeek"></select>
+
+        <label class="control-label col-sm-2">Start Time:</label>
+        <select asp-for="StartTime" asp-items="Model.TimeSlots"></select>
+
+        <label class="control-label col-sm-2">End Time:</label>
+        <select asp-for="EndTime" asp-items="Model.TimeSlots"></select>
+
+        <button type="submit" class="btn btn-primary">Add Time</button>
+    </form>
+</div>
+
+@foreach (var day in Model.DaysOfWeek)
+{
+    <div>
+        <label asp-for="DaysOfWeek">@day.Text:</label>
+        @if (TempData[day.Text] != null)
+        {
+            foreach (var item in (IEnumerable) TempData[day.Text])
+            {
+                <p>@item <a asp-action="RemoveTime" asp-route-day="@day.Text" asp-route-timeToRemove="@item" asp-route-advisorId="@Model.AdvisorId">Remove</a></p>
+            }
+        }
+    </div>
+}
+
+@{
+    TempData.Keep("Monday");
+    TempData.Keep("Tuesday");
+    TempData.Keep("Wednesday");
+    TempData.Keep("Thursday");
+    TempData.Keep("Friday");
+
+}

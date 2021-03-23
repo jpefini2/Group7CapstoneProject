@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdvisementManagerSharedLibrary.Data;
+using AdvisementManagerSharedLibrary.Models;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -26,10 +27,55 @@ namespace AdvisementManagerWebApp.Controllers
 
         public IActionResult UpdateAvailability(string userName)
         {
+            this.createInitialTempDataIfEmpty();
             var user = this.context.Advisor
                            .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == userName);
+
+            var avilabilityVM = new AvailabilityVM{CurrentUser = user};
             
-            return View();
+            return View(avilabilityVM);
+        }
+
+        private void createInitialTempDataIfEmpty()
+        {
+            var days = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+
+            foreach (var day in days)
+            {
+                TempData[day] ??= new List<string>();
+            }
+        }
+        
+        public IActionResult AddTime(int advisorId, string day, string startTime, string endTime)
+        {
+            var advisor = this.context.Advisor.Find(advisorId);
+            var previousTimes = TempData.Peek(day) as IEnumerable<string>;
+            var timesToAddToo = (previousTimes ?? Array.Empty<string>()).ToList();
+
+            var timeToAdd = startTime + "-" + endTime;
+
+            if (previousTimes == null)
+            {
+                timesToAddToo = new List<string>() {timeToAdd};
+            }
+            else
+            {
+                timesToAddToo.Add(timeToAdd);
+            }
+
+            TempData[day] = timesToAddToo;
+            return RedirectToAction("UpdateAvailability", "UpdateAvailability", new { userName = advisor.UserName});
+        }
+
+        public IActionResult RemoveTime(int advisorId, string day, string timeToRemove)
+        {
+            var advisor = this.context.Advisor.Find(advisorId);
+            var previousTimes = TempData.Peek(day) as IEnumerable<string>;
+            var timesToRemoveFrom = (previousTimes ?? Array.Empty<string>()).ToList();
+
+            timesToRemoveFrom.Remove(timeToRemove);
+            TempData[day] = timesToRemoveFrom;
+            return RedirectToAction("UpdateAvailability", "UpdateAvailability", new { userName = advisor.UserName });
         }
     }
 }
