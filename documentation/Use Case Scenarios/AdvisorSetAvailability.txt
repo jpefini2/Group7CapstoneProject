@@ -14,7 +14,8 @@ Primary Flow:
 
 Alternate Flow: 
 	A5. The user hits cancel.
-	A6. The system returns the user to the previous page.
+	A6. The system notifies the user that the changes won't be saved.
+	A7. The system returns the user to the previous page.
 	
 Alternate Flow:
 	A3. The time slot conflict with another time slot.
