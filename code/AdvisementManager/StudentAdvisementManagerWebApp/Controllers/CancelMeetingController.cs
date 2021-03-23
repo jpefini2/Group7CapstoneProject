@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
+using AdvisementManagerSharedLibrary.DAL;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
@@ -14,12 +15,14 @@ namespace StudentAdvisementManagerWebApp.Controllers
     public class CancelMeetingController : Controller
     {
         private ApplicationDbContext context { get; }
+        private AdvisementSessionDAL advisementDal;
 
         /// <summary>Initializes a new instance of the <see cref="CancelMeetingController" /> class.</summary>
         /// <param name="context">The context.</param>
         public CancelMeetingController(ApplicationDbContext context)
         {
             this.context = context;
+            advisementDal = new AdvisementSessionDAL();
         }
 
         /// <summary>Loads the view model with the cancel meetings pages info to be used by the view</summary>
@@ -45,7 +48,9 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
         public IActionResult ConfirmCancel(int meetingId)
         {
-            //TODO add meeting cancellation binding here.
+            var meeting = this.context.AdvisementSession.Find(meetingId);
+
+            advisementDal.CancelAdvisementSession(meeting, this.context);
 
             TempData["CancelMeetingConfirmation"] = "Meeting Canceled";
             return RedirectToAction("StudentHome", "Home");

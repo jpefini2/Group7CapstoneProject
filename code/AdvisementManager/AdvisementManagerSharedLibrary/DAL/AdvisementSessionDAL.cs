@@ -95,5 +95,14 @@ namespace AdvisementManagerSharedLibrary.DAL
             context.Entry(session).State = EntityState.Added;
             context.SaveChanges();
         }
+
+        /// <summary>Cancels the specified advisement session</summary>
+        /// <param name="session">The session to cancel.</param>
+        /// <param name="context">The context.</param>
+        public void CancelAdvisementSession(AdvisementSession session, ApplicationDbContext context)
+        {
+            context.Entry(session).State = EntityState.Deleted;
+            context.SaveChanges();
+        }
     }
 }
