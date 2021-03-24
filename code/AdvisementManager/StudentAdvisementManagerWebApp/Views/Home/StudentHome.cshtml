@@ -3,7 +3,11 @@
     ViewBag.Title = "Student Advisement Manager Home";
 }
 
-@TempData["CancelMeetingConfirmation"]
+
+<div>
+    <h2 style="color: red">@TempData["UserMessage"]</h2>
+</div>
+
 <div class="container">
     <main>
         <form method="get" class="form-horizontal">

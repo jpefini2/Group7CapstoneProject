@@ -328,6 +328,7 @@
     <Compile Include="Controller\AdvisementSessionController.cs" />
     <Compile Include="Controller\AdvisementSessionsController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\UpdateAvailabilityController.cs" />
     <Compile Include="DAL\AdvisementSessionDal.cs" />
     <Compile Include="DAL\AdvisorDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />

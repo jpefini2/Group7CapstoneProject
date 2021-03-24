@@ -64,6 +64,8 @@ namespace AdvisementManagerWebApp.Controllers
             }
 
             TempData[day] = timesToAddToo;
+            TempData["UserMessage"] = "Availability Changes have not been saved yet.";
+
             return RedirectToAction("UpdateAvailability", "UpdateAvailability", new { userName = advisor.UserName});
         }
 
@@ -75,7 +77,35 @@ namespace AdvisementManagerWebApp.Controllers
 
             timesToRemoveFrom.Remove(timeToRemove);
             TempData[day] = timesToRemoveFrom;
+            TempData["UserMessage"] = "Availability Changes have not been saved yet.";
+
             return RedirectToAction("UpdateAvailability", "UpdateAvailability", new { userName = advisor.UserName });
+        }
+
+        public IActionResult Cancel(string userName)
+        {
+            TempData["UserMessage"] = "Availability Changes were not saved";
+            this.emptyAvailabilityTempData();
+
+            return RedirectToAction("AdvisementSessions", "AdvisementSessions", new { userName });
+        }
+
+        private void emptyAvailabilityTempData()
+        {
+            var daysOfWeek = AvailabilityVM.CreateDaysOfWeek();
+            foreach (var day in daysOfWeek)
+            {
+                TempData.Remove(day.Text);
+            }
+
+        }
+
+        public IActionResult Update(string userName, int advisorId)
+        {
+            TempData["UserMessage"] = "Availability Updated";
+            this.emptyAvailabilityTempData();
+
+            return RedirectToAction("AdvisementSessions", "AdvisementSessions", new { userName });
         }
     }
 }

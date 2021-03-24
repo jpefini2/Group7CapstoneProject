@@ -22,5 +22,20 @@ namespace AdvisementManagerDesktopApp.Resources
 
         /// <summary>The ready to register</summary>
         public const string ReadyToRegister = "ready to register";
+
+        /// <summary>The friday string</summary>
+        public const string Friday = "Friday";
+
+        /// <summary>The thursday string</summary>
+        public const string Thursday = "Thursday";
+
+        /// <summary>The wednesday string</summary>
+        public const string Wednesday = "Wednesday";
+
+        /// <summary>The tuesday string</summary>
+        public const string Tuesday = "Tuesday";
+
+        /// <summary>The monday string</summary>
+        public const string Monday = "Monday";
     }
 }

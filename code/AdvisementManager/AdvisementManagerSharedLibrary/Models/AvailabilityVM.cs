@@ -35,10 +35,10 @@ namespace AdvisementManagerSharedLibrary.Models
         public AvailabilityVM()
         {
             this.TimeSlots = this.createTimeSlots();
-            this.DaysOfWeek = this.createDaysOfWeek();
+            this.DaysOfWeek = CreateDaysOfWeek();
         }
 
-        private IList<SelectListItem> createDaysOfWeek()
+        public static IList<SelectListItem> CreateDaysOfWeek()
         {
             var days = new List<string> {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
             return days.Select(day => new SelectListItem {Value = day, Text = day}).ToList();

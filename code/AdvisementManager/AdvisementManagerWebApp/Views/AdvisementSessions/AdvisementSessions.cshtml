@@ -7,8 +7,9 @@
 <div class="text-center">
     <h1 class="display-4">Advisement Sessions</h1>
 </div>
-
-@TempData["CancelMeetingConfirmation"]
+<div>
+    <h2 style="color: red">@TempData["UserMessage"]</h2>
+</div>
 
 <a asp-controller="UpdateAvailability" asp-action="UpdateAvailability"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-outline-primary">Update Availability</a>
 <div class="row">

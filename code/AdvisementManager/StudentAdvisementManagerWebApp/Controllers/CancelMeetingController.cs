@@ -52,7 +52,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
             advisementDal.CancelAdvisementSession(meeting, this.context);
 
-            TempData["CancelMeetingConfirmation"] = "Meeting Canceled";
+            TempData["UserMessage"] = "Meeting Canceled";
             return RedirectToAction("StudentHome", "Home");
         }
     }

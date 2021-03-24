@@ -5,7 +5,13 @@
     ViewBag.Title = "Advisor Advisement Manager Update Availability";
 }
 
-<h1>Availability</h1>
+<div>
+    <h1>Availability</h1>
+</div>
+
+<div>
+    <h2 style="color: red">@TempData["UserMessage"]</h2>
+</div>
 
 <div class="row">
     <form asp-action="AddTime">
@@ -38,11 +44,14 @@
     </div>
 }
 
+<a asp-controller="UpdateAvailability" asp-action="Update" asp-route-advisorId="@Model.AdvisorId"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-primary">Update Availability</a>
+<a asp-controller="UpdateAvailability" asp-action="Cancel" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-danger">Cancel</a>
+
 @{
     TempData.Keep("Monday");
     TempData.Keep("Tuesday");
     TempData.Keep("Wednesday");
     TempData.Keep("Thursday");
     TempData.Keep("Friday");
-
+    TempData.Keep("UserMessage");
 }
