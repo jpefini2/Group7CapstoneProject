@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.Model;
@@ -23,6 +24,37 @@ namespace AdvisementManagerDesktopApp.View
         {
             var timeSlots = this.createTimeSlots();
             this.addTimesToTimeComboBoxes(timeSlots);
+            
+            var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability();
+            this.loadAdvisorCurrentAvailability(currentAvailability);
+        }
+
+        private void loadAdvisorCurrentAvailability(Dictionary<string, IList<string>> currentAvailability)
+        {
+            foreach (var day in currentAvailability)
+            {
+                var tabPageControls = this.availabilityTabControl.Controls.OfType<TabPage>().
+                                           FirstOrDefault(tab => tab.Text.Equals(day.Key))
+                                           ?.Controls;
+                if (tabPageControls != null)
+                {
+                    loadTimeSlotsIntoView(tabPageControls, day);
+                }
+            }
+        }
+
+        private static void loadTimeSlotsIntoView(Control.ControlCollection tabPageControls, KeyValuePair<string, IList<string>> day)
+        {
+            foreach (Control tabControl in tabPageControls)
+            {
+                if (tabControl.GetType() == typeof(ListBox))
+                {
+                    foreach (var timeSlot in day.Value)
+                    {
+                        ((ListBox) tabControl).Items.Add(timeSlot);
+                    }
+                }
+            }
         }
 
         private void addTimesToTimeComboBoxes(IList<string> timeSlots)

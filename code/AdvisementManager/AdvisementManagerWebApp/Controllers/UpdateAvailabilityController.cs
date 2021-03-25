@@ -42,6 +42,7 @@ namespace AdvisementManagerWebApp.Controllers
 
             foreach (var day in days)
             {
+                //TODO fill each day with a list of time slots in appropriate format
                 TempData[day] ??= new List<string>();
             }
         }
