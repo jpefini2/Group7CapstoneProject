@@ -93,6 +93,7 @@ CREATE TABLE AdvisementSession (
 
 CREATE TABLE Availability (
   availabilityID INT NOT NULL IDENTITY PRIMARY KEY,
+  dayOfTheWeek INT NOT NULL,
   timeBegin DATETIME2(0) NOT NULL,
   timeEnd DATETIME2(0) NOT NULL,
   advisorID INT NOT NULL,
@@ -149,11 +150,11 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 7),
 ('need to meet with dept advisor', '12-26-2020', 1, 8)
 
-INSERT INTO Availability (timeBegin, timeEnd, advisorID) VALUES
-('2020-11-23 07:30:00', '2020-11-23 10:00:00', 1),
-('2020-11-23 09:30:00', '2020-11-23 12:15:00', 2),
-('2020-11-23 13:00:00', '2020-11-23 16:45:00', 3),
-('2020-11-23 10:30:00', '2020-11-23 11:45:00', 3),
-('2020-11-23 12:30:00', '2020-11-23 14:00:00', 3),
-('2020-11-23 07:30:00', '2020-11-23 11:30:00', 4),
-('2020-11-23 13:00:00', '2020-11-23 15:45:00', 5)
+INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES
+(1, '2020-11-23 07:30:00', '2020-11-23 10:00:00', 1),
+(2, '2020-11-23 09:30:00', '2020-11-23 12:15:00', 2),
+(4, '2020-11-23 13:00:00', '2020-11-23 16:45:00', 3),
+(6, '2020-11-23 10:30:00', '2020-11-23 11:45:00', 3),
+(2, '2020-11-23 12:30:00', '2020-11-23 14:00:00', 3),
+(3, '2020-11-23 07:30:00', '2020-11-23 11:30:00', 4),
+(7, '2020-11-23 13:00:00', '2020-11-23 15:45:00', 5)
