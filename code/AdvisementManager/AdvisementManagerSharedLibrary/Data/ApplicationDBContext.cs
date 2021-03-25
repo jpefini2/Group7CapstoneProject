@@ -40,5 +40,9 @@ namespace AdvisementManagerSharedLibrary.Data
         /// <value>The login session.</value>
         public DbSet<LoginSession> LoginSession { get; set; }
 
+        /// <summary>Advisor Availability stored in the database</summary>
+        /// <value>The advisor availability.</value>
+        public DbSet<Availability> Availability { get; set; }
+
     }
 }
