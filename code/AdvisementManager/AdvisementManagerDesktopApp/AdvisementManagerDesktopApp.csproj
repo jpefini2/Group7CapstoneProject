@@ -339,6 +339,7 @@
     <Compile Include="Model\Advisor.cs" />
     <Compile Include="Model\Hold.cs" />
     <Compile Include="Model\Student.cs" />
+    <Compile Include="Model\WeekDay.cs" />
     <Compile Include="Resources\ConstantManager.cs" />
     <Compile Include="View\AdvisementSessionForm.cs">
       <SubType>Form</SubType>
