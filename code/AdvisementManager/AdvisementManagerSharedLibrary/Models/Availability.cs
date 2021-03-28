@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace AdvisementManagerSharedLibrary.Models
 {
@@ -23,12 +24,12 @@ namespace AdvisementManagerSharedLibrary.Models
         /// <summary>Gets or sets the start time for the availability.</summary>
         /// <value>The start time.</value>
         [Column("timeBegin")]
-        public DateTime StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
 
         /// <summary>Gets or sets the end time for the availability.</summary>
         /// <value>The end time.</value>
         [Column("timeEnd")]
-        public DateTime EndTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
         /// <summary>Gets or sets the unique identifier advisor the availability belongs to.</summary>
         /// <value>The identifier for the advisor.</value>

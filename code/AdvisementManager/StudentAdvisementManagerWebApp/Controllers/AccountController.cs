@@ -45,6 +45,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
             {
                 Response.Cookies.Delete("AdvisementManager.LoginUser");
                 Response.Cookies.Delete("AdvisementManager.LoginSession");
+                TempData.Clear();
                 return RedirectToRoute(new { action = "Login", controller = "Account" });
             }
 

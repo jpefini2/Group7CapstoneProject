@@ -51,8 +51,9 @@ namespace AdvisementManagerWebApp.Controllers
             var currentAvailability = this.availabilityDal.GetAdvisorAvailability(advisorId, this.context);
             foreach (var timeSlot in currentAvailability)
             {
-                var startTime = timeSlot.StartTime.ToString("h:mm tt");
-                var endTime = timeSlot.EndTime.ToString("h:mm tt");
+                string startTime= DateTime.Today.Add(timeSlot.StartTime).ToString("hh:mm tt");
+                string endTime = DateTime.Today.Add(timeSlot.EndTime).ToString("hh:mm tt");
+
                 var day = (DayOfTheWeek)timeSlot.DayOfTheWeek;
 
                 TempData[day.ToString()] ??= new List<string>();
@@ -188,8 +189,8 @@ namespace AdvisementManagerWebApp.Controllers
             foreach (var timeString in times)
             {
                 var startAndEndTimes = timeString.Split("-");
-                var startTime = DateTime.ParseExact(startAndEndTimes[0], "h:mm tt", null, System.Globalization.DateTimeStyles.None);
-                var endTime = DateTime.ParseExact(startAndEndTimes[1], "h:mm tt", null, System.Globalization.DateTimeStyles.None);
+                var startTime = DateTime.ParseExact(startAndEndTimes[0], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+                var endTime = DateTime.ParseExact(startAndEndTimes[1], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
 
                 DayOfTheWeek dayEnum = (DayOfTheWeek)Enum.Parse(typeof(DayOfTheWeek), day, true);
 
