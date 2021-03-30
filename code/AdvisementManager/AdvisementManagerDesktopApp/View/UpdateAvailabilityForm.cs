@@ -88,15 +88,27 @@ namespace AdvisementManagerDesktopApp.View
             var day = this.dayComboBox.SelectedItem;
             var startTime = this.startTimeComboBox.SelectedItem;
             var endTime = this.endTimeComboBox.SelectedItem;
+
             if (startTime == null || endTime == null || day == null)
             {
-                MessageBox.Show(@"Please select a day, start time and end time");
+                MessageBox.Show(@"Please select a day, start time, and end time.");
+                return;
             }
-            else
+
+            if (this.isStartTimeBeforeEndTime(startTime.ToString(), endTime.ToString()))
             {
-                var timeSlot = startTime + "-" + endTime;
-                this.addTime(day.ToString(), timeSlot);
+                MessageBox.Show(@"Start time must be before end time");
+                return;
             }
+
+            if (this.isTimeSlotOverlapped(day.ToString(), startTime.ToString(), endTime.ToString()))
+            {
+                MessageBox.Show(@"Time slot must not overlap existing timeslots in the same day.");
+                return;
+            }
+
+            var timeSlot = startTime + "-" + endTime;
+            this.addTime(day.ToString(), timeSlot);
         }
 
         private void addTime(string day, string timeSlot)
@@ -217,6 +229,61 @@ namespace AdvisementManagerDesktopApp.View
 
                 timeSlots.Add(pageName, times);
             }
+        }
+
+        private bool isStartTimeBeforeEndTime(string startTime, string endTime)
+        {
+            var startTimeSpan = DateTime.ParseExact(startTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+            var endTimeSpan = DateTime.ParseExact(endTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+
+            return TimeSpan.Compare(startTimeSpan, endTimeSpan) >= 0;
+        }
+
+        private bool isTimeSlotOverlapped(string day, string startTime, string endTime)
+        {
+            WeekDay dayEnum = (WeekDay)Enum.Parse(typeof(WeekDay), day, true);
+            var startTimeSpan = DateTime.ParseExact(startTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+            var endTimeSpan = DateTime.ParseExact(endTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+
+            ListBox.ObjectCollection sameDayTimeslots = this.getTimeslotsOnDay(dayEnum.ToString());
+
+            foreach (var existingTimeslot in sameDayTimeslots)
+            {
+                var existingStartAndEndTimes = existingTimeslot.ToString().Split('-');
+                var existingStartTimespan = DateTime.ParseExact(existingStartAndEndTimes[0], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+                var existingEndTimespan = DateTime.ParseExact(existingStartAndEndTimes[1], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+
+                bool newSlotStartsBeforeExistingEnds = TimeSpan.Compare(startTimeSpan, existingEndTimespan) <= 0;
+                bool newSlotStartsAfterOrAtExistingStarts = TimeSpan.Compare(startTimeSpan, existingStartTimespan) >= 0;
+
+                bool newSlotEndsBeforeOrAtExistingEnds = TimeSpan.Compare(endTimeSpan, existingEndTimespan) <= 0;
+                bool newSlotEndsAfterExistingStarts = TimeSpan.Compare(endTimeSpan, existingStartTimespan) >= 0;
+
+                if (newSlotStartsBeforeExistingEnds && newSlotStartsAfterOrAtExistingStarts ||
+                    newSlotEndsBeforeOrAtExistingEnds && newSlotEndsAfterExistingStarts)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private ListBox.ObjectCollection getTimeslotsOnDay(string day)
+        {
+            switch (day)
+            {
+                case ConstantManager.Monday:
+                    return this.monListBox.Items;
+                case ConstantManager.Tuesday:
+                    return this.tuesListBox.Items;
+                case ConstantManager.Wednesday:
+                    return this.wedListBox.Items;
+                case ConstantManager.Thursday:
+                    return this.thursListBox.Items;
+                case ConstantManager.Friday:
+                    return this.friListBox.Items;
+            }
+
+            return null;
         }
     }
 }
