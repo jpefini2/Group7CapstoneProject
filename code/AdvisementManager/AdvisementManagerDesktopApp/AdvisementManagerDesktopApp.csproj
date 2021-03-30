@@ -331,12 +331,14 @@
     <Compile Include="Controller\UpdateAvailabilityController.cs" />
     <Compile Include="DAL\AdvisementSessionDal.cs" />
     <Compile Include="DAL\AdvisorDAL.cs" />
+    <Compile Include="DAL\AvailabilityDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\HoldsDAL.cs" />
     <Compile Include="DAL\LoginDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="Model\AdvisementSession.cs" />
     <Compile Include="Model\Advisor.cs" />
+    <Compile Include="Model\Availability.cs" />
     <Compile Include="Model\Hold.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\WeekDay.cs" />

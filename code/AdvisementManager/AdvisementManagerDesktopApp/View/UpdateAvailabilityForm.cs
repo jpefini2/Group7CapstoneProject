@@ -25,7 +25,7 @@ namespace AdvisementManagerDesktopApp.View
             var timeSlots = this.createTimeSlots();
             this.addTimesToTimeComboBoxes(timeSlots);
             
-            var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability();
+            var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability(this.advisor);
             this.loadAdvisorCurrentAvailability(currentAvailability);
         }
 
