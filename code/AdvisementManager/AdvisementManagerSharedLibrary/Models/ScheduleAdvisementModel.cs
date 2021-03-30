@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace AdvisementManagerSharedLibrary.Models
 {
@@ -42,6 +43,8 @@ namespace AdvisementManagerSharedLibrary.Models
         [BindProperty(SupportsGet = true)]
         public TimeSpan Time { get; set; }
 
+        public DateTime SelectedDate { get; set; }
+
         /// <summary>Gets or sets the available session times.</summary>
         /// <value>The available session times.</value>
         public IList<SelectListItem> AvailableSessionTimes { get; set; }
@@ -53,6 +56,44 @@ namespace AdvisementManagerSharedLibrary.Models
                 var sessionTime = this.Date.AddMinutes(this.Time.TotalMinutes);
                 return DateTime.Compare(sessionTime, DateTime.Now) < 0;
             }
+        }
+
+        public void SetAvailabilities(List<Availability> availabilities, string date)
+        {
+            DayOfWeek dayoftheweek;
+            if(date == null)
+            {
+                dayoftheweek = DateTime.Now.DayOfWeek;
+                this.SelectedDate = DateTime.Now;
+            } else
+            {
+                dayoftheweek = DateTime.Parse(date).DayOfWeek;
+                this.SelectedDate = DateTime.Parse(date);
+            }
+            
+            List<SelectListItem> availableTimes = new List<SelectListItem>();
+            TimeSpan halfHour = new TimeSpan(0, 30, 0);
+
+            TimeSpan currentTime = new TimeSpan(0, 0, 0);
+
+            foreach (var avail in availabilities)
+            {
+                Trace.WriteLine("Comparing " + (DayOfWeek)(avail.DayOfTheWeek+1) + " with " + dayoftheweek);
+                if (((DayOfWeek)(avail.DayOfTheWeek+1)).Equals(dayoftheweek))
+                {
+                    Trace.WriteLine("Adding it");
+                    currentTime = avail.StartTime;
+
+                    while (currentTime.CompareTo(avail.EndTime) < 0)
+                    {
+
+
+                        availableTimes.Add(new SelectListItem { Value = currentTime.ToString(), Text = DateTime.Today.Add(currentTime).ToString("hh:mm tt") });
+                        currentTime = currentTime.Add(halfHour);
+                    }
+                }
+            }
+            this.AvailableSessionTimes = availableTimes;
         }
 
 

@@ -3,7 +3,17 @@
     ViewBag.Title = "Schedule Advisement";
 }
 
+@section scripts{
+    <script>
+        function SetTime(value) {
+           window.location.href = "ScheduleAdvisementSession?studentid=" + @Model.StudentId + "&studentholdid=" + @Model.StudentId + "&generaladvisorid=" + @Model.Student.generalAdvisorId + "&facultyadvisorid=" + @Model.Student.facultyAdvisorId + "&selecteddate=" + value;
+
+        }
+    </script>
+}
+
 <div class="container">
+
     <main>
         <form asp-action="ConfirmAppointment" method="post" class="form-horizontal">
             <div class="row">
@@ -22,8 +32,14 @@
             </div>
 
             <div class="row">
-                <label class="control-label col-sm-2">Choose date:</label>
-                <input class="form-control col-sm-5" asp-for="Date" type="date" value="@DateTime.Today.ToString("dd-MM-yyyy")" />
+                <tr>
+                    <td>
+                        <label class="control-label col-sm-2">Choose date:</label>
+                    </td>
+                    <td>
+                        <input class="form-control col-sm-5" onchange="SetTime(this.value)" asp-for="Date" type="date" value="@Model.SelectedDate.Date.ToString("yyyy-MM-dd")" />
+                    </td>
+                </tr>
             </div>
 
             <div class="row">
@@ -44,8 +60,8 @@
         </form>
     </main>
 </div>
-    
 
 
 
-        
+
+
