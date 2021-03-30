@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace AdvisementManagerDesktopApp.Model
 {
-    class WeekDay
+    enum WeekDay
     {
-        public enum WEEKDAY
-        {
-            SUNDAY,
-            MONDAY,
-            TUESDAY,
-            WEDNESDAY,
-            THURSDAY,
-            FRIDAY,
-            SATURDAY
-        }
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday
     }
 }
