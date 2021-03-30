@@ -5,6 +5,11 @@
     ViewBag.Title = "Advisor Advisement Manager Update Availability";
 }
 
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
 <div>
     <h1>Availability</h1>
 </div>
@@ -12,6 +17,8 @@
 <div>
     <h2 style="color: red">@TempData["UserMessage"]</h2>
 </div>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <div class="row">
     <form asp-action="AddTime">
@@ -36,7 +43,7 @@
         <label asp-for="DaysOfWeek">@day.Text:</label>
         @if (TempData[day.Text] != null)
         {
-            foreach (var item in (IEnumerable) TempData[day.Text])
+            foreach (var item in (IEnumerable)TempData[day.Text])
             {
                 <p>@item <a asp-action="RemoveTime" asp-route-day="@day.Text" asp-route-timeToRemove="@item" asp-route-advisorId="@Model.AdvisorId">Remove</a></p>
             }
@@ -44,7 +51,7 @@
     </div>
 }
 
-<a asp-controller="UpdateAvailability" asp-action="Update" asp-route-advisorId="@Model.AdvisorId"  asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-primary">Update Availability</a>
+<a asp-controller="UpdateAvailability" asp-action="Update" asp-route-advisorId="@Model.AdvisorId" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-primary">Update Availability</a>
 <a asp-controller="UpdateAvailability" asp-action="Cancel" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]" class="btn btn-danger">Cancel</a>
 
 @{

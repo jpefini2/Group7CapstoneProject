@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary.DAL;
+using System.Diagnostics;
 
 namespace AdvisementManagerWebApp.Controllers
 {
@@ -67,7 +68,6 @@ namespace AdvisementManagerWebApp.Controllers
 
             foreach (var day in days)
             {
-                //TODO fill each day with a list of time slots in appropriate format
                 TempData[day] ??= new List<string>();
             }
         }
@@ -83,25 +83,32 @@ namespace AdvisementManagerWebApp.Controllers
         public IActionResult AddTime(int advisorId, string day, string startTime, string endTime)
         {
             var advisor = this.context.Advisor.Find(advisorId);
+            var avilabilityVM = new AvailabilityVM { CurrentUser = advisor };
+
+            if (this.isStartTimeBeforeEndTime(startTime, endTime))
+            {
+                ModelState.AddModelError("", "Start time must be earlier than the end time.");
+                return View("UpdateAvailability", avilabilityVM);
+            }
+
+            if (this.isTimeSlotOverlapped(advisorId, day, startTime, endTime))
+            {
+                ModelState.AddModelError("", "Time slot must not overlap existing timeslots in the same day.");
+                return View("UpdateAvailability", avilabilityVM);
+            }
+
             var previousTimes = TempData.Peek(day) as IEnumerable<string>;
             var timesToAddToo = (previousTimes ?? Array.Empty<string>()).ToList();
-
             var timeToAdd = startTime + "-" + endTime;
 
             if (previousTimes == null)
-            {
                 timesToAddToo = new List<string>() {timeToAdd};
-            }
             else
-            {
                 timesToAddToo.Add(timeToAdd);
-            }
 
             TempData[day] = timesToAddToo;
             TempData["UserMessage"] = "Availability Changes have not been saved yet.";
 
-            //return RedirectToAction("UpdateAvailability", "UpdateAvailability", new { userName = advisor.UserName});
-            var avilabilityVM = new AvailabilityVM { CurrentUser = advisor };
             return View("UpdateAvailability", avilabilityVM);
         }
 
@@ -192,6 +199,8 @@ namespace AdvisementManagerWebApp.Controllers
                 var startTime = DateTime.ParseExact(startAndEndTimes[0], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
                 var endTime = DateTime.ParseExact(startAndEndTimes[1], "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
 
+                Debug.Print(startTime.ToString());
+
                 DayOfTheWeek dayEnum = (DayOfTheWeek)Enum.Parse(typeof(DayOfTheWeek), day, true);
 
                 Availability availability = new Availability
@@ -206,6 +215,44 @@ namespace AdvisementManagerWebApp.Controllers
             }
 
             return timeSlots;
+        }
+
+        private bool isStartTimeBeforeEndTime(string startTime, string endTime)
+        {
+            var startTimeSpan = DateTime.ParseExact(startTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+            var endTimeSpan = DateTime.ParseExact(endTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+
+            return TimeSpan.Compare(startTimeSpan, endTimeSpan) >= 0;
+        }
+
+        private bool isTimeSlotOverlapped(int advisorId, string day, string startTime, string endTime)
+        {
+            DayOfTheWeek dayEnum = (DayOfTheWeek)Enum.Parse(typeof(DayOfTheWeek), day, true);
+            var startTimeSpan = DateTime.ParseExact(startTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+            var endTimeSpan = DateTime.ParseExact(endTime, "h:mm tt", null, System.Globalization.DateTimeStyles.None).TimeOfDay;
+
+            Availability newTimeslot = new Availability
+            {
+                StartTime = startTimeSpan,
+                EndTime = endTimeSpan
+            };
+
+            List<Availability> sameDayTimeslots = this.getSelectedAvailabilityTimeslotForDay(day, advisorId);
+
+            foreach (var timeslot in sameDayTimeslots)
+            {
+                bool newSlotStartsBeforeExistingEnds = TimeSpan.Compare(newTimeslot.StartTime, timeslot.EndTime) <= 0;
+                bool newSlotStartsAfterOrAtExistingStarts = TimeSpan.Compare(newTimeslot.StartTime, timeslot.StartTime) >= 0;
+
+                bool newSlotEndsBeforeOrAtExistingEnds = TimeSpan.Compare(newTimeslot.EndTime, timeslot.EndTime) <= 0;
+                bool newSlotEndsAfterExistingStarts = TimeSpan.Compare(newTimeslot.EndTime, timeslot.StartTime) >= 0;
+
+                if (newSlotStartsBeforeExistingEnds && newSlotStartsAfterOrAtExistingStarts ||
+                    newSlotEndsBeforeOrAtExistingEnds && newSlotEndsAfterExistingStarts)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
