@@ -12,7 +12,10 @@ Priority,Who,What,Why
 3,As A advisor,I want to be able to be able to set my avaliable times,So that students can schedule to meet with me
 3,As A student,I want to be able to see what days an advisor is avaliable,So that I can make an appointment to see that advisor
 3,As A user,I want to be able to cancel meetings if necessary,So that I can cancel the meeting with my advisor
-4,As A advisor,I want to be able to be able to post general information,So that I can better know where a student is during advisment
-4,As A student,"I want to be able to create a profile with my name, picture, and other info",So that the system can have my info saved and autopopulate fields
+6,As A advisor,I want to be able to be able to post general information,So that I can better know where a student is during advisment
+6,As A student,"I want to be able to create a profile with my name, picture, and other info",So that the system can have my info saved and autopopulate fields
 4,As a user,I want to be able to view notifications,So that I can know what events/meetings I have coming up
 4,As a user ,I want to be able to clear notification,So that I can get rid of notifications I don't need anymore or have already seen
+5,As an admin,Add students,
+5,As an admin,Add advisors,
+5,As an admin,Change student advisors,
