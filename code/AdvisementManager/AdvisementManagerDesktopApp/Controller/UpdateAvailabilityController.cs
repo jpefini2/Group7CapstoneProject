@@ -22,7 +22,10 @@ namespace AdvisementManagerDesktopApp.Controller
 
         public void UpdateAvailability(Advisor advisor, Dictionary<string, List<string>> timeSlots)
         {
-            (new AdvisementSessionDal()).UpdateAvailability(advisor, timeSlots);
+            AvailabilityDAL dal = new AvailabilityDAL();
+
+            dal.ClearAvailability(advisor);
+            dal.UpdateAvailability(advisor, timeSlots);
         }
     }
 }
