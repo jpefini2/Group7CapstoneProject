@@ -1,9 +1,11 @@
 ﻿@model CancelMeetingVM
 @{
     ViewBag.Title = "Student Advisement Manager Cancel Meeting";
+    var todaysDate = DateTime.Now.Date;
+    var dateForMeeting = Model.Meeting.Date;
 }
 <div class="card align-items-center shadow-lg p-3 mb-3 bg-white rounded">
-    @if (Model.Meeting.Date <= DateTime.Now.Date)
+    @if (dateForMeeting.Date.CompareTo(todaysDate.Date) <= 0)
     {
         <p style="color: red; font-size: 40px">Sorry you can't cancel a meeting the day of the appointment or later please see your advisor.</p>
     }
@@ -20,7 +22,7 @@
     </div>
 
     <div>
-        @if (Model.Meeting.Date > DateTime.Now.Date)
+        @if (!(dateForMeeting.Date.CompareTo(todaysDate.Date) <= 0))
         {
             <a asp-controller="CancelMeeting" asp-action="ConfirmCancel"
                asp-route-meetingId="@Model.Meeting.Id" class="btn btn-danger">Yes</a>
