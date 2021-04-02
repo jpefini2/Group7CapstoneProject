@@ -30,35 +30,27 @@ namespace AdvisementManagerDesktopApp.DAL
 
                     foreach (KeyValuePair<string, List<string>> entry in timeSlots)
                     {
-                        var dayInt = 0;
+                        var dayInt = -1;
 
-                        if (entry.Key.Equals("Sunday"))
+                        if (entry.Key.Equals("Monday"))
                         {
-                            dayInt = 1;
-                        }
-                        else if (entry.Key.Equals("Monday"))
-                        {
-                            dayInt = 2;
+                            dayInt = 0;
                         }
                         else if (entry.Key.Equals("Tuesday"))
                         {
-                            dayInt = 3;
+                            dayInt = 1;
                         }
                         else if (entry.Key.Equals("Wednesday"))
                         {
-                            dayInt = 4;
+                            dayInt = 2;
                         }
                         else if (entry.Key.Equals("Thursday"))
                         {
-                            dayInt = 5;
+                            dayInt = 3;
                         }
                         else if (entry.Key.Equals("Friday"))
                         {
-                            dayInt = 6;
-                        }
-                        else if (entry.Key.Equals("Saturday"))
-                        {
-                            dayInt = 7;
+                            dayInt = 4;
                         }
                         cmd.Parameters["@dayOfTheWeek"].Value = dayInt;
 
