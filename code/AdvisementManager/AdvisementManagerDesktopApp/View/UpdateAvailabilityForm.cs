@@ -10,7 +10,7 @@ namespace AdvisementManagerDesktopApp.View
 {
     public partial class UpdateAvailabilityForm : Form
     {
-        private UpdateAvailabilityController updateAvailability = new UpdateAvailabilityController();
+        private UpdateAvailabilityController updateAvailability = new();
         private Advisor advisor;
 
         public UpdateAvailabilityForm(Advisor advisor)
@@ -18,6 +18,7 @@ namespace AdvisementManagerDesktopApp.View
             InitializeComponent();
             this.advisor = advisor;
             this.setUpScreen();
+
         }
 
         private void setUpScreen()
@@ -31,30 +32,52 @@ namespace AdvisementManagerDesktopApp.View
 
         private void loadAdvisorCurrentAvailability(Dictionary<string, IList<string>> currentAvailability)
         {
+            
             foreach (var day in currentAvailability)
             {
-                var tabPageControls = this.availabilityTabControl.Controls.OfType<TabPage>().
-                                           FirstOrDefault(tab => tab.Text.Equals(day.Key))
-                                           ?.Controls;
-                if (tabPageControls != null)
+                var weekDay = day.Key;
+                ListBox currentDayListBox = this.getListBoxForDay(weekDay);
+
+                if (currentDayListBox != null)
                 {
-                    loadTimeSlotsIntoView(tabPageControls, day);
+                    loadTimeSlotsIntoView(currentDayListBox, day);
                 }
             }
         }
 
-        private static void loadTimeSlotsIntoView(Control.ControlCollection tabPageControls, KeyValuePair<string, IList<string>> day)
+        private ListBox getListBoxForDay(string weekDay)
         {
-            foreach (Control tabControl in tabPageControls)
+            ListBox listBox = new ListBox();
+            switch (weekDay)
             {
-                if (tabControl.GetType() == typeof(ListBox))
-                {
-                    foreach (var timeSlot in day.Value)
-                    {
-                        ((ListBox) tabControl).Items.Add(timeSlot);
-                    }
-                }
+                case ConstantManager.Monday:
+                    listBox = this.monListBox;
+                    break;
+                case ConstantManager.Tuesday:
+                    listBox = this.tuesListBox;
+                    break;
+                case ConstantManager.Wednesday:
+                    listBox = this.wedListBox;
+                    break;
+                case ConstantManager.Thursday:
+                    listBox = this.thursListBox;
+                    break;
+                case ConstantManager.Friday:
+                    listBox = this.friListBox;
+                    break;
             }
+
+            return listBox;
+        }
+
+        private static void loadTimeSlotsIntoView(ListBox dayListBox, KeyValuePair<string, IList<string>> day)
+        {
+            
+            foreach (var timeSlot in day.Value)
+            {
+                dayListBox.Items.Add(timeSlot);
+            }
+            
         }
 
         private void addTimesToTimeComboBoxes(IList<string> timeSlots)
@@ -133,23 +156,30 @@ namespace AdvisementManagerDesktopApp.View
             }
         }
 
-        private void removeTime(string tabDay, string timeSlot)
+        private void removeTime(string controlName, string timeSlot)
         {
-            switch (tabDay)
+            const string monday = "monListBox";
+            const string tuesday = "tuesListBox";
+            const string wednesday = "wedListBox";
+            const string thursday = "thursListBox";
+            const string friday = "friListBox";
+
+
+            switch (controlName)
             {
-                case ConstantManager.Monday:
+                case monday:
                     this.monListBox.Items.Remove(timeSlot);
                     break;
-                case ConstantManager.Tuesday:
+                case tuesday:
                     this.tuesListBox.Items.Remove(timeSlot);
                     break;
-                case ConstantManager.Wednesday:
+                case wednesday:
                     this.wedListBox.Items.Remove(timeSlot);
                     break;
-                case ConstantManager.Thursday:
+                case thursday:
                     this.thursListBox.Items.Remove(timeSlot);
                     break;
-                case ConstantManager.Friday:
+                case friday:
                     this.friListBox.Items.Remove(timeSlot);
                     break;
             }
@@ -167,28 +197,23 @@ namespace AdvisementManagerDesktopApp.View
 
         private void removeTimeBtn_Click(object sender, EventArgs e)
         {
-            var selectedTab = this.availabilityTabControl.SelectedIndex;
-            var tabDay = this.availabilityTabControl.TabPages[selectedTab].Text;
             var timeSlot = string.Empty;
-            foreach (Control control in this.availabilityTabControl.SelectedTab.Controls)
+
+            foreach (Control control in this.Controls)
             {
-                var timeValue = ((ListBox)control).SelectedItem;
                 if (control.GetType() == typeof(ListBox))
                 {
+                    var timeValue = ((ListBox)control).SelectedItem;
+                    var controlName = control.Name;
                     timeSlot = extractTimeToRemove(timeValue, timeSlot);
+                    this.removeTime(controlName, timeSlot);
                 }
             }
-
-            this.removeTime(tabDay, timeSlot);
         }
 
         private static string extractTimeToRemove(object timeValue, string timeSlot)
         {
-            if (timeValue == null)
-            {
-                MessageBox.Show(@"No Time selected to remove.");
-            }
-            else
+            if (timeValue != null)
             {
                 timeSlot = timeValue.ToString();
             }
@@ -199,16 +224,11 @@ namespace AdvisementManagerDesktopApp.View
         private void updateBtn_Click(object sender, EventArgs e)
         {
             var timeSlots = new Dictionary<string, List<string>>();
-            foreach (TabPage page in this.availabilityTabControl.TabPages)
-            {
-                var pageName = page.Text;
-
-                foreach (Control control in page.Controls)
-                {
-                    this.createTimeDayAndSlot(control, timeSlots, pageName);
-                }
-
-            }
+            this.createTimeDayAndSlot(this.monListBox, timeSlots, "Monday");
+            this.createTimeDayAndSlot(this.tuesListBox, timeSlots, "Tuesday");
+            this.createTimeDayAndSlot(this.wedListBox, timeSlots, "Wednesday");
+            this.createTimeDayAndSlot(this.thursListBox, timeSlots, "Thursday");
+            this.createTimeDayAndSlot(this.friListBox, timeSlots, "Friday");
 
 
             this.updateAvailability.UpdateAvailability(this.advisor, timeSlots);
@@ -218,8 +238,9 @@ namespace AdvisementManagerDesktopApp.View
 
         private void createTimeDayAndSlot(Control control, Dictionary<string, List<string>> timeSlots, string pageName)
         {
+            const int empty = 0;
             var timeValue = ((ListBox) control);
-            if (timeValue != null)
+            if (timeValue != null && timeValue.Items.Count > empty)
             {
                 var times = new List<string>();
                 foreach (var time in timeValue.Items)
@@ -284,6 +305,17 @@ namespace AdvisementManagerDesktopApp.View
             }
 
             return null;
+        }
+
+        private void newItemSelected(object sender, EventArgs e)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.GetType() == typeof(ListBox) && control != sender)
+                {
+                    ((ListBox) control).SelectedItem = null;
+                }
+            }
         }
     }
 }
