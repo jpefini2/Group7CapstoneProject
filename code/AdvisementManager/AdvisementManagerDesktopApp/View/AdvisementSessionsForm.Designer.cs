@@ -36,12 +36,13 @@ namespace AdvisementManagerDesktopApp.View
             this.label1 = new System.Windows.Forms.Label();
             this.viewMeetingButton = new System.Windows.Forms.Button();
             this.updatedAvaliabilityBtn = new System.Windows.Forms.Button();
+            this.notificationPanel = new NotificationPanel.NotificationsPanel();
             this.SuspendLayout();
             // 
             // viewBtn
             // 
             this.viewBtn.Location = new System.Drawing.Point(317, 277);
-            this.viewBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.viewBtn.Margin = new System.Windows.Forms.Padding(2);
             this.viewBtn.Name = "viewBtn";
             this.viewBtn.Size = new System.Drawing.Size(138, 34);
             this.viewBtn.TabIndex = 1;
@@ -55,7 +56,7 @@ namespace AdvisementManagerDesktopApp.View
             this.studentsWithHoldsListBox.FormattingEnabled = true;
             this.studentsWithHoldsListBox.ItemHeight = 21;
             this.studentsWithHoldsListBox.Location = new System.Drawing.Point(267, 87);
-            this.studentsWithHoldsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.studentsWithHoldsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.studentsWithHoldsListBox.Name = "studentsWithHoldsListBox";
             this.studentsWithHoldsListBox.ScrollAlwaysVisible = true;
             this.studentsWithHoldsListBox.Size = new System.Drawing.Size(250, 172);
@@ -79,7 +80,7 @@ namespace AdvisementManagerDesktopApp.View
             this.upcomingMeetingsListBox.HorizontalScrollbar = true;
             this.upcomingMeetingsListBox.ItemHeight = 21;
             this.upcomingMeetingsListBox.Location = new System.Drawing.Point(9, 87);
-            this.upcomingMeetingsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.upcomingMeetingsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.upcomingMeetingsListBox.Name = "upcomingMeetingsListBox";
             this.upcomingMeetingsListBox.Size = new System.Drawing.Size(250, 172);
             this.upcomingMeetingsListBox.TabIndex = 6;
@@ -98,7 +99,7 @@ namespace AdvisementManagerDesktopApp.View
             // viewMeetingButton
             // 
             this.viewMeetingButton.Location = new System.Drawing.Point(61, 277);
-            this.viewMeetingButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.viewMeetingButton.Margin = new System.Windows.Forms.Padding(2);
             this.viewMeetingButton.Name = "viewMeetingButton";
             this.viewMeetingButton.Size = new System.Drawing.Size(138, 34);
             this.viewMeetingButton.TabIndex = 8;
@@ -116,11 +117,19 @@ namespace AdvisementManagerDesktopApp.View
             this.updatedAvaliabilityBtn.UseVisualStyleBackColor = true;
             this.updatedAvaliabilityBtn.Click += new System.EventHandler(this.updatedAvailabilityBtn_Click);
             // 
+            // notificationPanel
+            // 
+            this.notificationPanel.Location = new System.Drawing.Point(225, 13);
+            this.notificationPanel.Name = "notificationPanel";
+            this.notificationPanel.Size = new System.Drawing.Size(292, 30);
+            this.notificationPanel.TabIndex = 10;
+            // 
             // AdvisementSessionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 380);
+            this.ClientSize = new System.Drawing.Size(531, 337);
+            this.Controls.Add(this.notificationPanel);
             this.Controls.Add(this.updatedAvaliabilityBtn);
             this.Controls.Add(this.viewMeetingButton);
             this.Controls.Add(this.label1);
@@ -128,7 +137,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.studentsWithHoldsListBox);
             this.Controls.Add(this.viewBtn);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdvisementSessionsForm";
             this.Text = "Advisment Sessions";
             this.Activated += new System.EventHandler(this.AdvisementSessionsForm_Activated);
@@ -145,5 +154,6 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button viewMeetingButton;
         private System.Windows.Forms.Button updatedAvaliabilityBtn;
+        private NotificationPanel.NotificationsPanel notificationPanel;
     }
 }

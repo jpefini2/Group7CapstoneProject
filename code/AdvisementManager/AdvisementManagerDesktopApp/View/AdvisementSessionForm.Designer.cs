@@ -45,6 +45,7 @@ namespace AdvisementManagerDesktopApp.View
             this.button1 = new System.Windows.Forms.Button();
             this.errorLabel = new System.Windows.Forms.Label();
             this.cancelMeetingBtn = new System.Windows.Forms.Button();
+            this.notificationPanel = new NotificationPanel.NotificationsPanel();
             this.SuspendLayout();
             // 
             // label1
@@ -138,7 +139,7 @@ namespace AdvisementManagerDesktopApp.View
             // pastNotesRichTextBox
             // 
             this.pastNotesRichTextBox.Location = new System.Drawing.Point(28, 134);
-            this.pastNotesRichTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pastNotesRichTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.pastNotesRichTextBox.Name = "pastNotesRichTextBox";
             this.pastNotesRichTextBox.ReadOnly = true;
             this.pastNotesRichTextBox.Size = new System.Drawing.Size(543, 111);
@@ -148,7 +149,7 @@ namespace AdvisementManagerDesktopApp.View
             // notesTextBox
             // 
             this.notesTextBox.Location = new System.Drawing.Point(28, 282);
-            this.notesTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.notesTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.notesTextBox.Name = "notesTextBox";
             this.notesTextBox.Size = new System.Drawing.Size(543, 111);
             this.notesTextBox.TabIndex = 9;
@@ -177,7 +178,7 @@ namespace AdvisementManagerDesktopApp.View
             // approveButton
             // 
             this.approveButton.Location = new System.Drawing.Point(218, 397);
-            this.approveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.approveButton.Margin = new System.Windows.Forms.Padding(2);
             this.approveButton.Name = "approveButton";
             this.approveButton.Size = new System.Drawing.Size(84, 32);
             this.approveButton.TabIndex = 12;
@@ -188,7 +189,7 @@ namespace AdvisementManagerDesktopApp.View
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(310, 397);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 32);
             this.button1.TabIndex = 13;
@@ -218,11 +219,19 @@ namespace AdvisementManagerDesktopApp.View
             this.cancelMeetingBtn.UseVisualStyleBackColor = true;
             this.cancelMeetingBtn.Click += new System.EventHandler(this.cancelMeetingBtn_Click);
             // 
+            // notificationPanel
+            // 
+            this.notificationPanel.Location = new System.Drawing.Point(296, 12);
+            this.notificationPanel.Name = "notificationPanel";
+            this.notificationPanel.Size = new System.Drawing.Size(292, 30);
+            this.notificationPanel.TabIndex = 16;
+            // 
             // AdvisementSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 461);
+            this.Controls.Add(this.notificationPanel);
             this.Controls.Add(this.cancelMeetingBtn);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.button1);
@@ -239,7 +248,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdvisementSessionForm";
             this.Text = "AdvisementSessionForm";
             this.ResumeLayout(false);
@@ -265,5 +274,6 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.Button cancelMeetingBtn;
+        private NotificationPanel.NotificationsPanel notificationPanel;
     }
 }

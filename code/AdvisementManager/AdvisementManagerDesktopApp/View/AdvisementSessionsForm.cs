@@ -86,5 +86,6 @@ namespace AdvisementManagerDesktopApp.View
             var availabilityFrom = new UpdateAvailabilityForm(this.advisor);
             availabilityFrom.Show();
         }
+
     }
 }

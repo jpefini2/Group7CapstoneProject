@@ -48,6 +48,7 @@ namespace AdvisementManagerDesktopApp.View
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.notificationPanel = new NotificationPanel.NotificationsPanel();
             this.SuspendLayout();
             // 
             // label1
@@ -231,11 +232,19 @@ namespace AdvisementManagerDesktopApp.View
             this.label7.TabIndex = 15;
             this.label7.Text = "Friday";
             // 
+            // notificationPanel
+            // 
+            this.notificationPanel.Location = new System.Drawing.Point(705, 12);
+            this.notificationPanel.Name = "notificationPanel";
+            this.notificationPanel.Size = new System.Drawing.Size(292, 30);
+            this.notificationPanel.TabIndex = 16;
+            // 
             // UpdateAvailabilityForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 718);
+            this.Controls.Add(this.notificationPanel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -284,5 +293,6 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private NotificationPanel.NotificationsPanel notificationPanel;
     }
 }

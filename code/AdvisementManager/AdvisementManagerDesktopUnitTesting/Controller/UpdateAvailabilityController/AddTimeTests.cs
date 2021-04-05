@@ -46,10 +46,10 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.UpdateAvailabilityContro
                 TempDataDictionaryFactory tempDataDictionaryFactory = new TempDataDictionaryFactory(tempDataProvider);
                 ITempDataDictionary tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
 
-                tempData["Monday"] = new List<string>{"1"};
+                tempData["Monday"] = new List<string>{"2:00 PM-3:00 PM"};
 
                 var controller = new AdvisementManagerWebApp.Controllers.UpdateAvailabilityController(context) { TempData = tempData };
-                var result = controller.AddTime(1, "Monday", "2:00", "3:00");
+                var result = controller.AddTime(1, "Monday", "2:00 PM", "3:00 PM");
 
                 Assert.IsInstanceOfType(result, typeof(ViewResult));
                 context.Database.EnsureDeleted();
@@ -89,7 +89,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.UpdateAvailabilityContro
                 tempData["Monday"] = null;
 
                 var controller = new AdvisementManagerWebApp.Controllers.UpdateAvailabilityController(context) { TempData = tempData };
-                var result = controller.AddTime(1, "Monday", "2:00", "3:00");
+                var result = controller.AddTime(1, "Monday", "2:00 PM", "3:00 PM");
 
                 Assert.IsInstanceOfType(result, typeof(ViewResult));
                 context.Database.EnsureDeleted();
