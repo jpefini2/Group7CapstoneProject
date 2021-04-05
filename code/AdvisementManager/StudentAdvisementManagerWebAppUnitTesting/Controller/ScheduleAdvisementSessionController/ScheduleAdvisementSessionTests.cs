@@ -38,7 +38,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
-                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
+                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id, "12-05-21");
 
                 Assert.IsNotNull(scheduleAdvisement);
                 context.Database.EnsureDeleted();
@@ -70,7 +70,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
-                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
+                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id, "12-05-21");
 
                 Assert.IsNotNull(scheduleAdvisement);
                 context.Database.EnsureDeleted();
@@ -102,7 +102,7 @@ namespace AdvisementManagerSharedLibraryUnitTesting.Controller.ScheduleAdvisemen
             using (var context = new ApplicationDbContext(options))
             {
                 var controller = new StudentAdvisementManagerWebApp.Controllers.AdvisementSessionController(context);
-                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id);
+                var scheduleAdvisement = controller.ScheduleAdvisementSession(student.Id, hold.Reason, dAdvisor.Id, fAdvisor.Id, "12-05-21");
 
                 Assert.IsNotNull(scheduleAdvisement);
                 context.Database.EnsureDeleted();

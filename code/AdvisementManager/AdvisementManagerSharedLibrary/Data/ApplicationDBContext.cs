@@ -44,5 +44,10 @@ namespace AdvisementManagerSharedLibrary.Data
         /// <value>The advisor availability.</value>
         public DbSet<Availability> Availability { get; set; }
 
+        /// <summary>
+        /// Notifications pertaining to an email stored in the server.
+        /// </summary>
+        public DbSet<Notification> Notification { get; set; }
+
     }
 }

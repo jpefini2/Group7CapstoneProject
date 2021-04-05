@@ -7,12 +7,18 @@
     <script>
         function SetTime(value) {
            window.location.href = "ScheduleAdvisementSession?studentid=" + @Model.StudentId + "&studentholdid=" + @Model.StudentId + "&generaladvisorid=" + @Model.Student.generalAdvisorId + "&facultyadvisorid=" + @Model.Student.facultyAdvisorId + "&selecteddate=" + value;
-
+           document.getElementById('submit_button').disabled = true;
+        }
+        function EnableButton() {
+           document.getElementById('submit_button').enabled = true;
+        }
+        function DisableButton() {
+            document.getElementById('submit_button').enabled = false;
         }
     </script>
 }
 
-<div class="container">
+<div class="container" onload="DisableButton()">
 
     <main>
         <form asp-action="ConfirmAppointment" method="post" class="form-horizontal">
@@ -44,7 +50,7 @@
 
             <div class="row">
                 <label class="control-label col-sm-2">Choose time:</label>
-                <select asp-for="Time" asp-items="Model.AvailableSessionTimes"></select>
+                <select asp-for="Time" asp-items="Model.AvailableSessionTimes" onchange="EnableButton()"></select>
             </div>
 
             <div class="row">
@@ -52,10 +58,12 @@
             </div>
 
             <div class="col offset-sm-3 pl-0">
-                <button type="submit"
+
+                <button type="submit" id="submit_button"
                         class="btn btn-primary">
                     Schedule Meeting
                 </button>
+
             </div>
         </form>
     </main>
