@@ -104,6 +104,12 @@ CREATE TABLE Availability (
     ON UPDATE NO ACTION
 )
 
+CREATE TABLE Notification (
+	notificationID INT NOT NULL IDENTITY PRIMARY KEY,
+	email VARCHAR(45) NOT NULL,
+	message VARCHAR(200) NOT NULL
+)
+
 INSERT INTO Login(username, passwordHash) VALUES
 ('wkala', '$2a$12$bHDDjza0WCythx2A7kndf.8C7tH9ZX9Iu0Hq7oaxlNd8ETUL8V3mq'), 			/* s3cret */
 ('terichsen', '$2a$12$vM8iaJbPvt8z6VHq5AJauOoQiT485WcTerMmUTYH6eVhYIzhSKgrO'), 		/* password1 */
