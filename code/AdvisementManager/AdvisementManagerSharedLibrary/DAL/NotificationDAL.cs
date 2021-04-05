@@ -43,5 +43,21 @@ namespace AdvisementManagerSharedLibrary.DAL
                            where notification.Id == id select notification).FirstOrDefault();
             return notif;
         }
+
+        /// <summary>
+        /// Adds a notification to the database.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="message"></param>
+        /// <param name="context"></param>
+        public void AddNotification(string email, string message, ApplicationDbContext context)
+        {
+            var notification = new Notification
+            {
+                Email = email,
+                Message = message
+            };
+            context.Notification.Add(notification);
+        }
     }
 }

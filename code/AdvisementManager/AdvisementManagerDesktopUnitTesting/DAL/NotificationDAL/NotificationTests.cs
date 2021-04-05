@@ -35,8 +35,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
 
             using (var context = new ApplicationDbContext(options))
             {
-                context.Add(notification1);
-                context.Add(notification2);
+                context.Notification.Add(notification1);
+                context.Notification.Add(notification2);
                 context.SaveChanges();
             }
 
@@ -64,7 +64,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
 
             using (var context = new ApplicationDbContext(options))
             {
-                context.Add(notification1);
+                context.Notification.Add(notification1);
                 context.SaveChanges();
             }
 
@@ -74,6 +74,26 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
                 Notification expectedNotification = nfDal.GetNotificationById(1, context);
                 Assert.IsNotNull(expectedNotification);
                 Assert.AreEqual(1, expectedNotification.Id);
+                context.Database.EnsureDeleted();
+            }
+        }
+        public void AddNotificationTest()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .Options;
+
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var nfDal = new AdvisementManagerSharedLibrary.DAL.NotificationDAL(context);
+                nfDal.AddNotification("student@test.com", "this is a test notification", context);
+                Notification expectedNotification = nfDal.GetNotificationById(1, context);
+                nfDal.AddNotification("student@test.com", "this is another test notification", context);
+                IList<Notification> expectedNotifications = nfDal.GetNotificationsByEmail("student@test.com", context);
+                Assert.IsNotNull(expectedNotification);
+                Assert.AreEqual(1, expectedNotification.Id);
+                Assert.AreEqual(2, expectedNotifications.Count);
                 context.Database.EnsureDeleted();
             }
         }
