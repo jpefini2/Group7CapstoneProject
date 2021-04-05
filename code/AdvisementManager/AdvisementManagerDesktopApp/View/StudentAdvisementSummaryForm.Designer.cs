@@ -42,6 +42,7 @@ namespace AdvisementManagerDesktopApp.View
             this.label1 = new System.Windows.Forms.Label();
             this.notesLbl = new System.Windows.Forms.Label();
             this.cancelMeetingBtn = new System.Windows.Forms.Button();
+            this.notificationPanel = new NotificationPanel.NotificationsPanel();
             this.SuspendLayout();
             // 
             // approveBtn
@@ -115,7 +116,7 @@ namespace AdvisementManagerDesktopApp.View
             // loggedInLabel
             // 
             this.loggedInLabel.AutoSize = true;
-            this.loggedInLabel.Location = new System.Drawing.Point(477, 8);
+            this.loggedInLabel.Location = new System.Drawing.Point(12, 9);
             this.loggedInLabel.Name = "loggedInLabel";
             this.loggedInLabel.Size = new System.Drawing.Size(60, 13);
             this.loggedInLabel.TabIndex = 8;
@@ -168,11 +169,19 @@ namespace AdvisementManagerDesktopApp.View
             this.cancelMeetingBtn.Visible = false;
             this.cancelMeetingBtn.Click += new System.EventHandler(this.cancelMeetingBtn_Click);
             // 
+            // notificationPanel
+            // 
+            this.notificationPanel.Location = new System.Drawing.Point(384, 9);
+            this.notificationPanel.Name = "notificationPanel";
+            this.notificationPanel.Size = new System.Drawing.Size(292, 30);
+            this.notificationPanel.TabIndex = 17;
+            // 
             // StudentAdvisementSummaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 457);
+            this.Controls.Add(this.notificationPanel);
             this.Controls.Add(this.cancelMeetingBtn);
             this.Controls.Add(this.notesLbl);
             this.Controls.Add(this.label1);
@@ -208,6 +217,7 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label notesLbl;
         private System.Windows.Forms.Button cancelMeetingBtn;
+        private NotificationPanel.NotificationsPanel notificationPanel;
     }
 }
 
