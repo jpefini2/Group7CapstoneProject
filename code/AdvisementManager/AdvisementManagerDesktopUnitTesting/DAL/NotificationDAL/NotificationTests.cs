@@ -22,15 +22,15 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             var notification1 = new Notification
             {
                 Id = 1,
-                Email = "student@test.com",
-                Message = "This is a test notification"
+                AdvisorId = 1,
+                StudentId = 1
             };
 
             var notification2 = new Notification
             {
                 Id = 2,
-                Email = "student@test.com",
-                Message = "This is another test notification"
+                AdvisorId = 1,
+                StudentId = 1
             };
 
             using (var context = new ApplicationDbContext(options))
@@ -43,7 +43,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             using (var context = new ApplicationDbContext(options))
             {
                 var nfDal = new AdvisementManagerSharedLibrary.DAL.NotificationDAL(context);
-                IList<Notification> expectedNotifications = nfDal.GetNotificationsByEmail("student@test.com", context);
+                IList<Notification> expectedNotifications = nfDal.GetNotificationsByBothID(1, 1, context);
                 Assert.AreEqual(2, expectedNotifications.Count);
                 context.Database.EnsureDeleted();
             }                
@@ -58,8 +58,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             var notification1 = new Notification
             {
                 Id = 1,
-                Email = "student@test.com",
-                Message = "This is a test notification"
+                AdvisorId = 1,
+                StudentId = 1
             };
 
             using (var context = new ApplicationDbContext(options))
@@ -71,7 +71,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             using (var context = new ApplicationDbContext(options))
             {
                 var nfDal = new AdvisementManagerSharedLibrary.DAL.NotificationDAL(context);
-                Notification expectedNotification = nfDal.GetNotificationById(1, context);
+                Notification expectedNotification = nfDal.GetNotificationByKeyId(1, context);
                 Assert.IsNotNull(expectedNotification);
                 Assert.AreEqual(1, expectedNotification.Id);
                 context.Database.EnsureDeleted();
@@ -87,10 +87,10 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             using (var context = new ApplicationDbContext(options))
             {
                 var nfDal = new AdvisementManagerSharedLibrary.DAL.NotificationDAL(context);
-                nfDal.AddNotification("student@test.com", "this is a test notification", context);
-                Notification expectedNotification = nfDal.GetNotificationById(1, context);
-                nfDal.AddNotification("student@test.com", "this is another test notification", context);
-                IList<Notification> expectedNotifications = nfDal.GetNotificationsByEmail("student@test.com", context);
+                nfDal.AddNotification("test notification", 1, 1, context);
+                Notification expectedNotification = nfDal.GetNotificationByKeyId(1, context);
+                nfDal.AddNotification("this is another test notification", 1, 1, context);
+                IList<Notification> expectedNotifications = nfDal.GetNotificationsByBothID(1, 1, context);
                 Assert.IsNotNull(expectedNotification);
                 Assert.AreEqual(1, expectedNotification.Id);
                 Assert.AreEqual(2, expectedNotifications.Count);

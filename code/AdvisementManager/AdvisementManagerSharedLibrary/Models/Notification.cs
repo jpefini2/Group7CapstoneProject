@@ -17,14 +17,19 @@ namespace AdvisementManagerSharedLibrary.Models
         [Column("notificationID")]
         public int Id { get; set; }
 
-        /// <summary>Gets or sets the email tied to this notification.</summary>
-        /// <value>The user's email.</value>
-        [Column("email")]
-        public string Email { get; set; }
+        /// <summary>Gets or sets studentID tied to this notification.</summary>
+        /// <value>The advisorID.</value>
+        [Column("studentID")]
+        public int StudentId { get; set; }
+
+        /// <summary>Gets or sets the advisorID tied to this notification.</summary>
+        /// <value>The advisorID.</value>
+        [Column("advisorID")]
+        public int AdvisorId { get; set; }
 
         /// <summary>Gets or sets the message associated with this notification.</summary>
         /// <value>The message.</value>
-        [Column("message")]
-        public string Message { get; set; }
+        [Column("notifMessage")]
+        public string NotifMessage { get; set; }
     }
 }

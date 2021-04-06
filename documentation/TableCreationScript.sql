@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Availability, AdvisementSession, Hold, Student, Advisor, LoginSession, Login
+DROP TABLE IF EXISTS Notification, Availability, AdvisementSession, Hold, Student, Advisor, LoginSession, Login
 
 CREATE TABLE Login (
 	username VARCHAR (15) NOT NULL PRIMARY KEY,
@@ -106,8 +106,19 @@ CREATE TABLE Availability (
 
 CREATE TABLE Notification (
 	notificationID INT NOT NULL IDENTITY PRIMARY KEY,
-	email VARCHAR(45) NOT NULL,
-	message VARCHAR(200) NOT NULL
+	notifMessage VARCHAR(200) NOT NULL,
+	studentID INT NOT NULL,
+	advisorID INT NOT NULL,
+  CONSTRAINT fk_notification_studentID
+    FOREIGN KEY (studentID)
+    REFERENCES Student (studentID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_notification_advisorID
+    FOREIGN KEY (advisorID)
+    REFERENCES Advisor (advisorID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 )
 
 INSERT INTO Login(username, passwordHash) VALUES
