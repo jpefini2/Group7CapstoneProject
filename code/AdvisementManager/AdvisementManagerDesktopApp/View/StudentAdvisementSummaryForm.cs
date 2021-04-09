@@ -191,6 +191,8 @@ namespace AdvisementManagerDesktopApp.View
             {
                 MessageBox.Show(@"Meeting Canceled!");
                 Close();
+                var sessionController = new AdvisementSessionController();
+                sessionController.CancelMeeting(this.student.Meeting.Id);
             }
         }
     }

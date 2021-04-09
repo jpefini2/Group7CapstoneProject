@@ -195,5 +195,24 @@ namespace AdvisementManagerDesktopApp.DAL
                 }
             }
         }
+
+        public void CancelMeeting(int meetingId)
+        {
+            var conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                const string deleteQuery = "DELETE FROM AdvisementSession WHERE sessionID = @sessionID";
+
+
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.Add("@sessionID ", SqlDbType.Int);
+                    cmd.Parameters["@sessionID "].Value = meetingId;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            conn.Close();
+        }
     }
 }
