@@ -16,18 +16,37 @@ namespace AdvisementManagerDesktopApp.View
     public partial class AdvisementSessionForm : Form
     {
         private AdvisementSessionController sessionController = new();
-
+        private readonly Advisor advisor;
         private AdvisementSession session;
         private Student student;
 
-        public AdvisementSessionForm(AdvisementSession session)
+        public AdvisementSessionForm(AdvisementSession session, Advisor advisor)
         {
             InitializeComponent();
-
+            this.advisor = advisor;
             this.session = session;
             this.student = session.Student;
 
             this.populateFields();
+            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
+        }
+
+        public void RemoveButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        public void RemoveAllButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void setUpNotifications()
+        {
+            NotificationController notificationController = new();
+            var notifications = notificationController.GetNotifications(this.advisor.Id);
+            this.notificationPanel.SetUpNotifications(notifications);
         }
 
         private void populateFields()
@@ -48,6 +67,7 @@ namespace AdvisementManagerDesktopApp.View
             }
 
             this.pastNotesRichTextBox.Text = pastMeetingsNotes;
+            this.setUpNotifications();
         }
 
         private void approveButton_Click(object sender, EventArgs e)

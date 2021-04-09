@@ -26,6 +26,26 @@ namespace AdvisementManagerDesktopApp.View
             this.advisor = advisor;
 
             this.setUpScreen();
+
+            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
+        }
+
+        public void RemoveButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        public void RemoveAllButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void setUpNotifications()
+        {
+            NotificationController notificationController = new();
+            var notifications = notificationController.GetNotifications(this.advisor.Id);
+            this.notificationPanel.SetUpNotifications(notifications);
         }
 
         private void setUpScreen()
@@ -45,6 +65,7 @@ namespace AdvisementManagerDesktopApp.View
             {
                 this.upcomingMeetingsListBox.Items.Add(meeting.Student.FirstName + " " + meeting.Student.LastName + " - " + meeting.Date);
             }
+            this.setUpNotifications();
         }
 
         private void viewStudentBtn_Click(object sender, EventArgs e)
@@ -71,7 +92,7 @@ namespace AdvisementManagerDesktopApp.View
             }
 
             var selectedMeeting = this.upcomingMeetings[selectedMeetingIndex];
-            var advisementSessionForm = new AdvisementSessionForm(selectedMeeting);
+            var advisementSessionForm = new AdvisementSessionForm(selectedMeeting, this.advisor);
 
             advisementSessionForm.Show();
         }

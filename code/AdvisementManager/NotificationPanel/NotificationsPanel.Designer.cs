@@ -64,6 +64,7 @@
             this.removeAllBtn.TabIndex = 14;
             this.removeAllBtn.Text = "Remove All";
             this.removeAllBtn.UseVisualStyleBackColor = true;
+            this.removeAllBtn.Click += new System.EventHandler(this.removeAllBtn_Click);
             // 
             // removeBtn
             // 
@@ -73,6 +74,7 @@
             this.removeBtn.TabIndex = 13;
             this.removeBtn.Text = "Remove";
             this.removeBtn.UseVisualStyleBackColor = true;
+            this.removeBtn.Click += new System.EventHandler(this.removeBtn_Click);
             // 
             // notificationsButton
             // 

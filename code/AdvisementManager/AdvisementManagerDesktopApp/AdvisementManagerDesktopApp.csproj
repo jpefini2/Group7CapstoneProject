@@ -328,6 +328,7 @@
     <Compile Include="Controller\AdvisementSessionController.cs" />
     <Compile Include="Controller\AdvisementSessionsController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\NotificationController.cs" />
     <Compile Include="Controller\UpdateAvailabilityController.cs" />
     <Compile Include="DAL\AdvisementSessionDal.cs" />
     <Compile Include="DAL\AdvisorDAL.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="Model\Advisor.cs" />
     <Compile Include="Model\Availability.cs" />
     <Compile Include="Model\Hold.cs" />
+    <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\WeekDay.cs" />
     <Compile Include="Resources\ConstantManager.cs" />

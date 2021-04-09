@@ -9,40 +9,63 @@
     <link href="~/notification/ikr.notification.css" rel="stylesheet" />
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand">Student Advisement Manager</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            @if (Context.Request.Cookies["AdvisementManager.LoginUser"] != null)
-            {
-                <div id="noti_Container"></div>
-            }
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <partial name="_LoginPartial" />
-                <ul class="navbar-nav flex-grow-1">
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand">Student Advisement Manager</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (Context.Request.Cookies["AdvisementManager.LoginUser"] != null)
+                {
+                    <div id="noti_Container"></div>
+                }
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/notification/ikr.notificationPlugin.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/notification/ikr.notificationPlugin.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#noti_Container").ikrNotificationSetup();
-    });
-</script>
+@if (Context.Request.Cookies["AdvisementManager.LoginUser"] != null)
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#noti_Container").ikrNotificationSetup();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/Notifications/GetNotifications",
+                traditional: true,
+                contentType: "application/json;charset=utf-8",
+                success: function(data) {
+                    var notifications = data;
+                    $("#noti_Container").ikrNotificationCount({
+                        NotificationList: notifications,
+                        NotiFromPropName: "AdvisorId",
+                        ListTitlePropName: "NotifMessage",
+                        ListBodyPropName: "NotifMessage",
+                        ControllerName: "Notifications",
+                        ActionName: "ClearAllNotifications"
+                    });
+                },
+                error: function(xhr, status, error) {
+                }
+            });
+        });
+    </script>
+}

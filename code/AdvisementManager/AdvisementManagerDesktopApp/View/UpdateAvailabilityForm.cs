@@ -18,9 +18,15 @@ namespace AdvisementManagerDesktopApp.View
             InitializeComponent();
             this.advisor = advisor;
             this.setUpScreen();
-
+            
         }
 
+        private void setUpNotifications()
+        {
+            NotificationController notificationController = new();
+            var notifications = notificationController.GetNotifications(this.advisor.Id);
+            this.notificationPanel.SetUpNotifications(notifications);
+        }
         private void setUpScreen()
         {
             var timeSlots = this.createTimeSlots();
@@ -28,6 +34,19 @@ namespace AdvisementManagerDesktopApp.View
             
             var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability(this.advisor);
             this.loadAdvisorCurrentAvailability(currentAvailability);
+            this.setUpNotifications();
+            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
+        }
+
+        public void RemoveButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        public void RemoveAllButtonClicked(object sender, EventArgs e)
+        {
+
         }
 
         private void loadAdvisorCurrentAvailability(Dictionary<string, IList<string>> currentAvailability)

@@ -18,7 +18,7 @@
             $("#" + parentId).append("<div class='ikrNoti_Counter'></div>" +
                 "<div class='ikrNoti_Button'></div>" +
                 "<div class='ikrNotifications'>" +
-                "<h3>Notifications (<span class='notiCounterOnHead'>0</span>)</h3>" +
+                "<h3>Notifications</h3>" +
                 "<div class='ikrNotificationItems'>" +
                 "</div>" +
                 "<div class='ikrClearAll'><a href='#'>Clear All</a></div>" +
@@ -26,7 +26,7 @@
 
             $('#' + parentId + ' .ikrNoti_Counter')
                 .css({ opacity: 0 })
-                .text(0)
+                .text("*")
                 .css({ top: '-10px' })
                 .animate({ top: '-2px', opacity: 1 }, 500);
 
@@ -62,6 +62,7 @@
                     NotiFromPropName: "",
                     ListTitlePropName: "",
                     ListBodyPropName: "",
+                    RemoveNotificationLink: "",
                     ControllerName: "Notifications",
                     ActionName: "AllNotifications"
           });
@@ -71,27 +72,25 @@
             NotiFromPropName: "",
             ListTitlePropName: "",
             ListBodyPropName: "",
+            RemoveNotificationLink: "",
             ControllerName: "Notifications",
-            ActionName: "AllNotifications"
+            ActionName: "ClearAllNotifications"
         }, options);
         var parentId = $(this).attr("id");
         if ($.trim(parentId) != "" && parentId.length > 0) {
             $("#" + parentId + " .ikrNotifications .ikrClearAll").click(function () {
-                window.open('../' + defaultSettings.ControllerName + '/' + defaultSettings.ActionName + '', '_blank');
+                window.location.href = '../Notifications/ClearAllNotifications';
             });
 
-            var totalUnReadNoti = defaultSettings.NotificationList.filter(x => x.isRead == false).length;
-            $('#' + parentId + ' .ikrNoti_Counter').text(totalUnReadNoti);
-            $('#' + parentId + ' .notiCounterOnHead').text(totalUnReadNoti);
+            $('#' + parentId + ' .ikrNoti_Counter');
+            $('#' + parentId + ' .notiCounterOnHead');
             if (defaultSettings.NotificationList.length > 0) {
                 $.map(defaultSettings.NotificationList, function (item) {
                     var className = item.isRead ? "" : " ikrSingleNotiDivUnReadColor";
                     var sNotiFromPropName = $.trim(defaultSettings.NotiFromPropName) == "" ? "" : item[ikrLowerFirstLetter(defaultSettings.NotiFromPropName)];
                     $("#" + parentId + " .ikrNotificationItems").append("<div class='ikrSingleNotiDiv" + className + "' notiId=" + item.notiId + ">" +
-                        "<h4 class='ikrNotiFromPropName'>" + sNotiFromPropName + "</h4>" +
+                        "<h4 class='ikrNotiFromPropName'>" + "<a asp-controller=\"Notifications\" asp-action=\"RemoveNotification\" class=\"btn btn-outline-primary\">X</a>" + "</h4>" +
                         "<h5 class='ikrNotificationTitle'>" + item[ikrLowerFirstLetter(defaultSettings.ListTitlePropName)] + "</h5>" +
-                            "<div class='ikrNotificationBody'>" + item[ikrLowerFirstLetter(defaultSettings.ListBodyPropName)] + "</div>" +
-                        "<div class='ikrNofiCreatedDate'>" + item.createdDateSt + "</div>" +
                         "</div>");
                     $("#" + parentId + " .ikrNotificationItems .ikrSingleNotiDiv[notiId=" + item.notiId + "]").click(function () {
                         if ($.trim(item.url) != "") {

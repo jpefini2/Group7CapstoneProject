@@ -29,8 +29,26 @@ namespace AdvisementManagerDesktopApp.View
             this.advisor = advisor;
             this.checkForMeeting();
             this.setUpScreen();
+            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
+        public void RemoveButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        public void RemoveAllButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void setUpNotifications()
+        {
+            NotificationController notificationController = new();
+            var notifications = notificationController.GetNotifications(this.advisor.Id);
+            this.notificationPanel.SetUpNotifications(notifications);
+        }
 
         private void checkForMeeting()
         {
@@ -60,7 +78,7 @@ namespace AdvisementManagerDesktopApp.View
             this.studentNameLbl.Text = this.student.FirstName + @" " + this.student.LastName;
             this.stageLbl.Text = this.student.Hold.Reason;
             this.loggedInLabel.Text = "Logged in: " + this.advisor.FirstName + " " + this.advisor.LastName;
-            
+            this.setUpNotifications();
         }
 
         private void setUpNotes(IList<AdvisementSession> sessions)
