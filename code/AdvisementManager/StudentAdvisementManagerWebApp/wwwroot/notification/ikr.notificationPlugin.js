@@ -75,11 +75,13 @@
             RemoveNotificationLink: "",
             ControllerName: "Notifications",
             ActionName: "ClearAllNotifications"
+            
         }, options);
         var parentId = $(this).attr("id");
         if ($.trim(parentId) != "" && parentId.length > 0) {
             $("#" + parentId + " .ikrNotifications .ikrClearAll").click(function () {
-                window.location.href = '../Notifications/ClearAllNotifications';
+               var currentPage = window.location.href;
+               window.location.href = '/Notifications/ClearAllNotifications?returnUrl=' + currentPage;
             });
 
             $('#' + parentId + ' .ikrNoti_Counter');
@@ -88,9 +90,18 @@
                 $.map(defaultSettings.NotificationList, function (item) {
                     var className = item.isRead ? "" : " ikrSingleNotiDivUnReadColor";
                     var sNotiFromPropName = $.trim(defaultSettings.NotiFromPropName) == "" ? "" : item[ikrLowerFirstLetter(defaultSettings.NotiFromPropName)];
-                    $("#" + parentId + " .ikrNotificationItems").append("<div class='ikrSingleNotiDiv" + className + "' notiId=" + item.notiId + ">" +
-                        "<h4 class='ikrNotiFromPropName'>" + "<a asp-controller=\"Notifications\" asp-action=\"RemoveNotification\" class=\"btn btn-outline-primary\">X</a>" + "</h4>" +
-                        "<h5 class='ikrNotificationTitle'>" + item[ikrLowerFirstLetter(defaultSettings.ListTitlePropName)] + "</h5>" +
+                    $("#" + parentId + " .ikrNotificationItems").append("<div class='ikrSingleNotiDiv" +
+                        className +
+                        "' notiId=" +
+                        item.notiId +
+                        ">");
+                    $("#" + parentId + " .ikrNotificationItems").append("<h4 class='ikrNotiFromPropName'>" +
+                            "<button class=\"btn btn-outline-primary\">X</button>" +
+                        "</h4>").click(function() {
+                        var currentPage = window.location.href;
+                            window.location.href = '/Notifications/RemoveNotification?returnUrl=' + currentPage;
+                    }); 
+                    $("#" + parentId + " .ikrNotificationItems").append("<h5 class='ikrNotificationTitle'>" + item[ikrLowerFirstLetter(defaultSettings.ListTitlePropName)] + "</h5>" +
                         "</div>");
                     $("#" + parentId + " .ikrNotificationItems .ikrSingleNotiDiv[notiId=" + item.notiId + "]").click(function () {
                         if ($.trim(item.url) != "") {

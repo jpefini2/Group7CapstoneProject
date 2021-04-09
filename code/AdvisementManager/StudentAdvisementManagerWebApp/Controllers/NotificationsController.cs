@@ -30,16 +30,16 @@ namespace StudentAdvisementManagerWebApp.Controllers
         {
             //TODO start here
             this._oNotifications.Clear();
-            return Redirect("returnUrl");
+            return Redirect(returnUrl);
         }
 
         /// <summary>Removes the notification for the specified user.</summary>
         /// <returns>the result of the notification being removed.</returns>
-        public JsonResult RemoveNotification()
+        public IActionResult RemoveNotification(string returnUrl)
         {
             //TODO need to implement removing notificaiton
 
-            return Json(this._oNotifications);
+            return Redirect(returnUrl);
         }
 
         /// <summary>Gets the notifications for the specified user.</summary>
