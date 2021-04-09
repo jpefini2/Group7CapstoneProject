@@ -80,8 +80,9 @@
         var parentId = $(this).attr("id");
         if ($.trim(parentId) != "" && parentId.length > 0) {
             $("#" + parentId + " .ikrNotifications .ikrClearAll").click(function () {
-               var currentPage = window.location.href;
-               window.location.href = '/Notifications/ClearAllNotifications?returnUrl=' + currentPage;
+                var currentPage = encodeURIComponent(window.location.href);
+                var url = "/Notifications/ClearAllNotifications?returnUrl=" + currentPage;
+                window.location.href = url ;
             });
 
             $('#' + parentId + ' .ikrNoti_Counter');
