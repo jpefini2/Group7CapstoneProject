@@ -13,6 +13,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
     [TestClass]
     public class NotificationTests
     {
+        [TestMethod]
         public void GetNotificationsTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -49,6 +50,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
             }                
         }
 
+        [TestMethod]
         public void GetSingleNotificationTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -77,6 +79,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
                 context.Database.EnsureDeleted();
             }
         }
+        [TestMethod]
         public void AddNotificationTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()

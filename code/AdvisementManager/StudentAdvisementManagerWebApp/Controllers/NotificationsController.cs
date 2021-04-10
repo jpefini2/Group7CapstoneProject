@@ -48,7 +48,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// <returns>All of the notifications for the user</returns>
         public JsonResult GetNotifications()
         {
-            var user = Request.Cookies["AdvisementManager.LoginUser"];
+            var user = Request.Cookies["StudentAdvisementManager.LoginUser"];
             var student = this.context.Student
                               .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == user);
             var notificationDal = new NotificationDAL(this.context);

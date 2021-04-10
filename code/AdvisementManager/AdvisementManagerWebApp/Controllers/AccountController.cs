@@ -42,13 +42,16 @@ namespace AdvisementManagerWebApp.Controllers
             var username = model.Username;
             var password = model.Password;
 
-            if (id==1 && (Request.Cookies["AdvisementManager.LoginUser"] != null))
+            if (Request.Cookies["AdvisementManager.LoginUser"] != null)
             {
-                Response.Cookies.Delete("AdvisementManager.LoginUser");
-                Response.Cookies.Delete("AdvisementManager.LoginSession");
-                TempData.Clear();
-
-                return RedirectToRoute(new { action = "Login", controller = "Account" });
+                if (id == 1)
+                {
+                    ClearSessionData();
+                    return RedirectToRoute(new { action = "Login", controller = "Account" });
+                } else
+                {
+                    return RedirectToExistingSession();
+                }
             }
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
@@ -80,14 +83,40 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>the current View.</returns>
         public IActionResult Login()
         {
-            return View();
+            if (Request.Cookies["AdvisementManager.LoginUser"] != null)
+            {
+                return RedirectToExistingSession();
+            } else
+            {
+                return View();
+            }
         }
 
-        /// <summary>Errors this instance.</summary>
-        /// <returns>
-        ///   The errors views model
-        /// </returns>
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        private ActionResult RedirectToExistingSession()
+        {
+            var username = Request.Cookies["AdvisementManager.LoginUser"];
+            if (loginDAL.GetUserType(username) == LoginType.ADVISOR)
+            {
+                return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", username });
+            }
+            else
+            {
+                ClearSessionData();
+                return View();
+            }
+        }
+        private void ClearSessionData()
+        {
+            Response.Cookies.Delete("AdvisementManager.LoginUser");
+            Response.Cookies.Delete("AdvisementManager.LoginSession");
+            TempData.Clear();
+        }
+
+    /// <summary>Errors this instance.</summary>
+    /// <returns>
+    ///   The errors views model
+    /// </returns>
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -9,7 +9,8 @@ namespace AdvisementManagerSharedLibrary.DAL
     public enum LoginType
     {
         ADVISOR,
-        STUDENT
+        STUDENT,
+        NONE
     }
 
     public class LoginDAL
@@ -113,6 +114,20 @@ namespace AdvisementManagerSharedLibrary.DAL
             {
                 return false;
             }
+        }
+
+        public LoginType GetUserType(string username)
+        {
+            var advisor = context.Advisor.FirstOrDefault(sessionUser => sessionUser.UserName.Equals(username));
+            var student = context.Student.FirstOrDefault(sessionUser => sessionUser.UserName.Equals(username));
+            if (advisor != null)
+            {
+                return LoginType.ADVISOR;
+            } else if (student != null)
+            {
+                return LoginType.STUDENT;
+            }
+            return LoginType.NONE;
         }
     }
 }

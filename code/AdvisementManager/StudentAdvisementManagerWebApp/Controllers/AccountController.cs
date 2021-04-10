@@ -41,12 +41,17 @@ namespace StudentAdvisementManagerWebApp.Controllers
             var username = model.Username;
             var password = model.Password;
 
-            if (id==1 && (Request.Cookies["AdvisementManager.LoginUser"] != null))
+            if (Request.Cookies["StudentAdvisementManager.LoginUser"] != null)
             {
-                Response.Cookies.Delete("AdvisementManager.LoginUser");
-                Response.Cookies.Delete("AdvisementManager.LoginSession");
-                TempData.Clear();
-                return RedirectToRoute(new { action = "Login", controller = "Account" });
+                if (id == 1)
+                {
+                    ClearSessionData();
+                    return RedirectToRoute(new { action = "Login", controller = "Account" });
+                }
+                else
+                {
+                    return RedirectToExistingSession();
+                }
             }
 
             if (!(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)))
@@ -59,7 +64,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
                 {
                     if (loginDAL.createNewLoginSession(username, sessionKey))
                     {
-                        Response.Cookies.Append("AdvisementManager.LoginUser", username);
+                        Response.Cookies.Append("StudentAdvisementManager.LoginUser", username);
                         Response.Cookies.Append("AdvisementManager.LoginSession", sessionKey);
                     }
                     else
@@ -82,14 +87,41 @@ namespace StudentAdvisementManagerWebApp.Controllers
             ViewBag.Message = "Login failed. Check input fields";
             return RedirectToRoute(new { action = "Login", controller = "Account"});
         }
-        
+
+        private ActionResult RedirectToExistingSession()
+        {
+            var username = Request.Cookies["StudentAdvisementManager.LoginUser"];
+            if(loginDAL.GetUserType(username) == LoginType.STUDENT)
+            {
+                return RedirectToRoute(new { action = "StudentHome", controller = "Home" });
+            } else
+            {
+                ClearSessionData();
+                return View();
+            }
+        }
+
         /// <summary>
         /// Redirects the user to Login()
         /// </summary>
         /// <returns></returns>
         public IActionResult Login()
         {
-            return View();
+            if (Request.Cookies["StudentAdvisementManager.LoginUser"] != null)
+            {
+                return RedirectToExistingSession();
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        private void ClearSessionData()
+        {
+            Response.Cookies.Delete("StudentAdvisementManager.LoginUser");
+            Response.Cookies.Delete("AdvisementManager.LoginSession");
+            TempData.Clear();
         }
     }
 }
