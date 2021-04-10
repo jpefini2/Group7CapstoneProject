@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdvisementManagerSharedLibrary.Models;
 
-namespace AdvisementManagerWebApp.Resources
+namespace StudentAdvisementManagerWebApp.Resources
 {
     /// <summary>
     ///   The Constant Manager Class.

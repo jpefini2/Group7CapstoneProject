@@ -24,6 +24,7 @@ namespace AdvisementManagerWebApp.Controllers
         private readonly HoldDAL holdDal = new();
         private readonly AdvisementSessionDAL sessionDal= new();
         private readonly AdvisorDAL advisorDal = new();
+        private readonly NotificationDAL notificationDal;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvisementSessionsController"/> class.
@@ -32,6 +33,7 @@ namespace AdvisementManagerWebApp.Controllers
         public AdvisementSessionsController(ApplicationDbContext context)
         {
             this.context = context;
+            this.notificationDal = new NotificationDAL(this.context);
         }
 
         /// <summary>
@@ -166,6 +168,9 @@ namespace AdvisementManagerWebApp.Controllers
             updateHoldReason(advisor, hold);
             this.context.SaveChanges();
 
+            string notificationMessage = ConstantManager.GetApprovedMeetingMessage(session.Date);
+            this.notificationDal.AddNotification(notificationMessage, session.StudentId, session.AdvisorId, this.context);
+
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName }); ;
         }
 
@@ -216,6 +221,9 @@ namespace AdvisementManagerWebApp.Controllers
                 updateHoldReason(advisor, hold);
 
                 this.context.SaveChanges();
+
+                string notificationMessage = ConstantManager.GetApprovedMeetingMessage(session.Date);
+                this.notificationDal.AddNotification(notificationMessage, session.StudentId, session.AdvisorId, this.context);
             }
 
             return redirectRoute;
@@ -264,6 +272,12 @@ namespace AdvisementManagerWebApp.Controllers
             hold.IsActive = false;
             hold.Reason = ConstantManager.ReadyToRegister;
             this.context.SaveChanges();
+
+            Student student = this.studentDal.ObtainStudentWithId(hold.StudentId, this.context);
+            Advisor advisor = this.advisorDal.ObtainAdvisorWithUsername(userName, this.context);
+
+            string notificationMessage = ConstantManager.GetHoldRemovedMessage(student, advisor);
+            this.notificationDal.AddNotification(notificationMessage, student.Id, advisor.Id, this.context);
 
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName });
         }

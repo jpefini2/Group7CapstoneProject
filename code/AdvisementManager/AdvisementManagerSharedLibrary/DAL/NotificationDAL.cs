@@ -54,7 +54,7 @@ namespace AdvisementManagerSharedLibrary.DAL
         /// <param name="advisorID">The advisorID associated with the notifications.</param>
         /// <param name="context">The ApplicationDBContext to use.</param>
         /// <returns></returns>
-        public IList<Notification> GetNotificationsByAdvisorID(int advisorID, ApplicationDbContext context)
+        public List<Notification> GetNotificationsByAdvisorID(int advisorID, ApplicationDbContext context)
         {
             var notif = (from notification in context.Notification
                          where notification.AdvisorId == advisorID

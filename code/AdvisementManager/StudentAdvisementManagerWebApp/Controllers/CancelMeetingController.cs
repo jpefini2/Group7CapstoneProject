@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary.DAL;
+using StudentAdvisementManagerWebApp.Resources;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
@@ -16,13 +17,15 @@ namespace StudentAdvisementManagerWebApp.Controllers
     {
         private ApplicationDbContext context { get; }
         private AdvisementSessionDAL advisementDal;
+        private NotificationDAL notificationDal;
 
         /// <summary>Initializes a new instance of the <see cref="CancelMeetingController" /> class.</summary>
         /// <param name="context">The context.</param>
         public CancelMeetingController(ApplicationDbContext context)
         {
             this.context = context;
-            advisementDal = new AdvisementSessionDAL();
+            this.advisementDal = new AdvisementSessionDAL();
+            this.notificationDal = new NotificationDAL(this.context);
         }
 
         /// <summary>Loads the view model with the cancel meetings pages info to be used by the view</summary>
@@ -51,6 +54,9 @@ namespace StudentAdvisementManagerWebApp.Controllers
             var meeting = this.context.AdvisementSession.Find(meetingId);
 
             advisementDal.CancelAdvisementSession(meeting, this.context);
+
+            string notificationMessage = ConstantManager.GetCanceledMeetingMessage(meeting.Date);
+            this.notificationDal.AddNotification(notificationMessage, meeting.StudentId, meeting.AdvisorId, this.context);
 
             TempData["UserMessage"] = "Meeting Canceled";
             return RedirectToAction("StudentHome", "Home");
