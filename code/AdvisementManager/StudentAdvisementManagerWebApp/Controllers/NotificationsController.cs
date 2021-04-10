@@ -37,7 +37,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
         /// <summary>Removes the notification for the specified user.</summary>
         /// <returns>the result of the notification being removed.</returns>
-        public IActionResult RemoveNotification(string returnUrl)
+        public IActionResult RemoveNotification(string returnUrl, int notificationId)
         {
             //TODO need to implement removing notificaiton
 
