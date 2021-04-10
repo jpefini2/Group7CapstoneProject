@@ -45,7 +45,10 @@ namespace AdvisementManagerDesktopApp.View
         {
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
-            this.notificationPanel.SetUpNotifications(notifications);
+
+            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
+
+            this.notificationPanel.SetUpNotifications(notificationTextData);
         }
 
         private void setUpScreen()
