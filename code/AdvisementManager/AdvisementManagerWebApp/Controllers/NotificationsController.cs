@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Security;
 using System.Threading.Tasks;
 using System.Web;
+using AdvisementManagerSharedLibrary.DAL;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -17,7 +18,8 @@ namespace AdvisementManagerWebApp.Controllers
     public class NotificationsController : Controller
     {
 
-        private List<Notification> _oNotifications = new List<Notification>();
+        private IList<Notification> _oNotifications = new List<Notification>();
+
         /// <summary>Gets the context.</summary>
         /// <value>The context.</value>
         public ApplicationDbContext context { get; }
@@ -56,9 +58,16 @@ namespace AdvisementManagerWebApp.Controllers
             var user = Request.Cookies["AdvisementManager.LoginUser"];
             var advisor = this.context.Advisor
                               .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == user);
-            this._oNotifications = (from notification in this.context.Notification
-                                    where notification.AdvisorId == advisor.Id
-                                    select notification).ToList();
+
+
+            var notificationDal = new NotificationDAL(this.context);
+
+            if (advisor != null)
+            {
+                this._oNotifications = notificationDal.GetNotificationsByAdvisorID(advisor.Id, this.context);
+
+            }
+
             return Json(this._oNotifications);
         }
     }
