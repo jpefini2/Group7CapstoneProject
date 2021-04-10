@@ -21,7 +21,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.UpdateAvailabilityContro
         public void AddTimeTestNotNullPreviousTime()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
             using (var context = new ApplicationDbContext(options))
             {
@@ -61,7 +61,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.UpdateAvailabilityContro
         public void AddTimeTestNullPreviousTime()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
             using (var context = new ApplicationDbContext(options))
             {

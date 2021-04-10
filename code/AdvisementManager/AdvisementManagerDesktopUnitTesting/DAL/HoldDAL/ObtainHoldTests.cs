@@ -17,8 +17,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.HoldDAL
         public void ObtainHoldTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
-                          .Options;
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
 
             var hold = new Hold { Id = 1, StudentId = 2};
 

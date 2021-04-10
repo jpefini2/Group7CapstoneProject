@@ -21,7 +21,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.CancelMeetingController
         public void ConfirmCancelTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
             using (var context = new ApplicationDbContext(options))
             {

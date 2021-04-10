@@ -1,4 +1,5 @@
-﻿using AdvisementManagerSharedLibrary.Data;
+﻿using System;
+using AdvisementManagerSharedLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,7 +12,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
         public void ConstructorTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             using var context = new ApplicationDbContext(options);

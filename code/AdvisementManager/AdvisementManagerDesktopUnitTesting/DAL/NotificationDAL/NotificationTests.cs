@@ -16,7 +16,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
         public void GetNotificationsTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             var notification1 = new Notification
@@ -52,7 +52,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
         public void GetSingleNotificationTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             var notification1 = new Notification
@@ -80,7 +80,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.NotificationDAL
         public void AddNotificationTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
 

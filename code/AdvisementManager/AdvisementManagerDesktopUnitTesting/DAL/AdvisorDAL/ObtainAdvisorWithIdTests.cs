@@ -17,7 +17,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisorDAL
         public void ObtainAdvisorWithIdTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             var advisor = new Advisor {Id = 1};

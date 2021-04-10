@@ -14,7 +14,7 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
         {
             //create In Memory Database
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             //// Create mocked Context by seeding Data as per Schema///
@@ -25,8 +25,31 @@ namespace AdvisementManagerWebAppUnitTesting.Controller.AdvisementSessionsContro
                     Id = 1,
                     Reason = "waiting for hold to be removed",
                     Date = DateTime.Now,
-                    IsActive = true
+                    IsActive = true,
+                    StudentId = 1
 
+                });
+                context.Student.Add(new Student
+                {
+                    Id = 1,
+                    facultyAdvisorId = 1,
+                    generalAdvisorId = 2,
+                    FirstName = "a",
+                    LastName = "b"
+                });
+                context.Advisor.Add(new Advisor
+                {
+                    Id = 1,
+                    FirstName = "a",
+                    LastName = "b",
+                    UserName = "wakala"
+                });
+                context.Advisor.Add(new Advisor
+                {
+                    Id = 2,
+                    FirstName = "a",
+                    LastName = "b",
+                    UserName = "wakala"
                 });
                 context.SaveChanges();
             }

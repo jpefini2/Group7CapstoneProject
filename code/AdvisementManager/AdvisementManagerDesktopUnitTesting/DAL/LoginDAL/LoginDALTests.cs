@@ -1,4 +1,5 @@
-﻿using AdvisementManagerSharedLibrary.Data;
+﻿using System;
+using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
         {
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -78,7 +79,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
         {
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -102,7 +103,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
         public void LoginDALEmptyPasswordTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -126,7 +127,7 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.LoginDAL
         public void LoginDALEmptyUserTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                           .Options;
 
             using (var context = new ApplicationDbContext(options))

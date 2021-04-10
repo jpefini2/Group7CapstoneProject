@@ -13,7 +13,8 @@ namespace AdvisementManagerWebAppUnitTesting.DAL.AdvisementSessionDAL
         public void ObtainSessionTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase(databaseName: "AdvisementManagement")
+                          .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()
+                              )
                           .Options;
 
             var session = new AdvisementSession { Id = 1, StudentId = 2, Completed = false, Date = DateTime.Now};
