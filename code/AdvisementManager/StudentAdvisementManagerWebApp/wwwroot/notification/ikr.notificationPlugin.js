@@ -99,8 +99,8 @@
                     $("#" + parentId + " .ikrNotificationItems").append("<h4 class='ikrNotiFromPropName'>" +
                             "<button class=\"btn btn-outline-primary\">X</button>" +
                         "</h4>").click(function() {
-                        var currentPage = window.location.href;
-                            window.location.href = '/Notifications/RemoveNotification?returnUrl=' + currentPage;
+                            var currentPage = encodeURIComponent(window.location.href);
+                            window.location.href = '/Notifications/RemoveNotification?returnUrl=' + currentPage + "&notificationId=" + sNotiFromPropName;
                     }); 
                     $("#" + parentId + " .ikrNotificationItems").append("<h5 class='ikrNotificationTitle'>" + item[ikrLowerFirstLetter(defaultSettings.ListTitlePropName)] + "</h5>" +
                         "</div>");
