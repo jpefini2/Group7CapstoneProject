@@ -136,7 +136,10 @@ INSERT INTO Login(username, passwordHash) VALUES
 ('bThatcher', '$2a$12$jKNkgEtMuKzgKgbUSFc9YONZiLk.k4N8nIeAEbEbkU7iKjNW3mSeW'), 		/* sup3r_s3cret*/
 ('hAnderson', '$2a$12$ggkjrW0zrgiMlNUvB/ahX.sckqEvrRNrglqvqZOfzVynaFirLjWVq'), 		/* p@rr0ts */
 ('cBrooks', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK'),		/* password2 */
-('student', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
+('student', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK'),		/* password2 */
+('jmcconn1', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
+
+
 
 INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
 ('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),
@@ -144,7 +147,7 @@ INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gen
 ('Jenny', 'Othewood', 0, 'jothewood@askj.net', 'jothewood', 'female'),
 ('Bob', 'Hart', 0, 'bhart@askj.net', 'bhart', 'male'),
 ('Gina', 'Smith', 1, 'gsmith@askj.net', 'gsmith', 'female'),
-('Department', 'Advisor', 0, 'dadvisor@askj.net', 'dadvisor', 'female'),
+('Department', 'Advisor', 0, 'advisementmanager@gmail.com', 'dadvisor', 'female'),
 ('Faculty', 'Advisor', 1, 'fadvisor@askj.net', 'fadvisor', 'female')
 
 INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacultyID, username, gender) VALUES
@@ -155,7 +158,8 @@ INSERT INTO Student (firstName, lastName, email, advisorGeneralID, advisorFacult
 ('Brenda', 'Thatcher', 'btchatch@my.askj.net', 3, 5, 'bThatcher', 'female'),
 ('Harry', 'Anderson', 'handerson@my.askj.net', 4, 2, 'hAnderson', 'male'),
 ('Cody', 'Brooks', 'cbrooks@my.askj.net', 4, 2, 'cBrooks', 'male'),
-('Student', 'Student', 'studen@my.askj.net', 6, 7, 'student', 'male')
+('Student', 'Student', 'studen@my.askj.net', 6, 7, 'student', 'male'),
+('jmcconn1', 'justin', 'jmcconn1@my.westga.edu', 6, 7, 'jmcconn1', 'male')
 
 INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 1),

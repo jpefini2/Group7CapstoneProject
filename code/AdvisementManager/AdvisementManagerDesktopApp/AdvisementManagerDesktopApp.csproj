@@ -336,6 +336,7 @@
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\HoldsDAL.cs" />
     <Compile Include="DAL\LoginDAL.cs" />
+    <Compile Include="DAL\NotificationDal.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="Model\AdvisementSession.cs" />
     <Compile Include="Model\Advisor.cs" />

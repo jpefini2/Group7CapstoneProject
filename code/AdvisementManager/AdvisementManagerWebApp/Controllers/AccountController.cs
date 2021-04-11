@@ -66,7 +66,6 @@ namespace AdvisementManagerWebApp.Controllers
                     {
                         Response.Cookies.Append("AdvisementManager.LoginUser", username);
                         Response.Cookies.Append("AdvisementManager.LoginSession", sessionKey);
-
                     } else
                     {
                         ViewBag.Message = "Something went wrong trying to create a new login session.";
