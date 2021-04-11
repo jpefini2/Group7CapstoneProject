@@ -196,6 +196,8 @@ namespace AdvisementManagerDesktopApp.DAL
             }
         }
 
+        /// <summary>Cancels the specified meeting in the database for the advisor.</summary>
+        /// <param name="meetingId">The meeting identifier.</param>
         public void CancelMeeting(int meetingId)
         {
             var conn = DbConnection.GetConnection();

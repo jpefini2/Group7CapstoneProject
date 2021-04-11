@@ -53,7 +53,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 conn.Open();
 
                 const string selectQuery =
-                    "SELECT sessionID, completed, stage, sessionDate FROM AdvisementSession WHERE studentID  = @studentID and completed = 0 and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = @studentID)"; 
+                    "SELECT sessionID, advisorID, completed, stage, sessionDate FROM AdvisementSession WHERE studentID  = @studentID and completed = 0 and sessionDate = (SELECT Max(sessionDate) FROM AdvisementSession WHERE studentID = @studentID)"; 
                 using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.Add("@studentID ", SqlDbType.Int);
@@ -77,6 +77,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 var completedOrdinal = reader.GetOrdinal("completed");
                 var stageIdOrdinal = reader.GetOrdinal("stage");
                 var sessionDateOrdinal = reader.GetOrdinal("sessionDate");
+                var advisorIDOrdinal = reader.GetOrdinal("advisorID");
 
                 while (reader.Read())
                 {
@@ -86,7 +87,8 @@ namespace AdvisementManagerDesktopApp.DAL
                         Stage = reader[stageIdOrdinal] == DBNull.Value ? 0 : reader.GetInt16(stageIdOrdinal),
                         Date = reader[sessionDateOrdinal] == DBNull.Value
                             ? DateTime.MinValue
-                            : reader.GetDateTime(sessionDateOrdinal)
+                            : reader.GetDateTime(sessionDateOrdinal),
+                        AdvisorID = reader[advisorIDOrdinal] == DBNull.Value ? 0 : reader.GetInt32(advisorIDOrdinal)
                     };
                 }
             }

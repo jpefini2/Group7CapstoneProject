@@ -58,6 +58,10 @@ namespace AdvisementManagerDesktopApp.View
             try
             {
                 this.student.Meeting = this.sessionController.CheckForMeeting(this.student);
+                if (this.student.Meeting.Id > 0 && this.advisor.Id == this.student.Meeting.AdvisorID)
+                {
+                    this.cancelMeetingBtn.Visible = true;
+                }
             }
             catch (SqlException ex)
             {
@@ -125,7 +129,6 @@ namespace AdvisementManagerDesktopApp.View
                 || !advisorType && holdReason.Equals(ConstantManager.NeedToMeetDptAdvisor))
             {
                 this.approveBtn.Visible = true;
-                this.cancelMeetingBtn.Visible = true;
             } 
             else if (!advisorType && holdReason.Equals(ConstantManager.WaitingForHoldRemoval))
             {
