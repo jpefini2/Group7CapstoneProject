@@ -7,12 +7,15 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace AdvisementManagerSharedLibrary.DAL
-{
-    
+{   
     public class NotificationMailer
     {
         private readonly SmtpClient client;
         private readonly string sourceEmail;
+
+        /// <summary>
+        /// Class for sending notification emails. 
+        /// </summary>
         public NotificationMailer()
         {
             sourceEmail = "advisementmanager@gmail.com";
@@ -23,17 +26,34 @@ namespace AdvisementManagerSharedLibrary.DAL
                 EnableSsl = true,
             };
         }
+
+        /// <summary>
+        /// Send an email notification to a specified advisor and student.
+        /// </summary>
+        /// <param name="advisor">The advisor to email</param>
+        /// <param name="student">the student to email</param>
+        /// <param name="notification">The notification</param>
         public void SendEmailNotification(Advisor advisor, Student student, Notification notification)
         {
             SendStudentEmail(student, notification);
             SendAdvisorEmail(advisor, notification);
         }
 
+        /// <summary>
+        /// Send an email to the advisor
+        /// </summary>
+        /// <param name="advisor">The advisor to email</param>
+        /// <param name="notification">The notification</param>
         public void SendAdvisorEmail(Advisor advisor, Notification notification)
         {
             SendEmail(advisor.Email, notification.NotifMessage);
         }
 
+        /// <summary>
+        /// Send an email to the specified student.
+        /// </summary>
+        /// <param name="student">The student to email</param>
+        /// <param name="notification">The notification</param>
         public void SendStudentEmail(Student student, Notification notification)
         {
             SendEmail(student.Email, notification.NotifMessage);
