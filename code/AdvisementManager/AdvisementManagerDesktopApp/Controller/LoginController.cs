@@ -1,7 +1,9 @@
 ﻿using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using AdvisementManagerSharedLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +34,21 @@ namespace AdvisementManagerDesktopApp.Controller
         {
             var loginDAL = new LoginDAL();
             Advisor advisor = loginDAL.LogInUser(username);
+
+
+
+            NotificationDal dal = new NotificationDal();
+            IList<Notification> notifs = dal.GetNotificationsByAdvisorID(advisor.Id);
+
+            foreach(Notification n in notifs)
+            {
+                Trace.WriteLine(n.NotifMessage);
+            }
+
+
+
+
+
             return advisor;
         }
     }

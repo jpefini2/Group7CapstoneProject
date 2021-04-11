@@ -179,3 +179,7 @@ INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES
 (2, '12:30:00', '14:00:00', 3),
 (3, '07:30:00', '11:30:00', 4),
 (7, '13:00:00', '15:45:00', 5)
+
+INSERT INTO Notification (studentID, advisorID, notifMessage) VALUES
+(8, 6, "Successfully met with department advisor"),
+(9, 6, "Successfully met with faculty advisor")
