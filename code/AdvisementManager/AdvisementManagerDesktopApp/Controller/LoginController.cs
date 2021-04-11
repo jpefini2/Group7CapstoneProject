@@ -34,26 +34,6 @@ namespace AdvisementManagerDesktopApp.Controller
         {
             var loginDAL = new LoginDAL();
             Advisor advisor = loginDAL.LogInUser(username);
-
-
-
-            NotificationDal dal = new NotificationDal();
-            IList<Notification> notifs = dal.GetNotificationsByAdvisorID(advisor.Id);
-
-            //dal.AddNotification(9, 6, "test notification 1");
-            //dal.AddNotification(9, 6, "test notification ");
-
-            dal.DeleteNotification(1);
-
-            foreach (Notification n in notifs)
-            {
-                Trace.WriteLine(n.NotifMessage);
-            }
-
-
-
-
-
             return advisor;
         }
     }

@@ -1,17 +1,18 @@
 ﻿using AdvisementManagerSharedLibrary.Models;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvisementManagerDesktopApp.DAL
 {
     class NotificationDal
     {
+        /// <summary>
+        /// Adds a new notification to the database.
+        /// </summary>
+        /// <param name="studentID">The studentID of the student being notified.</param>
+        /// <param name="advisorID">The advisorID of the advisor being notified.</param>
+        /// <param name="message">The message that will be sent to the student and advisor.</param>
         public void AddNotification(int studentID, int advisorID, string message)
         {
             var conn = DbConnection.GetConnection();
@@ -37,6 +38,10 @@ namespace AdvisementManagerDesktopApp.DAL
             conn.Close();
         }
 
+        /// <summary>
+        /// Delete a specific notification from the database.
+        /// </summary>
+        /// <param name="notificationID">The ID of the notification to delete.</param>
         public void DeleteNotification(int notificationID)
         {
             var conn = DbConnection.GetConnection();
@@ -56,6 +61,10 @@ namespace AdvisementManagerDesktopApp.DAL
             conn.Close();
         }
 
+        /// <summary>
+        /// Delete all notifications that have the supplied advisorID.
+        /// </summary>
+        /// <param name="advisorID">The advisorID to search for and delete within notifications.</param>
         public void ClearNotifications(int advisorID)
         {
             var conn = DbConnection.GetConnection();
@@ -75,7 +84,12 @@ namespace AdvisementManagerDesktopApp.DAL
             conn.Close();
         }
 
-        public IList<Notification> GetNotificationsByAdvisorID(int userId)
+        /// <summary>
+        /// Gets a collection of notifications that have the supplied advisorID.
+        /// </summary>
+        /// <param name="advisorID">The advisorID with the notifications.</param>
+        /// <returns>A colleciton of notifications.</returns>
+        public IList<Notification> GetNotificationsByAdvisorID(int advisorID)
         {
             IList<Notification> notificationList = new List<Notification>();
 
@@ -89,7 +103,7 @@ namespace AdvisementManagerDesktopApp.DAL
                 using (var cmd = new SqlCommand(selectString, conn))
                 {
                     cmd.Parameters.Add("@userID", System.Data.SqlDbType.Int);
-                    cmd.Parameters["@userID"].Value = userId;
+                    cmd.Parameters["@userID"].Value = advisorID;
 
                     using var reader = cmd.ExecuteReader();
                     if (reader.HasRows)
