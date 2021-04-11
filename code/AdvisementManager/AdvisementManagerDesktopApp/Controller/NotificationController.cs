@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerSharedLibrary.Models;
 
 namespace AdvisementManagerDesktopApp.Controller
@@ -16,8 +17,8 @@ namespace AdvisementManagerDesktopApp.Controller
         /// <returns>A list of notifications for the specific advisor.</returns>
         public List<Notification> GetNotifications(int advisorId)
         {
-            var notifications = new List<Notification>();
-            //TODO get notifications from DAL when it is implimented.
+            NotificationDal notificationDal = new NotificationDal();
+            var notifications = notificationDal.GetNotificationsByAdvisorID(advisorId).ToList();
 
             return notifications;
         }

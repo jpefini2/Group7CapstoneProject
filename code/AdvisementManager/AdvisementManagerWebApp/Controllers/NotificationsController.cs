@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace AdvisementManagerWebApp.Controllers
 {
+
+    /// <summary>The notification controller class used to manage the notifications between the model and view.</summary>
     public class NotificationsController : Controller
     {
 
