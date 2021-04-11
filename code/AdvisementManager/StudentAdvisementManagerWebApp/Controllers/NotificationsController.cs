@@ -14,12 +14,17 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
+    /// <summary>The notification controller class for managing notifications between the view and model</summary>
     public class NotificationsController : Controller
     {
 
         private IList<Notification> _oNotifications = new List<Notification>();
+        /// <summary>Gets the context.</summary>
+        /// <value>The context.</value>
         public ApplicationDbContext context { get; }
 
+        /// <summary>Initializes a new instance of the <see cref="NotificationsController" /> class.</summary>
+        /// <param name="context">The context.</param>
         public NotificationsController(ApplicationDbContext context)
         {
             this.context = context;
