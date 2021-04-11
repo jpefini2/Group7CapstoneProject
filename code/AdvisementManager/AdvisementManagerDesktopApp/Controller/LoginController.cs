@@ -40,7 +40,12 @@ namespace AdvisementManagerDesktopApp.Controller
             NotificationDal dal = new NotificationDal();
             IList<Notification> notifs = dal.GetNotificationsByAdvisorID(advisor.Id);
 
-            foreach(Notification n in notifs)
+            //dal.AddNotification(9, 6, "test notification 1");
+            //dal.AddNotification(9, 6, "test notification ");
+
+            dal.DeleteNotification(1);
+
+            foreach (Notification n in notifs)
             {
                 Trace.WriteLine(n.NotifMessage);
             }
