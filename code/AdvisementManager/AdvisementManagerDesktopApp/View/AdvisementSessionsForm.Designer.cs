@@ -141,9 +141,8 @@ namespace AdvisementManagerDesktopApp.View
             this.Name = "AdvisementSessionsForm";
             this.Text = "Advisment Sessions";
             this.Activated += new System.EventHandler(this.AdvisementSessionsForm_Activated);
-            this.Click += new System.EventHandler(this.AdvisementSessionsForm_Activated);
-            this.Enter += new System.EventHandler(this.AdvisementSessionsForm_Activated);
-            this.Leave += new System.EventHandler(this.AdvisementSessionsForm_Activated);
+            this.Enter += new System.EventHandler(this.AdvisementSessionsForm_Enter);
+            this.Leave += new System.EventHandler(this.AdvisementSessionsForm_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

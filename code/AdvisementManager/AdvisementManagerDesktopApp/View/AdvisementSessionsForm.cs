@@ -111,5 +111,14 @@ namespace AdvisementManagerDesktopApp.View
             availabilityFrom.Show();
         }
 
+        private void AdvisementSessionsForm_Leave(object sender, EventArgs e)
+        {
+            this.setUpScreen();
+        }
+
+        private void AdvisementSessionsForm_Enter(object sender, EventArgs e)
+        {
+            this.setUpScreen();
+        }
     }
 }
