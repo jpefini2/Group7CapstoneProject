@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AdvisementManagerDesktopUnitTests.Model
 {
     [TestClass]
-    class AvailabilityTests
+    public class AvailabilityTests
     {
         [TestMethod]
         public void AvailabilityInitializerTest()
