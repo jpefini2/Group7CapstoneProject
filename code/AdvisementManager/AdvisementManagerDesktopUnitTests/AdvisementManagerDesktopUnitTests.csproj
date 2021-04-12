@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\NotificationDalTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Model\AdvisorTests.cs" />
+    <Compile Include="Model\AvailabilityTests.cs" />
+    <Compile Include="Model\StudentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
