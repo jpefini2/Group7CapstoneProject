@@ -13,7 +13,7 @@ namespace AdvisementManagerSharedLibrary.Models
     {
         /// <summary>Gets or sets the students with holds</summary>
         /// <value>The students.</value>
-        public IList<Student> StudentsWithHolds { get; set; }
+        public IList<Student> Students { get; set; }
 
         /// <summary>Gets or sets the advisor's upcoming meetings</summary>
         /// <value>The upcoming meetings.</value>

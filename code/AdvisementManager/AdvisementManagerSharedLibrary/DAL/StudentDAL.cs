@@ -18,12 +18,36 @@ namespace AdvisementManagerSharedLibrary.DAL
 
         private AdvisementSessionDAL advisementSessionDal = new();
 
+        /// <summary>Obtains the students of the specified advisor who still have holds</summary>
+        /// <param name="user">The advisor</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The students of the advisor with holds
+        /// </returns>
         public IList<Student> ObtainStudentsWithHolds(ApplicationDbContext context, Advisor user)
         {
             return (from student in context.Student join hold in context.Hold on student.Id equals 
                         hold.StudentId into studentWithHold from hold in studentWithHold where 
                         hold.IsActive && (student.facultyAdvisorId == user.Id || student.generalAdvisorId == user.Id)  
                         select student).ToList();
+        }
+
+        /// <summary>Obtains the students of the specified advisor</summary>
+        /// <param name="user">The advisor</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///   The students of the advisor
+        /// </returns>
+        public IList<Student> ObtainStudentsOfAdvisor(ApplicationDbContext context, Advisor user)
+        {
+            var allStudents = (from students in context.Student
+                     where students.facultyAdvisorId == user.Id || students.generalAdvisorId == user.Id
+                     select students).ToList();
+
+            foreach (var student in allStudents)
+                student.Hold = this.holdDal.ObtainHold(student.Id, context);
+
+            return allStudents;
         }
 
         /// <summary>Obtains the student with the specified id from the DbContext.</summary>

@@ -52,11 +52,11 @@ namespace AdvisementManagerWebApp.Controllers
             var user = this.context.Advisor
                            .FirstOrDefault(loggedInAdvisor => loggedInAdvisor.UserName == userName);
 
-            var studentsWithHolds = this.studentDal.ObtainStudentsWithHolds(this.context, user);
+            var students = this.studentDal.ObtainStudentsOfAdvisor(this.context, user);
             var upcomingMeetings = this.sessionDal.ObtainUpcomingSessions(this.context, user);
 
             var viewModel = new AdvisorHomeVM {
-                StudentsWithHolds = studentsWithHolds,
+                Students = students,
                 UpcomingMeetings = upcomingMeetings
             };
             return View(viewModel);

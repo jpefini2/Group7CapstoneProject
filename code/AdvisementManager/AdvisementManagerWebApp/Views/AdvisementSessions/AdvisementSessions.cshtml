@@ -21,13 +21,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].FirstName)
+                            @Html.DisplayNameFor(model => model.Students[0].FirstName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].LastName)
+                            @Html.DisplayNameFor(model => model.Students[0].LastName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].Meeting.Date)
+                            @Html.DisplayNameFor(model => model.Students[0].Meeting.Date)
                         </th>
                         <th></th>
                     </tr>
@@ -57,41 +57,60 @@
 
 
     <div class="col">
-        <h2 align="center">Students with Holds</h2>
+        <h2 align="center">Students</h2>
 
         <div class="row">
             <table class="table table-bordered table-striped" style="margin:5px">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].FirstName)
+                            @Html.DisplayNameFor(model => model.Students[0].FirstName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].LastName)
+                            @Html.DisplayNameFor(model => model.Students[0].LastName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StudentsWithHolds[0].Email)
+                            @Html.DisplayNameFor(model => model.Students[0].Email)
+                        </th>
+                        <th>
+                            Status
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var student in Model.StudentsWithHolds)
+                    @foreach (var student in Model.Students)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => student.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => student.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => student.Email)
-                            </td>
-                            <td>
-                                <a asp-action="StudentAdvisementSummary" asp-route-id="@student.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]">View Details</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.Email)
+                        </td>
+
+                        @{
+                            if (student.Hold.IsActive)
+                            {
+                                <th style="background-color: red">
+                                    Active Hold
+                                </th>
+                            }
+                            else
+                            {
+                                <th style="background-color: #61B329">
+                                    Complete
+                                </th>
+                            }
+                        }
+
+                        <td>
+                            <a asp-action="StudentAdvisementSummary" asp-route-id="@student.Id" asp-route-userName="@Context.Request.Cookies["AdvisementManager.LoginUser"]">View Details</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
