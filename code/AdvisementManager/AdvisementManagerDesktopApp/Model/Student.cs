@@ -36,5 +36,7 @@
         /// <summary>Gets or sets the meetings that a student currently has.</summary>
         /// <value>The meetings.</value>
         public AdvisementSession Meeting { get; set; }
+
+        public string FullName => this.FirstName + " " + this.LastName;
     }
 }

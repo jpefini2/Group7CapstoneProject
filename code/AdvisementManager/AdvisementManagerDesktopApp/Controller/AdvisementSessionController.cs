@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
+using AdvisementManagerSharedLibrary.Models;
 
 namespace AdvisementManagerDesktopApp.Controller
 {
@@ -14,6 +16,10 @@ namespace AdvisementManagerDesktopApp.Controller
         private readonly HoldsDal holdsDal = new HoldsDal();
 
         private readonly AdvisementSessionDal sessionDal = new AdvisementSessionDal();
+
+        private readonly NotificationDal notificationDal = new NotificationDal();
+
+        private readonly NotificationMailer notificationMailer = new NotificationMailer();
 
         /// <summary>
         ///     Approves the meeting between and advisor and student in the database and updates the hold reason accordingly
@@ -36,6 +42,16 @@ namespace AdvisementManagerDesktopApp.Controller
 
             this.holdsDal.ApproveAdvisorMeeting(student);
             this.sessionDal.UpdateMeeting(student);
+
+            Notification notification = new Notification()
+            {
+                StudentId = student.Id,
+                AdvisorId = advisor.Id,
+                NotifMessage = ConstantManager.GetApprovedMeetingMessage(student.Meeting.Date)
+            };
+
+            this.notificationDal.AddNotification(student.Id, advisor.Id, notification.NotifMessage);
+            this.notificationMailer.SendEmailNotification(advisor, student, notification);
         }
 
         /// <summary>Obtains the student sessions for past meetings to be used in the view for displaying notes.</summary>
@@ -59,12 +75,21 @@ namespace AdvisementManagerDesktopApp.Controller
 
         /// <summary>Removes the hold for a particular student in the database and updated the reason to ready to register.</summary>
         /// <param name="student">The student.</param>
-        public void RemoveHold(Student student)
+        public void RemoveHold(Student student, Advisor advisor)
         {
             student.Hold.Reason = ConstantManager.ReadyToRegister;
             student.Hold.IsActive = false;
             this.holdsDal.RemoveHold(student);
 
+            Notification notification = new Notification()
+            {
+                StudentId = student.Id,
+                AdvisorId = advisor.Id,
+                NotifMessage = ConstantManager.GetHoldRemovedMessage(student, advisor)
+            };
+
+            this.notificationDal.AddNotification(student.Id, advisor.Id, notification.NotifMessage);
+            this.notificationMailer.SendEmailNotification(advisor, student, notification);
         }
 
         /// <summary>Checks the database to see if a particular student has a meeting scheduled and if so returns that meeting.</summary>
@@ -77,9 +102,19 @@ namespace AdvisementManagerDesktopApp.Controller
             return this.holdsDal.CheckForMeetings(student);
         }
 
-        public void CancelMeeting(int meetingId)
+        public void CancelMeeting(int meetingId, DateTime meetingTime, Advisor advisor, Student student)
         {
             this.sessionDal.CancelMeeting(meetingId);
+
+            Notification notification = new Notification()
+            {
+                StudentId = student.Id,
+                AdvisorId = advisor.Id,
+                NotifMessage = ConstantManager.GetCanceledMeetingMessage(meetingTime)
+            };
+
+            this.notificationDal.AddNotification(student.Id, advisor.Id, notification.NotifMessage);
+            this.notificationMailer.SendEmailNotification(advisor, student, notification);
         }
     }
 }

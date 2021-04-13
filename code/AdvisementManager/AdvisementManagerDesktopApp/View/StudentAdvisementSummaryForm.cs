@@ -169,7 +169,7 @@ namespace AdvisementManagerDesktopApp.View
         {
             try
             {
-                this.sessionController.RemoveHold(this.student);
+                this.sessionController.RemoveHold(this.student, this.advisor);
                 this.Close();
                 MessageBox.Show(@"Hold Removed");
             }
@@ -198,7 +198,7 @@ namespace AdvisementManagerDesktopApp.View
                 MessageBox.Show(@"Meeting Canceled!");
                 Close();
                 var sessionController = new AdvisementSessionController();
-                sessionController.CancelMeeting(this.student.Meeting.Id);
+                sessionController.CancelMeeting(this.student.Meeting.Id, this.student.Meeting.Date, this.advisor, this.student);
             }
         }
     }

@@ -337,6 +337,7 @@
     <Compile Include="DAL\HoldsDAL.cs" />
     <Compile Include="DAL\LoginDAL.cs" />
     <Compile Include="DAL\NotificationDal.cs" />
+    <Compile Include="DAL\NotificationMailer.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="Model\AdvisementSession.cs" />
     <Compile Include="Model\Advisor.cs" />
@@ -430,12 +431,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdvisementManagmentDB.mdf">
+    <Content Include="ADVISEMENTMANAGMENTDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AdvisementManagmentDB_log.ldf">
+    <Content Include="ADVISEMENTMANAGMENTDB_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>AdvisementManagmentDB.mdf</DependentUpon>
+      <DependentUpon>ADVISEMENTMANAGMENTDB.mdf</DependentUpon>
     </Content>
     <Content Include="Resources\lock.png" />
   </ItemGroup>

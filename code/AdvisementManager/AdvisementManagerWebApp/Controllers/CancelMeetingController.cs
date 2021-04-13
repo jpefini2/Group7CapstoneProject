@@ -16,7 +16,10 @@ namespace AdvisementManagerWebApp.Controllers
 
         private ApplicationDbContext context { get; }
         private AdvisementSessionDAL advisementDal;
+        private AdvisorDAL advisorDal;
+        private StudentDal studentDal;
         private readonly NotificationDAL notificationDal;
+        private readonly NotificationMailer mailer;
 
         /// <summary>Initializes a new instance of the <see cref="CancelMeetingController" /> class.</summary>
         /// <param name="context">The context.</param>
@@ -24,7 +27,10 @@ namespace AdvisementManagerWebApp.Controllers
         {
             this.context = context;
             this.advisementDal = new AdvisementSessionDAL();
+            this.advisorDal = new AdvisorDAL();
+            this.studentDal = new StudentDal();
             this.notificationDal = new NotificationDAL(this.context);
+            this.mailer = new NotificationMailer();
         }
 
         /// <summary>sets up the view model for the cancel meeting page then returns the view with the view model.</summary>
@@ -56,8 +62,17 @@ namespace AdvisementManagerWebApp.Controllers
 
             advisementDal.CancelAdvisementSession(meeting, this.context);
 
-            string notificationMessage = ConstantManager.GetCanceledMeetingMessage(meeting.Date);
-            this.notificationDal.AddNotification(notificationMessage, meeting.StudentId, meeting.AdvisorId, this.context);
+            Notification notification = new Notification()
+            {
+                AdvisorId = meeting.AdvisorId,
+                StudentId = meeting.StudentId,
+                NotifMessage = ConstantManager.GetCanceledMeetingMessage(meeting.Date)
+            };
+            Advisor advisor = this.advisorDal.ObtainAdvisorWithId(notification.AdvisorId, this.context);
+            Student student = this.studentDal.ObtainStudentWithId(notification.StudentId, this.context);
+            
+            this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
+            this.mailer.SendEmailNotification(advisor, student, notification);
 
             TempData["UserMessage"] = "Meeting Canceled";
             return RedirectToAction("AdvisementSessions", "AdvisementSessions", new {userName = user});

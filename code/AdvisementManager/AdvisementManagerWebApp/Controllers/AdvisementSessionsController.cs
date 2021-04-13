@@ -24,6 +24,7 @@ namespace AdvisementManagerWebApp.Controllers
         private readonly HoldDAL holdDal = new();
         private readonly AdvisementSessionDAL sessionDal= new();
         private readonly AdvisorDAL advisorDal = new();
+        private readonly NotificationMailer mailer = new();
         private readonly NotificationDAL notificationDal;
 
         /// <summary>
@@ -168,8 +169,15 @@ namespace AdvisementManagerWebApp.Controllers
             updateHoldReason(advisor, hold);
             this.context.SaveChanges();
 
-            string notificationMessage = ConstantManager.GetApprovedMeetingMessage(session.Date);
-            this.notificationDal.AddNotification(notificationMessage, session.StudentId, session.AdvisorId, this.context);
+            Notification notification = new Notification()
+            {
+                AdvisorId = advisor.Id,
+                StudentId = student.Id,
+                NotifMessage = ConstantManager.GetApprovedMeetingMessage(session.Date)
+            };
+            
+            this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
+            this.mailer.SendEmailNotification(advisor, student, notification);
 
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName }); ;
         }
@@ -222,8 +230,16 @@ namespace AdvisementManagerWebApp.Controllers
 
                 this.context.SaveChanges();
 
-                string notificationMessage = ConstantManager.GetApprovedMeetingMessage(session.Date);
-                this.notificationDal.AddNotification(notificationMessage, session.StudentId, session.AdvisorId, this.context);
+                var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+                Notification notification = new Notification()
+                {
+                    AdvisorId = advisor.Id,
+                    StudentId = student.Id,
+                    NotifMessage = ConstantManager.GetApprovedMeetingMessage(session.Date)
+                };
+
+                this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
+                this.mailer.SendEmailNotification(advisor, student, notification);
             }
 
             return redirectRoute;
@@ -276,8 +292,15 @@ namespace AdvisementManagerWebApp.Controllers
             Student student = this.studentDal.ObtainStudentWithId(hold.StudentId, this.context);
             Advisor advisor = this.advisorDal.ObtainAdvisorWithUsername(userName, this.context);
 
-            string notificationMessage = ConstantManager.GetHoldRemovedMessage(student, advisor);
-            this.notificationDal.AddNotification(notificationMessage, student.Id, advisor.Id, this.context);
+            Notification notification = new Notification()
+            {
+                AdvisorId = advisor.Id,
+                StudentId = student.Id,
+                NotifMessage = ConstantManager.GetHoldRemovedMessage(student, advisor)
+            };
+
+            this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
+            this.mailer.SendEmailNotification(advisor, student, notification);
 
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName });
         }

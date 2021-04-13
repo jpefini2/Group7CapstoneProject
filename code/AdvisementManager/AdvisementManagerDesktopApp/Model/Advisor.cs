@@ -31,5 +31,7 @@ namespace AdvisementManagerDesktopApp.Model
         /// <summary>Gets or sets the students.</summary>
         /// <value>The students.</value>
         public IList<Student> Students { get; set; }
+
+        public string FullName => this.FirstName + " " + this.LastName;
     }
 }

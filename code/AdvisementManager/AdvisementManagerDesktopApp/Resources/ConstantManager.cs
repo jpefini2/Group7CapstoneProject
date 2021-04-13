@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdvisementManagerDesktopApp.Model;
 
 namespace AdvisementManagerDesktopApp.Resources
 {
@@ -37,5 +38,20 @@ namespace AdvisementManagerDesktopApp.Resources
 
         /// <summary>The monday string</summary>
         public const string Monday = "Monday";
+
+        public static string GetApprovedMeetingMessage(DateTime meetingDateTime)
+        {
+            return "Your meeting on " + meetingDateTime.ToString("M/d/yy") + " at " + meetingDateTime.ToString("hh:mm") + " is approved.";
+        }
+
+        public static string GetCanceledMeetingMessage(DateTime meetingDateTime)
+        {
+            return "Your meeting on " + meetingDateTime.ToString("M/d/yy") + " at " + meetingDateTime.ToString("hh:mm") + " was canceled.";
+        }
+
+        public static string GetHoldRemovedMessage(Student student, Advisor advisor)
+        {
+            return student.FullName + "'s" + " hold was removed by " + advisor.FullName;
+        }
     }
 }
