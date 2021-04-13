@@ -90,25 +90,15 @@
             if (defaultSettings.NotificationList.length > 0) {
                 $.map(defaultSettings.NotificationList, function (item) {
                     var className = item.isRead ? "" : " ikrSingleNotiDivUnReadColor";
-                    var sNotiFromPropName = $.trim(defaultSettings.NotiFromPropName) == "" ? "" : item[ikrLowerFirstLetter(defaultSettings.NotiFromPropName)];
-                    $("#" + parentId + " .ikrNotificationItems").append("<div class='ikrSingleNotiDiv" +
-                        className +
-                        "' notiId=" +
-                        item.notiId +
-                        ">");
-                    $("#" + parentId + " .ikrNotificationItems").append("<h4 class='ikrNotiFromPropName'>" +
-                            "<button class=\"btn btn-outline-primary\">X</button>" +
-                        "</h4>").click(function() {
-                            var currentPage = encodeURIComponent(window.location.href);
-                            window.location.href = '/Notifications/RemoveNotification?returnUrl=' + currentPage + "&notificationId=" + sNotiFromPropName;
+                    var sNotiFromPropName = item.id;
+                    $("#" + parentId + " .ikrNotificationItems").append("<div class='ikrSingleNotiDiv" + className + "' notiId=" + item.id + ">" +
+                       "<h4 class='ikrNotiFromPropName'>" + "<button class=\"btn btn-outline-primary\">X</button>" + "</h4>" +
+                       "<div class='ikrNotificationBody'>" + item[ikrLowerFirstLetter(defaultSettings.ListBodyPropName)] + "</div>" +
+                       "</div>");
+                    $("#" + parentId + " .ikrNotificationItems .ikrSingleNotiDiv[notiId=" + item.id + "]").click(function () {
+                        var currentPage = encodeURIComponent(window.location.href);
+                        window.location.href = "/Notifications/RemoveNotification?returnUrl=" + currentPage + "&notificationId=" + sNotiFromPropName;
                     }); 
-                    $("#" + parentId + " .ikrNotificationItems").append("<h5 class='ikrNotificationTitle'>" + item[ikrLowerFirstLetter(defaultSettings.ListTitlePropName)] + "</h5>" +
-                        "</div>");
-                    $("#" + parentId + " .ikrNotificationItems .ikrSingleNotiDiv[notiId=" + item.notiId + "]").click(function () {
-                        if ($.trim(item.url) != "") {
-                            window.location.href = item.url;
-                        }
-                    });
                 });
             }
         }
