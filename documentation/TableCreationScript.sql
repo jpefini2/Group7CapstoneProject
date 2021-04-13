@@ -172,6 +172,7 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with dept advisor', '1-16-2021', 1, 6),
 ('need to meet with faculty advisor', '1-16-2021', 1, 7),
 ('need to meet with dept advisor', '12-26-2020', 1, 8)
+('need to meet with dept advisor', '1-28-2021', 1, 9)
 
 INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES
 (1, '07:30:00', '10:00:00', 1),
@@ -181,7 +182,3 @@ INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES
 (2, '12:30:00', '14:00:00', 3),
 (3, '07:30:00', '11:30:00', 4),
 (7, '13:00:00', '15:45:00', 5)
-
-INSERT INTO Notification (notifMessage, isRemovedFromAdvisor, isRemovedFromStudent, studentID, advisorID) VALUES
-('Successfully met with department advisor', 0, 0, 8, 6),
-('Successfully met with faculty advisor', 0, 0, 8, 6)

@@ -6,19 +6,20 @@
 @section scripts{
     <script>
         function SetTime(value) {
-           window.location.href = "ScheduleAdvisementSession?studentid=" + @Model.StudentId + "&studentholdid=" + @Model.StudentId + "&generaladvisorid=" + @Model.Student.generalAdvisorId + "&facultyadvisorid=" + @Model.Student.facultyAdvisorId + "&selecteddate=" + value;
-           document.getElementById('submit_button').disabled = true;
+            window.location.href = "ScheduleAdvisementSession?studentid=" + @Model.StudentId + "&studentholdid=" + @Model.StudentId + "&generaladvisorid=" + @Model.Student.generalAdvisorId + "&facultyadvisorid=" + @Model.Student.facultyAdvisorId + "&selecteddate=" + value;
         }
-        function EnableButton() {
-           document.getElementById('submit_button').enabled = true;
-        }
-        function DisableButton() {
-            document.getElementById('submit_button').enabled = false;
-        }
+        window.addEventListener("load", function () {
+
+            if (@Model.AvailableSessionTimes.Count == 0) {
+                document.getElementById('submit_button').setAttribute("disabled", "disabled");
+            } else {
+                document.getElementById('submit_button').removeAttribute("disabled");
+            }
+        });
     </script>
 }
 
-<div class="container" onload="DisableButton()">
+<div class="container">
 
     <main>
         <form asp-action="ConfirmAppointment" method="post" class="form-horizontal">
@@ -50,7 +51,7 @@
 
             <div class="row">
                 <label class="control-label col-sm-2">Choose time:</label>
-                <select asp-for="Time" asp-items="Model.AvailableSessionTimes" onchange="EnableButton()"></select>
+                <select asp-for="Time" asp-items="Model.AvailableSessionTimes"></select>
             </div>
 
             <div class="row">
@@ -59,8 +60,7 @@
 
             <div class="col offset-sm-3 pl-0">
 
-                <button type="submit" id="submit_button"
-                        class="btn btn-primary">
+                <button type="submit" id="submit_button" class="btn btn-primary" disabled>
                     Schedule Meeting
                 </button>
 
