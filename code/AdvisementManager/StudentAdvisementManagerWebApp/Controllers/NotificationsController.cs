@@ -19,6 +19,10 @@ namespace StudentAdvisementManagerWebApp.Controllers
     {
 
         private IList<Notification> _oNotifications = new List<Notification>();
+
+        private NotificationDAL notificationDal;
+        private StudentDal studentDal;
+
         /// <summary>Gets the context.</summary>
         /// <value>The context.</value>
         public ApplicationDbContext context { get; }
@@ -28,6 +32,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
         public NotificationsController(ApplicationDbContext context)
         {
             this.context = context;
+            this.notificationDal = new NotificationDAL(this.context);
+            this.studentDal = new StudentDal();
         }
 
         /// <summary>Clears all notifications for the specified user.</summary>
@@ -35,7 +41,10 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// <returns>the view back to the current screen</returns>
         public IActionResult ClearAllNotifications(string returnUrl)
         {
-            //TODO start here
+            var username = Request.Cookies["StudentAdvisementManager.LoginUser"];
+            var student = this.studentDal.ObtainStudentWithUsername(username, this.context);
+
+            this.notificationDal.RemoveAllStudentNotifications(student.Id);
             this._oNotifications.Clear();
             return Redirect(returnUrl);
         }
@@ -44,9 +53,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
         /// <returns>the result of the notification being removed.</returns>
         public IActionResult RemoveNotification(string returnUrl, int notificationId)
         {
-            //TODO need to implement removing notificaiton
-
-            return Redirect(returnUrl);
+            this.notificationDal.RemoveNotification(notificationId, true, false);
+            return Redirect(returnUrl); ;
         }
 
         /// <summary>Gets the notifications for the specified user.</summary>
