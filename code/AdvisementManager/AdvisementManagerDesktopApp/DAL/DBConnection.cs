@@ -8,7 +8,7 @@ namespace AdvisementManagerDesktopApp.DAL
     /// </summary>
     public class DbConnection
     {
-        private const string ConnStringPart1 = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog= ";
+        private const string ConnStringPart1 = @"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=";
 
         private const string ConnStringPart3 = ";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
