@@ -12,6 +12,8 @@ namespace AdvisementManagerDesktopApp.View
     /// </summary>
     public partial class AdvisementSessionsForm : Form
     {
+        public LoginForm ParentForm { get; set; }
+
         private readonly Advisor advisor;
 
         private readonly AdvisementSessionsController sessionController = new();
@@ -82,7 +84,9 @@ namespace AdvisementManagerDesktopApp.View
             var selectedStudent = this.students[selectedStudentIndex];
             selectedStudent.GeneralAdvisor = this.advisor;
             var studentAdvisementSummaryForm = new StudentAdvisementSummaryForm(selectedStudent, this.advisor);
+            studentAdvisementSummaryForm.ParentForm = this;
 
+            this.Hide();
             studentAdvisementSummaryForm.Show();
         }
 
@@ -96,7 +100,9 @@ namespace AdvisementManagerDesktopApp.View
 
             var selectedMeeting = this.upcomingMeetings[selectedMeetingIndex];
             var advisementSessionForm = new AdvisementSessionForm(selectedMeeting, this.advisor);
+            advisementSessionForm.ParentForm = this;
 
+            this.Hide();
             advisementSessionForm.Show();
         }
 
@@ -108,6 +114,9 @@ namespace AdvisementManagerDesktopApp.View
         private void updatedAvailabilityBtn_Click(object sender, EventArgs e)
         {
             var availabilityFrom = new UpdateAvailabilityForm(this.advisor);
+            availabilityFrom.ParentForm = this;
+
+            this.Hide();
             availabilityFrom.Show();
         }
 
@@ -119,6 +128,12 @@ namespace AdvisementManagerDesktopApp.View
         private void AdvisementSessionsForm_Enter(object sender, EventArgs e)
         {
             this.setUpScreen();
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            this.ParentForm.Show();
+            this.Close();
         }
     }
 }

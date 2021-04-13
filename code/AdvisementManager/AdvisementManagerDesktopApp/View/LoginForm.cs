@@ -33,6 +33,9 @@ namespace AdvisementManagerDesktopApp.View
 
             if (LoginController.Authenticate(username, password))
             {
+                this.usernameTextBox.Clear();
+                this.passwordTextBox.Clear();
+
                 MessageBox.Show(@"Login OK.");
                 Advisor advisor = LoginController.InitializeLogin(username);
                 var student = new Student
@@ -47,6 +50,9 @@ namespace AdvisementManagerDesktopApp.View
                 };
                 //var form = new AdvisementSessionForm(student, advisor);
                 var form = new AdvisementSessionsForm(advisor);
+                form.ParentForm = this;
+
+                this.Hide();
                 form.Show();
             } else
             {

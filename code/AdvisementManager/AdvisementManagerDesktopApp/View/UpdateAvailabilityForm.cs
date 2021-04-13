@@ -10,6 +10,7 @@ namespace AdvisementManagerDesktopApp.View
 {
     public partial class UpdateAvailabilityForm : Form
     {
+        public AdvisementSessionsForm ParentForm { get; set; }
         private UpdateAvailabilityController updateAvailability = new();
         private Advisor advisor;
 
@@ -210,9 +211,10 @@ namespace AdvisementManagerDesktopApp.View
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             var meetingCancelResult = MessageBox.Show(@"Items have not been saved are you sure you want to cancel?", @"Cancel Update", MessageBoxButtons.YesNo);
-
+            
             if (meetingCancelResult == DialogResult.Yes)
             {
+                this.ParentForm.Show();
                 Close();
             }
         }
@@ -255,6 +257,8 @@ namespace AdvisementManagerDesktopApp.View
 
             this.updateAvailability.UpdateAvailability(this.advisor, timeSlots);
             MessageBox.Show(@"Availability Updated");
+
+            this.ParentForm.Show();
             this.Close();
         }
 

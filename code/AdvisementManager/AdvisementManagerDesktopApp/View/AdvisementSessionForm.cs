@@ -15,6 +15,8 @@ namespace AdvisementManagerDesktopApp.View
 {
     public partial class AdvisementSessionForm : Form
     {
+        public AdvisementSessionsForm ParentForm { get; set; }
+
         private AdvisementSessionController sessionController = new();
         private readonly Advisor advisor;
         private AdvisementSession session;
@@ -81,6 +83,7 @@ namespace AdvisementManagerDesktopApp.View
                 {
                     this.session.Notes = this.notesTextBox.Text;
                     this.sessionController.ApproveMeeting(this.student, this.session.Advisor);
+                    this.ParentForm.Show();
                     this.Close();
                 }
                 catch (SqlException ex)
@@ -104,6 +107,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            this.ParentForm.Show();
             Close();
         }
 
@@ -114,6 +118,8 @@ namespace AdvisementManagerDesktopApp.View
             if (meetingCancelResult == DialogResult.Yes)
             {
                 MessageBox.Show(@"Meeting Canceled!");
+
+                this.ParentForm.Show();
                 Close();
                 var sessionController = new AdvisementSessionController();
                 sessionController.CancelMeeting(this.session.Id, this.session.Date, this.advisor, this.student);

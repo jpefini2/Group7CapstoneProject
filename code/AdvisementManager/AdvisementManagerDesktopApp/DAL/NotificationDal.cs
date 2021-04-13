@@ -20,17 +20,21 @@ namespace AdvisementManagerDesktopApp.DAL
             {
                 conn.Open();
                 const string updateQuery =
-                    "INSERT INTO Notification (studentID, advisorID, notifMessage) VALUES (@studentID, @advisorID, @notifMessage);";
+                    "INSERT INTO Notification (studentID, advisorID, notifMessage, isRemovedFromAdvisor, isRemovedFromStudent) VALUES (@studentID, @advisorID, @notifMessage, @isRemovedFromAdvisor, @isRemovedFromStudent);";
 
                 using (var cmd = new SqlCommand(updateQuery, conn))
                 {
                     cmd.Parameters.Add("@advisorID", SqlDbType.Int);
                     cmd.Parameters.Add("@studentID", SqlDbType.Int);
                     cmd.Parameters.Add("@notifMessage", SqlDbType.VarChar);
+                    cmd.Parameters.Add("@isRemovedFromAdvisor", SqlDbType.Bit);
+                    cmd.Parameters.Add("@isRemovedFromStudent", SqlDbType.Bit);
 
                     cmd.Parameters["@studentID"].Value = studentID;
                     cmd.Parameters["@advisorID"].Value = advisorID;
                     cmd.Parameters["@notifMessage"].Value = message;
+                    cmd.Parameters["@isRemovedFromAdvisor"].Value = false;
+                    cmd.Parameters["@isRemovedFromStudent"].Value = false;
 
                     cmd.ExecuteNonQuery();
                 }

@@ -37,11 +37,12 @@ namespace AdvisementManagerDesktopApp.View
             this.viewMeetingButton = new System.Windows.Forms.Button();
             this.updatedAvaliabilityBtn = new System.Windows.Forms.Button();
             this.notificationPanel = new NotificationPanel.NotificationsPanel();
+            this.logoutButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // viewBtn
             // 
-            this.viewBtn.Location = new System.Drawing.Point(317, 277);
+            this.viewBtn.Location = new System.Drawing.Point(360, 282);
             this.viewBtn.Margin = new System.Windows.Forms.Padding(2);
             this.viewBtn.Name = "viewBtn";
             this.viewBtn.Size = new System.Drawing.Size(138, 34);
@@ -55,7 +56,7 @@ namespace AdvisementManagerDesktopApp.View
             this.studentsWithHoldsListBox.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.studentsWithHoldsListBox.FormattingEnabled = true;
             this.studentsWithHoldsListBox.ItemHeight = 21;
-            this.studentsWithHoldsListBox.Location = new System.Drawing.Point(267, 87);
+            this.studentsWithHoldsListBox.Location = new System.Drawing.Point(310, 92);
             this.studentsWithHoldsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.studentsWithHoldsListBox.Name = "studentsWithHoldsListBox";
             this.studentsWithHoldsListBox.ScrollAlwaysVisible = true;
@@ -66,7 +67,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(273, 62);
+            this.label2.Location = new System.Drawing.Point(316, 67);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 21);
@@ -79,7 +80,7 @@ namespace AdvisementManagerDesktopApp.View
             this.upcomingMeetingsListBox.FormattingEnabled = true;
             this.upcomingMeetingsListBox.HorizontalScrollbar = true;
             this.upcomingMeetingsListBox.ItemHeight = 21;
-            this.upcomingMeetingsListBox.Location = new System.Drawing.Point(9, 87);
+            this.upcomingMeetingsListBox.Location = new System.Drawing.Point(52, 92);
             this.upcomingMeetingsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.upcomingMeetingsListBox.Name = "upcomingMeetingsListBox";
             this.upcomingMeetingsListBox.Size = new System.Drawing.Size(250, 172);
@@ -89,7 +90,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(9, 62);
+            this.label1.Location = new System.Drawing.Point(52, 67);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(165, 21);
@@ -98,7 +99,7 @@ namespace AdvisementManagerDesktopApp.View
             // 
             // viewMeetingButton
             // 
-            this.viewMeetingButton.Location = new System.Drawing.Point(61, 277);
+            this.viewMeetingButton.Location = new System.Drawing.Point(104, 282);
             this.viewMeetingButton.Margin = new System.Windows.Forms.Padding(2);
             this.viewMeetingButton.Name = "viewMeetingButton";
             this.viewMeetingButton.Size = new System.Drawing.Size(138, 34);
@@ -124,11 +125,22 @@ namespace AdvisementManagerDesktopApp.View
             this.notificationPanel.Size = new System.Drawing.Size(292, 30);
             this.notificationPanel.TabIndex = 10;
             // 
+            // logoutButton
+            // 
+            this.logoutButton.Location = new System.Drawing.Point(533, 17);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(75, 23);
+            this.logoutButton.TabIndex = 11;
+            this.logoutButton.Text = "Log Out";
+            this.logoutButton.UseVisualStyleBackColor = true;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
             // AdvisementSessionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 337);
+            this.ClientSize = new System.Drawing.Size(620, 342);
+            this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.notificationPanel);
             this.Controls.Add(this.updatedAvaliabilityBtn);
             this.Controls.Add(this.viewMeetingButton);
@@ -157,5 +169,6 @@ namespace AdvisementManagerDesktopApp.View
         private System.Windows.Forms.Button viewMeetingButton;
         private System.Windows.Forms.Button updatedAvaliabilityBtn;
         private NotificationPanel.NotificationsPanel notificationPanel;
+        private System.Windows.Forms.Button logoutButton;
     }
 }
