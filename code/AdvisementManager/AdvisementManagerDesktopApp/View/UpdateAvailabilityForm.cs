@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
+using NotificationPanel;
 
 namespace AdvisementManagerDesktopApp.View
 {
@@ -13,7 +15,7 @@ namespace AdvisementManagerDesktopApp.View
         public AdvisementSessionsForm ParentForm { get; set; }
         private UpdateAvailabilityController updateAvailability = new();
         private Advisor advisor;
-
+        private readonly NotificationController notificationController = new();
         public UpdateAvailabilityForm(Advisor advisor)
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
+            var notificationTextData = NotificationController.GetPanelNotifications(notifications);
 
             this.notificationPanel.SetUpNotifications(notificationTextData);
         }
@@ -39,18 +41,18 @@ namespace AdvisementManagerDesktopApp.View
             var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability(this.advisor);
             this.loadAdvisorCurrentAvailability(currentAvailability);
             this.setUpNotifications();
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void loadAdvisorCurrentAvailability(Dictionary<string, IList<string>> currentAvailability)

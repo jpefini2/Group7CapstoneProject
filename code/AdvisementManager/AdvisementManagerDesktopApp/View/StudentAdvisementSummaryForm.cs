@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
 using Microsoft.Data.SqlClient;
+using NotificationPanel;
 
 namespace AdvisementManagerDesktopApp.View
 {
@@ -23,6 +25,8 @@ namespace AdvisementManagerDesktopApp.View
 
         private readonly Student student;
 
+        private readonly NotificationController notificationController = new();
+
         /// <summary>Initializes a new instance of the <see cref="StudentAdvisementSummaryForm" /> class.</summary>
         public StudentAdvisementSummaryForm(Student student, Advisor advisor)
         {
@@ -31,18 +35,18 @@ namespace AdvisementManagerDesktopApp.View
             this.advisor = advisor;
             this.checkForMeeting();
             this.setUpScreen();
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void setUpNotifications()
@@ -50,7 +54,7 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
+            var notificationTextData = NotificationController.GetPanelNotifications(notifications);
 
             this.notificationPanel.SetUpNotifications(notificationTextData);
         }

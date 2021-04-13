@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AdvisementManagerDesktopApp.DAL;
+using NotificationPanel;
 
 namespace AdvisementManagerDesktopApp.View
 {
@@ -22,6 +24,8 @@ namespace AdvisementManagerDesktopApp.View
         private AdvisementSession session;
         private Student student;
 
+        private readonly NotificationController notificationController = new();
+
         public AdvisementSessionForm(AdvisementSession session, Advisor advisor)
         {
             InitializeComponent();
@@ -30,18 +34,18 @@ namespace AdvisementManagerDesktopApp.View
             this.student = session.Student;
 
             this.populateFields();
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void setUpNotifications()
@@ -49,7 +53,7 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
+            var notificationTextData = NotificationController.GetPanelNotifications(notifications);
             
             this.notificationPanel.SetUpNotifications(notificationTextData);
         }

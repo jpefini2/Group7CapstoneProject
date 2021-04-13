@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using NotificationPanel;
+using NotificationPanel.Model;
 
 namespace AdvisementManagerDesktopApp.View
 {
@@ -18,6 +22,8 @@ namespace AdvisementManagerDesktopApp.View
 
         private readonly AdvisementSessionsController sessionController = new();
 
+        private readonly NotificationController notificationController = new();
+
         private IList<Student> students;
         private IList<AdvisementSession> upcomingMeetings;
 
@@ -29,18 +35,18 @@ namespace AdvisementManagerDesktopApp.View
 
             this.setUpScreen();
 
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void setUpNotifications()
@@ -48,9 +54,9 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
-
-            this.notificationPanel.SetUpNotifications(notificationTextData);
+            var panelNotifications = NotificationController.GetPanelNotifications(notifications);
+            
+            this.notificationPanel.SetUpNotifications(panelNotifications);
         }
 
         private void setUpScreen()
@@ -70,6 +76,7 @@ namespace AdvisementManagerDesktopApp.View
             {
                 this.upcomingMeetingsListBox.Items.Add(meeting.Student.FirstName + " " + meeting.Student.LastName + " - " + meeting.Date);
             }
+            
             this.setUpNotifications();
         }
 

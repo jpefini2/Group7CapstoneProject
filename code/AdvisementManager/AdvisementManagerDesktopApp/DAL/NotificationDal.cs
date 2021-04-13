@@ -41,32 +41,34 @@ namespace AdvisementManagerDesktopApp.DAL
             }
             conn.Close();
         }
-
+        
         /// <summary>
-        /// Delete a specific notification from the database.
+        /// Clears a specific notification for the advisor.
         /// </summary>
         /// <param name="notificationID">The ID of the notification to delete.</param>
-        public void DeleteNotification(int notificationID)
+        public void ClearNotification(int id)
         {
             var conn = DbConnection.GetConnection();
             using (conn)
             {
                 conn.Open();
-                const string deleteQuery = "DELETE FROM Notification WHERE notificationID = @notificationID";
-
-
-                using (var cmd = new SqlCommand(deleteQuery, conn))
+                const string updateQuery =
+                    "UPDATE notification SET isRemovedFromAdvisor = @isRemovedFromAdvisor WHERE notificationId = @notificationId;";
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(updateQuery, conn))
                 {
-                    cmd.Parameters.Add("@notificationID", SqlDbType.Int);
-                    cmd.Parameters["@notificationID"].Value = notificationID;
+                    cmd.Parameters.Add("@isRemovedFromAdvisor", SqlDbType.Bit);
+                    cmd.Parameters["@isRemovedFromAdvisor"].Value = true;
+
+                    cmd.Parameters.Add("@notificationId", SqlDbType.Int);
+                    cmd.Parameters["@notificationId"].Value = id;
+
                     cmd.ExecuteNonQuery();
                 }
             }
-            conn.Close();
         }
 
         /// <summary>
-        /// Delete all notifications that have the supplied advisorID.
+        /// Clears all notifications that have the supplied advisorID.
         /// </summary>
         /// <param name="advisorID">The advisorID to search for and delete within notifications.</param>
         public void ClearNotifications(int advisorID)
@@ -75,11 +77,13 @@ namespace AdvisementManagerDesktopApp.DAL
             using (conn)
             {
                 conn.Open();
-                const string deleteQuery = "DELETE FROM Notification WHERE advisorID = @advisorID";
+                const string deleteQuery = "UPDATE notification SET isRemovedFromAdvisor = @isRemovedFromAdvisor WHERE advisorID = @advisorID";
 
 
                 using (var cmd = new SqlCommand(deleteQuery, conn))
                 {
+                    cmd.Parameters.Add("@isRemovedFromAdvisor", SqlDbType.Bit);
+                    cmd.Parameters["@isRemovedFromAdvisor"].Value = true;
                     cmd.Parameters.Add("@advisorID", SqlDbType.Int);
                     cmd.Parameters["@advisorID"].Value = advisorID;
                     cmd.ExecuteNonQuery();
@@ -102,12 +106,14 @@ namespace AdvisementManagerDesktopApp.DAL
             {
                 conn.Open();
 
-                string selectString = "SELECT notificationID, advisorID, studentID, NotifMessage FROM Notification WHERE advisorID = @userID";
+                string selectString = "SELECT notificationID, advisorID, studentID, NotifMessage FROM Notification WHERE advisorID = @userID AND isRemovedFromAdvisor = @isRemovedFromAdvisor";
 
                 using (var cmd = new SqlCommand(selectString, conn))
                 {
                     cmd.Parameters.Add("@userID", System.Data.SqlDbType.Int);
                     cmd.Parameters["@userID"].Value = advisorID;
+                    cmd.Parameters.Add("@isRemovedFromAdvisor", System.Data.SqlDbType.Bit);
+                    cmd.Parameters["@isRemovedFromAdvisor"].Value = false;
 
                     using var reader = cmd.ExecuteReader();
                     if (reader.HasRows)
