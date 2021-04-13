@@ -107,6 +107,8 @@ CREATE TABLE Availability (
 CREATE TABLE Notification (
 	notificationID INT NOT NULL IDENTITY PRIMARY KEY,
 	notifMessage VARCHAR(200) NOT NULL,
+    isRemovedFromAdvisor BIT NOT NULL,
+	isRemovedFromStudent BIT NOT NULL,
 	studentID INT NOT NULL,
 	advisorID INT NOT NULL,
   CONSTRAINT fk_notification_studentID
@@ -180,6 +182,6 @@ INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES
 (3, '07:30:00', '11:30:00', 4),
 (7, '13:00:00', '15:45:00', 5)
 
-INSERT INTO Notification (studentID, advisorID, notifMessage) VALUES
-(8, 6, "Successfully met with department advisor"),
-(9, 6, "Successfully met with faculty advisor")
+INSERT INTO Notification (notifMessage, isRemovedFromAdvisor, isRemovedFromStudent, studentID, advisorID) VALUES
+('Successfully met with department advisor', 0, 0, 8, 6),
+('Successfully met with faculty advisor', 0, 0, 8, 6)

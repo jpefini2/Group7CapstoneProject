@@ -29,6 +29,12 @@ namespace AdvisementManagerSharedLibrary.Models
 
         /// <summary>Gets or sets the message associated with this notification.</summary>
         /// <value>The message.</value>
+        [Column("isRemovedFromAdvisor")]
+        public bool IsRemovedFromAdvisor { get; set; }
+
+        [Column("isRemovedFromStudent")]
+        public bool IsRemovedFromStudent { get; set; }
+
         [Column("notifMessage")]
         public string NotifMessage { get; set; }
     }

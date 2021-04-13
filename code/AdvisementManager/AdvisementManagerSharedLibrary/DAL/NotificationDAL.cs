@@ -28,7 +28,8 @@ namespace AdvisementManagerSharedLibrary.DAL
         public IList<Notification> GetNotificationsByBothID(int advisorID, int studentID, ApplicationDbContext context)
         {
             var notif = (from notification in context.Notification where notification.AdvisorId==advisorID 
-                         && notification.StudentId == studentID select notification).ToList();
+                         && notification.StudentId == studentID && notification.IsRemovedFromAdvisor == false && notification.IsRemovedFromStudent == false
+                         select notification).ToList();
 
             return notif;
         }
@@ -42,7 +43,7 @@ namespace AdvisementManagerSharedLibrary.DAL
         public IList<Notification> GetNotificationsByStudentID(int studentID, ApplicationDbContext context)
         {
             var notif = (from notification in context.Notification
-                         where notification.StudentId == studentID
+                         where notification.StudentId == studentID && notification.IsRemovedFromStudent == false
                          select notification).ToList();
 
             return notif;
@@ -57,7 +58,7 @@ namespace AdvisementManagerSharedLibrary.DAL
         public List<Notification> GetNotificationsByAdvisorID(int advisorID, ApplicationDbContext context)
         {
             var notif = (from notification in context.Notification
-                         where notification.AdvisorId == advisorID
+                         where notification.AdvisorId == advisorID && notification.IsRemovedFromAdvisor == false
                          select notification).ToList();
 
             return notif;
@@ -82,6 +83,42 @@ namespace AdvisementManagerSharedLibrary.DAL
             context.Entry(notif).State = EntityState.Deleted;
             context.SaveChanges();
 
+        }
+
+        public void RemoveNotification(int? advisorId, bool removeForStudent, bool removeForAdvisor)
+        {
+            if (removeForStudent)
+            {
+                var notif = this.GetNotificationByKeyId(advisorId, context);
+                notif.IsRemovedFromStudent = true;
+
+                context.Entry(notif).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
+            if (removeForAdvisor)
+            {
+                var notif = this.GetNotificationByKeyId(advisorId, context);
+                notif.IsRemovedFromAdvisor = true;
+
+                context.Entry(notif).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void RemoveAllNotifications(int? advisorId)
+        {
+            var notifs = (from notifications in context.Notification
+                where notifications.AdvisorId == advisorId
+                select notifications).ToList();
+
+            foreach (var notif in notifs)
+            {
+                notif.IsRemovedFromAdvisor = true;
+                context.Entry(notif).State = EntityState.Modified;
+            }
+
+            context.SaveChanges();
         }
 
         /// <summary>

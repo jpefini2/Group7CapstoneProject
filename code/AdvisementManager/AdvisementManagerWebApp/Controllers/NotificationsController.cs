@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Security;
 using System.Threading.Tasks;
@@ -22,6 +23,9 @@ namespace AdvisementManagerWebApp.Controllers
 
         private IList<Notification> _oNotifications = new List<Notification>();
 
+        private NotificationDAL notificationDal;
+        private AdvisorDAL advisorDal;
+
         /// <summary>Gets the context.</summary>
         /// <value>The context.</value>
         public ApplicationDbContext context { get; }
@@ -31,6 +35,8 @@ namespace AdvisementManagerWebApp.Controllers
         public NotificationsController(ApplicationDbContext context)
         {
             this.context = context;
+            this.notificationDal =  new NotificationDAL(this.context);
+            this.advisorDal = new AdvisorDAL();
         }
 
 
@@ -39,7 +45,10 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>the view back to the current screen</returns>
         public IActionResult ClearAllNotifications(string returnUrl)
         {
-            //TODO start here
+            var username = Request.Cookies["AdvisementManager.LoginUser"];
+            var advisor = this.advisorDal.ObtainAdvisorWithUsername(username, this.context);
+
+            this.notificationDal.RemoveAllNotifications(advisor.Id);
             this._oNotifications.Clear();
             return Redirect(returnUrl);
         }
@@ -48,8 +57,6 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>the result of the notification being removed.</returns>
         public IActionResult RemoveNotification(string returnUrl, int notificationId)
         {
-            //TODO need to implement removing notificaiton
-
             return Redirect(returnUrl); ;
         }
 
