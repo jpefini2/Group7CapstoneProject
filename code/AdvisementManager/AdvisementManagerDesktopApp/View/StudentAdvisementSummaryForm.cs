@@ -18,6 +18,7 @@ namespace AdvisementManagerDesktopApp.View
     public partial class StudentAdvisementSummaryForm : Form
     {
         public AdvisementSessionsForm ParentForm;
+        private bool wasClosedExitedProperly = false;
 
         private readonly AdvisementSessionController sessionController = new();
 
@@ -150,6 +151,8 @@ namespace AdvisementManagerDesktopApp.View
                 {
                     this.student.Meeting.Notes = this.notesTxtBox.Text;
                     this.sessionController.ApproveMeeting(this.student, this.advisor);
+
+                    this.wasClosedExitedProperly = true;
                     this.ParentForm.Show();
                     this.Close();
                 }
@@ -177,6 +180,8 @@ namespace AdvisementManagerDesktopApp.View
             try
             {
                 this.sessionController.RemoveHold(this.student, this.advisor);
+
+                this.wasClosedExitedProperly = true;
                 this.ParentForm.Show();
                 this.Close();
                 MessageBox.Show(@"Hold Removed");
@@ -189,6 +194,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            this.wasClosedExitedProperly = true;
             this.ParentForm.Show();
             Close();
         }
@@ -204,12 +210,20 @@ namespace AdvisementManagerDesktopApp.View
 
             if (meetingCancelResult == DialogResult.Yes)
             {
-                MessageBox.Show(@"Meeting Canceled!");
-                this.ParentForm.Show();
-                Close();
                 var sessionController = new AdvisementSessionController();
                 sessionController.CancelMeeting(this.student.Meeting.Id, this.student.Meeting.Date, this.advisor, this.student);
+
+                MessageBox.Show(@"Meeting Canceled!");
+                this.wasClosedExitedProperly = true;
+                this.ParentForm.Show();
+                Close();
             }
+        }
+
+        private void StudentAdvisementSummaryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }

@@ -15,11 +15,11 @@ namespace AdvisementManagerDesktopApp.Controller
         /// <returns>
         ///   The list of students who currently have holds in the system.
         /// </returns>
-        public IList<Student> ObtainStudentsWithHolds(Advisor advisor)
+        public IList<Student> ObtainStudents(Advisor advisor)
         {
             var studentDal = new StudentDal();
 
-            var students = studentDal.ObtainStudentsWithHolds(advisor);
+            var students = studentDal.ObtainStudentsOfAdvisor(advisor);
 
             return students;
         }

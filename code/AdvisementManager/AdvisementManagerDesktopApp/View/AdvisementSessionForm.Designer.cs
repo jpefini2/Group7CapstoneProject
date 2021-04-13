@@ -251,6 +251,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdvisementSessionForm";
             this.Text = "AdvisementSessionForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdvisementSessionForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

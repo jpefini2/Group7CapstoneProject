@@ -18,6 +18,7 @@ namespace AdvisementManagerDesktopApp.View
     public partial class AdvisementSessionForm : Form
     {
         public AdvisementSessionsForm ParentForm { get; set; }
+        private bool wasClosedExitedProperly = false;
 
         private AdvisementSessionController sessionController = new();
         private readonly Advisor advisor;
@@ -87,6 +88,9 @@ namespace AdvisementManagerDesktopApp.View
                 {
                     this.session.Notes = this.notesTextBox.Text;
                     this.sessionController.ApproveMeeting(this.student, this.session.Advisor);
+
+                    this.wasClosedExitedProperly = true;
+                    this.ParentForm.setUpScreen();
                     this.ParentForm.Show();
                     this.Close();
                 }
@@ -111,6 +115,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            this.wasClosedExitedProperly = true;
             this.ParentForm.Show();
             Close();
         }
@@ -123,11 +128,20 @@ namespace AdvisementManagerDesktopApp.View
             {
                 MessageBox.Show(@"Meeting Canceled!");
 
-                this.ParentForm.Show();
-                Close();
                 var sessionController = new AdvisementSessionController();
                 sessionController.CancelMeeting(this.session.Id, this.session.Date, this.advisor, this.student);
+
+                this.wasClosedExitedProperly = true;
+                this.ParentForm.setUpScreen();
+                this.ParentForm.Show();
+                Close();
             }
+        }
+
+        private void AdvisementSessionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }

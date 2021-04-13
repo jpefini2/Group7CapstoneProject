@@ -267,6 +267,7 @@ namespace AdvisementManagerDesktopApp.View
             this.MinimumSize = new System.Drawing.Size(705, 632);
             this.Name = "UpdateAvailabilityForm";
             this.Text = "UpdateAvailabilityForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateAvailabilityForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

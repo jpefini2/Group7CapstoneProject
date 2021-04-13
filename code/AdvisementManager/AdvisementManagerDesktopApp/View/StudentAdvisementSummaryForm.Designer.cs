@@ -197,6 +197,7 @@ namespace AdvisementManagerDesktopApp.View
             this.Controls.Add(this.approveBtn);
             this.Name = "StudentAdvisementSummaryForm";
             this.Text = "Advisement Session";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StudentAdvisementSummaryForm_FormClosed);
             this.Load += new System.EventHandler(this.AdvisementSessionForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

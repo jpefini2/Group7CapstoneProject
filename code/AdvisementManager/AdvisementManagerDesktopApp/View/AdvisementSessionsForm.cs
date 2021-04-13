@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
 using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using AdvisementManagerDesktopApp.Resources;
 using NotificationPanel;
 using NotificationPanel.Model;
 
@@ -17,6 +18,7 @@ namespace AdvisementManagerDesktopApp.View
     public partial class AdvisementSessionsForm : Form
     {
         public LoginForm ParentForm { get; set; }
+        private bool wasClosedExitedProperly = false;
 
         private readonly Advisor advisor;
 
@@ -59,17 +61,22 @@ namespace AdvisementManagerDesktopApp.View
             this.notificationPanel.SetUpNotifications(panelNotifications);
         }
 
-        private void setUpScreen()
+        public void setUpScreen()
         {
-            this.studentsWithHoldsListBox.Items.Clear();
-            this.students = this.sessionController.ObtainStudentsWithHolds(this.advisor);
+            this.studentsListBox.Items.Clear();
+            this.students = this.sessionController.ObtainStudents(this.advisor);
 
             this.upcomingMeetingsListBox.Items.Clear();
             this.upcomingMeetings = this.sessionController.ObtainUpcomingMeetings(this.advisor);
 
             foreach (var student in this.students)
             {
-                this.studentsWithHoldsListBox.Items.Add(student.FirstName + " " + student.LastName);
+                string advisementStatus = "Complete";
+
+                if (student.Hold.Reason != ConstantManager.ReadyToRegister)
+                    advisementStatus = "Incomplete";
+
+                this.studentsListBox.Items.Add(student.FirstName + " " + student.LastName + " : " + advisementStatus);
             }
 
             foreach (var meeting in this.upcomingMeetings)
@@ -82,7 +89,7 @@ namespace AdvisementManagerDesktopApp.View
 
         private void viewStudentBtn_Click(object sender, EventArgs e)
         {
-            var selectedStudentIndex = this.studentsWithHoldsListBox.SelectedIndex;
+            var selectedStudentIndex = this.studentsListBox.SelectedIndex;
             if (selectedStudentIndex < 0)
             {
                 return;
@@ -131,7 +138,7 @@ namespace AdvisementManagerDesktopApp.View
         {
             this.setUpScreen();
         }
-
+        
         private void AdvisementSessionsForm_Enter(object sender, EventArgs e)
         {
             this.setUpScreen();
@@ -139,8 +146,16 @@ namespace AdvisementManagerDesktopApp.View
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            this.wasClosedExitedProperly = true;
+
             this.ParentForm.Show();
             this.Close();
+        }
+
+        private void AdvisementSessionsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }

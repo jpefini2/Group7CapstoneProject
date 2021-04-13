@@ -13,6 +13,8 @@ namespace AdvisementManagerDesktopApp.View
     public partial class UpdateAvailabilityForm : Form
     {
         public AdvisementSessionsForm ParentForm { get; set; }
+        private bool wasClosedExitedProperly = false;
+
         private UpdateAvailabilityController updateAvailability = new();
         private Advisor advisor;
         private readonly NotificationController notificationController = new();
@@ -216,6 +218,7 @@ namespace AdvisementManagerDesktopApp.View
             
             if (meetingCancelResult == DialogResult.Yes)
             {
+                this.wasClosedExitedProperly = true;
                 this.ParentForm.Show();
                 Close();
             }
@@ -260,6 +263,7 @@ namespace AdvisementManagerDesktopApp.View
             this.updateAvailability.UpdateAvailability(this.advisor, timeSlots);
             MessageBox.Show(@"Availability Updated");
 
+            this.wasClosedExitedProperly = true;
             this.ParentForm.Show();
             this.Close();
         }
@@ -344,6 +348,12 @@ namespace AdvisementManagerDesktopApp.View
                     ((ListBox) control).SelectedItem = null;
                 }
             }
+        }
+
+        private void UpdateAvailabilityForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }
