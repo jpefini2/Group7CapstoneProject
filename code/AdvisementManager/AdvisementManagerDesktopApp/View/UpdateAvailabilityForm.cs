@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
 using AdvisementManagerDesktopApp.Resources;
+using NotificationPanel;
 
 namespace AdvisementManagerDesktopApp.View
 {
     public partial class UpdateAvailabilityForm : Form
     {
         public AdvisementSessionsForm ParentForm { get; set; }
+        private bool wasClosedExitedProperly = false;
+
         private UpdateAvailabilityController updateAvailability = new();
         private Advisor advisor;
-
+        private readonly NotificationController notificationController = new();
         public UpdateAvailabilityForm(Advisor advisor)
         {
             InitializeComponent();
@@ -27,7 +31,7 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
+            var notificationTextData = NotificationController.GetPanelNotifications(notifications);
 
             this.notificationPanel.SetUpNotifications(notificationTextData);
         }
@@ -39,18 +43,18 @@ namespace AdvisementManagerDesktopApp.View
             var currentAvailability = this.updateAvailability.RetrieveAdvisorCurrentAvailability(this.advisor);
             this.loadAdvisorCurrentAvailability(currentAvailability);
             this.setUpNotifications();
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void loadAdvisorCurrentAvailability(Dictionary<string, IList<string>> currentAvailability)
@@ -214,6 +218,7 @@ namespace AdvisementManagerDesktopApp.View
             
             if (meetingCancelResult == DialogResult.Yes)
             {
+                this.wasClosedExitedProperly = true;
                 this.ParentForm.Show();
                 Close();
             }
@@ -258,6 +263,7 @@ namespace AdvisementManagerDesktopApp.View
             this.updateAvailability.UpdateAvailability(this.advisor, timeSlots);
             MessageBox.Show(@"Availability Updated");
 
+            this.wasClosedExitedProperly = true;
             this.ParentForm.Show();
             this.Close();
         }
@@ -342,6 +348,12 @@ namespace AdvisementManagerDesktopApp.View
                     ((ListBox) control).SelectedItem = null;
                 }
             }
+        }
+
+        private void UpdateAvailabilityForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }

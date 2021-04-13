@@ -171,7 +171,7 @@ INSERT INTO Hold (reason, dateAdded, isActive, studentID) VALUES
 ('need to meet with faculty advisor', '1-16-2021', 1, 5),
 ('need to meet with dept advisor', '1-16-2021', 1, 6),
 ('need to meet with faculty advisor', '1-16-2021', 1, 7),
-('need to meet with dept advisor', '12-26-2020', 1, 8)
+('need to meet with dept advisor', '12-26-2020', 1, 8),
 ('need to meet with dept advisor', '1-28-2021', 1, 9)
 
 INSERT INTO Availability (dayOfTheWeek, timeBegin, timeEnd, advisorID) VALUES

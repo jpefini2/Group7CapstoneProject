@@ -12,6 +12,8 @@ namespace AdvisementManagerDesktopApp.Controller
     /// <summary>The notification contorller for managing notifications between the model and the view</summary>
     public class NotificationController
     {
+        private readonly NotificationDal notificationDal = new();
+
         /// <summary>Gets the notifications for the selected advisor.</summary>
         /// <param name="advisorId">The advisor identifier.</param>
         /// <returns>A list of notifications for the specific advisor.</returns>
@@ -24,18 +26,34 @@ namespace AdvisementManagerDesktopApp.Controller
         }
 
         /// <summary>Removes all notifications for the specified advisor.</summary>
-        public void RemoveAllNotifications()
+        public void RemoveAllNotifications(int advisorId)
         {
-            //TODO need to remove all notifications once the DAL method is set up.
+            notificationDal.ClearNotifications(advisorId);
+        }
+
+        public void RemoveNotification(int id)
+        {
+            notificationDal.ClearNotifications(id);
         }
 
         /// <summary>Gets the notification text data.</summary>
         /// <param name="notifications">The notifications.</param>
         /// <returns>all of the notification messages in the list of notifications.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static List<string> GetNotificationTextData(List<Notification> notifications)
+        public static List<NotificationPanel.Model.Notification> GetPanelNotifications(List<Notification> notifications)
         {
-            return notifications.Select(notification => notification.NotifMessage).ToList();
+            List<NotificationPanel.Model.Notification> panelNotifs = new List<NotificationPanel.Model.Notification>();
+            foreach (var notif in notifications)
+            {
+                var panelNotif = new NotificationPanel.Model.Notification()
+                {
+                    Id = notif.Id,
+                    NotifMessage = notif.NotifMessage
+                };
+                panelNotifs.Add(panelNotif);
+            }
+
+            return panelNotifs;
         }
     }
 }

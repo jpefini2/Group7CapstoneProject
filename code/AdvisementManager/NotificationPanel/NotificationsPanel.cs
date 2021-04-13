@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NotificationPanel.Model;
 
 namespace NotificationPanel
 {
@@ -17,7 +18,7 @@ namespace NotificationPanel
         public event EventHandler<EventArgs> RemoveAllClicked;
 
         /// <summary>Occurs when [removed button clicked].</summary>
-        public event EventHandler<EventArgs> RemovedButtonClicked;
+        public event EventHandler<RemovedNotificationEventArgs> RemovedButtonClicked;
 
         /// <summary>Initializes a new instance of the <see cref="NotificationsPanel" /> class.</summary>
         public NotificationsPanel()
@@ -28,7 +29,7 @@ namespace NotificationPanel
 
         /// <summary>Sets up notifications. with the provided list of notifications</summary>
         /// <param name="notifications">The notifications.</param>
-        public void SetUpNotifications(List<string> notifications)
+        public void SetUpNotifications(List<Notification> notifications)
         {
             this.notificationsListBox.Items.Clear();
             var notificationCounter = 0;
@@ -60,14 +61,32 @@ namespace NotificationPanel
 
         private void removeBtn_Click(object sender, EventArgs e)
         {
-            var removeButtonClicked = new EventArgs();
+            var selectedNotif = (Notification) this.notificationsListBox.SelectedItem;
+
+            this.notificationsListBox.Items.RemoveAt(this.notificationsListBox.SelectedIndex);
+            this.notifcationCountLbl.Text = this.notificationsListBox.Items.Count.ToString();
+
+            var removeButtonClicked = new RemovedNotificationEventArgs {Id = selectedNotif.Id};
             this.RemovedButtonClicked?.Invoke(this, removeButtonClicked);
         }
 
         private void removeAllBtn_Click(object sender, EventArgs e)
         {
+            this.notificationsListBox.Items.Clear();
+            this.notifcationCountLbl.Text = @"0";
+
             var removeAllButtonClicked = new EventArgs();
             this.RemoveAllClicked?.Invoke(this, removeAllButtonClicked);
         }
+    }
+
+    public class RemovedNotificationEventArgs : EventArgs
+    {
+        public int Id { get; set; }
+    }
+
+    public class RemovedAllNotificationsEventArgs : EventArgs
+    {
+        public List<int> Ids;
     }
 }

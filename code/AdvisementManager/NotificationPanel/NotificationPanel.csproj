@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Notification.cs" />
     <Compile Include="NotificationsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -56,5 +57,6 @@
       <DependentUpon>NotificationsPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

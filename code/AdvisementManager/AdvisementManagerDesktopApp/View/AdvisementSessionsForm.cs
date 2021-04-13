@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using AdvisementManagerDesktopApp.Controller;
+using AdvisementManagerDesktopApp.DAL;
 using AdvisementManagerDesktopApp.Model;
+using AdvisementManagerDesktopApp.Resources;
+using NotificationPanel;
+using NotificationPanel.Model;
 
 namespace AdvisementManagerDesktopApp.View
 {
@@ -13,10 +18,13 @@ namespace AdvisementManagerDesktopApp.View
     public partial class AdvisementSessionsForm : Form
     {
         public LoginForm ParentForm { get; set; }
+        private bool wasClosedExitedProperly = false;
 
         private readonly Advisor advisor;
 
         private readonly AdvisementSessionsController sessionController = new();
+
+        private readonly NotificationController notificationController = new();
 
         private IList<Student> students;
         private IList<AdvisementSession> upcomingMeetings;
@@ -29,18 +37,18 @@ namespace AdvisementManagerDesktopApp.View
 
             this.setUpScreen();
 
-            this.notificationPanel.RemoveAllClicked += this.RemoveButtonClicked;
+            this.notificationPanel.RemovedButtonClicked += this.RemoveButtonClicked;
             this.notificationPanel.RemoveAllClicked += this.RemoveAllButtonClicked;
         }
 
-        public void RemoveButtonClicked(object sender, EventArgs e)
+        public void RemoveButtonClicked(object sender, RemovedNotificationEventArgs e)
         {
-
+            notificationController.RemoveNotification(e.Id);
         }
 
         public void RemoveAllButtonClicked(object sender, EventArgs e)
         {
-
+            notificationController.RemoveAllNotifications(this.advisor.Id);
         }
 
         private void setUpNotifications()
@@ -48,34 +56,40 @@ namespace AdvisementManagerDesktopApp.View
             NotificationController notificationController = new();
             var notifications = notificationController.GetNotifications(this.advisor.Id);
 
-            var notificationTextData = NotificationController.GetNotificationTextData(notifications);
-
-            this.notificationPanel.SetUpNotifications(notificationTextData);
+            var panelNotifications = NotificationController.GetPanelNotifications(notifications);
+            
+            this.notificationPanel.SetUpNotifications(panelNotifications);
         }
 
-        private void setUpScreen()
+        public void setUpScreen()
         {
-            this.studentsWithHoldsListBox.Items.Clear();
-            this.students = this.sessionController.ObtainStudentsWithHolds(this.advisor);
+            this.studentsListBox.Items.Clear();
+            this.students = this.sessionController.ObtainStudents(this.advisor);
 
             this.upcomingMeetingsListBox.Items.Clear();
             this.upcomingMeetings = this.sessionController.ObtainUpcomingMeetings(this.advisor);
 
             foreach (var student in this.students)
             {
-                this.studentsWithHoldsListBox.Items.Add(student.FirstName + " " + student.LastName);
+                string advisementStatus = "Complete";
+
+                if (student.Hold.Reason != ConstantManager.ReadyToRegister)
+                    advisementStatus = "Incomplete";
+
+                this.studentsListBox.Items.Add(student.FirstName + " " + student.LastName + " : " + advisementStatus);
             }
 
             foreach (var meeting in this.upcomingMeetings)
             {
                 this.upcomingMeetingsListBox.Items.Add(meeting.Student.FirstName + " " + meeting.Student.LastName + " - " + meeting.Date);
             }
+            
             this.setUpNotifications();
         }
 
         private void viewStudentBtn_Click(object sender, EventArgs e)
         {
-            var selectedStudentIndex = this.studentsWithHoldsListBox.SelectedIndex;
+            var selectedStudentIndex = this.studentsListBox.SelectedIndex;
             if (selectedStudentIndex < 0)
             {
                 return;
@@ -124,7 +138,7 @@ namespace AdvisementManagerDesktopApp.View
         {
             this.setUpScreen();
         }
-
+        
         private void AdvisementSessionsForm_Enter(object sender, EventArgs e)
         {
             this.setUpScreen();
@@ -132,8 +146,16 @@ namespace AdvisementManagerDesktopApp.View
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            this.wasClosedExitedProperly = true;
+
             this.ParentForm.Show();
             this.Close();
+        }
+
+        private void AdvisementSessionsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!wasClosedExitedProperly)
+                this.ParentForm.Close();
         }
     }
 }
