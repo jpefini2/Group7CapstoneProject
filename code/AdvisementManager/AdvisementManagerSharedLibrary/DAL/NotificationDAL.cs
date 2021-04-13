@@ -77,19 +77,18 @@ namespace AdvisementManagerSharedLibrary.DAL
             return notif;
         }
 
-        public void DeleteNotification(int? id, ApplicationDbContext context)
-        {
-            var notif = this.GetNotificationByKeyId(id, context);
-            context.Entry(notif).State = EntityState.Deleted;
-            context.SaveChanges();
-
-        }
-
-        public void RemoveNotification(int? advisorId, bool removeForStudent, bool removeForAdvisor)
+        /// <summary>
+        ///     Removes a single notification
+        /// </summary>
+        /// <param name="id">The ID of the notification.</param>
+        /// <param name="removeForStudent">If the notification should be removed for the student</param>
+        /// /// <param name="removeForAdvisor">If the notification should be removed for the advisor</param>
+        /// <returns></returns>
+        public void RemoveNotification(int? id, bool removeForStudent, bool removeForAdvisor)
         {
             if (removeForStudent)
             {
-                var notif = this.GetNotificationByKeyId(advisorId, context);
+                var notif = this.GetNotificationByKeyId(id, context);
                 notif.IsRemovedFromStudent = true;
 
                 context.Entry(notif).State = EntityState.Modified;
@@ -98,7 +97,7 @@ namespace AdvisementManagerSharedLibrary.DAL
 
             if (removeForAdvisor)
             {
-                var notif = this.GetNotificationByKeyId(advisorId, context);
+                var notif = this.GetNotificationByKeyId(id, context);
                 notif.IsRemovedFromAdvisor = true;
 
                 context.Entry(notif).State = EntityState.Modified;
@@ -106,7 +105,12 @@ namespace AdvisementManagerSharedLibrary.DAL
             }
         }
 
-        public void RemoveAllNotifications(int? advisorId)
+        /// <summary>
+        ///     Removes all notifications for an advisor
+        /// </summary>
+        /// <param name="advisorId">The ID of the advisor.</param>
+        /// <returns></returns>
+        public void RemoveAllAdvisorNotifications(int? advisorId)
         {
             var notifs = (from notifications in context.Notification
                 where notifications.AdvisorId == advisorId
@@ -115,6 +119,26 @@ namespace AdvisementManagerSharedLibrary.DAL
             foreach (var notif in notifs)
             {
                 notif.IsRemovedFromAdvisor = true;
+                context.Entry(notif).State = EntityState.Modified;
+            }
+
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        ///     Removes all notifications for a student
+        /// </summary>
+        /// <param name="advisorId">The ID of the student.</param>
+        /// <returns></returns>
+        public void RemoveAllStudentNotifications(int? studentId)
+        {
+            var notifs = (from notifications in context.Notification
+                where notifications.StudentId == studentId
+                select notifications).ToList();
+
+            foreach (var notif in notifs)
+            {
+                notif.IsRemovedFromStudent = true;
                 context.Entry(notif).State = EntityState.Modified;
             }
 

@@ -48,7 +48,7 @@ namespace AdvisementManagerWebApp.Controllers
             var username = Request.Cookies["AdvisementManager.LoginUser"];
             var advisor = this.advisorDal.ObtainAdvisorWithUsername(username, this.context);
 
-            this.notificationDal.RemoveAllNotifications(advisor.Id);
+            this.notificationDal.RemoveAllAdvisorNotifications(advisor.Id);
             this._oNotifications.Clear();
             return Redirect(returnUrl);
         }
@@ -57,6 +57,7 @@ namespace AdvisementManagerWebApp.Controllers
         /// <returns>the result of the notification being removed.</returns>
         public IActionResult RemoveNotification(string returnUrl, int notificationId)
         {
+            this.notificationDal.RemoveNotification(notificationId, false, true);
             return Redirect(returnUrl); ;
         }
 
