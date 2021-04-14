@@ -71,5 +71,35 @@ namespace AdminAdvisementManagerWebApp.Controllers
 
             return RedirectToAction("Students");
         }
+
+        public IActionResult Edit(int studentId)
+        {
+            var facultyAdvisors =
+                (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == true select advisor).ToList();
+            var generalAdvisors =
+                (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == false select advisor).ToList();
+
+            var student = this.context.Student.Find(studentId);
+            student.FacultyAdvisor = this.context.Advisor.Find(student.facultyAdvisorId);
+            student.GeneralAdvisor = this.context.Advisor.Find(student.generalAdvisorId);
+
+            var vm = new AddStudentVM {
+                NewStudent = student,
+                FacultyAdvisors = new SelectList(facultyAdvisors, "Id", "FullName"),
+                GeneralAdvisors = new SelectList(generalAdvisors, "Id", "FullName"),
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AddStudentVM vm)
+        {
+            var student = this.context.Student.Find(vm.NewStudent.Id);
+            student.facultyAdvisorId = vm.FacultyAdvisorId;
+            student.generalAdvisorId = vm.GeneralAdvisorId;
+            this.context.SaveChanges();
+            return RedirectToAction("Students");
+        }
     }
 }

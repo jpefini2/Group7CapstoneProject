@@ -11,6 +11,8 @@ namespace AdminAdvisementManagerWebApp.Models
     {
         public Student NewStudent { get; set; }
 
+        public int StudentId { get; set; }
+
         public SelectList FacultyAdvisors { get; set; }
 
         public SelectList GeneralAdvisors { get; set; }

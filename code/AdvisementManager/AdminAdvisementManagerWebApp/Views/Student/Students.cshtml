@@ -13,18 +13,20 @@
             <th>Email</th>
             <th>General Advisor</th>
             <th>Faculty Advisor</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var student in Model.Students)
         {
-            <tr>
-                <td>@student.FirstName</td>
-                <td>@student.LastName</td>
-                <td>@student.Email</td>
-                <td>@student.GeneralAdvisor.FullName</td>
-                <td>@student.FacultyAdvisor.FullName</td>
-            </tr>
+        <tr>
+            <td>@student.FirstName</td>
+            <td>@student.LastName</td>
+            <td>@student.Email</td>
+            <td>@student.GeneralAdvisor.FullName</td>
+            <td>@student.FacultyAdvisor.FullName</td>
+            <td><a asp-action="Edit" asp-route-studentId="@student.Id" class="btn btn-primary">Change Advisor</a></td>
+        </tr>
         }
     </tbody>
 </table>

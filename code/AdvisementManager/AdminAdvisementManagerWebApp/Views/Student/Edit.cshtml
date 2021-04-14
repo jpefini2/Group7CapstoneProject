@@ -1,0 +1,24 @@
+﻿@model AdminAdvisementManagerWebApp.Models.AddStudentVM;
+
+@{
+    ViewData["Title"] = " | edit student advisor";
+}
+
+<form asp-action="Edit" method="post">
+    <h1>Student Current General Advisor: @Model.NewStudent.GeneralAdvisor.FullName</h1>
+    <div class="form-group">
+        <label asp-for="GeneralAdvisorId">New General Advisor: </label>
+        <select asp-for="GeneralAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
+    </div>
+
+    <h2>Student Current Faculty Advisor: @Model.NewStudent.FacultyAdvisor.FullName</h2>
+    <div class="form-group">
+        <label asp-for="FacultyAdvisorId">New Faculty Advisor: </label>
+        <select asp-for="FacultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
+    </div>
+    <input type="hidden" asp-for="NewStudent.Id"/>
+    <div class="col-sm-4 offset-sm-2">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Students" class="btn btn-dark">Cancel</a>
+    </div>
+</form>
