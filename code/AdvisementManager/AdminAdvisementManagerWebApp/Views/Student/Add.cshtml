@@ -1,0 +1,47 @@
+﻿@model AdminAdvisementManagerWebApp.Models.AddStudentVM;
+@{
+    ViewData["Title"] = " | add student";
+}
+
+<form asp-action="Submit" method="post">
+    <div class="form-group">
+        <label asp-for="NewStudent.FirstName">First Name: </label>
+        <input asp-for="NewStudent.FirstName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="NewStudent.LastName">Last Name: </label>
+        <input asp-for="NewStudent.LastName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender">Gender: </label>
+        <select asp-for="SelectedGender" asp-items="Model.Gender" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewStudent.Email">Email: </label>
+        <input asp-for="NewStudent.Email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="NewStudent.UserName">User Name: </label>
+        <input asp-for="NewStudent.UserName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="GeneralAdvisorId">General Advisor: </label>
+        <select asp-for="GeneralAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="FacultyAdvisorId">Faculty Advisor: </label>
+        <select asp-for="FacultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewStudent.Password">Password: </label>
+        <input asp-for="NewStudent.Password" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="NewStudent.ConfirmPassword">Confirm Password: </label>
+        <input asp-for="NewStudent.ConfirmPassword" class="form-control">
+    </div>
+    <div class="col-sm-4 offset-sm-2">
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a asp-action="Students" class="btn btn-dark">Cancel</a>
+    </div>
+</form>

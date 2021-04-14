@@ -34,6 +34,9 @@ namespace AdvisementManagerSharedLibrary.Models
         [Column("email")]
         public string Email { get; set; }
 
+        [Column("gender")]
+        public string Gender { get; set; }
+
         /// <summary>Gets or sets the general advisors id assigned to the current student.</summary>
         /// <value>The general advisor identifier.</value>
         [Column("advisorGeneralId")]
@@ -54,6 +57,11 @@ namespace AdvisementManagerSharedLibrary.Models
         [NotMapped]
         public Advisor FacultyAdvisor { get; set; }
 
+        [NotMapped]
+        public string Password { get; set; }
+
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
 
         /// <summary>Gets or sets the hold that a student has.</summary>
         /// <value>The hold.</value>

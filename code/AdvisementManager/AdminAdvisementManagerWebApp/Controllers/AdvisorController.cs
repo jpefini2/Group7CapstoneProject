@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AdminAdvisementManagerWebApp.Models;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AdminAdvisementManagerWebApp.Controllers
 {
@@ -30,26 +31,23 @@ namespace AdminAdvisementManagerWebApp.Controllers
         public IActionResult Add()
         {
             Advisor advisor = new Advisor();
-            return View(advisor);
+            var genders = new List<string> { "Male", "Female", "Other" };
+            var vm = new AddAdvisorVM {
+                NewAdvisor = advisor,
+                Gender = new SelectList(genders)
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Submit(Advisor advisor)
+        public IActionResult Submit(AddAdvisorVM vm)
         {
             this.context.Login.Add(new User {
-                Username = advisor.UserName,
-                PasswordHash = advisor.Password
+                Username = vm.NewAdvisor.UserName,
+                PasswordHash = vm.NewAdvisor.Password
             });
             this.context.SaveChanges();
-            Advisor Newadvisor = new Advisor {
-                FirstName = advisor.FirstName,
-                LastName = advisor.LastName,
-                UserName = advisor.UserName,
-                Email = advisor.Email,
-                IsFacultyAdvisor = advisor.IsFacultyAdvisor
-            };
-
-            this.context.Advisor.Add(Newadvisor);
+            this.context.Advisor.Add(vm.NewAdvisor);
             this.context.SaveChanges();
             return RedirectToAction("Advisors");
         }

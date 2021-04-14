@@ -1,32 +1,40 @@
-﻿@model AdvisementManagerSharedLibrary.Models.Advisor;
+﻿@model AdminAdvisementManagerWebApp.Models.AddAdvisorVM;
 @{
     ViewData["Title"] = " | add admin";
 }
 
 <form asp-action="Submit" method="post">
     <div class="form-group">
-        <label asp-for="FirstName">First Name: </label>
-        <input asp-for="FirstName" id="first"class="form-control">
+        <label asp-for="NewAdvisor.FirstName">First Name: </label>
+        <input asp-for="NewAdvisor.FirstName" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="LastName">Last Name: </label>
-        <input asp-for="LastName" class="form-control">
+        <label asp-for="NewAdvisor.LastName">Last Name: </label>
+        <input asp-for="NewAdvisor.LastName" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="Email">Email: </label>
-        <input asp-for="Email" class="form-control">
+        <label asp-for="Gender">Gender: </label>
+        <select asp-for="SelectedGender" asp-items="Model.Gender" class="form-control"></select>
     </div>
     <div class="form-group">
-        <label asp-for="UserName">User Name: </label>
-        <input asp-for="UserName" class="form-control">
+        <label asp-for="NewAdvisor.Email">Email: </label>
+        <input asp-for="NewAdvisor.Email" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="Password">Password: </label>
-        <input asp-for="Password" class="form-control">
+        <label asp-for="NewAdvisor.UserName">User Name: </label>
+        <input asp-for="NewAdvisor.UserName" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="IsFacultyAdvisor">Is A Faculty Advisor: </label>
-        <input type="checkbox" asp-for="IsFacultyAdvisor" class="form-control">
+        <label asp-for="NewAdvisor.Password">Password: </label>
+        <input asp-for="NewAdvisor.Password" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="NewAdvisor.ConfirmPassword">Confirm Password: </label>
+        <input asp-for="NewAdvisor.ConfirmPassword" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="NewAdvisor.IsFacultyAdvisor">Is A Faculty Advisor: </label>
+        <input type="checkbox" asp-for="NewAdvisor.IsFacultyAdvisor" class="form-control">
     </div>
     <div class="col-sm-4 offset-sm-2">
         <button type="submit" class ="btn btn-primary">Add</button>

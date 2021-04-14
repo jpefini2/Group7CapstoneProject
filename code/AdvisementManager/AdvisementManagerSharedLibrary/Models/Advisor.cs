@@ -45,8 +45,14 @@ namespace AdvisementManagerSharedLibrary.Models
         [Column("username")]
         public string UserName { get; set; }
 
+        [Column("gender")]
+        public string Gender { get; set; }
+
         [NotMapped]
         public string Password { get; set; }
+
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
 
         /// <summary> Gets the Advisor's full name</summary>
         /// <value> FirstName + " " + LastName</value>
