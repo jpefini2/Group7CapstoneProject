@@ -1,0 +1,33 @@
+﻿@model AdminAdvisementManagerWebApp.Models.AdvisorVM;
+@{
+    ViewData["Title"] = " | all admins";
+}
+
+
+<a asp-action="Add"  class="btn btn-primary">Add Advisor</a>
+<table class="table table-bordered table-striped table-sm">
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Advisor Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var advisor in Model.Advisors)
+    {
+        <tr>
+            <td>@advisor.FirstName</td>
+            <td>@advisor.LastName</td>
+            @if (advisor.IsFacultyAdvisor)
+            {
+                <td>Faculty Advisor</td>
+            }
+            else
+            {
+                <td>Department Advisor</td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
