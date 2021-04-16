@@ -53,6 +53,15 @@ namespace AdminAdvisementManagerWebApp.Controllers
         [HttpPost]
         public IActionResult Submit(AddStudentVM vm)
         {
+            bool dbHasMatchingEmail = this.context.Student.Any(a => a.Email == vm.NewStudent.Email);
+            bool dbHasMatchingUsername = this.context.Login.Any(l => l.Username == vm.NewStudent.UserName);
+
+            if (dbHasMatchingEmail)
+                ModelState.AddModelError("", "The provided email address is already registered with a Student.");
+
+            if (dbHasMatchingUsername)
+                ModelState.AddModelError("", "That username is taken.");
+            
             if (!ModelState.IsValid)
             {
                 var facultyAdvisors =

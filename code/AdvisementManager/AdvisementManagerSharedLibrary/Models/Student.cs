@@ -20,7 +20,7 @@ namespace AdvisementManagerSharedLibrary.Models
         /// <value>The first name.</value>
         [Display(Name = "First Name")]
         [Column("firstName")]
-        [StringLength(25, ErrorMessage = "First name must be between 2 and 25 characters.", MinimumLength = 2)]
+        [StringLength(45, ErrorMessage = "First name must be between 2 and 45 characters.", MinimumLength = 2)]
         [Required(ErrorMessage = "Must provide a first name.")]
         public string FirstName { get; set; }
 
@@ -28,7 +28,7 @@ namespace AdvisementManagerSharedLibrary.Models
         /// <value>The last name.</value>
         [Display(Name = "Last Name")]
         [Column("lastName")]
-        [StringLength(25, ErrorMessage = "Last name must be between 2 and 25 characters.", MinimumLength = 2)]
+        [StringLength(45, ErrorMessage = "Last name must be between 2 and 45 characters.", MinimumLength = 2)]
         [Required(ErrorMessage = "Must provide a last name.")]
         public string LastName { get; set; }
 
@@ -37,6 +37,7 @@ namespace AdvisementManagerSharedLibrary.Models
         [Display(Name = "Email")]
         [Column("email")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Must input a valid email address.")]
+        [StringLength(45, ErrorMessage = "Email must be 45 characters or less.")]
         [Required(ErrorMessage = "Must provide an email address.")]
         public string Email { get; set; }
 
@@ -91,7 +92,7 @@ namespace AdvisementManagerSharedLibrary.Models
         public IList<AdvisementSession> Meetings { get; set; }
 
         [Column("username")]
-        [StringLength(20, ErrorMessage = "Username must be between 2 and 20 characters.", MinimumLength = 2)]
+        [StringLength(15, ErrorMessage = "Username must be between 2 and 15 characters.", MinimumLength = 2)]
         [Required(ErrorMessage = "Must provide a username.")]
         public string UserName { get; set; }
 

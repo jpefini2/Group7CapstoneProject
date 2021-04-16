@@ -40,10 +40,17 @@ namespace AdminAdvisementManagerWebApp.Controllers
         [HttpPost]
         public IActionResult Submit(AddAdvisorVM vm)
         {
+            bool dbHasMatchingEmail = this.context.Advisor.Any(a => a.Email == vm.NewAdvisor.Email);
+            bool dbHasMatchingUsername = this.context.Login.Any(l => l.Username == vm.NewAdvisor.UserName);
+
+            if (dbHasMatchingEmail)
+                ModelState.AddModelError("", "The provided email address is already registered with an Advisor.");
+            
+            if (dbHasMatchingUsername)
+                ModelState.AddModelError("", "That username is taken.");
+
             if (!ModelState.IsValid)
-            {
                 return View("Add", vm);
-            }
 
             this.context.Login.Add(new User {
                 Username = vm.NewAdvisor.UserName,
