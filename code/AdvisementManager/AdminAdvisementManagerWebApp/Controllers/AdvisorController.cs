@@ -31,10 +31,8 @@ namespace AdminAdvisementManagerWebApp.Controllers
         public IActionResult Add()
         {
             Advisor advisor = new Advisor();
-            var genders = new List<string> { "Male", "Female", "Other" };
             var vm = new AddAdvisorVM {
                 NewAdvisor = advisor,
-                Gender = new SelectList(genders)
             };
             return View(vm);
         }
@@ -42,10 +40,16 @@ namespace AdminAdvisementManagerWebApp.Controllers
         [HttpPost]
         public IActionResult Submit(AddAdvisorVM vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Add", vm);
+            }
+
             this.context.Login.Add(new User {
                 Username = vm.NewAdvisor.UserName,
                 PasswordHash = vm.NewAdvisor.Password
             });
+
             this.context.SaveChanges();
             this.context.Advisor.Add(vm.NewAdvisor);
             this.context.SaveChanges();

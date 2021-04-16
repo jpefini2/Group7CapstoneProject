@@ -11,7 +11,7 @@ namespace AdminAdvisementManagerWebApp.Models
     {
         public Advisor NewAdvisor { get; set; }
 
-        public SelectList Gender { get; set; }
+        public SelectList Gender { get; set; } = new SelectList(new List<string> {"Male", "Female", "Other"});
 
         public string SelectedGender { get; set; }
     }
