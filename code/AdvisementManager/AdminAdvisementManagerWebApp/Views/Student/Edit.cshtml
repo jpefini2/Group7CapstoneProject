@@ -5,16 +5,18 @@
 }
 
 <form asp-action="Edit" method="post">
-    <h1>Student Current General Advisor: @Model.NewStudent.GeneralAdvisor.FullName</h1>
+    <h1>Student: @Model.NewStudent.FullName</h1>
+
+    <h2>Current General Advisor: @Model.NewStudent.GeneralAdvisor.FullName</h2>
     <div class="form-group">
-        <label asp-for="GeneralAdvisorId">New General Advisor: </label>
-        <select asp-for="GeneralAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
+        <label asp-for="NewStudent.generalAdvisorId">New General Advisor: </label>
+        <select asp-for="NewStudent.generalAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
     </div>
 
-    <h2>Student Current Faculty Advisor: @Model.NewStudent.FacultyAdvisor.FullName</h2>
+    <h2>Current Faculty Advisor: @Model.NewStudent.FacultyAdvisor.FullName</h2>
     <div class="form-group">
-        <label asp-for="FacultyAdvisorId">New Faculty Advisor: </label>
-        <select asp-for="FacultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
+        <label asp-for="NewStudent.facultyAdvisorId">New Faculty Advisor: </label>
+        <select asp-for="NewStudent.facultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
     </div>
     <input type="hidden" asp-for="NewStudent.Id"/>
     <div class="col-sm-4 offset-sm-2">

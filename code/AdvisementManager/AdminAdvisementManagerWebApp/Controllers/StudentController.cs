@@ -41,14 +41,11 @@ namespace AdminAdvisementManagerWebApp.Controllers
                 (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == true select advisor).ToList();
             var generalAdvisors =
                 (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == false select advisor).ToList();
-
-            var genders = new List<string> {"Male", "Female", "Other"};
-
+            
             var vm = new AddStudentVM {
                 NewStudent = new Student(),
                 FacultyAdvisors = new SelectList(facultyAdvisors, "Id", "FullName"),
-                GeneralAdvisors = new SelectList(generalAdvisors, "Id", "FullName"),
-                Gender = new SelectList(genders)
+                GeneralAdvisors = new SelectList(generalAdvisors, "Id", "FullName")
             };
             return View(vm);
         }
@@ -56,16 +53,25 @@ namespace AdminAdvisementManagerWebApp.Controllers
         [HttpPost]
         public IActionResult Submit(AddStudentVM vm)
         {
+            if (!ModelState.IsValid)
+            {
+                var facultyAdvisors =
+                    (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == true select advisor).ToList();
+                var generalAdvisors =
+                    (from advisor in this.context.Advisor where advisor.IsFacultyAdvisor == false select advisor).ToList();
+
+                vm.FacultyAdvisors = new SelectList(facultyAdvisors, "Id", "FullName");
+                vm.GeneralAdvisors = new SelectList(generalAdvisors, "Id", "FullName");
+                return View("Add", vm);
+            }
+
             this.context.Login.Add(new User
             {
                 Username = vm.NewStudent.UserName,
                 PasswordHash = vm.NewStudent.Password
             });
             this.context.SaveChanges();
-
-            vm.NewStudent.facultyAdvisorId = vm.FacultyAdvisorId;
-            vm.NewStudent.generalAdvisorId = vm.GeneralAdvisorId;
-            vm.NewStudent.Gender = vm.SelectedGender;
+            
             this.context.Add(vm.NewStudent);
             this.context.SaveChanges();
 
@@ -96,8 +102,8 @@ namespace AdminAdvisementManagerWebApp.Controllers
         public IActionResult Edit(AddStudentVM vm)
         {
             var student = this.context.Student.Find(vm.NewStudent.Id);
-            student.facultyAdvisorId = vm.FacultyAdvisorId;
-            student.generalAdvisorId = vm.GeneralAdvisorId;
+            student.facultyAdvisorId = vm.NewStudent.facultyAdvisorId;
+            student.generalAdvisorId = vm.NewStudent.generalAdvisorId;
             this.context.SaveChanges();
             return RedirectToAction("Students");
         }

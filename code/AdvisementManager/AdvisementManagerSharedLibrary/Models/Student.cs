@@ -8,7 +8,7 @@ namespace AdvisementManagerSharedLibrary.Models
     /// <summary>
     ///   The student class for managing a student in the system.
     /// </summary>
-    public class Student
+    public class Student : IValidatableObject
     {
         /// <summary>Gets or sets the unique identifier of the student.</summary>
         /// <value>The identifier.</value>
@@ -20,31 +20,40 @@ namespace AdvisementManagerSharedLibrary.Models
         /// <value>The first name.</value>
         [Display(Name = "First Name")]
         [Column("firstName")]
+        [StringLength(25, ErrorMessage = "First name must be between 2 and 25 characters.", MinimumLength = 2)]
+        [Required(ErrorMessage = "Must provide a first name.")]
         public string FirstName { get; set; }
 
         /// <summary>Gets or sets the last name of the student.</summary>
         /// <value>The last name.</value>
         [Display(Name = "Last Name")]
         [Column("lastName")]
+        [StringLength(25, ErrorMessage = "Last name must be between 2 and 25 characters.", MinimumLength = 2)]
+        [Required(ErrorMessage = "Must provide a last name.")]
         public string LastName { get; set; }
 
         /// <summary>Gets or sets the email of the student.</summary>
         /// <value>The email.</value>
         [Display(Name = "Email")]
         [Column("email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Must input a valid email address.")]
+        [Required(ErrorMessage = "Must provide an email address.")]
         public string Email { get; set; }
 
         [Column("gender")]
+        [Required(ErrorMessage = "Must select a gender.")]
         public string Gender { get; set; }
 
         /// <summary>Gets or sets the general advisors id assigned to the current student.</summary>
         /// <value>The general advisor identifier.</value>
         [Column("advisorGeneralId")]
+        [Required(ErrorMessage = "Must select a general advisor.")]
         public int generalAdvisorId { get; set; }
 
         /// <summary>Gets or sets the faculty advisor id assigned to the current student.</summary>
         /// <value>The faculty advisor identifier.</value>
         [Column("advisorFacultyId")]
+        [Required(ErrorMessage = "Must select a faculty advisor.")]
         public int facultyAdvisorId { get; set; }
 
         /// <summary>Gets or sets the general advisor assigned to the student.</summary>
@@ -58,9 +67,12 @@ namespace AdvisementManagerSharedLibrary.Models
         public Advisor FacultyAdvisor { get; set; }
 
         [NotMapped]
+        [StringLength(20, ErrorMessage = "Password must be between 2 and 20 characters.", MinimumLength = 2)]
+        [Required(ErrorMessage = "Must provide a password.")]
         public string Password { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "Must confirm your password.")]
         public string ConfirmPassword { get; set; }
 
         /// <summary>Gets or sets the hold that a student has.</summary>
@@ -79,6 +91,8 @@ namespace AdvisementManagerSharedLibrary.Models
         public IList<AdvisementSession> Meetings { get; set; }
 
         [Column("username")]
+        [StringLength(20, ErrorMessage = "Username must be between 2 and 20 characters.", MinimumLength = 2)]
+        [Required(ErrorMessage = "Must provide a username.")]
         public string UserName { get; set; }
 
         /// <summary> Gets the Student's full name</summary>
@@ -91,7 +105,11 @@ namespace AdvisementManagerSharedLibrary.Models
         {
             get
             {
-                if (this.Hold.IsActive)
+                if (this.Hold == null)
+                {
+                    return "No hold found";
+                }
+                else if (this.Hold.IsActive)
                 {
                     return "Incomplete - " + this.Hold.Reason;
                 }
@@ -164,6 +182,14 @@ namespace AdvisementManagerSharedLibrary.Models
         public override string ToString()
         {
             return this.FullName;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ConfirmPassword != Password)
+            {
+                yield return new ValidationResult("Passwords do not match.");
+            }
         }
     }
 }

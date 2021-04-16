@@ -4,6 +4,8 @@
 }
 
 <form asp-action="Submit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="form-group">
         <label asp-for="NewStudent.FirstName">First Name: </label>
         <input asp-for="NewStudent.FirstName" class="form-control">
@@ -13,8 +15,8 @@
         <input asp-for="NewStudent.LastName" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="Gender">Gender: </label>
-        <select asp-for="SelectedGender" asp-items="Model.Gender" class="form-control"></select>
+        <label asp-for="NewStudent.Gender">Gender: </label>
+        <select asp-for="NewStudent.Gender" asp-items="Model.Gender" class="form-control"></select>
     </div>
     <div class="form-group">
         <label asp-for="NewStudent.Email">Email: </label>
@@ -25,12 +27,12 @@
         <input asp-for="NewStudent.UserName" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="GeneralAdvisorId">General Advisor: </label>
-        <select asp-for="GeneralAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
+        <label asp-for="NewStudent.generalAdvisorId">General Advisor: </label>
+        <select asp-for="NewStudent.generalAdvisorId" asp-items="Model.GeneralAdvisors" class="form-control"></select>
     </div>
     <div class="form-group">
-        <label asp-for="FacultyAdvisorId">Faculty Advisor: </label>
-        <select asp-for="FacultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
+        <label asp-for="NewStudent.facultyAdvisorId">Faculty Advisor: </label>
+        <select asp-for="NewStudent.facultyAdvisorId" asp-items="Model.FacultyAdvisors" class="form-control"></select>
     </div>
     <div class="form-group">
         <label asp-for="NewStudent.Password">Password: </label>

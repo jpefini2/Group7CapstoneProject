@@ -11,18 +11,10 @@ namespace AdminAdvisementManagerWebApp.Models
     {
         public Student NewStudent { get; set; }
 
-        public int StudentId { get; set; }
-
         public SelectList FacultyAdvisors { get; set; }
 
         public SelectList GeneralAdvisors { get; set; }
 
-        public SelectList Gender { get; set; }
-
-        public int GeneralAdvisorId { get; set; }
-        
-        public int FacultyAdvisorId { get; set; }
-
-        public string SelectedGender { get; set; }
+        public SelectList Gender { get; set; } = new SelectList(new List<string> { "Male", "Female", "Other" });
     }
 }
