@@ -52,9 +52,11 @@ namespace AdminAdvisementManagerWebApp.Controllers
             if (!ModelState.IsValid)
                 return View("Add", vm);
 
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(vm.NewAdvisor.Password, salt);
             this.context.Login.Add(new User {
                 Username = vm.NewAdvisor.UserName,
-                PasswordHash = vm.NewAdvisor.Password
+                PasswordHash = passwordHash
             });
 
             this.context.SaveChanges();

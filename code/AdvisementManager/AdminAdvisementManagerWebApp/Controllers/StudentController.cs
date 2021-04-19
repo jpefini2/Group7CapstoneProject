@@ -74,14 +74,24 @@ namespace AdminAdvisementManagerWebApp.Controllers
                 return View("Add", vm);
             }
 
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(vm.NewStudent.Password, salt);
+
             this.context.Login.Add(new User
             {
                 Username = vm.NewStudent.UserName,
-                PasswordHash = vm.NewStudent.Password
+                PasswordHash = passwordHash
             });
             this.context.SaveChanges();
-            
+
             this.context.Add(vm.NewStudent);
+            this.context.SaveChanges();
+            this.context.Add(new Hold {
+                Date = DateTime.Now,
+                IsActive = true,
+                StudentId = vm.NewStudent.Id,
+                Reason = "need to meet with dept advisor"
+            });
             this.context.SaveChanges();
 
             return RedirectToAction("Students");
