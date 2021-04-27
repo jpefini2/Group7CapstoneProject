@@ -13,12 +13,16 @@
         <div class="container">
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white" asp-controller="Student" asp-action="Students">Students</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white" asp-controller="Advisor" asp-action="Advisors">Advisors</a>
-                    </li>
+
+                    @if (Context.Request.Cookies["AdminManager.LoginUser"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary text-white" asp-controller="Student" asp-action="Students">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary text-white" asp-controller="Advisor" asp-action="Advisors">Advisors</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

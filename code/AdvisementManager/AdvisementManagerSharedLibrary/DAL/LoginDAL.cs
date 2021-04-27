@@ -149,7 +149,7 @@ namespace AdvisementManagerSharedLibrary.DAL
             {
                 return LoginType.STUDENT;
             }
-            return LoginType.NONE;
+            return LoginType.ADMIN;
         }
     }
 }
