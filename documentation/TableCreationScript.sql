@@ -1,6 +1,11 @@
-DROP TABLE IF EXISTS Notification, Availability, AdvisementSession, Hold, Student, Advisor, LoginSession, Login
+DROP TABLE IF EXISTS Notification, Availability, AdvisementSession, Hold, Student, Advisor, LoginSession, Login, AdminLogin
 
 CREATE TABLE Login (
+	username VARCHAR (15) NOT NULL PRIMARY KEY,
+	passwordHash VARCHAR (60) NOT NULL
+)
+
+CREATE TABLE AdminLogin (
 	username VARCHAR (15) NOT NULL PRIMARY KEY,
 	passwordHash VARCHAR (60) NOT NULL
 )
@@ -141,7 +146,8 @@ INSERT INTO Login(username, passwordHash) VALUES
 ('student', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK'),		/* password2 */
 ('jmcconn1', '$2a$12$l/qvNATBroETbbfbcgJffeZES/auRjV3vPBy60K0hQctxOpHVFDpK') 		/* password2 */
 
-
+INSERT INTO AdminLogin(username, passwordHash) VALUES
+('admin', '$2a$12$NRWFs2u34PrOPPz8CzIoYuQwXH3xbxZRHvrPUXaBAM7uOjolvb0KC')			/* password1 */
 
 INSERT INTO Advisor (firstName, lastName, isFacultyAdvisor, email, username, gender) VALUES
 ('Wilman', 'Kala', 0, 'wkala@askj.net', 'wkala', 'male'),

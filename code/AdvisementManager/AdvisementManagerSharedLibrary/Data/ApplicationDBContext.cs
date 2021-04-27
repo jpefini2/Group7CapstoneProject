@@ -36,6 +36,8 @@ namespace AdvisementManagerSharedLibrary.Data
         /// <value>The user.</value>
         public DbSet<User> Login { get; set; }
 
+        public DbSet<User> AdminLogin { get; set; }
+
         /// <summary>Login Sessions stored in the database</summary>
         /// <value>The login session.</value>
         public DbSet<LoginSession> LoginSession { get; set; }

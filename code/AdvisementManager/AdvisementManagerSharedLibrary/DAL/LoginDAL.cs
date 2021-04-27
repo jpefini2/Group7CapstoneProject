@@ -1,5 +1,6 @@
 ﻿using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace AdvisementManagerSharedLibrary.DAL
     {
         ADVISOR,
         STUDENT,
+        ADMIN,
         NONE
     }
 
@@ -39,7 +41,16 @@ namespace AdvisementManagerSharedLibrary.DAL
             {
                 User user = this.Context.Login.Find(username);
 
-                if (loginType == LoginType.ADVISOR)
+                if (loginType == LoginType.ADMIN)
+                {
+                    user = this.Context.AdminLogin.Find(username);
+
+                    if (user == null)
+                    {
+                        return null;
+                    }
+                }
+                else if (loginType == LoginType.ADVISOR)
                 {
                     Advisor advisor = this.Context.Advisor.First(user => user.UserName.Equals(username));
 
@@ -56,6 +67,10 @@ namespace AdvisementManagerSharedLibrary.DAL
                     {
                         return null;
                     }
+                }
+                else
+                {
+                    return null;
                 }
                 string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
@@ -123,7 +138,8 @@ namespace AdvisementManagerSharedLibrary.DAL
             if (advisor != null)
             {
                 return LoginType.ADVISOR;
-            } else if (student != null)
+            }
+            else if (student != null)
             {
                 return LoginType.STUDENT;
             }
