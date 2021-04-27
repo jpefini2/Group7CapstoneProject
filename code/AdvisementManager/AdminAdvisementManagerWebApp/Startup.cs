@@ -58,7 +58,7 @@ namespace AdminAdvisementManagerWebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Student}/{action=Students}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

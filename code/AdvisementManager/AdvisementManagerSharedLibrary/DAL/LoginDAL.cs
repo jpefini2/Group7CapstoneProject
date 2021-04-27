@@ -10,6 +10,7 @@ namespace AdvisementManagerSharedLibrary.DAL
     {
         ADVISOR,
         STUDENT,
+        ADMIN,
         NONE
     }
 
@@ -37,11 +38,27 @@ namespace AdvisementManagerSharedLibrary.DAL
             }
             try
             {
-                User user = this.Context.Login.Find(username);
+                String hash;
 
-                if (loginType == LoginType.ADVISOR)
+                if (loginType == LoginType.ADMIN)
                 {
+                    AdminUser user = this.Context.AdminLogin.Find(username);
+                    if(user == null)
+                    {
+                        return null;
+                    }
+
+                    if (!user.Username.Equals(username))
+                    {
+                        return null;
+                    }
+                    hash = user.PasswordHash;
+                }
+                else if (loginType == LoginType.ADVISOR)
+                {
+                    User user = this.Context.Login.Find(username);
                     Advisor advisor = this.Context.Advisor.First(user => user.UserName.Equals(username));
+                    hash = user.PasswordHash;
 
                     if (advisor == null)
                     {
@@ -50,19 +67,24 @@ namespace AdvisementManagerSharedLibrary.DAL
                 }
                 else if (loginType == LoginType.STUDENT)
                 {
+                    User user = this.Context.Login.Find(username);
                     Student student = this.Context.Student.First(user => user.UserName.Equals(username));
+                    hash = user.PasswordHash;
 
                     if (student == null)
                     {
                         return null;
                     }
+                } else
+                {
+                    return null;
                 }
                 string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password, salt);
 
                 Trace.WriteLine(username + "'s password hash: " + passwordHash);
 
-                if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+                if (BCrypt.Net.BCrypt.Verify(password, hash))
                 {
                     Trace.WriteLine("Returned " + passwordHash);
                     return passwordHash;
