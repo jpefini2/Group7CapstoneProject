@@ -7,6 +7,7 @@ using AdvisementManagerSharedLibrary.Models;
 using AdvisementManagerSharedLibrary.Data;
 using AdvisementManagerSharedLibrary.DAL;
 using System.Collections.Generic;
+using StudentAdvisementManagerWebApp.Resources;
 
 namespace StudentAdvisementManagerWebApp.Controllers
 {
@@ -27,6 +28,8 @@ namespace StudentAdvisementManagerWebApp.Controllers
         private readonly StudentDal studentDal = new();
         private readonly AdvisorDAL advisorDal = new();
         private readonly HoldDAL holdDal = new();
+        private readonly NotificationMailer mailer = new();
+        private readonly NotificationDAL notificationDal;
 
         /// <summary>Initializes a new instance of the <see cref="AdvisementSessionController" /> class.</summary>
         /// <param name="context">The context.</param>
@@ -35,6 +38,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
 
             this.context = context;
             ViewBag.InvalidInputMessage = String.Empty;
+            notificationDal = new NotificationDAL(context);
         }
 
         /// <summary>Schedules the advisement session asynchronous.</summary>
@@ -49,6 +53,7 @@ namespace StudentAdvisementManagerWebApp.Controllers
         {
             Trace.WriteLine("Date was: " + selecteddate);
             ScheduleAdvisementModel model = InitializeScheduleAdvismentModel(studentid, selecteddate);
+
             return View("../AdvisementSession/ScheduleAdvisementSession", model);
         }
 
@@ -106,9 +111,26 @@ namespace StudentAdvisementManagerWebApp.Controllers
         {
             var sessionTime = date.AddMinutes(time.TotalMinutes);
 
+            Advisor advisor = advisorDal.ObtainAdvisorWithId((int)advisorid, this.context);
+            Student student = studentDal.ObtainStudentWithId((int)studentid, this.context);
+
             if (IsSessionTimeInTheFuture(sessionTime))
             {
                 this.ScheduleSession(studentid.Value, advisorid.Value, sessionTime);
+
+                Notification notification = new()
+                {
+                    AdvisorId = (int)advisorid,
+                    StudentId = (int)studentid,
+                    NotifMessage = ConstantManager.GetCreatedAppointmentMeetingMessage(date) 
+                                                    + student.FirstName + " " + student.LastName 
+                                                    + " is meeting with " + advisor.FirstName 
+                                                    + " " + advisor.LastName + "."
+                };
+
+                this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
+                this.mailer.SendEmailNotification(advisor, student, notification);
+
                 return RedirectToAction("StudentHome", "Home");
             }
 

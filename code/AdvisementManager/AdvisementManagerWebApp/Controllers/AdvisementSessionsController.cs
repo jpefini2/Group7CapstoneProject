@@ -175,7 +175,7 @@ namespace AdvisementManagerWebApp.Controllers
                 StudentId = student.Id,
                 NotifMessage = ConstantManager.GetApprovedMeetingMessage(session.Date)
             };
-            
+
             this.notificationDal.AddNotification(notification.NotifMessage, notification.StudentId, notification.AdvisorId, this.context);
             this.mailer.SendEmailNotification(advisor, student, notification);
 

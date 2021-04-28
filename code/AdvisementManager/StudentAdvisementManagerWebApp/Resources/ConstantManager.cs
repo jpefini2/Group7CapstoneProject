@@ -24,6 +24,10 @@ namespace StudentAdvisementManagerWebApp.Resources
         /// <summary>The ready to register</summary>
         public const string ReadyToRegister = "ready to register";
 
+        public static string GetCreatedAppointmentMeetingMessage(DateTime meetingDateTime)
+        {
+            return "A meeting was created for " + meetingDateTime.ToString("M/d/yy") + " at " + meetingDateTime.ToString("hh:mm") + ".";
+        }
         public static string GetApprovedMeetingMessage(DateTime meetingDateTime)
         {
             return "Your meeting on " + meetingDateTime.ToString("M/d/yy") + " at " + meetingDateTime.ToString("hh:mm") + " is approved.";
