@@ -53,6 +53,12 @@ namespace AdminAdvisementManagerWebApp.Controllers
         [HttpPost]
         public IActionResult Submit(AddStudentVM vm)
         {
+            if (vm.NewStudent.facultyAdvisorId <= 0)
+                ModelState.AddModelError("", "Please select a faculty advisor.");
+
+            if (vm.NewStudent.generalAdvisorId <= 0)
+                ModelState.AddModelError("", "Please select a general advisor.");
+
             bool dbHasMatchingEmail = this.context.Student.Any(a => a.Email == vm.NewStudent.Email);
             bool dbHasMatchingUsername = this.context.Login.Any(l => l.Username == vm.NewStudent.UserName);
 
