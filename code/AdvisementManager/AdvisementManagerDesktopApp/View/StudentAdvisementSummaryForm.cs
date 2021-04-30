@@ -150,11 +150,23 @@ namespace AdvisementManagerDesktopApp.View
                 try
                 {
                     this.student.Meeting.Notes = this.notesTxtBox.Text;
-                    this.sessionController.ApproveMeeting(this.student, this.advisor);
 
-                    this.wasClosedExitedProperly = true;
-                    this.ParentForm.Show();
-                    this.Close();
+                    var warningMessage = "Are you sure you want to approve this meeting?";
+                    if (String.IsNullOrEmpty(this.student.Meeting.Notes))
+                    {
+                        warningMessage += "\n\n you are about to save a meeting with no notes";
+                    }
+
+                    var result = MessageBox.Show(warningMessage, @"Warning", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        this.sessionController.ApproveMeeting(this.student, this.advisor);
+
+                        this.wasClosedExitedProperly = true;
+                        this.ParentForm.Show();
+                        this.Close();
+                    }
                 }
                 catch (SqlException ex)
                 {
