@@ -147,11 +147,9 @@ namespace AdvisementManagerWebApp.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="notes">The notes.</param>
-        /// <param name="holdId">The hold identifier.</param>
         /// <param name="userName">Name of the user.</param>
         /// <returns>redirect to advisement sessions action method</returns>
-        [HttpPost]
-        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, int? holdId, string userName)
+        public IActionResult ApproveMeetingAndUpdateHold(int? id, string notes, string userName)
         {
             var session = this.sessionDal.ObtainSessionFromId(id, this.context);
 
@@ -180,6 +178,29 @@ namespace AdvisementManagerWebApp.Controllers
             this.mailer.SendEmailNotification(advisor, student, notification);
 
             return RedirectToRoute(new { action = "AdvisementSessions", controller = "AdvisementSessions", userName }); ;
+        }
+
+        /// <summary>
+        ///     Sets up the vm and returns the ConfirmApproval view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="notes"></param>
+        /// <returns></returns>
+        public ViewResult ConfirmApproval(int? id, string notes)
+        {
+            var session = this.sessionDal.ObtainSessionFromId(id, this.context);
+            var advisor = this.advisorDal.ObtainAdvisorWithId(session.AdvisorId, this.context);
+            var student = this.studentDal.ObtainStudentWithId(session.StudentId, this.context);
+
+            ConfirmApprovalVM vm = new ConfirmApprovalVM
+            {
+                Meeting = session,
+                Advisor = advisor,
+                Student = student,
+                Notes = notes
+            };
+
+            return View(vm);
         }
 
         private RedirectToRouteResult RedirectToAdvisementSession(int? id)
